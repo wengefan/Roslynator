@@ -11,17 +11,17 @@ using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Roslynator.CSharp.Refactorings.MakeMemberReadOnly
 {
-    internal class UseReadOnlyAutoPropertyRefactoring : MakeMemberReadOnlyRefactoring
+    internal class UseReadOnlyPropertyRefactoring : MakeMemberReadOnlyRefactoring
     {
-        private UseReadOnlyAutoPropertyRefactoring()
+        private UseReadOnlyPropertyRefactoring()
         {
         }
 
-        public static UseReadOnlyAutoPropertyRefactoring Instance { get; } = new UseReadOnlyAutoPropertyRefactoring();
+        public static UseReadOnlyPropertyRefactoring Instance { get; } = new UseReadOnlyPropertyRefactoring();
 
-        public override HashSet<ISymbol> GetAnalyzableSymbols(SymbolAnalysisContext context, INamedTypeSymbol containingType)
+        public override List<AnalyzableSymbol> GetAnalyzableSymbols(SymbolAnalysisContext context, INamedTypeSymbol containingType)
         {
-            HashSet<ISymbol> properties = null;
+            List<AnalyzableSymbol> properties = null;
 
             ImmutableArray<ISymbol> members = containingType.GetMembers();
 
@@ -44,11 +44,10 @@ namespace Roslynator.CSharp.Refactorings.MakeMemberReadOnly
                         {
                             var accessor = setMethod.GetSyntaxOrDefault(context.CancellationToken) as AccessorDeclarationSyntax;
 
-                            if (accessor != null
-                                && accessor.BodyOrExpressionBody() == null)
-                            {
-                                (properties ?? (properties = new HashSet<ISymbol>())).Add(propertySymbol);
-                            }
+                            bool isAutoProperty = accessor != null
+                                && accessor.BodyOrExpressionBody() == null;
+
+                            (properties ?? (properties = new List<AnalyzableSymbol>())).Add(new AnalyzableSymbol(propertySymbol, isAutoProperty));
                         }
                     }
                 }
@@ -62,14 +61,14 @@ namespace Roslynator.CSharp.Refactorings.MakeMemberReadOnly
             return symbol?.IsProperty() == true;
         }
 
-        public override void ReportFixableSymbols(SymbolAnalysisContext context, INamedTypeSymbol containingType, HashSet<ISymbol> symbols)
+        public override void ReportFixableSymbols(SymbolAnalysisContext context, INamedTypeSymbol containingType, List<AnalyzableSymbol> symbols)
         {
-            foreach (PropertyDeclarationSyntax node in symbols.Select(f => f.GetSyntax(context.CancellationToken)))
+            foreach (PropertyDeclarationSyntax node in symbols.Select(f => f.Symbol.GetSyntax(context.CancellationToken)))
             {
                 AccessorDeclarationSyntax setter = node.Setter();
 
                 if (!setter.SpanContainsDirectives())
-                    context.ReportDiagnostic(DiagnosticDescriptors.UseReadOnlyAutoProperty, setter);
+                    context.ReportDiagnostic(DiagnosticDescriptors.UseReadOnlyProperty, setter);
             }
         }
 

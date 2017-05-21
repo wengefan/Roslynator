@@ -9,11 +9,11 @@ using Roslynator.CSharp.Refactorings.MakeMemberReadOnly;
 namespace Roslynator.CSharp.DiagnosticAnalyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class UseReadOnlyAutoPropertyDiagnosticAnalyzer : BaseDiagnosticAnalyzer
+    public class UseReadOnlyPropertyDiagnosticAnalyzer : BaseDiagnosticAnalyzer
     {
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(DiagnosticDescriptors.UseReadOnlyAutoProperty); }
+            get { return ImmutableArray.Create(DiagnosticDescriptors.UseReadOnlyProperty); }
         }
 
         public override void Initialize(AnalysisContext context)
@@ -24,7 +24,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
             base.Initialize(context);
 
             context.RegisterSymbolAction(
-                f => UseReadOnlyAutoPropertyRefactoring.Instance.AnalyzeNamedType(f),
+                f => UseReadOnlyPropertyRefactoring.Instance.AnalyzeNamedType(f),
                 SymbolKind.NamedType);
         }
     }

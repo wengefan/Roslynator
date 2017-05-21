@@ -13,19 +13,19 @@ namespace Roslynator.CSharp.Refactorings.MakeMemberReadOnly
 {
     internal abstract class MakeMemberReadOnlyRefactoring
     {
-        public abstract HashSet<ISymbol> GetAnalyzableSymbols(
+        public abstract List<AnalyzableSymbol> GetAnalyzableSymbols(
             SymbolAnalysisContext context,
             INamedTypeSymbol containingType);
 
         public abstract void ReportFixableSymbols(
             SymbolAnalysisContext context,
             INamedTypeSymbol containingType,
-            HashSet<ISymbol> symbols);
+            List<AnalyzableSymbol> symbols);
 
-        public virtual HashSet<ISymbol> GetFixableSymbols(
+        public List<AnalyzableSymbol> GetFixableSymbols(
             SymbolAnalysisContext context,
             INamedTypeSymbol containingType,
-            HashSet<ISymbol> symbols)
+            List<AnalyzableSymbol> symbols)
         {
             CancellationToken cancellationToken = context.CancellationToken;
             ImmutableArray<SyntaxReference> syntaxReferences = containingType.DeclaringSyntaxReferences;
@@ -44,16 +44,30 @@ namespace Roslynator.CSharp.Refactorings.MakeMemberReadOnly
 
                         ISymbol symbol = semanticModel.GetSymbol(identifierName, cancellationToken);
 
-                        if (ValidateSymbol(symbol)
-                            && symbols.Contains(symbol.OriginalDefinition))
+                        if (ValidateSymbol(symbol))
                         {
-                            ExpressionSyntax assignedExpression = GetAssignedExpression(descendant);
+                            int index = symbols.FindIndex(f => f.Symbol == symbol.OriginalDefinition);
 
-                            if (assignedExpression != null
-                                && semanticModel.GetSymbol(assignedExpression, cancellationToken)?.Equals(symbol) == true
-                                && !IsAssignmentThasIsAllowedForReadOnlyMember(assignedExpression, containingType, symbol.IsStatic, semanticModel, cancellationToken))
+                            if (index != -1)
                             {
-                                symbols.Remove(symbol.OriginalDefinition);
+                                ExpressionSyntax assignedExpression = GetAssignedExpression(descendant);
+
+                                if (assignedExpression != null
+                                    && semanticModel.GetSymbol(assignedExpression, cancellationToken)?.Equals(symbol) == true)
+                                {
+                                    if (symbols[index].Symbol.IsProperty()
+                                        && !symbols[index].IsAutoProperty)
+                                    {
+                                        symbols.RemoveAt(index);
+                                    }
+                                    else if (!IsAssignmentInsideConstructor(assignedExpression, containingType, symbol.IsStatic, semanticModel, cancellationToken))
+                                    {
+                                        symbols.RemoveAt(index);
+                                    }
+
+                                    if (symbols.Count == 0)
+                                        break;
+                                }
                             }
                         }
                     }
@@ -74,7 +88,7 @@ namespace Roslynator.CSharp.Refactorings.MakeMemberReadOnly
 
             if (typeSymbol.IsTypeKind(TypeKind.Class, TypeKind.Struct))
             {
-                HashSet<ISymbol> symbols = GetAnalyzableSymbols(context, typeSymbol);
+                List<AnalyzableSymbol> symbols = GetAnalyzableSymbols(context, typeSymbol);
 
                 if (symbols != null)
                 {
@@ -86,7 +100,7 @@ namespace Roslynator.CSharp.Refactorings.MakeMemberReadOnly
             }
         }
 
-        protected virtual bool IsAssignmentThasIsAllowedForReadOnlyMember(
+        private static bool IsAssignmentInsideConstructor(
             SyntaxNode node,
             INamedTypeSymbol containingType,
             bool isStatic,

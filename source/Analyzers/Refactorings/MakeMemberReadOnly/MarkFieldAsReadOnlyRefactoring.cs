@@ -20,9 +20,9 @@ namespace Roslynator.CSharp.Refactorings.MakeMemberReadOnly
 
         public static MarkFieldAsReadOnlyRefactoring Instance { get; } = new MarkFieldAsReadOnlyRefactoring();
 
-        public override HashSet<ISymbol> GetAnalyzableSymbols(SymbolAnalysisContext context, INamedTypeSymbol containingType)
+        public override List<AnalyzableSymbol> GetAnalyzableSymbols(SymbolAnalysisContext context, INamedTypeSymbol containingType)
         {
-            HashSet<ISymbol> analyzableFields = null;
+            List<AnalyzableSymbol> analyzableFields = null;
 
             foreach (ISymbol member in containingType.GetMembers())
             {
@@ -37,7 +37,7 @@ namespace Roslynator.CSharp.Refactorings.MakeMemberReadOnly
                         && !fieldSymbol.IsImplicitlyDeclared
                         && (fieldSymbol.Type.IsReferenceType || fieldSymbol.Type.IsPredefinedValueType()))
                     {
-                        (analyzableFields ?? (analyzableFields = new HashSet<ISymbol>())).Add(fieldSymbol);
+                        (analyzableFields ?? (analyzableFields = new List<AnalyzableSymbol>())).Add(new AnalyzableSymbol(fieldSymbol));
                     }
                 }
             }
@@ -50,10 +50,10 @@ namespace Roslynator.CSharp.Refactorings.MakeMemberReadOnly
             return symbol?.IsField() == true;
         }
 
-        public override void ReportFixableSymbols(SymbolAnalysisContext context, INamedTypeSymbol containingType, HashSet<ISymbol> symbols)
+        public override void ReportFixableSymbols(SymbolAnalysisContext context, INamedTypeSymbol containingType, List<AnalyzableSymbol> symbols)
         {
             foreach (IGrouping<VariableDeclarationSyntax, SyntaxNode> grouping in symbols
-                .Select(f => f.GetSyntax(context.CancellationToken))
+                .Select(f => f.Symbol.GetSyntax(context.CancellationToken))
                 .GroupBy(f => (VariableDeclarationSyntax)f.Parent))
             {
                 int count = grouping.Count();

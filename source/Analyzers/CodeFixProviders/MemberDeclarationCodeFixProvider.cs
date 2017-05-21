@@ -38,7 +38,7 @@ namespace Roslynator.CSharp.CodeFixProviders
                     DiagnosticIdentifiers.ReorderModifiers,
                     DiagnosticIdentifiers.OverridingMemberCannotChangeAccessModifiers,
                     DiagnosticIdentifiers.MarkFieldAsReadOnly,
-                    DiagnosticIdentifiers.UseReadOnlyAutoProperty,
+                    DiagnosticIdentifiers.UseReadOnlyProperty,
                     DiagnosticIdentifiers.ReplaceCommentWithDocumentationComment);
             }
         }
@@ -260,11 +260,11 @@ namespace Roslynator.CSharp.CodeFixProviders
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
-                    case DiagnosticIdentifiers.UseReadOnlyAutoProperty:
+                    case DiagnosticIdentifiers.UseReadOnlyProperty:
                         {
                             CodeAction codeAction = CodeAction.Create(
-                                "Use read-only auto-property",
-                                cancellationToken => UseReadOnlyAutoPropertyRefactoring.RefactorAsync(context.Document, (PropertyDeclarationSyntax)memberDeclaration, cancellationToken),
+                                "Use read-only property",
+                                cancellationToken => UseReadOnlyPropertyRefactoring.RefactorAsync(context.Document, (PropertyDeclarationSyntax)memberDeclaration, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);

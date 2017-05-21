@@ -97,7 +97,7 @@
     <Compile Include="DiagnosticAnalyzers\CallDebugFailInsteadOfDebugAssertDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\UseIsOperatorInsteadOfAsOperatorDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\UseCoalesceExpressionInsteadOfIfDiagnosticAnalyzer.cs" />
-    <Compile Include="DiagnosticAnalyzers\UseReadOnlyAutoPropertyDiagnosticAnalyzer.cs" />
+    <Compile Include="DiagnosticAnalyzers\UseReadOnlyPropertyDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\UseVarInForEachDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\UseReturnInsteadOfAssignmentDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\UseVarWhenTypeIsNotObviousDiagnosticAnalyzer.cs" />
@@ -109,7 +109,8 @@
     <Compile Include="Refactorings\FormatConditionalExpressionRefactoring.cs" />
     <Compile Include="Refactorings\MakeMemberReadOnly\MakeMemberReadOnlyRefactoring.cs" />
     <Compile Include="Refactorings\MakeMemberReadOnly\MarkFieldAsReadOnlyRefactoring.cs" />
-    <Compile Include="Refactorings\MakeMemberReadOnly\UseReadOnlyAutoPropertyRefactoring.cs" />
+    <Compile Include="Refactorings\MakeMemberReadOnly\AnalyzableSymbol.cs" />
+    <Compile Include="Refactorings\MakeMemberReadOnly\UseReadOnlyPropertyRefactoring.cs" />
     <Compile Include="Refactorings\RemoveRedundantAsyncAwaitRefactoring.cs" />
     <Compile Include="Refactorings\RemoveRedundantAsyncAwaitRefactoring.AwaitRemover.cs" />
     <Compile Include="Refactorings\ReplaceCommentWithDocumentationCommentRefactoring.cs" />

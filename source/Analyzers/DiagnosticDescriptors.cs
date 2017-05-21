@@ -1586,10 +1586,10 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor UseReadOnlyAutoProperty = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.UseReadOnlyAutoProperty,
-            title: "Use read-only auto-implemented property.",
-            messageFormat: "Use read-only auto-implemented property.",
+        public static readonly DiagnosticDescriptor UseReadOnlyProperty = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseReadOnlyProperty,
+            title: "Use read-only property.",
+            messageFormat: "Use read-only property.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,

@@ -175,7 +175,7 @@ namespace Roslynator.CSharp
         public const string OverridingMemberCannotChangeAccessModifiers = Prefix + "1167";
         public const string ParameterNameDiffersFromBase = Prefix + "1168";
         public const string MarkFieldAsReadOnly = Prefix + "1169";
-        public const string UseReadOnlyAutoProperty = Prefix + "1170";
+        public const string UseReadOnlyProperty = Prefix + "1170";
         public const string SimplifyLazilyInitializedProperty = Prefix + "1171";
         public const string UseIsOperatorInsteadOfAsOperator = Prefix + "1172";
         public const string UseCoalesceExpressionInsteadOfIf = Prefix + "1173";

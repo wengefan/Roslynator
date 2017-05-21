@@ -6,17 +6,26 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.Serialization;
 
-#pragma warning disable RCS1016, RCS1048, RCS1060, RCS1081, RCS1163, RCS1176
+#pragma warning disable RCS1016, RCS1048, RCS1060, RCS1081, RCS1085, RCS1163, RCS1176
 
 namespace Roslynator.CSharp.Analyzers.Test
 {
-    public partial class Foo
+    public partial class UseReadOnlyProperty
     {
+        private string _expandedProperty;
+
         public static string StaticProperty { get; private set; }
         public string Property { get; private set; }
 
+        public string ExpandedProperty
+        {
+            get { return _expandedProperty; }
+            private set { _expandedProperty = value; }
+        }
+
         //n
 
+        public string PropertyWithPublicSet { get; set; }
         public static string StaticAssignedInInstanceConstructor { get; private set; }
         public string Assigned { get; private set; }
         public string InSimpleLambda { get; private set; }
@@ -24,25 +33,47 @@ namespace Roslynator.CSharp.Analyzers.Test
         public string InAnonymousMethod { get; private set; }
         public string InLocalFunction { get; private set; }
 
+        public string ExpandedPropertyAssignedInConstructor
+        {
+            get { return _expandedProperty; }
+            private set { _expandedProperty = value; }
+        }
+
+        public string ExpandedPropertyAssignedInMethod
+        {
+            get { return _expandedProperty; }
+            private set { _expandedProperty = value; }
+        }
+
+        public string ExpandedPropertyWithPublicSetter
+        {
+            get { return _expandedProperty; }
+            set { _expandedProperty = value; }
+        }
+
         [DataMember]
         public string PropertyWithDataMemberAttribute { get; private set; }
 
         public string PrivateSetHasAttribute { get; [DebuggerStepThrough]private set; }
 
-        static Foo()
+        static UseReadOnlyProperty()
         {
             StaticProperty = null;
         }
 
-        public Foo()
+        public UseReadOnlyProperty()
         {
             Property = null;
             StaticAssignedInInstanceConstructor = null;
+            _expandedProperty = null;
+            ExpandedPropertyAssignedInConstructor = null;
         }
 
         private void Bar()
         {
             Assigned = null;
+            _expandedProperty = null;
+            ExpandedPropertyAssignedInMethod = null;
         }
 
         private class BaseClassName
@@ -60,9 +91,9 @@ namespace Roslynator.CSharp.Analyzers.Test
         }
     }
 
-    public partial class Foo
+    public partial class UseReadOnlyProperty
     {
-        public Foo(object parameter)
+        public UseReadOnlyProperty(object parameter)
         {
             var items = new List<string>();
 
