@@ -7,5 +7,6 @@ namespace Roslynator.CSharp.CodeFixes
     public static partial class CodeFixIdentifiers
     {
         public const string RemoveUnusedVariable = Prefix + "0219";
+        public const string AddOutModifierToArgument = Prefix + "1620";
     }
 }

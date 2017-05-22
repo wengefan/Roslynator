@@ -45,6 +45,7 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CodeFixes\ArgumentCodeFixProvider.cs" />
     <Compile Include="CodeFixes\VariableDeclaratorCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseCodeFixProvider.cs" />
     <Compile Include="CodeFixIdentifiers.cs" />

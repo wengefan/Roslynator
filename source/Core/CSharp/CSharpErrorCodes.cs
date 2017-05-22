@@ -10,7 +10,6 @@ namespace Roslynator.CSharp
         public const string CannotImplicitlyConvertType = Prefix + "0029";
         public const string NotAllCodePathsReturnValue = Prefix + "0161";
         public const string UnreachableCodeDetected = Prefix + "0162";
-        public const string VariableIsAssignedButItsValueIsNeverUsed = Prefix + "0219";
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
         public const string MemberTypeMustMatchOverridenMemberType = Prefix + "0508";

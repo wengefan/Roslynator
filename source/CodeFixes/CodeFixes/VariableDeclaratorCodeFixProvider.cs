@@ -18,7 +18,7 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CSharpErrorCodes.VariableIsAssignedButItsValueIsNeverUsed); }
+            get { return ImmutableArray.Create(CodeFixIdentifiers.RemoveUnusedVariable); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -36,11 +36,11 @@ namespace Roslynator.CSharp.CodeFixes
 
             foreach (Diagnostic diagnostic in context.Diagnostics)
             {
-                if (CodeFixSettings.Current.IsCodeFixEnabled(diagnostic.Id))
+                if (IsCodeFixEnabled(diagnostic.Id))
                 {
                     switch (diagnostic.Id)
                     {
-                        case CSharpErrorCodes.VariableIsAssignedButItsValueIsNeverUsed:
+                        case CodeFixIdentifiers.RemoveUnusedVariable:
                             {
                                 Debug.Assert(variableDeclarator.IsParentKind(SyntaxKind.VariableDeclaration), "");
 

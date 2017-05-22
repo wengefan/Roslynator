@@ -12,5 +12,10 @@ namespace Roslynator.CSharp.CodeFixes
         {
             return WellKnownFixAllProviders.BatchFixer;
         }
+
+        protected virtual bool IsCodeFixEnabled(string id)
+        {
+            return CodeFixSettings.Current.IsCodeFixEnabled(id);
+        }
     }
 }
