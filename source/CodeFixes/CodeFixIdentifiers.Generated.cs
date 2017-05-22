@@ -8,5 +8,6 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public const string RemoveUnusedVariable = Prefix + "0219";
         public const string AddOutModifierToArgument = Prefix + "1620";
+        public const string CannotImplicitlyConvertType = Prefix + "0266";
     }
 }

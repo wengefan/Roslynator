@@ -45,13 +45,16 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Refactorings\AddCastExpressionRefactoring.cs" />
     <Compile Include="CodeFixes\ArgumentCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\ExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\VariableDeclaratorCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseCodeFixProvider.cs" />
     <Compile Include="CodeFixIdentifiers.cs" />
     <Compile Include="CodeFixIdentifiers.Generated.cs" />
     <Compile Include="CodeFixIdentifierSet.cs" />
     <Compile Include="CodeFixSettings.cs" />
+    <Compile Include="Refactorings\CreateSingletonArrayRefactoring.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,9 +73,7 @@
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Refactorings\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="AfterBuild">
     <GetAssemblyIdentity AssemblyFiles="$(OutDir)\$(AssemblyName).dll">

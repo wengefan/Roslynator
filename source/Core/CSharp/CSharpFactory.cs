@@ -2111,6 +2111,26 @@ namespace Roslynator.CSharp
                 ArgumentList(
                     Argument(IdentifierName(identifier))));
         }
+
+        public static InitializerExpressionSyntax ArrayInitializerExpression(SeparatedSyntaxList<ExpressionSyntax> expressions = default(SeparatedSyntaxList<ExpressionSyntax>))
+        {
+            return InitializerExpression(SyntaxKind.ArrayInitializerExpression, expressions);
+        }
+
+        public static InitializerExpressionSyntax CollectionInitializerExpression(SeparatedSyntaxList<ExpressionSyntax> expressions = default(SeparatedSyntaxList<ExpressionSyntax>))
+        {
+            return InitializerExpression(SyntaxKind.CollectionInitializerExpression, expressions);
+        }
+
+        public static InitializerExpressionSyntax ComplexElementInitializerExpression(SeparatedSyntaxList<ExpressionSyntax> expressions = default(SeparatedSyntaxList<ExpressionSyntax>))
+        {
+            return InitializerExpression(SyntaxKind.ComplexElementInitializerExpression, expressions);
+        }
+
+        public static InitializerExpressionSyntax ObjectInitializerExpression(SeparatedSyntaxList<ExpressionSyntax> expressions = default(SeparatedSyntaxList<ExpressionSyntax>))
+        {
+            return InitializerExpression(SyntaxKind.ObjectInitializerExpression, expressions);
+        }
         #endregion Expression
 
         public static IdentifierNameSyntax VarType()
