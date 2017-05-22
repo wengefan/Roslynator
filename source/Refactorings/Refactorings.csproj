@@ -301,7 +301,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DefaultConfigFile.xml" />
     <Content Include="Refactorings.xml">
       <SubType>Designer</SubType>
     </Content>

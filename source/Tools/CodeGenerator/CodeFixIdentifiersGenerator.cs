@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp;
-using Roslynator.CSharp.Refactorings;
+using Roslynator.CSharp.CodeFixes;
 using Roslynator.Metadata;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Roslynator.CSharp.CSharpFactory;
@@ -31,13 +31,13 @@ namespace CodeGenerator
                             ClassDeclaration("CodeFixIdentifiers")
                                 .WithModifiers(Modifiers.PublicStaticPartial())
                                 .WithMembers(
-                                    CreateMembers(codeFixes.OrderBy(f => f.Identifier, InvariantComparer)))));
+                                    CreateMembers(codeFixes.OrderBy(f => f.Id, InvariantComparer)))));
         }
 
         private static IEnumerable<MemberDeclarationSyntax> CreateMembers(IEnumerable<CodeFixDescriptor> codeFixes)
         {
             foreach (CodeFixDescriptor codeFix in codeFixes)
-                yield return FieldDeclaration(Modifiers.PublicConst(), StringType(), codeFix.Identifier, AddExpression(IdentifierName("Prefix"), StringLiteralExpression(codeFix.Id.Substring(RefactoringIdentifiers.Prefix.Length))));
+                yield return FieldDeclaration(Modifiers.PublicConst(), StringType(), codeFix.Identifier, AddExpression(IdentifierName("Prefix"), StringLiteralExpression(codeFix.Id.Substring(CodeFixIdentifiers.Prefix.Length))));
         }
     }
 }

@@ -187,7 +187,10 @@
       <Refactoring Id="RR0180" IsEnabled="true" /> <!-- InlineUsingStatic -->
     </Refactorings>
     <CodeFixes>
-      <CodeFix Id="CS0219" IsEnabled="true" /> <!-- RemoveUnusedVariable -->
+      <CodeFix Id="RCS9000" IsEnabled="true" /> <!-- RemoveUnusedVariable (fixes CS0168, CS0219) -->
+      <CodeFix Id="RCS9001" IsEnabled="true" /> <!-- AddCastExpression (fixes CS0266) -->
+      <CodeFix Id="RCS9002" IsEnabled="true" /> <!-- CreateSingletonArray (fixes CS0266) -->
+      <CodeFix Id="RCS9003" IsEnabled="true" /> <!-- AddOutModifierToArgument (fixes CS1620) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

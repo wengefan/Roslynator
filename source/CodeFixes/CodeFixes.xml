@@ -1,5 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CodeFixes>
-  <CodeFix Id="CS0219" Identifier="RemoveUnusedVariable" Title="Remove unused variable">
+  <CodeFix Id="RCS9000" Identifier="RemoveUnusedVariable" Title="Remove unused variable">
+    <FixableCodes>
+      <Code>CS0168</Code>
+      <Code>CS0219</Code>
+    </FixableCodes>
+  </CodeFix>
+  <CodeFix Id="RCS9001" Identifier="AddCastExpression" Title="Add cast expression">
+    <FixableCodes>
+      <Code>CS0266</Code>
+    </FixableCodes>
+  </CodeFix>
+  <CodeFix Id="RCS9002" Identifier="CreateSingletonArray" Title="Create singleton array">
+    <FixableCodes>
+      <Code>CS0266</Code>
+    </FixableCodes>
+  </CodeFix>
+  <CodeFix Id="RCS9003" Identifier="AddOutModifierToArgument" Title="Add 'out' modifier to argument">
+    <FixableCodes>
+      <Code>CS1620</Code>
+    </FixableCodes>
   </CodeFix>
 </CodeFixes>

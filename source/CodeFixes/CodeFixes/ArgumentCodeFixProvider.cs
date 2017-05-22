@@ -17,11 +17,14 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CodeFixIdentifiers.AddOutModifierToArgument); }
+            get { return ImmutableArray.Create(CSharpErrorCodes.ArgumentMustBePassedWitOutKeyword); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
+            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddOutModifierToArgument))
+                return;
+
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
             ArgumentSyntax argument = root
@@ -35,28 +38,25 @@ namespace Roslynator.CSharp.CodeFixes
 
             foreach (Diagnostic diagnostic in context.Diagnostics)
             {
-                if (IsCodeFixEnabled(diagnostic.Id))
+                switch (diagnostic.Id)
                 {
-                    switch (diagnostic.Id)
-                    {
-                        case CodeFixIdentifiers.AddOutModifierToArgument:
-                            {
-                                CodeAction codeAction = CodeAction.Create(
-                                    "Add 'out' modifier",
-                                    cancellationToken =>
-                                    {
-                                        ArgumentSyntax newArgument = argument
-                                            .WithRefOrOutKeyword(CSharpFactory.OutKeyword())
-                                            .WithFormatterAnnotation();
+                    case CSharpErrorCodes.ArgumentMustBePassedWitOutKeyword:
+                        {
+                            CodeAction codeAction = CodeAction.Create(
+                                "Add 'out' modifier",
+                                cancellationToken =>
+                                {
+                                    ArgumentSyntax newArgument = argument
+                                        .WithRefOrOutKeyword(CSharpFactory.OutKeyword())
+                                        .WithFormatterAnnotation();
 
-                                        return context.Document.ReplaceNodeAsync(argument, newArgument, context.CancellationToken);
-                                    },
-                                    diagnostic.Id + EquivalenceKeySuffix);
+                                    return context.Document.ReplaceNodeAsync(argument, newArgument, context.CancellationToken);
+                                },
+                                diagnostic.Id + EquivalenceKeySuffix);
 
-                                context.RegisterCodeFix(codeAction, diagnostic);
-                                break;
-                            }
-                    }
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
                 }
             }
         }

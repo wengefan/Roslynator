@@ -177,14 +177,16 @@ namespace MetadataGenerator
                 sw.WriteLine("## Roslynator Code Fixes");
                 sw.WriteLine();
 
-                sw.WriteLine("Id | Title | Enabled by Default ");
-                sw.WriteLine("--- | --- |:---:");
+                sw.WriteLine("Id | Title | Fixable Codes | Enabled by Default ");
+                sw.WriteLine("--- | --- | --- |:---:");
 
                 foreach (CodeFixDescriptor descriptor in codeFixes.OrderBy(f => f.Title, StringComparer))
                 {
                     sw.Write(descriptor.Id);
                     sw.Write('|');
                     sw.Write(descriptor.Title.TrimEnd('.').EscapeMarkdown());
+                    sw.Write('|');
+                    sw.Write(string.Join(", ", descriptor.FixableCodes));
                     sw.Write('|');
                     sw.Write((descriptor.IsEnabledByDefault) ? "x" : "");
                     sw.WriteLine();

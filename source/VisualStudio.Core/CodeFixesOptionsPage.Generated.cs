@@ -18,6 +18,9 @@ namespace Roslynator.VisualStudio
         {
             codeFixes.Clear();
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveUnusedVariable, "Remove unused variable", IsEnabled(CodeFixIdentifiers.RemoveUnusedVariable)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddCastExpression, "Add cast expression", IsEnabled(CodeFixIdentifiers.AddCastExpression)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.CreateSingletonArray, "Create singleton array", IsEnabled(CodeFixIdentifiers.CreateSingletonArray)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddOutModifierToArgument, "Add 'out' modifier to argument", IsEnabled(CodeFixIdentifiers.AddOutModifierToArgument)));
         }
     }
 }

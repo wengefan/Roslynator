@@ -18,11 +18,19 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CodeFixIdentifiers.RemoveUnusedVariable); }
+            get
+            {
+                return ImmutableArray.Create(
+                    CSharpErrorCodes.VariableIsDeclaredButNeverUsed,
+                    CSharpErrorCodes.VariableIsAssignedButItsValueIsNeverUsed);
+            }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
+            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveUnusedVariable))
+                return;
+
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
             VariableDeclaratorSyntax variableDeclarator = root
@@ -36,46 +44,44 @@ namespace Roslynator.CSharp.CodeFixes
 
             foreach (Diagnostic diagnostic in context.Diagnostics)
             {
-                if (IsCodeFixEnabled(diagnostic.Id))
+                switch (diagnostic.Id)
                 {
-                    switch (diagnostic.Id)
-                    {
-                        case CodeFixIdentifiers.RemoveUnusedVariable:
+                    case CSharpErrorCodes.VariableIsDeclaredButNeverUsed:
+                    case CSharpErrorCodes.VariableIsAssignedButItsValueIsNeverUsed:
+                        {
+                            Debug.Assert(variableDeclarator.IsParentKind(SyntaxKind.VariableDeclaration), "");
+
+                            if (variableDeclarator.IsParentKind(SyntaxKind.VariableDeclaration))
                             {
-                                Debug.Assert(variableDeclarator.IsParentKind(SyntaxKind.VariableDeclaration), "");
+                                var variableDeclaration = (VariableDeclarationSyntax)variableDeclarator.Parent;
 
-                                if (variableDeclarator.IsParentKind(SyntaxKind.VariableDeclaration))
+                                if (variableDeclaration.Variables.Count == 1)
                                 {
-                                    var variableDeclaration = (VariableDeclarationSyntax)variableDeclarator.Parent;
+                                    var localDeclarationStatement = (LocalDeclarationStatementSyntax)variableDeclaration.Parent;
 
-                                    if (variableDeclaration.Variables.Count == 1)
-                                    {
-                                        var localDeclarationStatement = (LocalDeclarationStatementSyntax)variableDeclaration.Parent;
-
-                                        if (!localDeclarationStatement.SpanContainsDirectives())
-                                        {
-                                            CodeAction codeAction = CodeAction.Create(
-                                                "Remove unused variable",
-                                                cancellationToken => context.Document.RemoveNodeAsync(localDeclarationStatement, RemoveHelper.GetRemoveOptions(localDeclarationStatement)),
-                                                diagnostic.Id + EquivalenceKeySuffix);
-
-                                            context.RegisterCodeFix(codeAction, diagnostic);
-                                        }
-                                    }
-                                    else if (!variableDeclarator.SpanContainsDirectives())
+                                    if (!localDeclarationStatement.SpanContainsDirectives())
                                     {
                                         CodeAction codeAction = CodeAction.Create(
                                             "Remove unused variable",
-                                            cancellationToken => context.Document.RemoveNodeAsync(variableDeclarator, RemoveHelper.GetRemoveOptions(variableDeclarator)),
+                                            cancellationToken => context.Document.RemoveNodeAsync(localDeclarationStatement, RemoveHelper.GetRemoveOptions(localDeclarationStatement)),
                                             diagnostic.Id + EquivalenceKeySuffix);
 
                                         context.RegisterCodeFix(codeAction, diagnostic);
                                     }
                                 }
+                                else if (!variableDeclarator.SpanContainsDirectives())
+                                {
+                                    CodeAction codeAction = CodeAction.Create(
+                                        "Remove unused variable",
+                                        cancellationToken => context.Document.RemoveNodeAsync(variableDeclarator, RemoveHelper.GetRemoveOptions(variableDeclarator)),
+                                        diagnostic.Id + EquivalenceKeySuffix);
 
-                                break;
+                                    context.RegisterCodeFix(codeAction, diagnostic);
+                                }
                             }
-                    }
+
+                            break;
+                        }
                 }
             }
         }

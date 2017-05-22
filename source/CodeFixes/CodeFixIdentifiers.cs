@@ -4,6 +4,6 @@ namespace Roslynator.CSharp.CodeFixes
 {
     public static partial class CodeFixIdentifiers
     {
-        public const string Prefix = "CS";
+        public const string Prefix = "RCS";
     }
 }

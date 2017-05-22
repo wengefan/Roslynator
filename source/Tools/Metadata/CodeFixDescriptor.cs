@@ -1,7 +1,8 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System.Collections.Generic;
-using System.Text.RegularExpressions;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace Roslynator.Metadata
@@ -12,12 +13,14 @@ namespace Roslynator.Metadata
             string id,
             string identifier,
             string title,
-            bool isEnabledByDefault)
+            bool isEnabledByDefault,
+            IList<string> fixableCodes)
         {
             Id = id;
             Identifier = identifier;
             Title = title;
             IsEnabledByDefault = isEnabledByDefault;
+            FixableCodes = new ReadOnlyCollection<string>(fixableCodes);
         }
 
         public static IEnumerable<CodeFixDescriptor> LoadFromFile(string filePath)
@@ -27,12 +30,16 @@ namespace Roslynator.Metadata
             foreach (XElement element in doc.Root.Elements())
             {
                 yield return new CodeFixDescriptor(
-                    element.Attribute("Id")?.Value,
+                    element.Attribute("Id").Value,
                     element.Attribute("Identifier").Value,
                     element.Attribute("Title").Value,
                     (element.Attribute("IsEnabledByDefault") != null)
                         ? bool.Parse(element.Attribute("IsEnabledByDefault").Value)
-                        : true);
+                        : true,
+                    element.Element("FixableCodes")
+                        .Elements("Code")
+                        .Select(f => f.Value)
+                        .ToList());
             }
         }
 
@@ -44,14 +51,6 @@ namespace Roslynator.Metadata
 
         public bool IsEnabledByDefault { get; }
 
-        public string GetGitHubHref()
-        {
-            string s = Title.TrimEnd('.').ToLowerInvariant();
-
-            s = Regex.Replace(s, @"[^a-zA-Z0-9\ \-]", "");
-            s = Regex.Replace(s, @"\ ", "-");
-
-            return s;
-        }
+        public ReadOnlyCollection<string> FixableCodes { get; }
     }
 }

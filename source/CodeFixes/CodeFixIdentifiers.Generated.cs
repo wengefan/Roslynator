@@ -6,8 +6,9 @@ namespace Roslynator.CSharp.CodeFixes
 {
     public static partial class CodeFixIdentifiers
     {
-        public const string RemoveUnusedVariable = Prefix + "0219";
-        public const string AddOutModifierToArgument = Prefix + "1620";
-        public const string CannotImplicitlyConvertType = Prefix + "0266";
+        public const string RemoveUnusedVariable = Prefix + "9000";
+        public const string AddCastExpression = Prefix + "9001";
+        public const string CreateSingletonArray = Prefix + "9002";
+        public const string AddOutModifierToArgument = Prefix + "9003";
     }
 }

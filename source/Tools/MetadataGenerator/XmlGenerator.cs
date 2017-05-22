@@ -44,7 +44,7 @@ namespace MetadataGenerator
                                         new XElement("CodeFix",
                                         new XAttribute("Id", f.Id),
                                         new XAttribute("IsEnabled", f.IsEnabledByDefault)),
-                                        new XComment($" {f.Identifier} ")
+                                        new XComment($" {f.Identifier} (fixes {string.Join(", ", f.FixableCodes)}) ")
                                     };
                                 })
                         )
@@ -74,9 +74,9 @@ namespace MetadataGenerator
         }
 
         private static readonly Regex _regex = new Regex(@"
-            (?<grp><(Refactoring|CodeFix)\ Id=""(RR|CS)[0-9]{4}""\ IsEnabled=""(true|false)""\ />)
+            (?<grp><(Refactoring|CodeFix)\ Id=""(RR|RCS)[0-9]{4}""\ IsEnabled=""(true|false)""\ />)
             \s+
-            (?<comment><!--\ [a-zA-Z0-9]+\ -->)
+            (?<comment><!--\ [a-zA-Z0-9 (),]+\ -->)
             ", RegexOptions.IgnorePatternWhitespace);
 
         public static string CreateAnalyzersXml(IEnumerable<AnalyzerDescriptor> analyzers)
