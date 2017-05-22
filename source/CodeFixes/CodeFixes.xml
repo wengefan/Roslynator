@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeFixes>
+  <CodeFix Id="CS0219" Identifier="RemoveUnusedVariable" Title="Remove unused variable">
+  </CodeFix>
+</CodeFixes>

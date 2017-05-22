@@ -9,19 +9,19 @@ using System.Windows.Data;
 
 namespace Roslynator.VisualStudio
 {
-    public partial class RefactoringsOptionsPageControl : UserControl
+    public partial class BaseOptionsPageControl : UserControl
     {
         private GridViewColumnHeader _lastClickedHeader;
         private ListSortDirection _lastDirection;
 
-        public RefactoringsOptionsPageControl()
+        public BaseOptionsPageControl()
         {
             InitializeComponent();
 
             DataContext = this;
         }
 
-        public ObservableCollection<RefactoringModel> Refactorings { get; } = new ObservableCollection<RefactoringModel>();
+        public ObservableCollection<BaseModel> Items { get; } = new ObservableCollection<BaseModel>();
 
         private void GridViewColumnHeader_Click(object sender, RoutedEventArgs e)
         {
@@ -76,7 +76,7 @@ namespace Roslynator.VisualStudio
 
         private void Sort(string propertyName, ListSortDirection direction)
         {
-            ICollectionView dataView = CollectionViewSource.GetDefaultView(lsvRefactorings.ItemsSource);
+            ICollectionView dataView = CollectionViewSource.GetDefaultView(lsvItems.ItemsSource);
 
             var sortDescription = new SortDescription(propertyName, direction);
 
@@ -91,7 +91,7 @@ namespace Roslynator.VisualStudio
 
             if (!string.IsNullOrEmpty(s))
             {
-                var refactoring = (RefactoringModel)item;
+                var refactoring = (BaseModel)item;
 
                 return refactoring.Id.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) != -1
                     || refactoring.Title.IndexOf(s, StringComparison.CurrentCultureIgnoreCase) != -1;
@@ -102,19 +102,19 @@ namespace Roslynator.VisualStudio
 
         private void EnableAllButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (RefactoringModel refactoring in Refactorings)
+            foreach (BaseModel refactoring in Items)
                 refactoring.Enabled = true;
         }
 
         private void DisableAllButton_Click(object sender, RoutedEventArgs e)
         {
-            foreach (RefactoringModel refactoring in Refactorings)
+            foreach (BaseModel refactoring in Items)
                 refactoring.Enabled = false;
         }
 
         private void FilterTextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-            var view = (CollectionView)CollectionViewSource.GetDefaultView(lsvRefactorings.ItemsSource);
+            var view = (CollectionView)CollectionViewSource.GetDefaultView(lsvItems.ItemsSource);
 
             view.Filter = view.Filter ?? FilterRefactorings;
 

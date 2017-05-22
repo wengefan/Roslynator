@@ -7,45 +7,42 @@ using System.Runtime.InteropServices;
 using System.Windows;
 using Microsoft.VisualStudio.Shell;
 using Roslynator.Configuration;
-using Roslynator.CSharp.Refactorings;
+using Roslynator.CSharp.CodeFixes;
 
 namespace Roslynator.VisualStudio
 {
     [ClassInterface(ClassInterfaceType.AutoDual)]
-    [Guid("1D9ECCF3-5D2F-4112-9B25-264596873DC9")]
-    public partial class RefactoringsOptionsPage : UIElementDialogPage
+    [Guid("B804AA29-91D5-4C54-9B76-C442DA0AE60D")]
+    public partial class CodeFixesOptionsPage : UIElementDialogPage
     {
-        private const string RefactoringCategory = "Refactoring";
-
         private bool _isActive;
-        private readonly BaseOptionsPageControl _control = new BaseOptionsPageControl();
-        private readonly HashSet<string> _disabledRefactorings = new HashSet<string>();
+        private readonly BaseOptionsPageControl _control = new  BaseOptionsPageControl();
+        private readonly HashSet<string> _disabledCodeFixes = new HashSet<string>();
 
         protected override UIElement Child
         {
             get { return _control; }
         }
 
-        [Category(RefactoringCategory)]
         [Browsable(false)]
-        public string DisabledRefactorings
+        public string DisabledCodeFixes
         {
-            get { return string.Join(",", _disabledRefactorings); }
+            get { return string.Join(",", _disabledCodeFixes); }
             set
             {
-                _disabledRefactorings.Clear();
+                _disabledCodeFixes.Clear();
 
                 if (!string.IsNullOrEmpty(value))
                 {
                     foreach (string id in value.Split(','))
-                        _disabledRefactorings.Add(id);
+                        _disabledCodeFixes.Add(id);
                 }
             }
         }
 
-        internal IEnumerable<string> GetDisabledRefactorings()
+        internal IEnumerable<string> GetDisabledCodeFixes()
         {
-            foreach (string id in _disabledRefactorings)
+            foreach (string id in _disabledCodeFixes)
                 yield return id;
         }
 
@@ -69,11 +66,11 @@ namespace Roslynator.VisualStudio
         {
             if (e.ApplyBehavior == ApplyKind.Apply)
             {
-                foreach (BaseModel refactoring in _control.Items)
-                    SetIsEnabled(refactoring.Id, refactoring.Enabled);
+                foreach (BaseModel codeFix in _control.Items)
+                    SetIsEnabled(codeFix.Id, codeFix.Enabled);
 
                 SettingsManager.Instance.UpdateVisualStudioSettings(this);
-                SettingsManager.Instance.ApplyTo(RefactoringSettings.Current);
+                SettingsManager.Instance.ApplyTo(CodeFixSettings.Current);
             }
 
             base.OnApply(e);
@@ -83,17 +80,17 @@ namespace Roslynator.VisualStudio
         {
             if (isEnabled)
             {
-                _disabledRefactorings.Remove(id);
+                _disabledCodeFixes.Remove(id);
             }
             else
             {
-                _disabledRefactorings.Add(id);
+                _disabledCodeFixes.Add(id);
             }
         }
 
         private bool IsEnabled(string id)
         {
-            return !_disabledRefactorings.Contains(id);
+            return !_disabledCodeFixes.Contains(id);
         }
     }
 }

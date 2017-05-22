@@ -15,7 +15,7 @@ namespace MetadataGenerator
 {
     internal static class XmlGenerator
     {
-        public static string CreateDefaultConfigFile(IEnumerable<RefactoringDescriptor> refactorings)
+        public static string CreateDefaultConfigFile(IEnumerable<RefactoringDescriptor> refactorings, IEnumerable<CodeFixDescriptor> codeFixes)
         {
             var doc = new XDocument(
                 new XElement("Roslynator",
@@ -29,6 +29,19 @@ namespace MetadataGenerator
                                 {
                                     return new XNode[] {
                                         new XElement("Refactoring",
+                                        new XAttribute("Id", f.Id),
+                                        new XAttribute("IsEnabled", f.IsEnabledByDefault)),
+                                        new XComment($" {f.Identifier} ")
+                                    };
+                                })
+                        ),
+                        new XElement("CodeFixes",
+                            codeFixes
+                                .OrderBy(f => f.Id)
+                                .Select(f =>
+                                {
+                                    return new XNode[] {
+                                        new XElement("CodeFix",
                                         new XAttribute("Id", f.Id),
                                         new XAttribute("IsEnabled", f.IsEnabledByDefault)),
                                         new XComment($" {f.Identifier} ")
@@ -54,14 +67,14 @@ namespace MetadataGenerator
 
                 string s = sw.ToString();
 
-                s = _regex.Replace(s, "${refactoring} ${comment}");
+                s = _regex.Replace(s, "${grp} ${comment}");
 
                 return s;
             }
         }
 
         private static readonly Regex _regex = new Regex(@"
-            (?<refactoring><Refactoring\ Id=""RR[0-9]{4}""\ IsEnabled=""(true|false)""\ />)
+            (?<grp><(Refactoring|CodeFix)\ Id=""(RR|CS)[0-9]{4}""\ IsEnabled=""(true|false)""\ />)
             \s+
             (?<comment><!--\ [a-zA-Z0-9]+\ -->)
             ", RegexOptions.IgnorePatternWhitespace);

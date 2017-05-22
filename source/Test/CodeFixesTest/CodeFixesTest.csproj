@@ -5,11 +5,11 @@
     <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7F6F6533-E406-4225-A435-DEE22C717F48}</ProjectGuid>
+    <ProjectGuid>{73C0BB00-F170-44A1-AB72-008E29F8D34A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Roslynator.Metadata</RootNamespace>
-    <AssemblyName>Roslynator.Metadata</AssemblyName>
+    <RootNamespace>Roslynator.CSharp.CodeFixes.Test</RootNamespace>
+    <AssemblyName>Roslynator.CSharp.CodeFixes.Test</AssemblyName>
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -25,7 +25,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\..\global.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>..\CodeFixesTest.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -34,26 +34,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>..\..\global.ruleset</CodeAnalysisRuleSet>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignAssembly>true</SignAssembly>
-  </PropertyGroup>
-  <PropertyGroup>
-    <AssemblyOriginatorKeyFile>Roslynator.Metadata.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .NET Framework is automatically included -->
-    <None Include="project.json" />
-    <None Include="Roslynator.Metadata.snk" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RemoveUnusedVariable.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnalyzerDescriptor.cs" />
-    <Compile Include="CodeFixDescriptor.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RefactoringDescriptor.cs" />
-    <Compile Include="ImageDescriptor.cs" />
-    <Compile Include="SyntaxDescriptor.cs" />
+    <None Include="project.json" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

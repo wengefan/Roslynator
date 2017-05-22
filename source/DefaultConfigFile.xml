@@ -186,5 +186,8 @@
       <Refactoring Id="RR0179" IsEnabled="true" /> <!-- ImplementIEquatableOfT -->
       <Refactoring Id="RR0180" IsEnabled="true" /> <!-- InlineUsingStatic -->
     </Refactorings>
+    <CodeFixes>
+      <CodeFix Id="CS0219" IsEnabled="true" /> <!-- RemoveUnusedVariable -->
+    </CodeFixes>
   </Settings>
 </Roslynator>

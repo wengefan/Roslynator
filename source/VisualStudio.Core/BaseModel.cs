@@ -4,11 +4,11 @@ using System.ComponentModel;
 
 namespace Roslynator.VisualStudio
 {
-    public class RefactoringModel : INotifyPropertyChanged
+    public class BaseModel : INotifyPropertyChanged
     {
         private bool _enabled;
 
-        public RefactoringModel(string id, string title, bool enabled)
+        public BaseModel(string id, string title, bool enabled)
         {
             Id = id;
             Title = title;

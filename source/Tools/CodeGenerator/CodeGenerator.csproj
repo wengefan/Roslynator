@@ -131,6 +131,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CodeFileWriter.cs" />
+    <Compile Include="CodeFixesOptionsPageGenerator.cs" />
+    <Compile Include="CodeFixIdentifiersGenerator.cs" />
     <Compile Include="Generator.cs" />
     <Compile Include="RefactoringsOptionsPageGenerator.cs" />
     <Compile Include="Program.cs" />
