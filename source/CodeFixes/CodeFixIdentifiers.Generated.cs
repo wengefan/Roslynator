@@ -11,5 +11,7 @@ namespace Roslynator.CSharp.CodeFixes
         public const string CreateSingletonArray = Prefix + "9002";
         public const string AddOutModifierToArgument = Prefix + "9003";
         public const string MoveBaseClassBeforeAnyInterface = Prefix + "9004";
+        public const string AddOverrideKeyword = Prefix + "9005";
+        public const string AddNewKeyword = Prefix + "9006";
     }
 }

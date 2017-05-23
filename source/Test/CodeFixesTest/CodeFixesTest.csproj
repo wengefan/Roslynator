@@ -36,6 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AddOverrideOrNewModifier.cs" />
     <Compile Include="CannotImplicitlyConvertType.cs" />
     <Compile Include="MoveBaseClassBeforeAnyInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

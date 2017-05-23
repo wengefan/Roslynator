@@ -26,4 +26,14 @@
       <Code>CS1722</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9005" Identifier="AddOverrideModifier" Title="Add 'override' modifier">
+    <FixableCodes>
+      <Code>CS0114</Code>
+    </FixableCodes>
+  </CodeFix>
+  <CodeFix Id="RCS9006" Identifier="AddNewModifier" Title="Add 'new' modifier">
+    <FixableCodes>
+      <Code>CS0114</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>
