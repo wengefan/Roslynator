@@ -47,6 +47,7 @@
   <ItemGroup>
     <Compile Include="CodeFixes\AddOverrideOrNewModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseListCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\ExtractDeclarationFromUsingStatementCodeFixProvider.cs" />
     <Compile Include="Refactorings\AddCastExpressionRefactoring.cs" />
     <Compile Include="CodeFixes\ArgumentCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExpressionCodeFixProvider.cs" />
@@ -65,6 +66,10 @@
     <None Include="Roslynator.CSharp.CodeFixes.snk" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{814C7BD5-F7FA-441D-897F-F7876B038B30}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{34a3e42e-2254-4ee7-a152-eedb18e3d7e3}</Project>
       <Name>Core</Name>

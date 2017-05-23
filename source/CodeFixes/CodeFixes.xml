@@ -36,4 +36,9 @@
       <Code>CS0114</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9007" Identifier="ExtractDeclarationFromUsingStatement" Title="Extract declaration from using statement">
+    <FixableCodes>
+      <Code>CS1674</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>

@@ -172,7 +172,6 @@
     <Compile Include="Refactorings\ReplaceFieldWithConstantRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceMethodWithProperty\ReplaceMethodWithPropertyRefactoring.cs" />
     <Compile Include="Refactorings\ReplacePropertyWithMethod\ReplacePropertyWithMethodRefactoring.cs" />
-    <Compile Include="Refactorings\ExtractDeclarationFromUsingStatementRefactoring.cs" />
     <Compile Include="Refactorings\ExtractExpressionFromParenthesesRefactoring.cs" />
     <Compile Include="Refactorings\ExtractGenericTypeRefactoring.cs" />
     <Compile Include="Refactorings\LambdaExpressionRefactoring.cs" />
