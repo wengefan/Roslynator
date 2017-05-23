@@ -19,5 +19,6 @@ namespace Roslynator.CSharp
         public const string ArgumentMustBePassedWitOutKeyword = Prefix + "1620";
         public const string CannotReturnValueFromIterator = Prefix + "1622";
         public const string TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable = Prefix + "1674";
+        public const string BaseClassMustComeBeforeAnyInterface = Prefix + "1722";
     }
 }

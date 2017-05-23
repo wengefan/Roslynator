@@ -21,4 +21,9 @@
       <Code>CS1620</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9004" Identifier="MoveBaseClassBeforeAnyInterface" Title="Base base class before any interface">
+    <FixableCodes>
+      <Code>CS1722</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>
