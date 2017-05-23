@@ -16,5 +16,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string ExtractDeclarationFromUsingStatement = Prefix + "9007";
         public const string AddBracesToDeclarationOrLabeledStatement = Prefix + "9008";
         public const string MarkOperatorAsPublicAndStatic = Prefix + "9009";
+        public const string RemoveDuplicateModifier = Prefix + "9010";
     }
 }

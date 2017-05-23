@@ -51,4 +51,9 @@
       <Code>CS0558</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9010" Identifier="RemoveDuplicateModifier" Title="Remove duplicate modifier">
+    <FixableCodes>
+      <Code>CS1004</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>
