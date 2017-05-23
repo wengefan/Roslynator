@@ -49,6 +49,7 @@
     <Compile Include="CodeFixes\AddOverrideOrNewModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseListCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExtractDeclarationFromUsingStatementCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\MarkOperatorAsPublicAndStatiCodeFixProvider.cs" />
     <Compile Include="Refactorings\AddCastExpressionRefactoring.cs" />
     <Compile Include="CodeFixes\ArgumentCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExpressionCodeFixProvider.cs" />

@@ -16,6 +16,7 @@ namespace Roslynator.CSharp
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
         public const string MemberTypeMustMatchOverridenMemberType = Prefix + "0508";
+        public const string UserDefinedOperatorMustBeDeclaredStaticAndPublic = Prefix + "0558";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";
         public const string MissingXmlComment = Prefix + "1591";
         public const string ArgumentMustBePassedWitOutKeyword = Prefix + "1620";

@@ -46,4 +46,9 @@
       <Code>CS1023</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9009" Identifier="MarkOperatorAsPublicAndStatic" Title="Mark operator as 'public' and 'static'">
+    <FixableCodes>
+      <Code>CS0558</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>

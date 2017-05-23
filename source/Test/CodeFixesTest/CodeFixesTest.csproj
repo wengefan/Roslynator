@@ -40,6 +40,7 @@
     <Compile Include="AddOverrideOrNewModifier.cs" />
     <Compile Include="CannotImplicitlyConvertType.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
+    <Compile Include="MarkOperatorAsPublicAndStatic.cs" />
     <Compile Include="MoveBaseClassBeforeAnyInterface.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AddOutModifierToArgument.cs" />
