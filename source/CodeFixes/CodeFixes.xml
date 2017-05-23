@@ -61,4 +61,9 @@
       <Code>CS0579</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9012" Identifier="RemoveNewModifier" Title="Remove new modifier">
+    <FixableCodes>
+      <Code>CS0109</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>

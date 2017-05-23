@@ -18,5 +18,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string MarkOperatorAsPublicAndStatic = Prefix + "9009";
         public const string RemoveDuplicateModifier = Prefix + "9010";
         public const string RemoveDuplicateAttribute = Prefix + "9011";
+        public const string RemoveNewModifier = Prefix + "9012";
     }
 }
