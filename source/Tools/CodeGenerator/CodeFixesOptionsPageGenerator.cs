@@ -65,7 +65,7 @@ namespace CodeGenerator
                             .Select(codeFix =>
                             {
                                 return ExpressionStatement(
-                                    ParseExpression($"codeFixes.Add(new BaseModel(CodeFixIdentifiers.{codeFix.Identifier}, \"{StringUtility.EscapeQuote(codeFix.Title)}\", IsEnabled(CodeFixIdentifiers.{codeFix.Identifier})))"));
+                                    ParseExpression($"codeFixes.Add(new BaseModel(CodeFixIdentifiers.{codeFix.Identifier}, \"{StringUtility.EscapeQuote(codeFix.Title)} (fixes {string.Join(", ", codeFix.FixableCodes)})\", IsEnabled(CodeFixIdentifiers.{codeFix.Identifier})))"));
                             }))));
         }
     }

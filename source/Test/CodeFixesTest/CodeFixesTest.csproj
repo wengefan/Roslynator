@@ -36,6 +36,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AddBracesToDeclarationOrLabeledStatement.cs" />
     <Compile Include="AddOverrideOrNewModifier.cs" />
     <Compile Include="CannotImplicitlyConvertType.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />

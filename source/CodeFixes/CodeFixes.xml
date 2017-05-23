@@ -41,4 +41,9 @@
       <Code>CS1674</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9008" Identifier="AddBracesToDeclarationOrLabeledStatement" Title="Add braces to declaration or labeled statement">
+    <FixableCodes>
+      <Code>CS1023</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>

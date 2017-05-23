@@ -17,10 +17,15 @@ namespace Roslynator.VisualStudio
         public void Fill(ICollection<BaseModel> codeFixes)
         {
             codeFixes.Clear();
-            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveUnusedVariable, "Remove unused variable", IsEnabled(CodeFixIdentifiers.RemoveUnusedVariable)));
-            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddCastExpression, "Add cast expression", IsEnabled(CodeFixIdentifiers.AddCastExpression)));
-            codeFixes.Add(new BaseModel(CodeFixIdentifiers.CreateSingletonArray, "Create singleton array", IsEnabled(CodeFixIdentifiers.CreateSingletonArray)));
-            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddOutModifierToArgument, "Add 'out' modifier to argument", IsEnabled(CodeFixIdentifiers.AddOutModifierToArgument)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveUnusedVariable, "Remove unused variable (fixes CS0168, CS0219)", IsEnabled(CodeFixIdentifiers.RemoveUnusedVariable)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddCastExpression, "Add cast expression (fixes CS0266)", IsEnabled(CodeFixIdentifiers.AddCastExpression)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.CreateSingletonArray, "Create singleton array (fixes CS0266)", IsEnabled(CodeFixIdentifiers.CreateSingletonArray)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddOutModifierToArgument, "Add 'out' modifier to argument (fixes CS1620)", IsEnabled(CodeFixIdentifiers.AddOutModifierToArgument)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.MoveBaseClassBeforeAnyInterface, "Base base class before any interface (fixes CS1722)", IsEnabled(CodeFixIdentifiers.MoveBaseClassBeforeAnyInterface)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddOverrideModifier, "Add 'override' modifier (fixes CS0114)", IsEnabled(CodeFixIdentifiers.AddOverrideModifier)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddNewModifier, "Add 'new' modifier (fixes CS0114)", IsEnabled(CodeFixIdentifiers.AddNewModifier)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.ExtractDeclarationFromUsingStatement, "Extract declaration from using statement (fixes CS1674)", IsEnabled(CodeFixIdentifiers.ExtractDeclarationFromUsingStatement)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddBracesToDeclarationOrLabeledStatement, "Add braces to declaration or labeled statement (fixes CS1023)", IsEnabled(CodeFixIdentifiers.AddBracesToDeclarationOrLabeledStatement)));
         }
     }
 }

@@ -191,6 +191,11 @@
       <CodeFix Id="RCS9001" IsEnabled="true" /> <!-- AddCastExpression (fixes CS0266) -->
       <CodeFix Id="RCS9002" IsEnabled="true" /> <!-- CreateSingletonArray (fixes CS0266) -->
       <CodeFix Id="RCS9003" IsEnabled="true" /> <!-- AddOutModifierToArgument (fixes CS1620) -->
+      <CodeFix Id="RCS9004" IsEnabled="true" /> <!-- MoveBaseClassBeforeAnyInterface (fixes CS1722) -->
+      <CodeFix Id="RCS9005" IsEnabled="true" /> <!-- AddOverrideModifier (fixes CS0114) -->
+      <CodeFix Id="RCS9006" IsEnabled="true" /> <!-- AddNewModifier (fixes CS0114) -->
+      <CodeFix Id="RCS9007" IsEnabled="true" /> <!-- ExtractDeclarationFromUsingStatement (fixes CS1674) -->
+      <CodeFix Id="RCS9008" IsEnabled="true" /> <!-- AddBracesToDeclarationOrLabeledStatement (fixes CS1023) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

@@ -25,8 +25,8 @@ namespace Roslynator.CSharp.CodeFixes
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
             if (!Settings.IsAnyCodeFixEnabled(
-                CodeFixIdentifiers.AddOverrideKeyword,
-                CodeFixIdentifiers.AddNewKeyword))
+                CodeFixIdentifiers.AddOverrideModifier,
+                CodeFixIdentifiers.AddNewModifier))
             {
                 return;
             }
@@ -48,7 +48,7 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case CSharpErrorCodes.MemberHidesInheritedMember:
                         {
-                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddOverrideKeyword))
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddOverrideModifier))
                             {
                                 CodeAction codeAction = CodeAction.Create(
                                     "Add 'override' modifier",
@@ -65,7 +65,7 @@ namespace Roslynator.CSharp.CodeFixes
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }
 
-                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddNewKeyword))
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddNewModifier))
                             {
                                 CodeAction codeAction = CodeAction.Create(
                                     "Add 'new' modifier",
