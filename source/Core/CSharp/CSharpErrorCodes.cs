@@ -5,7 +5,6 @@ namespace Roslynator.CSharp
     internal static class CSharpErrorCodes
     {
         public const string Prefix = "CS";
-
         public const string OperatorCannotBeAppliedToOperands = Prefix + "0019";
         public const string CannotImplicitlyConvertType = Prefix + "0029";
         public const string MemberHidesInheritedMember = Prefix + "0114";
@@ -17,6 +16,7 @@ namespace Roslynator.CSharp
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
         public const string MemberTypeMustMatchOverridenMemberType = Prefix + "0508";
         public const string UserDefinedOperatorMustBeDeclaredStaticAndPublic = Prefix + "0558";
+        public const string DuplicateAttribute = Prefix + "0579";
         public const string DuplicateModifier = Prefix + "1004";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";
         public const string MissingXmlComment = Prefix + "1591";

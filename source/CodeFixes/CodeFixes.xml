@@ -56,4 +56,9 @@
       <Code>CS1004</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9011" Identifier="RemoveDuplicateAttribute" Title="Remove duplicate attribute">
+    <FixableCodes>
+      <Code>CS0579</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>
