@@ -77,7 +77,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                     return context.Document.ReplaceNodeAsync(memberDeclaration, newMemberDeclaration, cancellationToken);
                                 },
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                CodeFixIdentifiers.MarkOperatorAsPublicAndStatic + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;

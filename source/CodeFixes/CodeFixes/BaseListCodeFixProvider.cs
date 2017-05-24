@@ -66,7 +66,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                         return context.Document.ReplaceNodeAsync(baseList, newBaseList, context.CancellationToken);
                                     },
-                                    diagnostic.Id + EquivalenceKeySuffix);
+                                    CodeFixIdentifiers.MoveBaseClassBeforeAnyInterface + EquivalenceKeySuffix);
 
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }

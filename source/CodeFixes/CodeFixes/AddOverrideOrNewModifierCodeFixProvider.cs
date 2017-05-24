@@ -60,7 +60,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                         return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, context.CancellationToken);
                                     },
-                                    diagnostic.Id + "AddOverrideModifier" + EquivalenceKeySuffix);
+                                    CodeFixIdentifiers.AddOverrideModifier + EquivalenceKeySuffix);
 
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }
@@ -77,7 +77,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                         return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, context.CancellationToken);
                                     },
-                                    diagnostic.Id + "AddNewModifier" + EquivalenceKeySuffix);
+                                    CodeFixIdentifiers.AddNewModifier + EquivalenceKeySuffix);
 
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }
