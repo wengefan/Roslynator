@@ -22,12 +22,8 @@ namespace Roslynator.CSharp.CodeFixes
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            if (!Settings.IsAnyCodeFixEnabled(
-                CodeFixIdentifiers.AddCastExpression,
-                CodeFixIdentifiers.CreateSingletonArray))
-            {
+            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.CreateSingletonArray))
                 return;
-            }
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
@@ -54,31 +50,17 @@ namespace Roslynator.CSharp.CodeFixes
                             ITypeSymbol convertedType = typeInfo.ConvertedType;
 
                             if (type?.IsErrorType() == false
-                                && !type.Equals(convertedType))
+                                && !type.Equals(convertedType)
+                                && convertedType.IsArrayType())
                             {
-                                if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.CreateSingletonArray)
-                                    && convertedType.IsArrayType())
-                                {
-                                    var arrayType = (IArrayTypeSymbol)convertedType;
+                                var arrayType = (IArrayTypeSymbol)convertedType;
 
-                                    if (semanticModel.IsImplicitConversion(expression, arrayType.ElementType))
-                                    {
-                                        CodeAction codeAction = CodeAction.Create(
-                                            "Create singleton array",
-                                            cancellationToken => CreateSingletonArrayRefactoring.RefactorAsync(context.Document, expression, arrayType.ElementType, semanticModel, cancellationToken),
-                                            CodeFixIdentifiers.CreateSingletonArray + EquivalenceKeySuffix);
-
-                                        context.RegisterCodeFix(codeAction, diagnostic);
-                                    }
-                                }
-
-                                if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddCastExpression)
-                                    && semanticModel.IsExplicitConversion(expression, convertedType))
+                                if (semanticModel.IsImplicitConversion(expression, arrayType.ElementType))
                                 {
                                     CodeAction codeAction = CodeAction.Create(
-                                        $"Cast to '{SymbolDisplay.GetMinimalString(convertedType, semanticModel, expression.SpanStart)}' ",
-                                        cancellationToken => AddCastExpressionRefactoring.RefactorAsync(context.Document, expression, convertedType, semanticModel, cancellationToken),
-                                        CodeFixIdentifiers.AddCastExpression + EquivalenceKeySuffix);
+                                        "Create singleton array",
+                                        cancellationToken => CreateSingletonArrayRefactoring.RefactorAsync(context.Document, expression, arrayType.ElementType, semanticModel, cancellationToken),
+                                        CodeFixIdentifiers.CreateSingletonArray + EquivalenceKeySuffix);
 
                                     context.RegisterCodeFix(codeAction, diagnostic);
                                 }

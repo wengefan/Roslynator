@@ -53,7 +53,6 @@
     <Compile Include="CodeFixes\RemoveDuplicateAttributeCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveNewModifierCodeFixProvider.cs" />
-    <Compile Include="Refactorings\AddCastExpressionRefactoring.cs" />
     <Compile Include="CodeFixes\ArgumentCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\VariableDeclaratorCodeFixProvider.cs" />

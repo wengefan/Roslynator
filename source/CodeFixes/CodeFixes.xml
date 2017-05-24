@@ -6,11 +6,6 @@
       <Code>CS0219</Code>
     </FixableCodes>
   </CodeFix>
-  <CodeFix Id="RCS9001" Identifier="AddCastExpression" Title="Add cast expression">
-    <FixableCodes>
-      <Code>CS0266</Code>
-    </FixableCodes>
-  </CodeFix>
   <CodeFix Id="RCS9002" Identifier="CreateSingletonArray" Title="Create singleton array">
     <FixableCodes>
       <Code>CS0266</Code>
