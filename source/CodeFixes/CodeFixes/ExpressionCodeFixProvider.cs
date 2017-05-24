@@ -66,7 +66,7 @@ namespace Roslynator.CSharp.CodeFixes
                                         CodeAction codeAction = CodeAction.Create(
                                             "Create singleton array",
                                             cancellationToken => CreateSingletonArrayRefactoring.RefactorAsync(context.Document, expression, arrayType.ElementType, semanticModel, cancellationToken),
-                                            diagnostic.Id + EquivalenceKeySuffix);
+                                            CodeFixIdentifiers.CreateSingletonArray + EquivalenceKeySuffix);
 
                                         context.RegisterCodeFix(codeAction, diagnostic);
                                     }
@@ -78,7 +78,7 @@ namespace Roslynator.CSharp.CodeFixes
                                     CodeAction codeAction = CodeAction.Create(
                                         $"Cast to '{SymbolDisplay.GetMinimalString(convertedType, semanticModel, expression.SpanStart)}' ",
                                         cancellationToken => AddCastExpressionRefactoring.RefactorAsync(context.Document, expression, convertedType, semanticModel, cancellationToken),
-                                        diagnostic.Id + EquivalenceKeySuffix);
+                                        CodeFixIdentifiers.AddCastExpression + EquivalenceKeySuffix);
 
                                     context.RegisterCodeFix(codeAction, diagnostic);
                                 }

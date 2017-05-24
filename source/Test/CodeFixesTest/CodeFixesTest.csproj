@@ -38,7 +38,7 @@
   <ItemGroup>
     <Compile Include="AddBracesToDeclarationOrLabeledStatement.cs" />
     <Compile Include="AddOverrideOrNewModifier.cs" />
-    <Compile Include="CannotImplicitlyConvertType.cs" />
+    <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />
     <Compile Include="MoveBaseClassBeforeAnyInterface.cs" />

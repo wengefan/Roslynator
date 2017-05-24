@@ -2,13 +2,16 @@
 
 namespace Roslynator.CSharp.CodeFixes.Test
 {
-    internal static class CannotImplicitlyConvertType_CS0266
+    internal static class CreateSingletonArray
     {
-        private static void Foo(object x)
+        private static void Foo(string[] values)
         {
-            object[] arr = x;
+            string s = null;
+            object o = null;
 
-            string s = x;
+            object[] arr = o;
+
+            Foo(s);
         }
     }
 }

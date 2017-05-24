@@ -20,8 +20,9 @@ namespace Roslynator.CSharp
         public const string DuplicateAttribute = Prefix + "0579";
         public const string DuplicateModifier = Prefix + "1004";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";
+        public const string CannotConvertArgumentType = Prefix + "1503";
         public const string MissingXmlComment = Prefix + "1591";
-        public const string ArgumentMustBePassedWitOutKeyword = Prefix + "1620";
+        public const string ArgumentMustBePassedWithOutKeyword = Prefix + "1620";
         public const string CannotReturnValueFromIterator = Prefix + "1622";
         public const string TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable = Prefix + "1674";
         public const string BaseClassMustComeBeforeAnyInterface = Prefix + "1722";
