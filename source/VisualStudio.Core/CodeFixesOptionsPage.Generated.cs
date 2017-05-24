@@ -18,7 +18,7 @@ namespace Roslynator.VisualStudio
         {
             codeFixes.Clear();
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveUnusedVariable, "Remove unused variable (fixes CS0168, CS0219)", IsEnabled(CodeFixIdentifiers.RemoveUnusedVariable)));
-            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddCastExpression, "Add cast expression (fixes CS0266)", IsEnabled(CodeFixIdentifiers.AddCastExpression)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddBreakStatementToSwitchSection, "Add break statement to switch section (fixes CS0163, CS8070)", IsEnabled(CodeFixIdentifiers.AddBreakStatementToSwitchSection)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.CreateSingletonArray, "Create singleton array (fixes CS0266)", IsEnabled(CodeFixIdentifiers.CreateSingletonArray)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddOutModifierToArgument, "Add 'out' modifier to argument (fixes CS1620)", IsEnabled(CodeFixIdentifiers.AddOutModifierToArgument)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.MoveBaseClassBeforeAnyInterface, "Base base class before any interface (fixes CS1722)", IsEnabled(CodeFixIdentifiers.MoveBaseClassBeforeAnyInterface)));
@@ -26,6 +26,10 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddNewModifier, "Add 'new' modifier (fixes CS0114)", IsEnabled(CodeFixIdentifiers.AddNewModifier)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.ExtractDeclarationFromUsingStatement, "Extract declaration from using statement (fixes CS1674)", IsEnabled(CodeFixIdentifiers.ExtractDeclarationFromUsingStatement)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddBracesToDeclarationOrLabeledStatement, "Add braces to declaration or labeled statement (fixes CS1023)", IsEnabled(CodeFixIdentifiers.AddBracesToDeclarationOrLabeledStatement)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.MarkOperatorAsPublicAndStatic, "Mark operator as 'public' and 'static' (fixes CS0558)", IsEnabled(CodeFixIdentifiers.MarkOperatorAsPublicAndStatic)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveDuplicateModifier, "Remove duplicate modifier (fixes CS1004)", IsEnabled(CodeFixIdentifiers.RemoveDuplicateModifier)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveDuplicateAttribute, "Remove duplicate attribute (fixes CS0579)", IsEnabled(CodeFixIdentifiers.RemoveDuplicateAttribute)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveNewModifier, "Remove new modifier (fixes CS0109)", IsEnabled(CodeFixIdentifiers.RemoveNewModifier)));
         }
     }
 }
