@@ -6,6 +6,12 @@
       <Code>CS0219</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9001" Identifier="AddBreakStatementToSwitchSection" Title="Add break statement to switch section">
+    <FixableCodes>
+      <Code>CS0163</Code>
+      <Code>CS8070</Code>
+    </FixableCodes>
+  </CodeFix>
   <CodeFix Id="RCS9002" Identifier="CreateSingletonArray" Title="Create singleton array">
     <FixableCodes>
       <Code>CS0266</Code>

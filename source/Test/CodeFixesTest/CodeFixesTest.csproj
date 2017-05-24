@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="AddBracesToDeclarationOrLabeledStatement.cs" />
+    <Compile Include="AddBreakStatementToSwitchSection.cs" />
     <Compile Include="AddOverrideOrNewModifier.cs" />
     <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />

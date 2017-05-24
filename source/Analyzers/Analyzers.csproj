@@ -234,7 +234,6 @@
     <Compile Include="DiagnosticAnalyzers\YieldStatementDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\LocalDeclarationStatementDiagnosticAnalyzer.cs" />
     <Compile Include="Refactorings\AddReturnStatementThatReturnsDefaultValueRefactoring.cs" />
-    <Compile Include="Refactorings\AddBreakStatementToSwitchSectionRefactoring.cs" />
     <Compile Include="CodeFixProviders\DocumentCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\ClassDeclarationCodeFixProvider.cs" />
     <Compile Include="DiagnosticAnalyzers\DestructorDeclarationDiagnosticAnalyzer.cs" />

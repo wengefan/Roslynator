@@ -46,6 +46,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CodeFixes\AddBracesToDeclarationOrLabeledStatementCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\AddBreakStatementToSwitchSectionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AddOverrideOrNewModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseListCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExtractDeclarationFromUsingStatementCodeFixProvider.cs" />

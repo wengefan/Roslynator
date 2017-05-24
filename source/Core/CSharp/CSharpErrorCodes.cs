@@ -11,6 +11,7 @@ namespace Roslynator.CSharp
         public const string MemberHidesInheritedMember = Prefix + "0114";
         public const string NotAllCodePathsReturnValue = Prefix + "0161";
         public const string UnreachableCodeDetected = Prefix + "0162";
+        public const string ControlCannotFallThroughFromOneCaseLabelToAnother = Prefix + "0163";
         public const string VariableIsDeclaredButNeverUsed = Prefix + "0168";
         public const string VariableIsAssignedButItsValueIsNeverUsed = Prefix + "0219";
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
@@ -26,5 +27,6 @@ namespace Roslynator.CSharp
         public const string CannotReturnValueFromIterator = Prefix + "1622";
         public const string TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable = Prefix + "1674";
         public const string BaseClassMustComeBeforeAnyInterface = Prefix + "1722";
+        public const string ControlCannotFallOutOfSwitchFromFinalCaseLabel = Prefix + "8070";
     }
 }

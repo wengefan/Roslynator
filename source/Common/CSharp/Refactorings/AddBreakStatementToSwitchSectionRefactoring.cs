@@ -25,8 +25,8 @@ namespace Roslynator.CSharp.Refactorings
                 {
                     switch (diagnostics[i].Id)
                     {
-                        case "CS0163":
-                        case "CS8070":
+                        case CSharpErrorCodes.ControlCannotFallThroughFromOneCaseLabelToAnother:
+                        case CSharpErrorCodes.ControlCannotFallOutOfSwitchFromFinalCaseLabel:
                             return true;
                     }
                 }
