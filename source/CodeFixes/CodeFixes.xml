@@ -77,4 +77,9 @@
       <Code>CS0507</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9015" Identifier="AddDocumentationComment" Title="Add documentation comment">
+    <FixableCodes>
+      <Code>CS1591</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>

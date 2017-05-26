@@ -18,13 +18,22 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CSharpErrorCodes.CannotChangeAccessModifiersWhenOverridingInheritedMember); }
+            get
+            {
+                return ImmutableArray.Create(
+                    CSharpErrorCodes.CannotChangeAccessModifiersWhenOverridingInheritedMember,
+                    CSharpErrorCodes.MissingXmlCommentForPubliclyVisibleTypeOrMember);
+            }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers))
+            if (!Settings.IsAnyCodeFixEnabled(
+                CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers,
+                CodeFixIdentifiers.AddDocumentationComment))
+            {
                 return;
+            }
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
@@ -43,18 +52,43 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case CSharpErrorCodes.CannotChangeAccessModifiersWhenOverridingInheritedMember:
                         {
-                            SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers))
+                            {
+                                SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                            OverrideInfo overrideInfo = OverridingMemberCannotChangeAccessModifiersRefactoring.GetOverrideInfo(memberDeclaration, semanticModel, context.CancellationToken);
+                                OverrideInfo overrideInfo = OverridingMemberCannotChangeAccessModifiersRefactoring.GetOverrideInfo(memberDeclaration, semanticModel, context.CancellationToken);
 
-                            string title = $"Change accessibility to '{overrideInfo.DeclaredAccessibilityText}'";
+                                string title = $"Change accessibility to '{overrideInfo.DeclaredAccessibilityText}'";
 
-                            CodeAction codeAction = CodeAction.Create(
-                                title,
-                                cancellationToken => OverridingMemberCannotChangeAccessModifiersRefactoring.RefactorAsync(context.Document, memberDeclaration, overrideInfo, cancellationToken),
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                CodeAction codeAction = CodeAction.Create(
+                                    title,
+                                    cancellationToken => OverridingMemberCannotChangeAccessModifiersRefactoring.RefactorAsync(context.Document, memberDeclaration, overrideInfo, cancellationToken),
+                                    diagnostic.Id + EquivalenceKeySuffix);
 
-                            context.RegisterCodeFix(codeAction, diagnostic);
+                                context.RegisterCodeFix(codeAction, diagnostic);
+                            }
+
+                            break;
+                        }
+                    case CSharpErrorCodes.MissingXmlCommentForPubliclyVisibleTypeOrMember:
+                        {
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddDocumentationComment))
+                            {
+                                CodeAction codeAction = CodeAction.Create(
+                               "Add documentation comment",
+                               cancellationToken => AddDocumentationCommentRefactoring.RefactorAsync(context.Document, memberDeclaration, false, cancellationToken),
+                               diagnostic.Id + EquivalenceKeySuffix);
+
+                                context.RegisterCodeFix(codeAction, diagnostic);
+
+                                CodeAction codeAction2 = CodeAction.Create(
+                                    "Add documentation comment (copy from base if available)",
+                                    cancellationToken => AddDocumentationCommentRefactoring.RefactorAsync(context.Document, memberDeclaration, true, cancellationToken),
+                                    diagnostic.Id + "CopyFromBaseIfAvailable" + EquivalenceKeySuffix);
+
+                                context.RegisterCodeFix(codeAction2, diagnostic);
+                            }
+
                             break;
                         }
                 }

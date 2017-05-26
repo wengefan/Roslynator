@@ -26,6 +26,8 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <CodeAnalysisRuleSet>..\CodeFixesTest.ruleset</CodeAnalysisRuleSet>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,6 +40,7 @@
   <ItemGroup>
     <Compile Include="AddBracesToDeclarationOrLabeledStatement.cs" />
     <Compile Include="AddBreakStatementToSwitchSection.cs" />
+    <Compile Include="AddDocumentationComment.cs" />
     <Compile Include="AddOverrideOrNewModifier.cs" />
     <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
