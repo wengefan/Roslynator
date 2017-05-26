@@ -50,13 +50,14 @@
     <Compile Include="CodeFixes\AddOverrideOrNewModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseListCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExtractDeclarationFromUsingStatementCodeFixProvider.cs" />
-    <Compile Include="CodeFixes\MarkOperatorAsPublicAndStatiCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\LabeledStatementCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\MarkOperatorAsPublicAndStaticCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateAttributeCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveNewModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ArgumentCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExpressionCodeFixProvider.cs" />
-    <Compile Include="CodeFixes\VariableDeclaratorCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\RemoveUnusedVariableCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseCodeFixProvider.cs" />
     <Compile Include="CodeFixIdentifiers.cs" />
     <Compile Include="CodeFixIdentifiers.Generated.cs" />

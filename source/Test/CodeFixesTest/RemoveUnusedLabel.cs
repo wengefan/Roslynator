@@ -4,22 +4,14 @@ using System;
 
 namespace Roslynator.CSharp.CodeFixes.Test
 {
-    internal static class RemoveUnusedVariable
+    internal static class RemoveUnusedLabel
     {
-        private static object Foo()
+        private static void Foo()
         {
             object x = null;
 
-            try
-            {
-            }
-            catch (Exception ex)
-            {
-            }
-
-            object x1 = null, x2 = null;
-
-            return x1;
+            Label:
+            Foo();
         }
     }
 }

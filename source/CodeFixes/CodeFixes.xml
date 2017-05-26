@@ -67,4 +67,9 @@
       <Code>CS0109</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9013" Identifier="RemoveUnusedLabel" Title="Remove unused label">
+    <FixableCodes>
+      <Code>CS0164</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>

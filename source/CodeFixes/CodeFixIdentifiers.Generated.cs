@@ -19,5 +19,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveDuplicateModifier = Prefix + "9010";
         public const string RemoveDuplicateAttribute = Prefix + "9011";
         public const string RemoveNewModifier = Prefix + "9012";
+        public const string RemoveUnusedLabel = Prefix + "9013";
     }
 }

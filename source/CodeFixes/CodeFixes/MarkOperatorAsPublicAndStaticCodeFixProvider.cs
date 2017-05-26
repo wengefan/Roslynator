@@ -13,9 +13,9 @@ using Roslynator.CSharp.Comparers;
 
 namespace Roslynator.CSharp.CodeFixes
 {
-    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(MarkOperatorAsPublicAndStatiCodeFixProvider))]
+    [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(MarkOperatorAsPublicAndStaticCodeFixProvider))]
     [Shared]
-    public class MarkOperatorAsPublicAndStatiCodeFixProvider : BaseCodeFixProvider
+    public class MarkOperatorAsPublicAndStaticCodeFixProvider : BaseCodeFixProvider
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
