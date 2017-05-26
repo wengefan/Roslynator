@@ -43,6 +43,7 @@
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />
     <Compile Include="MoveBaseClassBeforeAnyInterface.cs" />
+    <Compile Include="OverridingMethodCannotChangeAccessModifiers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AddOutModifierToArgument.cs" />
     <Compile Include="RemoveDuplicateAttribute.cs" />

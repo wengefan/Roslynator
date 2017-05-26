@@ -72,4 +72,9 @@
       <Code>CS0164</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9014" Identifier="OverridingMemberCannotChangeAccessModifiers" Title="Overriding member cannot change access modifiers">
+    <FixableCodes>
+      <Code>CS0507</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>
