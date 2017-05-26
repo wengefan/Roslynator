@@ -60,6 +60,7 @@
     <Compile Include="CodeFixes\ExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveUnusedVariableCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\StatementCodeFixProvider.cs" />
     <Compile Include="CodeFixIdentifiers.cs" />
     <Compile Include="CodeFixIdentifiers.Generated.cs" />
     <Compile Include="CodeFixIdentifierSet.cs" />

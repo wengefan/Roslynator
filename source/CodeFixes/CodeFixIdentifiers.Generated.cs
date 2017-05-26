@@ -22,5 +22,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveUnusedLabel = Prefix + "9013";
         public const string OverridingMemberCannotChangeAccessModifiers = Prefix + "9014";
         public const string AddDocumentationComment = Prefix + "9015";
+        public const string RemoveUnreachableCode = Prefix + "9016";
     }
 }

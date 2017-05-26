@@ -82,4 +82,9 @@
       <Code>CS1591</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9016" Identifier="Remove unreachable code" Title="Unreachable code detected">
+    <FixableCodes>
+      <Code>CS0162</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>

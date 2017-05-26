@@ -52,6 +52,7 @@
     <Compile Include="RemoveDuplicateAttribute.cs" />
     <Compile Include="RemoveNewModifier.cs" />
     <Compile Include="RemoveDuplicateModifier.cs" />
+    <Compile Include="RemoveUnreachableCode.cs" />
     <Compile Include="RemoveUnusedLabel.cs" />
     <Compile Include="RemoveUnusedVariable.cs" />
   </ItemGroup>
