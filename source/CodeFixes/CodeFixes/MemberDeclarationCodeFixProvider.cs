@@ -25,7 +25,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CSharpErrorCodes.CannotChangeAccessModifiersWhenOverridingInheritedMember,
                     CSharpErrorCodes.MissingXmlCommentForPubliclyVisibleTypeOrMember,
                     CSharpErrorCodes.MemberReturnTypeMustMatchOverriddenMemberReturnType,
-                    CSharpErrorCodes.MemberTypeMustMatchOverriddenMemberType);
+                    CSharpErrorCodes.MemberTypeMustMatchOverriddenMemberType,
+                    CSharpErrorCodes.NotAllCodePathsReturnValue);
             }
         }
 
@@ -35,7 +36,8 @@ namespace Roslynator.CSharp.CodeFixes
                 CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers,
                 CodeFixIdentifiers.AddDocumentationComment,
                 CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType,
-                CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType))
+                CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType,
+                CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue))
             {
                 return;
             }
@@ -168,6 +170,31 @@ namespace Roslynator.CSharp.CodeFixes
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }
 
+                            break;
+                        }
+                    case CSharpErrorCodes.NotAllCodePathsReturnValue:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue))
+                                break;
+
+                            Debug.Assert(memberDeclaration.IsKind(SyntaxKind.MethodDeclaration), memberDeclaration.Kind().ToString());
+
+                            if (!memberDeclaration.IsKind(SyntaxKind.MethodDeclaration))
+                                break;
+
+                            var methodDeclaration = (MethodDeclarationSyntax)memberDeclaration;
+
+                            SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
+
+                            if (!AddReturnStatementThatReturnsDefaultValueRefactoring.IsFixable(methodDeclaration, semanticModel, context.CancellationToken))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Add return statement that returns default value",
+                                cancellationToken => AddReturnStatementThatReturnsDefaultValueRefactoring.RefactorAsync(context.Document, methodDeclaration, cancellationToken),
+                                diagnostic.Id + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                 }

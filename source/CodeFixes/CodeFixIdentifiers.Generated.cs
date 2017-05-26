@@ -25,5 +25,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveUnreachableCode = Prefix + "9016";
         public const string MemberReturnTypeMustMatchOverriddenMemberReturnType = Prefix + "9017";
         public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "9018";
+        public const string AddReturnStatementThatReturnsDefaultValue = Prefix + "9019";
     }
 }

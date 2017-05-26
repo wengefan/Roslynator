@@ -87,10 +87,19 @@
       <Code>CS0162</Code>
     </FixableCodes>
   </CodeFix>
-  <CodeFix Id="RCS9017" Identifier="MemberTypeMustMatchOverriddenMember" Title="Member type must match overridden member type">
+  <CodeFix Id="RCS9017" Identifier="MemberReturnTypeMustMatchOverriddenMemberReturnType" Title="Member return type must match overridden member return type">
     <FixableCodes>
       <Code>CS0508</Code>
+    </FixableCodes>
+  </CodeFix>
+  <CodeFix Id="RCS9018" Identifier="MemberTypeMustMatchOverriddenMemberType" Title="Member type must match overridden member type">
+    <FixableCodes>
       <Code>CS1715</Code>
+    </FixableCodes>
+  </CodeFix>
+  <CodeFix Id="RCS9019" Identifier="AddReturnStatementThatReturnsDefaultValue" Title="Add return statement that returns default value">
+    <FixableCodes>
+      <Code>CS0161</Code>
     </FixableCodes>
   </CodeFix>
 </CodeFixes>

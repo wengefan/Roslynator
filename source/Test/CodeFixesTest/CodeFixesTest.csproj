@@ -42,6 +42,7 @@
     <Compile Include="AddBreakStatementToSwitchSection.cs" />
     <Compile Include="AddDocumentationComment.cs" />
     <Compile Include="AddOverrideOrNewModifier.cs" />
+    <Compile Include="AddReturnStatementThatReturnsDefaultValue.cs" />
     <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />

@@ -66,6 +66,7 @@
     <Compile Include="CodeFixIdentifierSet.cs" />
     <Compile Include="CodeFixSettings.cs" />
     <Compile Include="Refactorings\AddDocumentationCommentRefactoring.cs" />
+    <Compile Include="Refactorings\AddReturnStatementThatReturnsDefaultValueRefactoring.cs" />
     <Compile Include="Refactorings\CreateSingletonArrayRefactoring.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Refactorings\MemberTypeMustMatchOverriddenMemberTypeRefactoring.cs" />
