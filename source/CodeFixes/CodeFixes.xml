@@ -87,4 +87,10 @@
       <Code>CS0162</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9017" Identifier="MemberTypeMustMatchOverriddenMember" Title="Member type must match overridden member type">
+    <FixableCodes>
+      <Code>CS0508</Code>
+      <Code>CS1715</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>

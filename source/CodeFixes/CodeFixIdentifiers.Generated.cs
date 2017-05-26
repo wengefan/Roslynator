@@ -23,5 +23,7 @@ namespace Roslynator.CSharp.CodeFixes
         public const string OverridingMemberCannotChangeAccessModifiers = Prefix + "9014";
         public const string AddDocumentationComment = Prefix + "9015";
         public const string RemoveUnreachableCode = Prefix + "9016";
+        public const string MemberReturnTypeMustMatchOverriddenMemberReturnType = Prefix + "9017";
+        public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "9018";
     }
 }

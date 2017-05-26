@@ -45,6 +45,7 @@
     <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />
+    <Compile Include="MemberTypeMustMatchOverriddenMemberType.cs" />
     <Compile Include="MoveBaseClassBeforeAnyInterface.cs" />
     <Compile Include="OverridingMethodCannotChangeAccessModifiers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

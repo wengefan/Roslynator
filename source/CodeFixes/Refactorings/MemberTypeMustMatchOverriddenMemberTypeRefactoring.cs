@@ -6,87 +6,19 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.Diagnostics;
 
 namespace Roslynator.CSharp.Refactorings
 {
     internal static class MemberTypeMustMatchOverriddenMemberTypeRefactoring
     {
-        internal static void AnalyzeMethodDeclaration(SyntaxNodeAnalysisContext context)
-        {
-            var methodDeclaration = (MethodDeclarationSyntax)context.Node;
-
-            if (methodDeclaration.Modifiers.Contains(SyntaxKind.OverrideKeyword)
-                && ((IMethodSymbol)context.ContainingSymbol)?.OverriddenMethod != null)
-            {
-                Analyze(context, methodDeclaration.Identifier);
-            }
-        }
-
-        internal static void AnalyzePropertyDeclaration(SyntaxNodeAnalysisContext context)
-        {
-            var propertyDeclaration = (PropertyDeclarationSyntax)context.Node;
-
-            if (propertyDeclaration.Modifiers.Contains(SyntaxKind.OverrideKeyword)
-                && ((IPropertySymbol)context.ContainingSymbol)?.OverriddenProperty != null)
-            {
-                Analyze(context, propertyDeclaration.Identifier);
-            }
-        }
-
-        internal static void AnalyzeIndexerDeclaration(SyntaxNodeAnalysisContext context)
-        {
-            var indexerDeclaration = (IndexerDeclarationSyntax)context.Node;
-
-            if (indexerDeclaration.Modifiers.Contains(SyntaxKind.OverrideKeyword)
-                && ((IPropertySymbol)context.ContainingSymbol)?.OverriddenProperty != null)
-            {
-                Analyze(context, indexerDeclaration.ThisKeyword);
-            }
-        }
-
-        internal static void AnalyzeEventDeclaration(SyntaxNodeAnalysisContext context)
-        {
-            var eventDeclaration = (EventDeclarationSyntax)context.Node;
-
-            if (eventDeclaration.Modifiers.Contains(SyntaxKind.OverrideKeyword)
-                && ((IEventSymbol)context.ContainingSymbol)?.OverriddenEvent != null)
-            {
-                Analyze(context, eventDeclaration.Identifier);
-            }
-        }
-
-        internal static void AnalyzeEventFieldDeclaration(SyntaxNodeAnalysisContext context)
-        {
-            var eventFieldDeclaration = (EventFieldDeclarationSyntax)context.Node;
-
-            if (eventFieldDeclaration.Modifiers.Contains(SyntaxKind.OverrideKeyword)
-                && ((IEventSymbol)context.ContainingSymbol)?.OverriddenEvent != null)
-            {
-                VariableDeclaratorSyntax declarator = eventFieldDeclaration.Declaration?.Variables.FirstOrDefault();
-
-                if (declarator != null)
-                    Analyze(context, declarator.Identifier);
-            }
-        }
-
-        private static void Analyze(SyntaxNodeAnalysisContext context, SyntaxToken identifier)
-        {
-            if (context.SemanticModel.ContainsCompilerDiagnostic(CSharpErrorCodes.MemberReturnTypeMustMatchOverriddenMemberReturnType))
-            {
-                context.ReportDiagnostic(
-                    DiagnosticDescriptors.MemberTypeMustMatchOverriddenMemberType,
-                    identifier);
-            }
-        }
-
         public static async Task<Document> RefactorAsync(
             Document document,
             MemberDeclarationSyntax memberDeclaration,
-            TypeSyntax newType,
+            ITypeSymbol typeSymbol,
+            SemanticModel semanticModel,
             CancellationToken cancellationToken)
         {
-            SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
+            TypeSyntax newType = typeSymbol.ToMinimalTypeSyntax(semanticModel, memberDeclaration.SpanStart);
 
             switch (memberDeclaration.Kind())
             {
