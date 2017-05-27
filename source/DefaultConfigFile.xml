@@ -200,6 +200,14 @@
       <CodeFix Id="RCS9010" IsEnabled="true" /> <!-- RemoveDuplicateModifier (fixes CS1004) -->
       <CodeFix Id="RCS9011" IsEnabled="true" /> <!-- RemoveDuplicateAttribute (fixes CS0579) -->
       <CodeFix Id="RCS9012" IsEnabled="true" /> <!-- RemoveNewModifier (fixes CS0109) -->
+      <CodeFix Id="RCS9013" IsEnabled="true" /> <!-- RemoveUnusedLabel (fixes CS0164) -->
+      <CodeFix Id="RCS9014" IsEnabled="true" /> <!-- OverridingMemberCannotChangeAccessModifiers (fixes CS0507) -->
+      <CodeFix Id="RCS9015" IsEnabled="true" /> <!-- AddDocumentationComment (fixes CS1591) -->
+      <CodeFix Id="RCS9016" IsEnabled="true" /> <!-- Remove unreachable code (fixes CS0162) -->
+      <CodeFix Id="RCS9017" IsEnabled="true" /> <!-- MemberReturnTypeMustMatchOverriddenMemberReturnType (fixes CS0508) -->
+      <CodeFix Id="RCS9018" IsEnabled="true" /> <!-- MemberTypeMustMatchOverriddenMemberType (fixes CS1715) -->
+      <CodeFix Id="RCS9019" IsEnabled="true" /> <!-- AddReturnStatementThatReturnsDefaultValue (fixes CS0161) -->
+      <CodeFix Id="RCS9020" IsEnabled="true" /> <!-- UseYieldReturnInsteadOfReturn (fixes CS0029, CS1622) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

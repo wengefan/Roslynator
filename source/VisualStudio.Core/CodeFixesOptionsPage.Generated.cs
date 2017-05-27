@@ -30,6 +30,14 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveDuplicateModifier, "Remove duplicate modifier (fixes CS1004)", IsEnabled(CodeFixIdentifiers.RemoveDuplicateModifier)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveDuplicateAttribute, "Remove duplicate attribute (fixes CS0579)", IsEnabled(CodeFixIdentifiers.RemoveDuplicateAttribute)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveNewModifier, "Remove new modifier (fixes CS0109)", IsEnabled(CodeFixIdentifiers.RemoveNewModifier)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveUnusedLabel, "Remove unused label (fixes CS0164)", IsEnabled(CodeFixIdentifiers.RemoveUnusedLabel)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers, "Overriding member cannot change access modifiers (fixes CS0507)", IsEnabled(CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddDocumentationComment, "Add documentation comment (fixes CS1591)", IsEnabled(CodeFixIdentifiers.AddDocumentationComment)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.Remove unreachable code, "Unreachable code detected (fixes CS0162)", IsEnabled(CodeFixIdentifiers.Remove unreachable code)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType, "Member return type must match overridden member return type (fixes CS0508)", IsEnabled(CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType, "Member type must match overridden member type (fixes CS1715)", IsEnabled(CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue, "Add return statement that returns default value (fixes CS0161)", IsEnabled(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.UseYieldReturnInsteadOfReturn, "Use yield return instead of return (fixes CS0029, CS1622)", IsEnabled(CodeFixIdentifiers.UseYieldReturnInsteadOfReturn)));
         }
     }
 }
