@@ -102,4 +102,10 @@
       <Code>CS0161</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9020" Identifier="UseYieldReturnInsteadOfReturn" Title="Use yield return instead of return">
+    <FixableCodes>
+      <Code>CS0029</Code>
+      <Code>CS1622</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>

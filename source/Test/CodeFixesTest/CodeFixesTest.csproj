@@ -57,6 +57,7 @@
     <Compile Include="RemoveUnreachableCode.cs" />
     <Compile Include="RemoveUnusedLabel.cs" />
     <Compile Include="RemoveUnusedVariable.cs" />
+    <Compile Include="UseYieldReturnInsteadOfReturn.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

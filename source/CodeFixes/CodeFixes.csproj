@@ -60,6 +60,7 @@
     <Compile Include="CodeFixes\ExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveUnusedVariableCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\ReturnStatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\StatementCodeFixProvider.cs" />
     <Compile Include="CodeFixIdentifiers.cs" />
     <Compile Include="CodeFixIdentifiers.Generated.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="Refactorings\MemberTypeMustMatchOverriddenMemberTypeRefactoring.cs" />
     <Compile Include="Refactorings\OverrideInfo.cs" />
     <Compile Include="Refactorings\OverridingMemberCannotChangeAccessModifiersRefactoring.cs" />
+    <Compile Include="Refactorings\UseYieldReturnInsteadOfReturnRefactoring.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
