@@ -1,116 +1,116 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <CodeFixes>
   <CodeFix Id="RCS9000" Identifier="RemoveUnusedVariable" Title="Remove unused variable">
-    <FixableCodes>
-      <Code>CS0168</Code>
-      <Code>CS0219</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0168</Id>
+      <Id>CS0219</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9001" Identifier="AddBreakStatementToSwitchSection" Title="Add break statement to switch section">
-    <FixableCodes>
-      <Code>CS0163</Code>
-      <Code>CS8070</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0163</Id>
+      <Id>CS8070</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9002" Identifier="CreateSingletonArray" Title="Create singleton array">
-    <FixableCodes>
-      <Code>CS0266</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0266</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9003" Identifier="AddOutModifierToArgument" Title="Add 'out' modifier to argument">
-    <FixableCodes>
-      <Code>CS1620</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS1620</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9004" Identifier="MoveBaseClassBeforeAnyInterface" Title="Base base class before any interface">
-    <FixableCodes>
-      <Code>CS1722</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS1722</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9005" Identifier="AddOverrideModifier" Title="Add 'override' modifier">
-    <FixableCodes>
-      <Code>CS0114</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0114</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9006" Identifier="AddNewModifier" Title="Add 'new' modifier">
-    <FixableCodes>
-      <Code>CS0114</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0114</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9007" Identifier="ExtractDeclarationFromUsingStatement" Title="Extract declaration from using statement">
-    <FixableCodes>
-      <Code>CS1674</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS1674</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9008" Identifier="AddBracesToDeclarationOrLabeledStatement" Title="Add braces to declaration or labeled statement">
-    <FixableCodes>
-      <Code>CS1023</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS1023</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9009" Identifier="MarkOperatorAsPublicAndStatic" Title="Mark operator as 'public' and 'static'">
-    <FixableCodes>
-      <Code>CS0558</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0558</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9010" Identifier="RemoveDuplicateModifier" Title="Remove duplicate modifier">
-    <FixableCodes>
-      <Code>CS1004</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS1004</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9011" Identifier="RemoveDuplicateAttribute" Title="Remove duplicate attribute">
-    <FixableCodes>
-      <Code>CS0579</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0579</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9012" Identifier="RemoveNewModifier" Title="Remove new modifier">
-    <FixableCodes>
-      <Code>CS0109</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0109</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9013" Identifier="RemoveUnusedLabel" Title="Remove unused label">
-    <FixableCodes>
-      <Code>CS0164</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0164</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9014" Identifier="OverridingMemberCannotChangeAccessModifiers" Title="Overriding member cannot change access modifiers">
-    <FixableCodes>
-      <Code>CS0507</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0507</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9015" Identifier="AddDocumentationComment" Title="Add documentation comment">
-    <FixableCodes>
-      <Code>CS1591</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS1591</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
-  <CodeFix Id="RCS9016" Identifier="RemovUnreachableCode" Title="Unreachable code detected">
-    <FixableCodes>
-      <Code>CS0162</Code>
-    </FixableCodes>
+  <CodeFix Id="RCS9016" Identifier="RemoveUnreachableCode" Title="Unreachable code detected">
+    <FixableDiagnosticIds>
+      <Id>CS0162</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9017" Identifier="MemberReturnTypeMustMatchOverriddenMemberReturnType" Title="Member return type must match overridden member return type">
-    <FixableCodes>
-      <Code>CS0508</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0508</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9018" Identifier="MemberTypeMustMatchOverriddenMemberType" Title="Member type must match overridden member type">
-    <FixableCodes>
-      <Code>CS1715</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS1715</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9019" Identifier="AddReturnStatementThatReturnsDefaultValue" Title="Add return statement that returns default value">
-    <FixableCodes>
-      <Code>CS0161</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0161</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9020" Identifier="UseYieldReturnInsteadOfReturn" Title="Use yield return instead of return">
-    <FixableCodes>
-      <Code>CS0029</Code>
-      <Code>CS1622</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0029</Id>
+      <Id>CS1622</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9021" Identifier="ReplaceStringLiteralWithCharacterLiteral" Title="Replace string literal with character literal">
-    <FixableCodes>
-      <Code>CS0029</Code>
-    </FixableCodes>
+    <FixableDiagnosticIds>
+      <Id>CS0029</Id>
+    </FixableDiagnosticIds>
   </CodeFix>
 </CodeFixes>

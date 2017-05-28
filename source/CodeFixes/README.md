@@ -21,5 +21,6 @@ RCS9010|Remove duplicate modifier|CS1004|x
 RCS9012|Remove new modifier|CS0109|x
 RCS9013|Remove unused label|CS0164|x
 RCS9000|Remove unused variable|CS0168, CS0219|x
+RCS9021|Replace string literal with character literal|CS0029|x
 RCS9016|Unreachable code detected|CS0162|x
 RCS9020|Use yield return instead of return|CS0029, CS1622|x

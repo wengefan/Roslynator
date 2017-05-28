@@ -14,13 +14,13 @@ namespace Roslynator.Metadata
             string identifier,
             string title,
             bool isEnabledByDefault,
-            IList<string> fixableCodes)
+            IList<string> fixableDiagnosticIds)
         {
             Id = id;
             Identifier = identifier;
             Title = title;
             IsEnabledByDefault = isEnabledByDefault;
-            FixableCodes = new ReadOnlyCollection<string>(fixableCodes);
+            FixableDiagnosticIds = new ReadOnlyCollection<string>(fixableDiagnosticIds);
         }
 
         public static IEnumerable<CodeFixDescriptor> LoadFromFile(string filePath)
@@ -36,8 +36,8 @@ namespace Roslynator.Metadata
                     (element.Attribute("IsEnabledByDefault") != null)
                         ? bool.Parse(element.Attribute("IsEnabledByDefault").Value)
                         : true,
-                    element.Element("FixableCodes")
-                        .Elements("Code")
+                    element.Element("FixableDiagnosticIds")
+                        .Elements("Id")
                         .Select(f => f.Value)
                         .ToList());
             }
@@ -51,6 +51,6 @@ namespace Roslynator.Metadata
 
         public bool IsEnabledByDefault { get; }
 
-        public ReadOnlyCollection<string> FixableCodes { get; }
+        public ReadOnlyCollection<string> FixableDiagnosticIds { get; }
     }
 }

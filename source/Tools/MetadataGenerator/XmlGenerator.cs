@@ -44,7 +44,7 @@ namespace MetadataGenerator
                                         new XElement("CodeFix",
                                         new XAttribute("Id", f.Id),
                                         new XAttribute("IsEnabled", f.IsEnabledByDefault)),
-                                        new XComment($" {f.Identifier} (fixes {string.Join(", ", f.FixableCodes)}) ")
+                                        new XComment($" {f.Identifier} (fixes {string.Join(", ", f.FixableDiagnosticIds)}) ")
                                     };
                                 })
                         )

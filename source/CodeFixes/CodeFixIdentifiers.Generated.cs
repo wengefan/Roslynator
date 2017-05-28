@@ -27,6 +27,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "9018";
         public const string AddReturnStatementThatReturnsDefaultValue = Prefix + "9019";
         public const string UseYieldReturnInsteadOfReturn = Prefix + "9020";
-        public const string ReplaceStringLiteralWithCharacterLiteral =  Prefix + "9021";
+        public const string ReplaceStringLiteralWithCharacterLiteral = Prefix + "9021";
     }
 }

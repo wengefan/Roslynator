@@ -186,7 +186,7 @@ namespace MetadataGenerator
                     sw.Write('|');
                     sw.Write(descriptor.Title.TrimEnd('.').EscapeMarkdown());
                     sw.Write('|');
-                    sw.Write(string.Join(", ", descriptor.FixableCodes));
+                    sw.Write(string.Join(", ", descriptor.FixableDiagnosticIds));
                     sw.Write('|');
                     sw.Write((descriptor.IsEnabledByDefault) ? "x" : "");
                     sw.WriteLine();

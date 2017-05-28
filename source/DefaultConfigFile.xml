@@ -203,11 +203,12 @@
       <CodeFix Id="RCS9013" IsEnabled="true" /> <!-- RemoveUnusedLabel (fixes CS0164) -->
       <CodeFix Id="RCS9014" IsEnabled="true" /> <!-- OverridingMemberCannotChangeAccessModifiers (fixes CS0507) -->
       <CodeFix Id="RCS9015" IsEnabled="true" /> <!-- AddDocumentationComment (fixes CS1591) -->
-      <CodeFix Id="RCS9016" IsEnabled="true" /> <!-- Remove unreachable code (fixes CS0162) -->
+      <CodeFix Id="RCS9016" IsEnabled="true" /> <!-- RemoveUnreachableCode (fixes CS0162) -->
       <CodeFix Id="RCS9017" IsEnabled="true" /> <!-- MemberReturnTypeMustMatchOverriddenMemberReturnType (fixes CS0508) -->
       <CodeFix Id="RCS9018" IsEnabled="true" /> <!-- MemberTypeMustMatchOverriddenMemberType (fixes CS1715) -->
       <CodeFix Id="RCS9019" IsEnabled="true" /> <!-- AddReturnStatementThatReturnsDefaultValue (fixes CS0161) -->
       <CodeFix Id="RCS9020" IsEnabled="true" /> <!-- UseYieldReturnInsteadOfReturn (fixes CS0029, CS1622) -->
+      <CodeFix Id="RCS9021" IsEnabled="true" /> <!-- ReplaceStringLiteralWithCharacterLiteral (fixes CS0029) -->
     </CodeFixes>
   </Settings>
 </Roslynator>
