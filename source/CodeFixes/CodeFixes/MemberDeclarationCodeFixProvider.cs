@@ -71,7 +71,7 @@ namespace Roslynator.CSharp.CodeFixes
                             CodeAction codeAction = CodeAction.Create(
                                 title,
                                 cancellationToken => OverridingMemberCannotChangeAccessModifiersRefactoring.RefactorAsync(context.Document, memberDeclaration, overrideInfo, cancellationToken),
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -84,14 +84,14 @@ namespace Roslynator.CSharp.CodeFixes
                             CodeAction codeAction = CodeAction.Create(
                            "Add documentation comment",
                            cancellationToken => AddDocumentationCommentRefactoring.RefactorAsync(context.Document, memberDeclaration, false, cancellationToken),
-                           diagnostic.Id + EquivalenceKeySuffix);
+                           CodeFixIdentifiers.AddDocumentationComment + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
 
                             CodeAction codeAction2 = CodeAction.Create(
                                 "Add documentation comment (copy from base if available)",
                                 cancellationToken => AddDocumentationCommentRefactoring.RefactorAsync(context.Document, memberDeclaration, true, cancellationToken),
-                                diagnostic.Id + "CopyFromBaseIfAvailable" + EquivalenceKeySuffix);
+                                CodeFixIdentifiers.AddDocumentationComment + "CopyFromBaseIfAvailable" + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction2, diagnostic);
                             break;
@@ -114,7 +114,7 @@ namespace Roslynator.CSharp.CodeFixes
                                 CodeAction codeAction = CodeAction.Create(
                                     $"Change return type to '{SymbolDisplay.GetMinimalString(typeSymbol, semanticModel, memberDeclaration.SpanStart)}'",
                                     cancellationToken => MemberTypeMustMatchOverriddenMemberTypeRefactoring.RefactorAsync(context.Document, memberDeclaration, typeSymbol, semanticModel, cancellationToken),
-                                    diagnostic.Id + EquivalenceKeySuffix);
+                                    CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType + EquivalenceKeySuffix);
 
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }
@@ -165,7 +165,7 @@ namespace Roslynator.CSharp.CodeFixes
                                 CodeAction codeAction = CodeAction.Create(
                                     title,
                                     cancellationToken => MemberTypeMustMatchOverriddenMemberTypeRefactoring.RefactorAsync(context.Document, memberDeclaration, typeSymbol, semanticModel, cancellationToken),
-                                    diagnostic.Id + EquivalenceKeySuffix);
+                                    CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType + EquivalenceKeySuffix);
 
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }
@@ -192,7 +192,7 @@ namespace Roslynator.CSharp.CodeFixes
                             CodeAction codeAction = CodeAction.Create(
                                 "Add return statement that returns default value",
                                 cancellationToken => AddReturnStatementThatReturnsDefaultValueRefactoring.RefactorAsync(context.Document, methodDeclaration, cancellationToken),
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;

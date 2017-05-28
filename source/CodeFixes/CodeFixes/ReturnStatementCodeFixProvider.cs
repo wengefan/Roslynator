@@ -19,12 +19,7 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get
-            {
-                return ImmutableArray.Create(
-                    CSharpErrorCodes.CannotImplicitlyConvertType,
-                    CSharpErrorCodes.CannotReturnValueFromIterator);
-            }
+            get { return ImmutableArray.Create(CSharpErrorCodes.CannotReturnValueFromIterator); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -101,30 +96,11 @@ namespace Roslynator.CSharp.CodeFixes
                                         CodeAction codeAction = CodeAction.Create(
                                             "Use yield return instead of return",
                                             cancellationToken => UseYieldReturnInsteadOfReturnRefactoring.RefactorAsync(context.Document, returnStatement, replacementKind, semanticModel, cancellationToken),
-                                            diagnostic.Id + EquivalenceKeySuffix);
+                                            CodeFixIdentifiers.UseYieldReturnInsteadOfReturn + EquivalenceKeySuffix);
 
                                         context.RegisterCodeFix(codeAction, diagnostic);
                                     }
                                 }
-                            }
-
-                            break;
-                        }
-                    case CSharpErrorCodes.CannotImplicitlyConvertType:
-                        {
-                            SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
-
-                            ISymbol containingSymbol = semanticModel.GetEnclosingSymbol(returnStatement.SpanStart, context.CancellationToken);
-
-                            if (containingSymbol?.IsKind(SymbolKind.Method) == true
-                                && ((IMethodSymbol)containingSymbol).ReturnType?.IsIEnumerableOrConstructedFromIEnumerableOfT() == true)
-                            {
-                                CodeAction codeAction = CodeAction.Create(
-                                    "Use yield return instead of return",
-                                    cancellationToken => UseYieldReturnInsteadOfReturnRefactoring.RefactorAsync(context.Document, returnStatement, SyntaxKind.YieldReturnStatement, semanticModel, cancellationToken),
-                                    diagnostic.Id + EquivalenceKeySuffix);
-
-                                context.RegisterCodeFix(codeAction, diagnostic);
                             }
 
                             break;

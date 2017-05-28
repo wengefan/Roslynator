@@ -51,6 +51,7 @@
     <Compile Include="CodeFixes\BaseListCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExtractDeclarationFromUsingStatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\LabeledStatementCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\CannotImplicitlyConvertTypeCodeFixProvider.cs" />
     <Compile Include="CodeFixes\MarkOperatorAsPublicAndStaticCodeFixProvider.cs" />
     <Compile Include="CodeFixes\MemberDeclarationCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateAttributeCodeFixProvider.cs" />
@@ -73,6 +74,7 @@
     <Compile Include="Refactorings\MemberTypeMustMatchOverriddenMemberTypeRefactoring.cs" />
     <Compile Include="Refactorings\OverrideInfo.cs" />
     <Compile Include="Refactorings\OverridingMemberCannotChangeAccessModifiersRefactoring.cs" />
+    <Compile Include="Refactorings\ReplaceStringLiteralWithCharacterLiteralRefactoring.cs" />
     <Compile Include="Refactorings\UseYieldReturnInsteadOfReturnRefactoring.cs" />
   </ItemGroup>
   <ItemGroup>

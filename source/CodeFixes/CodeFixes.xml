@@ -108,4 +108,9 @@
       <Code>CS1622</Code>
     </FixableCodes>
   </CodeFix>
+  <CodeFix Id="RCS9021" Identifier="ReplaceStringLiteralWithCharacterLiteral" Title="Replace string literal with character literal">
+    <FixableCodes>
+      <Code>CS0029</Code>
+    </FixableCodes>
+  </CodeFix>
 </CodeFixes>
