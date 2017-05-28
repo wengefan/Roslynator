@@ -18,7 +18,7 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CSharpErrorCodes.BaseClassMustComeBeforeAnyInterface); }
+            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.BaseClassMustComeBeforeAnyInterface); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -44,7 +44,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.BaseClassMustComeBeforeAnyInterface:
+                    case CompilerDiagnosticIdentifiers.BaseClassMustComeBeforeAnyInterface:
                         {
                             SeparatedSyntaxList<BaseTypeSyntax> types = baseList.Types;
 

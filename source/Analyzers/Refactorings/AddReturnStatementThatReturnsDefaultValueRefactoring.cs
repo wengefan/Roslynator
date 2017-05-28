@@ -23,7 +23,7 @@ namespace Roslynator.CSharp.Refactorings
                     return typeSymbol?.IsErrorType() == false
                         && !typeSymbol.IsIEnumerableOrConstructedFromIEnumerableOfT()
                         && !typeSymbol.IsVoid()
-                        && semanticModel.ContainsCompilerDiagnostic(CSharpErrorCodes.NotAllCodePathsReturnValue, methodDeclaration.Identifier.Span, cancellationToken);
+                        && semanticModel.ContainsCompilerDiagnostic(CompilerDiagnosticIdentifiers.NotAllCodePathsReturnValue, methodDeclaration.Identifier.Span, cancellationToken);
                 }
             }
 

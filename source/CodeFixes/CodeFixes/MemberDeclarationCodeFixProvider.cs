@@ -22,11 +22,11 @@ namespace Roslynator.CSharp.CodeFixes
             get
             {
                 return ImmutableArray.Create(
-                    CSharpErrorCodes.CannotChangeAccessModifiersWhenOverridingInheritedMember,
-                    CSharpErrorCodes.MissingXmlCommentForPubliclyVisibleTypeOrMember,
-                    CSharpErrorCodes.MemberReturnTypeMustMatchOverriddenMemberReturnType,
-                    CSharpErrorCodes.MemberTypeMustMatchOverriddenMemberType,
-                    CSharpErrorCodes.NotAllCodePathsReturnValue);
+                    CompilerDiagnosticIdentifiers.CannotChangeAccessModifiersWhenOverridingInheritedMember,
+                    CompilerDiagnosticIdentifiers.MissingXmlCommentForPubliclyVisibleTypeOrMember,
+                    CompilerDiagnosticIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType,
+                    CompilerDiagnosticIdentifiers.MemberTypeMustMatchOverriddenMemberType,
+                    CompilerDiagnosticIdentifiers.NotAllCodePathsReturnValue);
             }
         }
 
@@ -57,7 +57,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.CannotChangeAccessModifiersWhenOverridingInheritedMember:
+                    case CompilerDiagnosticIdentifiers.CannotChangeAccessModifiersWhenOverridingInheritedMember:
                         {
                             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers))
                                 break;
@@ -76,7 +76,7 @@ namespace Roslynator.CSharp.CodeFixes
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
-                    case CSharpErrorCodes.MissingXmlCommentForPubliclyVisibleTypeOrMember:
+                    case CompilerDiagnosticIdentifiers.MissingXmlCommentForPubliclyVisibleTypeOrMember:
                         {
                             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddDocumentationComment))
                                 break;
@@ -96,7 +96,7 @@ namespace Roslynator.CSharp.CodeFixes
                             context.RegisterCodeFix(codeAction2, diagnostic);
                             break;
                         }
-                    case CSharpErrorCodes.MemberReturnTypeMustMatchOverriddenMemberReturnType:
+                    case CompilerDiagnosticIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType:
                         {
                             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType))
                                 break;
@@ -121,7 +121,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                             break;
                         }
-                    case CSharpErrorCodes.MemberTypeMustMatchOverriddenMemberType:
+                    case CompilerDiagnosticIdentifiers.MemberTypeMustMatchOverriddenMemberType:
                         {
                             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType))
                                 break;
@@ -172,7 +172,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                             break;
                         }
-                    case CSharpErrorCodes.NotAllCodePathsReturnValue:
+                    case CompilerDiagnosticIdentifiers.NotAllCodePathsReturnValue:
                         {
                             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue))
                                 break;

@@ -19,7 +19,7 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CSharpErrorCodes.MemberHidesInheritedMember); }
+            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.MemberHidesInheritedMember); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -46,7 +46,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.MemberHidesInheritedMember:
+                    case CompilerDiagnosticIdentifiers.MemberHidesInheritedMember:
                         {
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddOverrideModifier))
                             {

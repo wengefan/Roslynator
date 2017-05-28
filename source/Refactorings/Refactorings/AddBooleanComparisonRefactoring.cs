@@ -18,7 +18,7 @@ namespace Roslynator.CSharp.Refactorings
 
             foreach (Diagnostic diagnostic in semanticModel.GetDiagnostics(expression.Span, context.CancellationToken))
             {
-                if (diagnostic.Id == CSharpErrorCodes.CannotImplicitlyConvertTypeExplicitConversionExists
+                if (diagnostic.Id == CompilerDiagnosticIdentifiers.CannotImplicitlyConvertTypeExplicitConversionExists
                     && diagnostic.IsCompilerDiagnostic())
                 {
                     if (context.Span.IsEmpty || diagnostic.Location.SourceSpan == expression.Span)
@@ -39,7 +39,7 @@ namespace Roslynator.CSharp.Refactorings
                         }
                     }
                 }
-                else if (diagnostic.Id == CSharpErrorCodes.OperatorCannotBeAppliedToOperands
+                else if (diagnostic.Id == CompilerDiagnosticIdentifiers.OperatorCannotBeAppliedToOperands
                     && diagnostic.IsCompilerDiagnostic())
                 {
                     if (context.Span.IsEmpty || diagnostic.Location.SourceSpan == expression.Span)

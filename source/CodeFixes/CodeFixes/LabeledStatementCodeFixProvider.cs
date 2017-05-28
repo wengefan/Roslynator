@@ -17,7 +17,7 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CSharpErrorCodes.LabelHasNotBeenReferenced); }
+            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.LabelHasNotBeenReferenced); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -40,7 +40,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.LabelHasNotBeenReferenced:
+                    case CompilerDiagnosticIdentifiers.LabelHasNotBeenReferenced:
                         {
                             CodeAction codeAction = CodeAction.Create(
                                 "Remove unused label",

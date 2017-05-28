@@ -107,7 +107,7 @@ namespace Roslynator.CSharp.Refactorings
 
         private static bool CanRefactor(TextSpan span, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
-            return semanticModel.ContainsCompilerDiagnostic(CSharpErrorCodes.MissingXmlCommentForPubliclyVisibleTypeOrMember, span, cancellationToken);
+            return semanticModel.ContainsCompilerDiagnostic(CompilerDiagnosticIdentifiers.MissingXmlCommentForPubliclyVisibleTypeOrMember, span, cancellationToken);
         }
 
         public static async Task<Document> RefactorAsync(

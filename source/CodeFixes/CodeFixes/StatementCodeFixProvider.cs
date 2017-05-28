@@ -18,7 +18,7 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CSharpErrorCodes.UnreachableCodeDetected); }
+            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.UnreachableCodeDetected); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -41,7 +41,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.UnreachableCodeDetected:
+                    case CompilerDiagnosticIdentifiers.UnreachableCodeDetected:
                         {
                             if (context.Span.Start == statement.SpanStart)
                             {

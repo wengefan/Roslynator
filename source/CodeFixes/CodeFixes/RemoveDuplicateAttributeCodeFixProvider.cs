@@ -18,7 +18,7 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CSharpErrorCodes.DuplicateAttribute); }
+            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.DuplicateAttribute); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -41,7 +41,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.DuplicateAttribute:
+                    case CompilerDiagnosticIdentifiers.DuplicateAttribute:
                         {
                             SyntaxNode parent = attribute.Parent;
 

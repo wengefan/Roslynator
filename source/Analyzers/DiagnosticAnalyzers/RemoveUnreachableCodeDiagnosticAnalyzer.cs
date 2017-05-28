@@ -37,7 +37,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                 node = node.Parent;
 
             if (node?.IsKind(SyntaxKind.SwitchSection) == true
-                && context.SemanticModel.ContainsCompilerDiagnostic(CSharpErrorCodes.UnreachableCodeDetected, breakStatement.Span, context.CancellationToken))
+                && context.SemanticModel.ContainsCompilerDiagnostic(CompilerDiagnosticIdentifiers.UnreachableCodeDetected, breakStatement.Span, context.CancellationToken))
             {
                 context.ReportDiagnostic(DiagnosticDescriptors.RemoveUnreachableCode, breakStatement);
             }

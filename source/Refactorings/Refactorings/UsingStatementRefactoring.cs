@@ -21,7 +21,7 @@ namespace Roslynator.CSharp.Refactorings
 
                     if (StatementContainer.CanCreate(usingStatement)
                         && semanticModel.ContainsCompilerDiagnostic(
-                            CSharpErrorCodes.TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable,
+                            CompilerDiagnosticIdentifiers.TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable,
                             declaration.Span,
                             context.CancellationToken))
                     {

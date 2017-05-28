@@ -19,7 +19,7 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CSharpErrorCodes.CannotReturnValueFromIterator); }
+            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.CannotReturnValueFromIterator); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -42,7 +42,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.CannotReturnValueFromIterator:
+                    case CompilerDiagnosticIdentifiers.CannotReturnValueFromIterator:
                         {
                             ExpressionSyntax expression = returnStatement.Expression;
 

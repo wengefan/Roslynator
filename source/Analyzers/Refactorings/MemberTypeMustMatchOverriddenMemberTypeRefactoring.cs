@@ -72,7 +72,7 @@ namespace Roslynator.CSharp.Refactorings
 
         private static void Analyze(SyntaxNodeAnalysisContext context, SyntaxToken identifier)
         {
-            if (context.SemanticModel.ContainsCompilerDiagnostic(CSharpErrorCodes.MemberReturnTypeMustMatchOverriddenMemberReturnType))
+            if (context.SemanticModel.ContainsCompilerDiagnostic(CompilerDiagnosticIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType))
             {
                 context.ReportDiagnostic(
                     DiagnosticDescriptors.MemberTypeMustMatchOverriddenMemberType,

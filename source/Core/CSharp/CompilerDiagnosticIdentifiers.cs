@@ -2,7 +2,7 @@
 
 namespace Roslynator.CSharp
 {
-    internal static class CSharpErrorCodes
+    internal static class CompilerDiagnosticIdentifiers
     {
         public const string Prefix = "CS";
         public const string OperatorCannotBeAppliedToOperands = Prefix + "0019";

@@ -21,8 +21,8 @@ namespace Roslynator.CSharp.CodeFixes
             get
             {
                 return ImmutableArray.Create(
-                    CSharpErrorCodes.ControlCannotFallThroughFromOneCaseLabelToAnother,
-                    CSharpErrorCodes.ControlCannotFallOutOfSwitchFromFinalCaseLabel);
+                    CompilerDiagnosticIdentifiers.ControlCannotFallThroughFromOneCaseLabelToAnother,
+                    CompilerDiagnosticIdentifiers.ControlCannotFallOutOfSwitchFromFinalCaseLabel);
             }
         }
 
@@ -46,8 +46,8 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.ControlCannotFallThroughFromOneCaseLabelToAnother:
-                    case CSharpErrorCodes.ControlCannotFallOutOfSwitchFromFinalCaseLabel:
+                    case CompilerDiagnosticIdentifiers.ControlCannotFallThroughFromOneCaseLabelToAnother:
+                    case CompilerDiagnosticIdentifiers.ControlCannotFallOutOfSwitchFromFinalCaseLabel:
                         {
                             CodeAction codeAction = CodeAction.Create(
                                 "Add break statement",

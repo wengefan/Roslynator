@@ -21,8 +21,8 @@ namespace Roslynator.CSharp.CodeFixes
             get
             {
                 return ImmutableArray.Create(
-                    CSharpErrorCodes.ArgumentMustBePassedWithOutKeyword,
-                    CSharpErrorCodes.CannotConvertArgumentType);
+                    CompilerDiagnosticIdentifiers.ArgumentMustBePassedWithOutKeyword,
+                    CompilerDiagnosticIdentifiers.CannotConvertArgumentType);
             }
         }
 
@@ -50,7 +50,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.ArgumentMustBePassedWithOutKeyword:
+                    case CompilerDiagnosticIdentifiers.ArgumentMustBePassedWithOutKeyword:
                         {
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddOutModifierToArgument))
                             {
@@ -71,7 +71,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                             break;
                         }
-                    case CSharpErrorCodes.CannotConvertArgumentType:
+                    case CompilerDiagnosticIdentifiers.CannotConvertArgumentType:
                         {
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.CreateSingletonArray))
                             {

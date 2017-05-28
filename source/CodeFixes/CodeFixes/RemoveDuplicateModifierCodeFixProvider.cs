@@ -17,7 +17,7 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CSharpErrorCodes.DuplicateModifier); }
+            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.DuplicateModifier); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -38,7 +38,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.DuplicateModifier:
+                    case CompilerDiagnosticIdentifiers.DuplicateModifier:
                         {
                             CodeAction codeAction = CodeAction.Create(
                                 $"Remove '{token}' modifier",

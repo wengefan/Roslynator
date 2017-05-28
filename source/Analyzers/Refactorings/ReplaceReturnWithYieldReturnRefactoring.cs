@@ -59,11 +59,11 @@ namespace Roslynator.CSharp.Refactorings
             SyntaxToken returnKeyword = returnStatement.ReturnKeyword;
             ExpressionSyntax expression = returnStatement.Expression;
 
-            if (semanticModel.ContainsCompilerDiagnostic(CSharpErrorCodes.CannotImplicitlyConvertType, expression.Span, cancellationToken))
+            if (semanticModel.ContainsCompilerDiagnostic(CompilerDiagnosticIdentifiers.CannotImplicitlyConvertType, expression.Span, cancellationToken))
             {
                 return SyntaxKind.YieldReturnStatement;
             }
-            else if (semanticModel.ContainsCompilerDiagnostic(CSharpErrorCodes.CannotReturnValueFromIterator, returnKeyword.Span, cancellationToken))
+            else if (semanticModel.ContainsCompilerDiagnostic(CompilerDiagnosticIdentifiers.CannotReturnValueFromIterator, returnKeyword.Span, cancellationToken))
             {
                 ITypeSymbol typeSymbol = semanticModel.GetTypeSymbol(expression, cancellationToken);
 

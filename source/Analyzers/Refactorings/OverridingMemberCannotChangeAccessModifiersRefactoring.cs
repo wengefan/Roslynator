@@ -112,7 +112,7 @@ namespace Roslynator.CSharp.Refactorings
         private static bool ContainsDiagnostic(SyntaxToken identifier, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
             return semanticModel.ContainsCompilerDiagnostic(
-                CSharpErrorCodes.CannotChangeAccessModifiersWhenOverridingInheritedMember,
+                CompilerDiagnosticIdentifiers.CannotChangeAccessModifiersWhenOverridingInheritedMember,
                 identifier.Span,
                 cancellationToken);
         }

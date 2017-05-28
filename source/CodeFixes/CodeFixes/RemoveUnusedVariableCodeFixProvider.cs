@@ -21,8 +21,8 @@ namespace Roslynator.CSharp.CodeFixes
             get
             {
                 return ImmutableArray.Create(
-                    CSharpErrorCodes.VariableIsDeclaredButNeverUsed,
-                    CSharpErrorCodes.VariableIsAssignedButItsValueIsNeverUsed);
+                    CompilerDiagnosticIdentifiers.VariableIsDeclaredButNeverUsed,
+                    CompilerDiagnosticIdentifiers.VariableIsAssignedButItsValueIsNeverUsed);
             }
         }
 
@@ -44,8 +44,8 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CSharpErrorCodes.VariableIsDeclaredButNeverUsed:
-                    case CSharpErrorCodes.VariableIsAssignedButItsValueIsNeverUsed:
+                    case CompilerDiagnosticIdentifiers.VariableIsDeclaredButNeverUsed:
+                    case CompilerDiagnosticIdentifiers.VariableIsAssignedButItsValueIsNeverUsed:
                         {
                             switch (token.Parent.Kind())
                             {
