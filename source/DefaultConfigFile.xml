@@ -209,6 +209,7 @@
       <CodeFix Id="RCS9019" IsEnabled="true" /> <!-- AddReturnStatementThatReturnsDefaultValue (fixes CS0161) -->
       <CodeFix Id="RCS9020" IsEnabled="true" /> <!-- UseYieldReturnInsteadOfReturn (fixes CS0029, CS1622) -->
       <CodeFix Id="RCS9021" IsEnabled="true" /> <!-- ReplaceStringLiteralWithCharacterLiteral (fixes CS0029) -->
+      <CodeFix Id="RCS9022" IsEnabled="true" /> <!-- AddComparisonWithBooleanLiteral (fixes CS0019, CS0266) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

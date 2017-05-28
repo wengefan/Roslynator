@@ -113,4 +113,10 @@
       <Id>CS0029</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9022" Identifier="AddComparisonWithBooleanLiteral" Title="Add comparison with boolean literal">
+    <FixableDiagnosticIds>
+      <Id>CS0019</Id>
+      <Id>CS0266</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

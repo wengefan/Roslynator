@@ -54,6 +54,7 @@
     <Compile Include="CodeFixes\CannotImplicitlyConvertTypeCodeFixProvider.cs" />
     <Compile Include="CodeFixes\MarkOperatorAsPublicAndStaticCodeFixProvider.cs" />
     <Compile Include="CodeFixes\MemberDeclarationCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\OperatorCannotBeAppliedToOperandsCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateAttributeCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveNewModifierCodeFixProvider.cs" />
@@ -67,6 +68,7 @@
     <Compile Include="CodeFixIdentifiers.Generated.cs" />
     <Compile Include="CodeFixIdentifierSet.cs" />
     <Compile Include="CodeFixSettings.cs" />
+    <Compile Include="Refactorings\AddComparisonWithBooleanLiteralRefactoring.cs" />
     <Compile Include="Refactorings\AddDocumentationCommentRefactoring.cs" />
     <Compile Include="Refactorings\AddReturnStatementThatReturnsDefaultValueRefactoring.cs" />
     <Compile Include="Refactorings\CreateSingletonArrayRefactoring.cs" />

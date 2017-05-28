@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -22,14 +23,16 @@ namespace Roslynator.CSharp.CodeFixes
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.CreateSingletonArray))
+            if (!Settings.IsAnyCodeFixEnabled(
+                CodeFixIdentifiers.AddComparisonWithBooleanLiteral,
+                CodeFixIdentifiers.CreateSingletonArray))
+            {
                 return;
+            }
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
-            ExpressionSyntax expression = root
-                .FindNode(context.Span, getInnermostNodeForTie: true)?
-                .FirstAncestorOrSelf<ExpressionSyntax>();
+            var expression = root.FindNode(context.Span, getInnermostNodeForTie: true) as ExpressionSyntax;
 
             Debug.Assert(expression != null, $"{nameof(expression)} is null");
 
@@ -49,7 +52,23 @@ namespace Roslynator.CSharp.CodeFixes
                             ITypeSymbol type = typeInfo.Type;
                             ITypeSymbol convertedType = typeInfo.ConvertedType;
 
-                            if (type?.IsErrorType() == false
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddComparisonWithBooleanLiteral)
+                                && type?.IsNullableOf(SpecialType.System_Boolean) == true)
+                            {
+                                if (convertedType?.IsBoolean() == true
+                                    || AddComparisonWithBooleanLiteralRefactoring.IsCondition(expression))
+                                {
+                                    CodeAction codeAction = CodeAction.Create(
+                                        AddComparisonWithBooleanLiteralRefactoring.GetTitle(expression),
+                                        cancellationToken => AddComparisonWithBooleanLiteralRefactoring.RefactorAsync(context.Document, expression, cancellationToken),
+                                        CodeFixIdentifiers.AddComparisonWithBooleanLiteral + EquivalenceKeySuffix);
+
+                                    context.RegisterCodeFix(codeAction, diagnostic);
+                                }
+                            }
+
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.CreateSingletonArray)
+                                && type?.IsErrorType() == false
                                 && !type.Equals(convertedType)
                                 && convertedType.IsArrayType())
                             {

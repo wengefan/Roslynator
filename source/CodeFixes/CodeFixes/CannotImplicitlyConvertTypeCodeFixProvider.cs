@@ -40,7 +40,8 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case CSharpErrorCodes.CannotImplicitlyConvertType:
                         {
-                            if (node?.IsKind(SyntaxKind.StringLiteralExpression) == true)
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.ReplaceStringLiteralWithCharacterLiteral)
+                                && node?.IsKind(SyntaxKind.StringLiteralExpression) == true)
                             {
                                 var literalExpression = (LiteralExpressionSyntax)node;
 
@@ -60,7 +61,8 @@ namespace Roslynator.CSharp.CodeFixes
                                 }
                             }
 
-                            if (node.IsParentKind(SyntaxKind.ReturnStatement))
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.UseYieldReturnInsteadOfReturn)
+                                && node.IsParentKind(SyntaxKind.ReturnStatement))
                             {
                                 var returnStatement = (ReturnStatementSyntax)node.Parent;
 

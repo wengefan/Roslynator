@@ -4,6 +4,7 @@ Id | Title | Fixable Codes | Enabled by Default
 --- | --- | --- |:---:
 RCS9008|Add braces to declaration or labeled statement|CS1023|x
 RCS9001|Add break statement to switch section|CS0163, CS8070|x
+RCS9022|Add comparison with boolean literal|CS0019, CS0266|x
 RCS9015|Add documentation comment|CS1591|x
 RCS9006|Add 'new' modifier|CS0114|x
 RCS9003|Add 'out' modifier to argument|CS1620|x

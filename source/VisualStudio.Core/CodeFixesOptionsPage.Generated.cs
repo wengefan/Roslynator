@@ -39,6 +39,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue, "Add return statement that returns default value (fixes CS0161)", IsEnabled(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.UseYieldReturnInsteadOfReturn, "Use yield return instead of return (fixes CS0029, CS1622)", IsEnabled(CodeFixIdentifiers.UseYieldReturnInsteadOfReturn)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.ReplaceStringLiteralWithCharacterLiteral, "Replace string literal with character literal (fixes CS0029)", IsEnabled(CodeFixIdentifiers.ReplaceStringLiteralWithCharacterLiteral)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddComparisonWithBooleanLiteral, "Add comparison with boolean literal (fixes CS0019, CS0266)", IsEnabled(CodeFixIdentifiers.AddComparisonWithBooleanLiteral)));
         }
     }
 }
