@@ -60,6 +60,7 @@
     <Compile Include="CodeFixes\RemoveNewModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ArgumentCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExpressionCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\RemovePropertyOrFieldInitializerCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveUnusedVariableCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ReturnStatementCodeFixProvider.cs" />

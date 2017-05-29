@@ -19,6 +19,7 @@ namespace Roslynator.CSharp
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
         public const string MemberReturnTypeMustMatchOverriddenMemberReturnType = Prefix + "0508";
         public const string UserDefinedOperatorMustBeDeclaredStaticAndPublic = Prefix + "0558";
+        public const string CannotHaveInstancePropertyOrFieldInitializersInStruct = Prefix + "0573";
         public const string DuplicateAttribute = Prefix + "0579";
         public const string DuplicateModifier = Prefix + "1004";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";

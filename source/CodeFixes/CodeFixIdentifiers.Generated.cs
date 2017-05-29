@@ -29,5 +29,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string UseYieldReturnInsteadOfReturn = Prefix + "9020";
         public const string ReplaceStringLiteralWithCharacterLiteral = Prefix + "9021";
         public const string AddComparisonWithBooleanLiteral = Prefix + "9022";
+        public const string RemovePropertyOrFieldInitializer = Prefix + "9023";
     }
 }

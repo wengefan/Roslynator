@@ -119,4 +119,9 @@
       <Id>CS0266</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9023" Identifier="RemovePropertyOrFieldInitializer" Title="Remove property or field initializer">
+    <FixableDiagnosticIds>
+      <Id>CS0573</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>
