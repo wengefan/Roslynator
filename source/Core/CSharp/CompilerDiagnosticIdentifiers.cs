@@ -15,12 +15,14 @@ namespace Roslynator.CSharp
         public const string LabelHasNotBeenReferenced = Prefix + "0164";
         public const string VariableIsDeclaredButNeverUsed = Prefix + "0168";
         public const string VariableIsAssignedButItsValueIsNeverUsed = Prefix + "0219";
+        public const string MissingPartialModifier = Prefix + "0260";
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
         public const string MemberReturnTypeMustMatchOverriddenMemberReturnType = Prefix + "0508";
         public const string UserDefinedOperatorMustBeDeclaredStaticAndPublic = Prefix + "0558";
         public const string CannotHaveInstancePropertyOrFieldInitializersInStruct = Prefix + "0573";
         public const string DuplicateAttribute = Prefix + "0579";
+        public const string PartialMethodMayNotHaveMultipleDefiningDeclarations = Prefix + "0756";
         public const string DuplicateModifier = Prefix + "1004";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";
         public const string CannotConvertArgumentType = Prefix + "1503";
@@ -31,5 +33,6 @@ namespace Roslynator.CSharp
         public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "1715";
         public const string BaseClassMustComeBeforeAnyInterface = Prefix + "1722";
         public const string ControlCannotFallOutOfSwitchFromFinalCaseLabel = Prefix + "8070";
+        public const string PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct = Prefix + "0751";
     }
 }

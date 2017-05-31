@@ -30,5 +30,7 @@ namespace Roslynator.CSharp.CodeFixes
         public const string ReplaceStringLiteralWithCharacterLiteral = Prefix + "9021";
         public const string AddComparisonWithBooleanLiteral = Prefix + "9022";
         public const string RemovePropertyOrFieldInitializer = Prefix + "9023";
+        public const string AddPartialModifier = Prefix + "9024";
+        public const string AddMethodBody = Prefix + "9025";
     }
 }

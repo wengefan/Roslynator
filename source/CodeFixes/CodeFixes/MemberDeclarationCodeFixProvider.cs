@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Comparers;
 using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
@@ -26,18 +27,22 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.MissingXmlCommentForPubliclyVisibleTypeOrMember,
                     CompilerDiagnosticIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType,
                     CompilerDiagnosticIdentifiers.MemberTypeMustMatchOverriddenMemberType,
-                    CompilerDiagnosticIdentifiers.NotAllCodePathsReturnValue);
+                    CompilerDiagnosticIdentifiers.NotAllCodePathsReturnValue,
+                    CompilerDiagnosticIdentifiers.MissingPartialModifier,
+                    CompilerDiagnosticIdentifiers.PartialMethodMayNotHaveMultipleDefiningDeclarations,
+                    CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct);
             }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            if (!Settings.IsAnyCodeFixEnabled(
-                CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers,
-                CodeFixIdentifiers.AddDocumentationComment,
-                CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType,
-                CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType,
-                CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue))
+            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddDocumentationComment)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddMethodBody))
             {
                 return;
             }
@@ -195,6 +200,70 @@ namespace Roslynator.CSharp.CodeFixes
                                 CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.MissingPartialModifier:
+                    case CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Add 'partial' modifier",
+                                cancellationToken =>
+                                {
+                                    if (memberDeclaration.IsKind(SyntaxKind.MethodDeclaration)
+                                        && memberDeclaration.IsParentKind(SyntaxKind.ClassDeclaration, SyntaxKind.StructDeclaration))
+                                    {
+                                        var parentMember = (MemberDeclarationSyntax)memberDeclaration.Parent;
+
+                                        SyntaxTokenList newModifiers = parentMember.GetModifiers().InsertModifier(SyntaxKind.PartialKeyword, ModifierComparer.Instance);
+
+                                        MemberDeclarationSyntax newNode = parentMember.WithModifiers(newModifiers);
+
+                                        return context.Document.ReplaceNodeAsync(parentMember, newNode, context.CancellationToken);
+                                    }
+                                    else if (memberDeclaration.IsKind(SyntaxKind.ClassDeclaration, SyntaxKind.StructDeclaration, SyntaxKind.InterfaceDeclaration))
+                                    {
+                                        SyntaxTokenList newModifiers = memberDeclaration.GetModifiers().InsertModifier(SyntaxKind.PartialKeyword, ModifierComparer.Instance);
+
+                                        MemberDeclarationSyntax newNode = memberDeclaration.WithModifiers(newModifiers);
+
+                                        return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, context.CancellationToken);
+                                    }
+
+                                    return Task.FromResult(context.Document);
+                                },
+                                CodeFixIdentifiers.AddPartialModifier + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.PartialMethodMayNotHaveMultipleDefiningDeclarations:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddMethodBody))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Add body",
+                                cancellationToken =>
+                                {
+                                    var methodDeclaration = (MethodDeclarationSyntax)memberDeclaration;
+
+                                    ParameterListSyntax parameterList = methodDeclaration.ParameterList ?? SyntaxFactory.ParameterList();
+
+                                    MethodDeclarationSyntax newNode = methodDeclaration
+                                        .WithParameterList(parameterList.AppendToTrailingTrivia(methodDeclaration.SemicolonToken.GetLeadingAndTrailingTrivia()))
+                                        .WithSemicolonToken(default(SyntaxToken))
+                                        .WithBody(SyntaxFactory.Block())
+                                        .WithFormatterAnnotation();
+
+                                    return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, context.CancellationToken);
+                                },
+                                CodeFixIdentifiers.AddMethodBody + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+
                             break;
                         }
                 }

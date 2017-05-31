@@ -42,7 +42,9 @@
     <Compile Include="AddBracesToDeclarationOrLabeledStatement.cs" />
     <Compile Include="AddBreakStatementToSwitchSection.cs" />
     <Compile Include="AddDocumentationComment.cs" />
+    <Compile Include="AddMethodBody.cs" />
     <Compile Include="AddOverrideOrNewModifier.cs" />
+    <Compile Include="AddPartialModifier.cs" />
     <Compile Include="AddReturnStatementThatReturnsDefaultValue.cs" />
     <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
