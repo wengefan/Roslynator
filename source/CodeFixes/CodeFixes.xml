@@ -135,4 +135,9 @@
       <Id>CS0756</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9026" Identifier="RemoveRefModifier" Title="Remove 'ref' modifier">
+    <FixableDiagnosticIds>
+      <Id>CS1615</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

@@ -22,6 +22,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 return ImmutableArray.Create(
                     CompilerDiagnosticIdentifiers.ArgumentMustBePassedWithOutKeyword,
+                    CompilerDiagnosticIdentifiers.ArgumentMayNotBePassedWithRefKeyword,
                     CompilerDiagnosticIdentifiers.CannotConvertArgumentType);
             }
         }
@@ -30,6 +31,7 @@ namespace Roslynator.CSharp.CodeFixes
         {
             if (!Settings.IsAnyCodeFixEnabled(
                 CodeFixIdentifiers.AddOutModifierToArgument,
+                CodeFixIdentifiers.RemoveRefModifier,
                 CodeFixIdentifiers.CreateSingletonArray))
             {
                 return;
@@ -52,56 +54,77 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case CompilerDiagnosticIdentifiers.ArgumentMustBePassedWithOutKeyword:
                         {
-                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddOutModifierToArgument))
-                            {
-                                CodeAction codeAction = CodeAction.Create(
-                               "Add 'out' modifier",
-                               cancellationToken =>
-                               {
-                                   ArgumentSyntax newArgument = argument
-                                       .WithRefOrOutKeyword(CSharpFactory.OutKeyword())
-                                       .WithFormatterAnnotation();
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddOutModifierToArgument))
+                                return;
 
-                                   return context.Document.ReplaceNodeAsync(argument, newArgument, context.CancellationToken);
-                               },
-                               CodeFixIdentifiers.AddOutModifierToArgument + EquivalenceKeySuffix);
+                            CodeAction codeAction = CodeAction.Create(
+                           "Add 'out' modifier",
+                           cancellationToken =>
+                           {
+                               ArgumentSyntax newArgument = argument
+                                   .WithRefOrOutKeyword(CSharpFactory.OutKeyword())
+                                   .WithFormatterAnnotation();
 
-                                context.RegisterCodeFix(codeAction, diagnostic);
-                            }
+                               return context.Document.ReplaceNodeAsync(argument, newArgument, context.CancellationToken);
+                           },
+                           CodeFixIdentifiers.AddOutModifierToArgument + EquivalenceKeySuffix);
 
+                            context.RegisterCodeFix(codeAction, diagnostic);
+
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.ArgumentMayNotBePassedWithRefKeyword:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveRefModifier))
+                                return;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Remove 'ref' modifier",
+                                cancellationToken =>
+                                {
+                                    ArgumentSyntax newArgument = argument
+                                        .WithRefOrOutKeyword(default(SyntaxToken))
+                                        .PrependToLeadingTrivia(argument.RefOrOutKeyword.GetLeadingAndTrailingTrivia())
+                                        .WithFormatterAnnotation();
+
+                                    return context.Document.ReplaceNodeAsync(argument, newArgument, context.CancellationToken);
+                                },
+                                CodeFixIdentifiers.RemoveRefModifier + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                     case CompilerDiagnosticIdentifiers.CannotConvertArgumentType:
                         {
-                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.CreateSingletonArray))
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddOutModifierToArgument))
+                                return;
+
+                            ExpressionSyntax expression = argument.Expression;
+
+                            if (expression?.IsMissing == false)
                             {
-                                ExpressionSyntax expression = argument.Expression;
+                                SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                                if (expression?.IsMissing == false)
+                                ITypeSymbol typeSymbol = semanticModel.GetTypeSymbol(expression);
+
+                                if (typeSymbol?.IsErrorType() == false)
                                 {
-                                    SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
-
-                                    ITypeSymbol typeSymbol = semanticModel.GetTypeSymbol(expression);
-
-                                    if (typeSymbol?.IsErrorType() == false)
+                                    foreach (ITypeSymbol typeSymbol2 in DetermineParameterTypeHelper.DetermineParameterTypes(argument, semanticModel, context.CancellationToken))
                                     {
-                                        foreach (ITypeSymbol typeSymbol2 in DetermineParameterTypeHelper.DetermineParameterTypes(argument, semanticModel, context.CancellationToken))
+                                        if (!typeSymbol.Equals(typeSymbol2)
+                                            && typeSymbol2.IsArrayType())
                                         {
-                                            if (!typeSymbol.Equals(typeSymbol2)
-                                                && typeSymbol2.IsArrayType())
+                                            var arrayType = (IArrayTypeSymbol)typeSymbol2;
+
+                                            if (semanticModel.IsImplicitConversion(expression, arrayType.ElementType))
                                             {
-                                                var arrayType = (IArrayTypeSymbol)typeSymbol2;
+                                                CodeAction codeAction = CodeAction.Create(
+                                                    "Create singleton array",
+                                                    cancellationToken => CreateSingletonArrayRefactoring.RefactorAsync(context.Document, expression, arrayType.ElementType, semanticModel, cancellationToken),
+                                                    CodeFixIdentifiers.CreateSingletonArray + EquivalenceKeySuffix);
 
-                                                if (semanticModel.IsImplicitConversion(expression, arrayType.ElementType))
-                                                {
-                                                    CodeAction codeAction = CodeAction.Create(
-                                                        "Create singleton array",
-                                                        cancellationToken => CreateSingletonArrayRefactoring.RefactorAsync(context.Document, expression, arrayType.ElementType, semanticModel, cancellationToken),
-                                                        CodeFixIdentifiers.CreateSingletonArray + EquivalenceKeySuffix);
-
-                                                    context.RegisterCodeFix(codeAction, diagnostic);
-                                                    break;
-                                                }
+                                                context.RegisterCodeFix(codeAction, diagnostic);
+                                                break;
                                             }
                                         }
                                     }
