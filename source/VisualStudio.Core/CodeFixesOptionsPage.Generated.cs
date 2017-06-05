@@ -41,8 +41,9 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.ReplaceStringLiteralWithCharacterLiteral, "Replace string literal with character literal (fixes CS0029)", IsEnabled(CodeFixIdentifiers.ReplaceStringLiteralWithCharacterLiteral)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddComparisonWithBooleanLiteral, "Add comparison with boolean literal (fixes CS0019, CS0266)", IsEnabled(CodeFixIdentifiers.AddComparisonWithBooleanLiteral)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemovePropertyOrFieldInitializer, "Remove property or field initializer (fixes CS0573)", IsEnabled(CodeFixIdentifiers.RemovePropertyOrFieldInitializer)));
-            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddPartialModifier, "Add partial modifier (fixes CS0260)", IsEnabled(CodeFixIdentifiers.AddPartialModifier)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddPartialModifier, "Add partial modifier (fixes CS0260, CS0751)", IsEnabled(CodeFixIdentifiers.AddPartialModifier)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddMethodBody, "Add method body (fixes CS0756)", IsEnabled(CodeFixIdentifiers.AddMethodBody)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveRefModifier, "Remove 'ref' modifier (fixes CS1615)", IsEnabled(CodeFixIdentifiers.RemoveRefModifier)));
         }
     }
 }

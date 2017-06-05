@@ -213,8 +213,9 @@
       <CodeFix Id="RCS9021" IsEnabled="true" /> <!-- ReplaceStringLiteralWithCharacterLiteral (fixes CS0029) -->
       <CodeFix Id="RCS9022" IsEnabled="true" /> <!-- AddComparisonWithBooleanLiteral (fixes CS0019, CS0266) -->
       <CodeFix Id="RCS9023" IsEnabled="true" /> <!-- RemovePropertyOrFieldInitializer (fixes CS0573) -->
-      <CodeFix Id="RCS9024" IsEnabled="true" /> <!-- AddPartialModifier (fixes CS0260) -->
+      <CodeFix Id="RCS9024" IsEnabled="true" /> <!-- AddPartialModifier (fixes CS0260, CS0751) -->
       <CodeFix Id="RCS9025" IsEnabled="true" /> <!-- AddMethodBody (fixes CS0756) -->
+      <CodeFix Id="RCS9026" IsEnabled="true" /> <!-- RemoveRefModifier (fixes CS1615) -->
     </CodeFixes>
   </Settings>
 </Roslynator>
