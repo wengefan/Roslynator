@@ -220,7 +220,7 @@ namespace Roslynator.CSharp
             messageFormat: "Format empty block.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: false
         );
 
         public static readonly DiagnosticDescriptor FormatAccessorList = new DiagnosticDescriptor(
@@ -229,7 +229,7 @@ namespace Roslynator.CSharp
             messageFormat: "Format accessor list.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: false
         );
 
         public static readonly DiagnosticDescriptor FormatEachEnumMemberOnSeparateLine = new DiagnosticDescriptor(
@@ -492,17 +492,6 @@ namespace Roslynator.CSharp
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: false
         );
-
-        public static readonly DiagnosticDescriptor MergeLocalDeclarationWithReturnStatement = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.MergeLocalDeclarationWithReturnStatement,
-            title: "Merge local declaration with return statement.",
-            messageFormat: "Merge local declaration with return statement.",
-            category: DiagnosticCategories.Simplification,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
-        );
-
-        public static readonly DiagnosticDescriptor MergeLocalDeclarationWithReturnStatementFadeOut = MergeLocalDeclarationWithReturnStatement.CreateFadeOut();
 
         public static readonly DiagnosticDescriptor AvoidSemicolonAtEndOfDeclaration = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.AvoidSemicolonAtEndOfDeclaration,
@@ -853,7 +842,7 @@ namespace Roslynator.CSharp
              title: "Remove empty region.",
              messageFormat: "Remove empty region.",
              category: DiagnosticCategories.Redundancy,
-             defaultSeverity: DiagnosticSeverity.Info,
+             defaultSeverity: DiagnosticSeverity.Hidden,
              isEnabledByDefault: true
         );
 
@@ -1472,7 +1461,7 @@ namespace Roslynator.CSharp
             title: "Composite enum value contains undefined flag.",
             messageFormat: "Composite enum value contains undefined flag {0}.",
             category: DiagnosticCategories.Design,
-            defaultSeverity: DiagnosticSeverity.Warning,
+            defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
         );
 
@@ -1733,6 +1722,61 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: false
+        );
+
+        public static readonly DiagnosticDescriptor UseRegexInstanceInsteadOfStaticMethod = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseRegexInstanceInsteadOfStaticMethod,
+            title: "Use Regex instance instead of static method.",
+            messageFormat: "Use Regex instance instead of static method.",
+            category: DiagnosticCategories.Usage,
+            defaultSeverity: DiagnosticSeverity.Hidden,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor MarkFieldAsConst = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.MarkFieldAsConst,
+            title: "Mark field as const.",
+            messageFormat: "Mark field as const.",
+            category: DiagnosticCategories.Design,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor RemoveRedundantAutoPropertyInitialization = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.RemoveRedundantAutoPropertyInitialization,
+            title: "Remove redundant auto-property initialization.",
+            messageFormat: "Remove redundant auto-property initialization.",
+            category: DiagnosticCategories.Redundancy,
+            defaultSeverity: DiagnosticSeverity.Hidden,
+            isEnabledByDefault: true,
+            customTags: WellKnownDiagnosticTags.Unnecessary
+        );
+
+        public static readonly DiagnosticDescriptor AddOrRemoveRegionName = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.AddOrRemoveRegionName,
+            title: "Add or remove region name.",
+            messageFormat: "{0} region name {1} #endregion.",
+            category: DiagnosticCategories.Readability,
+            defaultSeverity: DiagnosticSeverity.Hidden,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor MergeStringExpressions = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.MergeStringExpressions,
+            title: "Merge string expressions.",
+            messageFormat: "Merge string expressions.",
+            category: DiagnosticCategories.Simplification,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor DeclareEnumValueAsCombinationOfNames = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.DeclareEnumValueAsCombinationOfNames,
+            title: "Declare enum value as combination of names.",
+            messageFormat: "Declare enum value as combination of names.",
+            category: DiagnosticCategories.Readability,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
         );
     }
 }

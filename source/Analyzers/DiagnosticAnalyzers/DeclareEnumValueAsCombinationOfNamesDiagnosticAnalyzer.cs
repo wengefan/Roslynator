@@ -3,23 +3,17 @@
 using System;
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.DiagnosticAnalyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class YieldStatementDiagnosticAnalyzer : BaseDiagnosticAnalyzer
+    public class DeclareEnumValueAsCombinationOfNamesDiagnosticAnalyzer : BaseDiagnosticAnalyzer
     {
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get
-            {
-                return ImmutableArray.Create(
-                    DiagnosticDescriptors.ReplaceReturnStatementWithExpressionStatement);
-            }
+            get { return ImmutableArray.Create(DiagnosticDescriptors.DeclareEnumValueAsCombinationOfNames); }
         }
 
         public override void Initialize(AnalysisContext context)
@@ -29,9 +23,17 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
 
             base.Initialize(context);
 
-            context.RegisterSyntaxNodeAction(
-                f => ReplaceReturnStatementWithExpressionStatementRefactoring.Analyze(f, (YieldStatementSyntax)f.Node),
-                SyntaxKind.YieldReturnStatement);
+            context.RegisterCompilationStartAction(startContext =>
+            {
+                INamedTypeSymbol flagsAttribute = startContext.Compilation.GetTypeByMetadataName(MetadataNames.System_FlagsAttribute);
+
+                if (flagsAttribute != null)
+                {
+                    startContext.RegisterSymbolAction(
+                        nodeContext => DeclareEnumValueAsCombinationOfNamesRefactoring.AnalyzeNamedType(nodeContext, flagsAttribute),
+                        SymbolKind.NamedType);
+                }
+            });
         }
     }
 }

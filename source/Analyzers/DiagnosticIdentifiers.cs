@@ -59,7 +59,7 @@ namespace Roslynator.CSharp
         public const string ParenthesizeConditionInConditionalExpression = Prefix + "1051";
         public const string DeclareEachAttributeSeparately = Prefix + "1052";
         //public const string ReplaceForEachWithFor = Prefix + "1053";
-        public const string MergeLocalDeclarationWithReturnStatement = Prefix + "1054";
+        //public const string MergeLocalDeclarationWithReturnStatement = Prefix + "1054";
         public const string AvoidSemicolonAtEndOfDeclaration = Prefix + "1055";
         public const string AvoidUsageOfUsingAliasDirective = Prefix + "1056";
         public const string AddEmptyLineBetweenDeclarations = Prefix + "1057";
@@ -191,5 +191,11 @@ namespace Roslynator.CSharp
         public const string FormatInitializerWithSingleExpressionOnSingleLine = Prefix + "1183";
         public const string FormatConditionalExpression = Prefix + "1184";
         public const string AvoidSingleLineBlock = Prefix + "1185";
+        public const string UseRegexInstanceInsteadOfStaticMethod = Prefix + "1186";
+        public const string MarkFieldAsConst = Prefix + "1187";
+        public const string RemoveRedundantAutoPropertyInitialization = Prefix + "1188";
+        public const string AddOrRemoveRegionName = Prefix + "1189";
+        public const string MergeStringExpressions = Prefix + "1190";
+        public const string DeclareEnumValueAsCombinationOfNames = Prefix + "1191";
     }
 }

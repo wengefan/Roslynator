@@ -33,7 +33,8 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                     DiagnosticDescriptors.CombineEnumerableWhereMethodChainFadeOut,
                     DiagnosticDescriptors.CallFindMethodInsteadOfFirstOrDefaultMethod,
                     DiagnosticDescriptors.UseElementAccessInsteadOfElementAt,
-                    DiagnosticDescriptors.UseElementAccessInsteadOfFirst);
+                    DiagnosticDescriptors.UseElementAccessInsteadOfFirst,
+                    DiagnosticDescriptors.UseRegexInstanceInsteadOfStaticMethod);
             }
         }
 
@@ -129,8 +130,6 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                 context.ReportDiagnostic(DiagnosticDescriptors.UseBitwiseOperationInsteadOfCallingHasFlag, invocation);
             }
 
-            RemoveRedundantToStringCallRefactoring.Analyze(context, invocation);
-
             RemoveRedundantStringToCharArrayCallRefactoring.Analyze(context, invocation);
 
             CombineEnumerableWhereAndAnyRefactoring.AnalyzeInvocationExpression(context);
@@ -140,6 +139,9 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                 MemberInvocationExpression memberInvocation;
                 if (MemberInvocationExpression.TryCreate(invocation, out memberInvocation))
                 {
+                    if (!invocation.SpanContainsDirectives())
+                        UseRegexInstanceInsteadOfStaticMethodRefactoring.Analyze(context, memberInvocation);
+
                     string methodName = memberInvocation.Name.Identifier.ValueText;
 
                     switch (memberInvocation.ArgumentList.Arguments.Count)
@@ -156,6 +158,11 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                                                 context.ReportDiagnostic(DiagnosticDescriptors.UseElementAccessInsteadOfFirst, memberInvocation.Name);
                                             }
 
+                                            break;
+                                        }
+                                    case "ToString":
+                                        {
+                                            RemoveRedundantToStringCallRefactoring.Analyze(context, memberInvocation);
                                             break;
                                         }
                                 }

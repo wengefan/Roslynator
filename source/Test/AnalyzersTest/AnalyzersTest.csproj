@@ -45,9 +45,14 @@
     <Compile Include="AbstractTypeShouldNotHavePublicConstructors.cs" />
     <Compile Include="AddBraces.cs" />
     <Compile Include="AddBracesToSwitchSectionWithMultipleStatements.cs" />
+    <Compile Include="DeclareEnumValueAsCombinationOfNames.cs" />
     <Compile Include="MarkClassAsStatic2.cs" />
+    <Compile Include="AddOrRemoveRegionName.cs" />
+    <Compile Include="MergeStringExpressions.cs" />
     <Compile Include="RemoveEmptyInitializer.cs" />
+    <Compile Include="RemoveRedundantAutoPropertyInitialization.cs" />
     <Compile Include="RemoveRedundantDefaultSwitchSection.cs" />
+    <Compile Include="MarkFieldAsConst.cs" />
     <Compile Include="ReplaceCommentWithDocumentationComment.cs" />
     <Compile Include="AddDocumentationComment.cs" />
     <Compile Include="AddEmptyLineAfterClosingBrace.cs" />
@@ -91,6 +96,7 @@
     <Compile Include="UseCoalesceExpressionInsteadOfIf.cs" />
     <Compile Include="UseLambdaExpressionInsteadOfAnonymousMethod.cs" />
     <Compile Include="UseReadOnlyAutoProperty.cs" />
+    <Compile Include="UseRegexInstanceInsteadOfStaticMethod.cs" />
     <Compile Include="UseReturnInsteadOfAssignment.cs" />
     <Compile Include="ValueTypeCheckedForNull.cs" />
     <Compile Include="NullCheckOfUnconstrainedTypeParameter.cs" />

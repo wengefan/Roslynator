@@ -31,6 +31,9 @@ namespace Roslynator.CSharp.Refactorings
                     }
                 }
             }
+
+            if (context.IsRefactoringEnabled(RefactoringIdentifiers.IntroduceLocalVariable))
+                IntroduceLocalVariableRefactoring.ComputeRefactoring(context, usingStatement);
         }
     }
 }

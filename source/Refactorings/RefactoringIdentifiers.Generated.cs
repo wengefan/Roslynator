@@ -69,6 +69,7 @@ namespace Roslynator.CSharp.Refactorings
         public const string ImplementIEquatableOfT = Prefix + "0179";
         public const string InitializeLocalWithDefaultValue = Prefix + "0060";
         public const string InlineAliasExpression = Prefix + "0061";
+        public const string InlineConstant = Prefix + "0181";
         public const string InlineMethod = Prefix + "0062";
         public const string InlineUsingStatic = Prefix + "0180";
         public const string InsertStringInterpolation = Prefix + "0063";
@@ -76,7 +77,7 @@ namespace Roslynator.CSharp.Refactorings
         public const string IntroduceAndInitializeProperty = Prefix + "0065";
         public const string IntroduceConstructor = Prefix + "0066";
         public const string IntroduceFieldToLockOn = Prefix + "0067";
-        public const string IntroduceLocalFromStatementThatReturnsValue = Prefix + "0068";
+        public const string IntroduceLocalVariable = Prefix + "0068";
         public const string MakeMemberAbstract = Prefix + "0069";
         public const string MakeMemberVirtual = Prefix + "0070";
         public const string MarkContainingClassAsAbstract = Prefix + "0071";
@@ -179,6 +180,7 @@ namespace Roslynator.CSharp.Refactorings
         public const string UseEmptyStringLiteralInsteadOfStringEmpty = Prefix + "0168";
         public const string UseExpressionBodiedMember = Prefix + "0169";
         public const string UseLambdaExpressionInsteadOfAnonymousMethod = Prefix + "0170";
+        public const string UseStringBuilderInsteadOfConcatenation = Prefix + "0182";
         public const string UseStringEmptyInsteadOfEmptyStringLiteral = Prefix + "0171";
         public const string WrapInCondition = Prefix + "0172";
         public const string WrapInElseClause = Prefix + "0173";
