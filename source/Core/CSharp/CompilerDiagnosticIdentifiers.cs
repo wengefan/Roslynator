@@ -22,6 +22,7 @@ namespace Roslynator.CSharp
         public const string UserDefinedOperatorMustBeDeclaredStaticAndPublic = Prefix + "0558";
         public const string CannotHaveInstancePropertyOrFieldInitializersInStruct = Prefix + "0573";
         public const string DuplicateAttribute = Prefix + "0579";
+        public const string NewProtectedMemberDeclaredInSealedClass = Prefix + "0628";
         public const string PartialMethodMayNotHaveMultipleDefiningDeclarations = Prefix + "0756";
         public const string DuplicateModifier = Prefix + "1004";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";
@@ -32,6 +33,7 @@ namespace Roslynator.CSharp
         public const string CannotReturnValueFromIterator = Prefix + "1622";
         public const string TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable = Prefix + "1674";
         public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "1715";
+        public const string AssignmentMadeToSameVariable = Prefix + "1717";
         public const string BaseClassMustComeBeforeAnyInterface = Prefix + "1722";
         public const string ControlCannotFallOutOfSwitchFromFinalCaseLabel = Prefix + "8070";
         public const string PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct = Prefix + "0751";
