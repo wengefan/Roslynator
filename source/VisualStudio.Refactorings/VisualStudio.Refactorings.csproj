@@ -88,6 +88,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{814c7bd5-f7fa-441d-897f-f7876b038b30}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeFixes\CodeFixes.csproj">
       <Project>{9C9EF15B-2CB0-485E-BB48-90F670F6A3D8}</Project>
       <Name>CodeFixes</Name>

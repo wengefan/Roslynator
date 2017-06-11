@@ -158,6 +158,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{814c7bd5-f7fa-441d-897f-f7876b038b30}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\CodeFixes\CodeFixes.csproj">
       <Project>{9c9ef15b-2cb0-485e-bb48-90f670f6a3d8}</Project>
       <Name>CodeFixes</Name>
