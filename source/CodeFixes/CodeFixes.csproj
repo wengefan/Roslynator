@@ -56,6 +56,7 @@
     <Compile Include="CodeFixes\MarkOperatorAsPublicAndStaticCodeFixProvider.cs" />
     <Compile Include="CodeFixes\MemberDeclarationCodeFixProvider.cs" />
     <Compile Include="CodeFixes\OperatorCannotBeAppliedToOperandsCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\ParameterCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateAttributeCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveNewModifierCodeFixProvider.cs" />

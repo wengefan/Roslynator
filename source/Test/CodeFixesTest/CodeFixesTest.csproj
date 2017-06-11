@@ -46,6 +46,7 @@
     <Compile Include="AddOverrideOrNewModifier.cs" />
     <Compile Include="AddPartialModifier.cs" />
     <Compile Include="AddReturnStatementThatReturnsDefaultValue.cs" />
+    <Compile Include="ChangeTypeOfParamsParameter.cs" />
     <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />

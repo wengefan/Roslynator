@@ -15,6 +15,7 @@ namespace Roslynator.CSharp
         public const string LabelHasNotBeenReferenced = Prefix + "0164";
         public const string VariableIsDeclaredButNeverUsed = Prefix + "0168";
         public const string VariableIsAssignedButItsValueIsNeverUsed = Prefix + "0219";
+        public const string ParamsParameterMustBeSingleDimensionalArray = Prefix + "0225";
         public const string MissingPartialModifier = Prefix + "0260";
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";

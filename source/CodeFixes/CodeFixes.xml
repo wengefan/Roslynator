@@ -150,4 +150,9 @@
       <Id>CS0628</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9029" Identifier="ChangeTypeOfParamsParameter" Title="Change type of 'params' parameter">
+    <FixableDiagnosticIds>
+      <Id>CS0225</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>
