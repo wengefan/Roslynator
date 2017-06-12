@@ -36,5 +36,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveRedundantAssignment = Prefix + "9027";
         public const string ProtectedMemberDeclaredInSealedClassShouldBePrivate = Prefix + "9028";
         public const string ChangeTypeOfParamsParameter = Prefix + "9029";
+        public const string UseUncheckedExpression = Prefix + "9030";
     }
 }

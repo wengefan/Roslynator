@@ -67,6 +67,7 @@
     <Compile Include="RemoveUnusedVariable.cs" />
     <Compile Include="ReplaceStringLiteralWithCharacterLiteralRefactoring.cs" />
     <Compile Include="UseYieldReturnInsteadOfReturn.cs" />
+    <Compile Include="WrapInUncheckedExpression.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="project.json" />

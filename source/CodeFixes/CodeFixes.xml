@@ -155,4 +155,9 @@
       <Id>CS0225</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9030" Identifier="UseUncheckedExpression" Title="Use unchecked expression">
+    <FixableDiagnosticIds>
+      <Id>CS0221</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

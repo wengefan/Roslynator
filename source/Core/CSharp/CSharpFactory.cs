@@ -2131,6 +2131,16 @@ namespace Roslynator.CSharp
         {
             return InitializerExpression(SyntaxKind.ObjectInitializerExpression, expressions);
         }
+
+        public static CheckedExpressionSyntax CheckedExpression(ExpressionSyntax expression)
+        {
+            return SyntaxFactory.CheckedExpression(SyntaxKind.CheckedExpression, expression);
+        }
+
+        public static CheckedExpressionSyntax UncheckedExpression(ExpressionSyntax expression)
+        {
+            return SyntaxFactory.CheckedExpression(SyntaxKind.UncheckedExpression, expression);
+        }
         #endregion Expression
 
         public static IdentifierNameSyntax VarType()

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Refactorings;
 
@@ -18,14 +19,20 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.CannotImplicitlyConvertTypeExplicitConversionExists); }
+            get
+            {
+                return ImmutableArray.Create(
+                    CompilerDiagnosticIdentifiers.CannotImplicitlyConvertTypeExplicitConversionExists,
+                    CompilerDiagnosticIdentifiers.ConstantValueCannotBeConverted);
+            }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
             if (!Settings.IsAnyCodeFixEnabled(
                 CodeFixIdentifiers.AddComparisonWithBooleanLiteral,
-                CodeFixIdentifiers.CreateSingletonArray))
+                CodeFixIdentifiers.CreateSingletonArray,
+                CodeFixIdentifiers.UseUncheckedExpression))
             {
                 return;
             }
@@ -85,6 +92,26 @@ namespace Roslynator.CSharp.CodeFixes
                                 }
                             }
 
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.ConstantValueCannotBeConverted:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.UseUncheckedExpression))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Use 'unchecked'",
+                                cancellationToken =>
+                                {
+                                    CheckedExpressionSyntax newNode = CSharpFactory.UncheckedExpression(expression.WithoutTrivia());
+
+                                    newNode = newNode.WithTriviaFrom(expression);
+
+                                    return context.Document.ReplaceNodeAsync(expression, newNode, cancellationToken);
+                                },
+                                CodeFixIdentifiers.UseUncheckedExpression + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                 }
