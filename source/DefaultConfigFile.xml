@@ -219,6 +219,10 @@
       <CodeFix Id="RCS9024" IsEnabled="true" /> <!-- AddPartialModifier (fixes CS0260, CS0751) -->
       <CodeFix Id="RCS9025" IsEnabled="true" /> <!-- AddMethodBody (fixes CS0756) -->
       <CodeFix Id="RCS9026" IsEnabled="true" /> <!-- RemoveRefModifier (fixes CS1615) -->
+      <CodeFix Id="RCS9027" IsEnabled="true" /> <!-- RemoveRedundantAssignment (fixes CS1717) -->
+      <CodeFix Id="RCS9028" IsEnabled="true" /> <!-- ProtectedMemberDeclaredInSealedClassShouldBePrivate (fixes CS0628) -->
+      <CodeFix Id="RCS9029" IsEnabled="true" /> <!-- ChangeTypeOfParamsParameter (fixes CS0225) -->
+      <CodeFix Id="RCS9030" IsEnabled="true" /> <!-- UseUncheckedExpression (fixes CS0221) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

@@ -13,19 +13,23 @@ RCS9005|Add 'override' modifier|CS0114|x
 RCS9024|Add partial modifier|CS0260, CS0751|x
 RCS9019|Add return statement that returns default value|CS0161|x
 RCS9004|Base base class before any interface|CS1722|x
+RCS9029|Change type of 'params' parameter|CS0225|x
 RCS9002|Create singleton array|CS0266|x
 RCS9007|Extract declaration from using statement|CS1674|x
 RCS9009|Mark operator as 'public' and 'static'|CS0558|x
 RCS9017|Member return type must match overridden member return type|CS0508|x
 RCS9018|Member type must match overridden member type|CS1715|x
 RCS9014|Overriding member cannot change access modifiers|CS0507|x
+RCS9028|Protected member declared in sealed class should be private|CS0628|x
 RCS9011|Remove duplicate attribute|CS0579|x
 RCS9010|Remove duplicate modifier|CS1004|x
 RCS9012|Remove new modifier|CS0109|x
 RCS9023|Remove property or field initializer|CS0573|x
+RCS9027|Remove redundant assignment|CS1717|x
 RCS9026|Remove 'ref' modifier|CS1615|x
 RCS9013|Remove unused label|CS0164|x
 RCS9000|Remove unused variable|CS0168, CS0219|x
 RCS9021|Replace string literal with character literal|CS0029|x
 RCS9016|Unreachable code detected|CS0162|x
+RCS9030|Use unchecked expression|CS0221|x
 RCS9020|Use yield return instead of return|CS0029, CS1622|x
