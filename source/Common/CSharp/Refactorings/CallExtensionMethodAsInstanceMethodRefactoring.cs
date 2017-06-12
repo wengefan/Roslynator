@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System;
 using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
@@ -10,49 +11,43 @@ using static Roslynator.CSharp.CSharpFactory;
 
 namespace Roslynator.CSharp.Refactorings
 {
-    internal static class CallExtensionMethodAsInstanceMethodRefactoring
+    public static class CallExtensionMethodAsInstanceMethodRefactoring
     {
-        public static async Task ComputeRefactoringAsync(RefactoringContext context, InvocationExpressionSyntax invocation)
+        public static AnalysisResult Analyze(InvocationExpressionSyntax invocationExpression, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
-            ExpressionSyntax expression = invocation.Expression;
+            ArgumentListSyntax argumentList = invocationExpression.ArgumentList;
 
-            if (expression != null)
+            if (argumentList != null)
             {
-                SyntaxNodeOrToken nodeOrToken = GetNodeOrToken(expression);
+                SeparatedSyntaxList<ArgumentSyntax> arguments = argumentList.Arguments;
 
-                if (nodeOrToken.Span.Contains(context.Span))
+                if (arguments.Any())
                 {
-                    SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
-
-                    ExtensionMethodInfo info = semanticModel.GetExtensionMethodInfo(invocation, ExtensionMethodKind.Ordinary, context.CancellationToken);
-
-                    if (info.IsValid
-                        && invocation.ArgumentList?.Arguments.Any() == true)
+                    if (arguments.Count > 1
+                        || !(arguments[0].Expression is LiteralExpressionSyntax))
                     {
-                        InvocationExpressionSyntax newInvocation = GetNewInvocation(invocation);
+                        ExtensionMethodInfo extensionMethodInfo = semanticModel.GetExtensionMethodInfo(invocationExpression, ExtensionMethodKind.Ordinary, cancellationToken);
 
-                        if (semanticModel
-                            .GetSpeculativeMethodSymbol(invocation.SpanStart, newInvocation)?
-                            .ReducedFromOrSelf()
-                            .Equals(info.Symbol.ConstructedFrom) == true)
+                        if (extensionMethodInfo.IsValid)
                         {
-                            context.RegisterRefactoring(
-                                "Call extension method as instance method",
-                                cancellationToken =>
-                                {
-                                    return RefactorAsync(
-                                        context.Document,
-                                        invocation,
-                                        newInvocation,
-                                        context.CancellationToken);
-                                });
+                            InvocationExpressionSyntax newInvocationExpression = GetNewInvocation(invocationExpression);
+
+                            if (semanticModel
+                                .GetSpeculativeMethodSymbol(invocationExpression.SpanStart, newInvocationExpression)?
+                                .ReducedFromOrSelf()
+                                .Equals(extensionMethodInfo.Symbol.ConstructedFrom) == true)
+                            {
+                                return new AnalysisResult(invocationExpression, newInvocationExpression, extensionMethodInfo);
+                            }
                         }
                     }
                 }
             }
+
+            return default(AnalysisResult);
         }
 
-        private static SyntaxNodeOrToken GetNodeOrToken(ExpressionSyntax expression)
+        public static SyntaxNodeOrToken GetNodeOrToken(ExpressionSyntax expression)
         {
             switch (expression.Kind())
             {
@@ -72,7 +67,17 @@ namespace Roslynator.CSharp.Refactorings
             }
         }
 
-        private static Task<Document> RefactorAsync(
+        public static Task<Document> RefactorAsync(
+            Document document,
+            InvocationExpressionSyntax invocation,
+            CancellationToken cancellationToken)
+        {
+            InvocationExpressionSyntax newInvocation = GetNewInvocation(invocation);
+
+            return document.ReplaceNodeAsync(invocation, newInvocation, cancellationToken);
+        }
+
+        public static Task<Document> RefactorAsync(
             Document document,
             InvocationExpressionSyntax invocation,
             InvocationExpressionSyntax newInvocation,
@@ -119,6 +124,38 @@ namespace Roslynator.CSharp.Refactorings
             return invocation
                 .WithExpression(newMemberAccess)
                 .WithArgumentList(argumentList.WithArguments(arguments.Remove(argument)));
+        }
+
+        public struct AnalysisResult
+        {
+            public AnalysisResult(
+                InvocationExpressionSyntax invocationExpression,
+                InvocationExpressionSyntax newInvocationExpression,
+                ExtensionMethodInfo extensionMethodInfo)
+            {
+                if (invocationExpression == null)
+                    throw new ArgumentNullException(nameof(invocationExpression));
+
+                if (newInvocationExpression == null)
+                    throw new ArgumentNullException(nameof(newInvocationExpression));
+
+                InvocationExpression = invocationExpression;
+                NewInvocationExpression = newInvocationExpression;
+                ExtensionMethodInfo = extensionMethodInfo;
+            }
+
+            public InvocationExpressionSyntax InvocationExpression { get; }
+            public InvocationExpressionSyntax NewInvocationExpression { get; }
+            public ExtensionMethodInfo ExtensionMethodInfo { get; }
+
+            public bool Success
+            {
+                get
+                {
+                    return InvocationExpression != null
+                        && NewInvocationExpression != null;
+                }
+            }
         }
     }
 }

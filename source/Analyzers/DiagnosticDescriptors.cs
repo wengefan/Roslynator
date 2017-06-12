@@ -1778,5 +1778,51 @@ namespace Roslynator.CSharp
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
         );
+
+        public static readonly DiagnosticDescriptor UseRegularStringLiteralInsteadOfVerbatimStringLiteral = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseRegularStringLiteralInsteadOfVerbatimStringLiteral,
+            title: "Use regular string literal instead of verbatim string literal.",
+            messageFormat: "Use regular string literal instead of verbatim string literal.",
+            category: DiagnosticCategories.Readability,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true,
+            customTags: WellKnownDiagnosticTags.Unnecessary
+        );
+
+        public static readonly DiagnosticDescriptor OverridingMemberCannotChangeParamsModifier = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.OverridingMemberCannotChangeParamsModifier,
+            title: "Overriding member cannot change 'params' modifier.",
+            messageFormat: "Overriding member cannot change 'params' modifier.",
+            category: DiagnosticCategories.Design,
+            defaultSeverity: DiagnosticSeverity.Warning,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor ImplementExceptionConstructors = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.ImplementExceptionConstructors,
+            title: "Implement exception constructors.",
+            messageFormat: "Implement exception constructors.",
+            category: DiagnosticCategories.Design,
+            defaultSeverity: DiagnosticSeverity.Warning,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor UseExclusiveOrOperator = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseExclusiveOrOperator,
+            title: "Use ^ operator.",
+            messageFormat: "Use ^ operator.",
+            category: DiagnosticCategories.Simplification,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor CallExtensionMethodAsInstanceMethod = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.CallExtensionMethodAsInstanceMethod,
+            title: "Call extension method as instance method.",
+            messageFormat: "Call extension method as instance method.",
+            category: DiagnosticCategories.Style,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
     }
 }

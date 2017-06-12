@@ -79,7 +79,7 @@ namespace MetadataGenerator
             (?<comment><!--\ [a-zA-Z0-9 (),]+\ -->)
             ", RegexOptions.IgnorePatternWhitespace);
 
-        public static string CreateAnalyzersXml(IEnumerable<AnalyzerDescriptor> analyzers)
+        public static string CreateAnalyzersXml()
         {
             FieldInfo[] fieldInfos = typeof(DiagnosticDescriptors).GetFields(BindingFlags.Public | BindingFlags.Static);
 
@@ -94,9 +94,7 @@ namespace MetadataGenerator
 
                 var descriptor = (DiagnosticDescriptor)fieldInfo.GetValue(null);
 
-                AnalyzerDescriptor analyzer = analyzers.FirstOrDefault(f => string.Equals(f.Id, descriptor.Id, StringComparison.CurrentCulture));
-
-                analyzer = new AnalyzerDescriptor(
+                var analyzer = new AnalyzerDescriptor(
                     fieldInfo.Name,
                     descriptor.Title.ToString(),
                     descriptor.Id,
