@@ -30,8 +30,7 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.NotAllCodePathsReturnValue,
                     CompilerDiagnosticIdentifiers.MissingPartialModifier,
                     CompilerDiagnosticIdentifiers.PartialMethodMayNotHaveMultipleDefiningDeclarations,
-                    CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct,
-                    CompilerDiagnosticIdentifiers.NewProtectedMemberDeclaredInSealedClass);
+                    CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct);
             }
         }
 
@@ -43,8 +42,7 @@ namespace Roslynator.CSharp.CodeFixes
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier)
-                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddMethodBody)
-                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.ProtectedMemberDeclaredInSealedClassShouldBePrivate))
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddMethodBody))
             {
                 return;
             }
@@ -266,30 +264,6 @@ namespace Roslynator.CSharp.CodeFixes
 
                             context.RegisterCodeFix(codeAction, diagnostic);
 
-                            break;
-                        }
-                    case CompilerDiagnosticIdentifiers.NewProtectedMemberDeclaredInSealedClass:
-                        {
-                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.ProtectedMemberDeclaredInSealedClassShouldBePrivate))
-                                break;
-
-                            CodeAction codeAction = CodeAction.Create(
-                                "Change accessibility to 'private'",
-                                cancellationToken =>
-                                {
-                                    SyntaxTokenList modifiers = memberDeclaration.GetModifiers();
-
-                                    SyntaxToken protectedKeyword = modifiers[modifiers.IndexOf(SyntaxKind.ProtectedKeyword)];
-
-                                    SyntaxTokenList newModifiers = modifiers.Replace(protectedKeyword, CSharpFactory.PrivateKeyword().WithTriviaFrom(protectedKeyword));
-
-                                    MemberDeclarationSyntax newNode = memberDeclaration.WithModifiers(newModifiers);
-
-                                    return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, context.CancellationToken);
-                                },
-                                CodeFixIdentifiers.ProtectedMemberDeclaredInSealedClassShouldBePrivate + EquivalenceKeySuffix);
-
-                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                 }

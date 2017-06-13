@@ -55,7 +55,7 @@
     <Compile Include="OverridingMethodCannotChangeAccessModifiers.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AddOutModifierToArgument.cs" />
-    <Compile Include="ProtectedMemberDeclaredInSealedClassShouldBePrivate.cs" />
+    <Compile Include="ChangeAccessibility.cs" />
     <Compile Include="RemoveDuplicateAttribute.cs" />
     <Compile Include="RemoveNewModifier.cs" />
     <Compile Include="RemoveDuplicateModifier.cs" />

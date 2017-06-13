@@ -145,9 +145,10 @@
       <Id>CS1717</Id>
     </FixableDiagnosticIds>
   </CodeFix>
-  <CodeFix Id="RCS9028" Identifier="ProtectedMemberDeclaredInSealedClassShouldBePrivate" Title="Protected member declared in sealed class should be private">
+  <CodeFix Id="RCS9028" Identifier="ChangeAccessibility" Title="Change accessibility">
     <FixableDiagnosticIds>
       <Id>CS0628</Id>
+      <Id>CS1057</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCS9029" Identifier="ChangeTypeOfParamsParameter" Title="Change type of 'params' parameter">
