@@ -36,7 +36,6 @@ namespace Roslynator.CSharp.CodeFixProviders
                     DiagnosticIdentifiers.RemoveRedundantSealedModifier,
                     DiagnosticIdentifiers.AvoidSemicolonAtEndOfDeclaration,
                     DiagnosticIdentifiers.ReorderModifiers,
-                    DiagnosticIdentifiers.OverridingMemberCannotChangeAccessModifiers,
                     DiagnosticIdentifiers.MarkFieldAsReadOnly,
                     DiagnosticIdentifiers.UseConstantInsteadOfField,
                     DiagnosticIdentifiers.UseReadOnlyAutoProperty,
@@ -222,22 +221,6 @@ namespace Roslynator.CSharp.CodeFixProviders
                             CodeAction codeAction = CodeAction.Create(
                                 "Reorder modifiers",
                                 cancellationToken => ReorderModifiersRefactoring.RefactorAsync(context.Document, memberDeclaration, cancellationToken),
-                                diagnostic.Id + EquivalenceKeySuffix);
-
-                            context.RegisterCodeFix(codeAction, diagnostic);
-                            break;
-                        }
-                    case DiagnosticIdentifiers.OverridingMemberCannotChangeAccessModifiers:
-                        {
-                            SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
-
-                            OverrideInfo overrideInfo = OverridingMemberCannotChangeAccessModifiersRefactoring.GetOverrideInfo(memberDeclaration, semanticModel, context.CancellationToken);
-
-                            string title = $"Change accessibility to '{OverridingMemberCannotChangeAccessModifiersRefactoring.GetAccessibilityText(overrideInfo.OverridenSymbol.DeclaredAccessibility)}'";
-
-                            CodeAction codeAction = CodeAction.Create(
-                                title,
-                                cancellationToken => OverridingMemberCannotChangeAccessModifiersRefactoring.RefactorAsync(context.Document, memberDeclaration, overrideInfo, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);

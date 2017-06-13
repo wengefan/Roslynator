@@ -172,7 +172,7 @@ namespace Roslynator.CSharp
         public const string UnusedTypeParameter = Prefix + "1164";
         public const string UnconstrainedTypeParameterCheckedForNull = Prefix + "1165";
         public const string ValueTypeCheckedForNull = Prefix + "1166";
-        public const string OverridingMemberCannotChangeAccessModifiers = Prefix + "1167";
+        //public const string OverridingMemberCannotChangeAccessModifiers = Prefix + "1167";
         public const string ParameterNameDiffersFromBase = Prefix + "1168";
         public const string MarkFieldAsReadOnly = Prefix + "1169";
         public const string UseReadOnlyAutoProperty = Prefix + "1170";

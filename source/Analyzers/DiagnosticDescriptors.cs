@@ -1539,15 +1539,6 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor OverridingMemberCannotChangeAccessModifiers = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.OverridingMemberCannotChangeAccessModifiers,
-            title: "Overriding member cannot change access modifiers.",
-            messageFormat: "Overriding member cannot change access modifiers.",
-            category: DiagnosticCategories.ErrorFix,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
-        );
-
         public static readonly DiagnosticDescriptor ParameterNameDiffersFromBase = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.ParameterNameDiffersFromBase,
             title: "Parameter name differs from base name.",
