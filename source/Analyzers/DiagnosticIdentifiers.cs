@@ -157,7 +157,7 @@ namespace Roslynator.CSharp
         public const string RemoveImplementationFromAbstractMember = Prefix + "1149";
         public const string CallStringConcatInsteadOfStringJoin = Prefix + "1150";
         public const string RemoveRedundantCast = Prefix + "1151";
-        public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "1152";
+        //public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "1152";
         public const string AddEmptyLineAfterClosingBrace = Prefix + "1153";
         public const string SortEnumMembers = Prefix + "1154";
         public const string UseStringComparison = Prefix + "1155";
