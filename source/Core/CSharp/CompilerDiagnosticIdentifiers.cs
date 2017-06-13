@@ -22,6 +22,7 @@ namespace Roslynator.CSharp
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
         public const string MemberCannotDeclareBodyBecauseItIsNotMarkedAbstract = Prefix + "0500";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
+        public const string MemberIsAbstractButItIsContainedInNonAbstractClass = Prefix + "0513";
         public const string MemberReturnTypeMustMatchOverriddenMemberReturnType = Prefix + "0508";
         public const string InterfaceMembersCannotHaveDefinition = Prefix + "0531";
         public const string UserDefinedOperatorMustBeDeclaredStaticAndPublic = Prefix + "0558";

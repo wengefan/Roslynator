@@ -174,4 +174,9 @@
       <Id>CS0710</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9033" Identifier="MakeContainingClassAbstract" Title="Make containing class abstract">
+    <FixableDiagnosticIds>
+      <Id>CS0513</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

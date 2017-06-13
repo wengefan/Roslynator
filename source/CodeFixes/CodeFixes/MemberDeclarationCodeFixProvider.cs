@@ -32,7 +32,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.PartialMethodMayNotHaveMultipleDefiningDeclarations,
                     CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct,
                     CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass,
-                    CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors);
+                    CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors,
+                    CompilerDiagnosticIdentifiers.MemberIsAbstractButItIsContainedInNonAbstractClass);
             }
         }
 
@@ -45,7 +46,8 @@ namespace Roslynator.CSharp.CodeFixes
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddMethodBody)
-                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier))
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeContainingClassAbstract))
             {
                 return;
             }
@@ -279,15 +281,38 @@ namespace Roslynator.CSharp.CodeFixes
                                 "Add 'static' modifier",
                                 cancellationToken =>
                                 {
-                                    SyntaxTokenList modifiers = memberDeclaration.GetModifiers();
-
-                                    SyntaxTokenList newModifiers = modifiers.InsertModifier(SyntaxKind.StaticKeyword, ModifierComparer.Instance);
+                                    SyntaxTokenList newModifiers = memberDeclaration.GetModifiers().InsertModifier(SyntaxKind.StaticKeyword, ModifierComparer.Instance);
 
                                     MemberDeclarationSyntax newNode = memberDeclaration.WithModifiers(newModifiers);
 
                                     return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, cancellationToken);
                                 },
                                 CodeFixIdentifiers.AddStaticModifier + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.MemberIsAbstractButItIsContainedInNonAbstractClass:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeContainingClassAbstract))
+                                break;
+
+                            if (!memberDeclaration.IsParentKind(SyntaxKind.ClassDeclaration))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Make containing class abstract",
+                                cancellationToken =>
+                                {
+                                    var classDeclaration = (ClassDeclarationSyntax)memberDeclaration.Parent;
+
+                                    SyntaxTokenList newModifiers = classDeclaration.GetModifiers().InsertModifier(SyntaxKind.AbstractKeyword, ModifierComparer.Instance);
+
+                                    MemberDeclarationSyntax newNode = classDeclaration.WithModifiers(newModifiers);
+
+                                    return context.Document.ReplaceNodeAsync(classDeclaration, newNode, cancellationToken);
+                                },
+                                CodeFixIdentifiers.MakeContainingClassAbstract + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
