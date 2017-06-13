@@ -57,7 +57,6 @@
     <Compile Include="CodeFixProviders\RemoveRedundantAsyncAwaitCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\RemoveRedundantCastCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\RemoveImplementationFromAbstractMemberCodeFixProvider.cs" />
-    <Compile Include="CodeFixProviders\RemoveUnreachableCodeCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\TypeCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\TypeParameterCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\AddMissingSemicolonCodeFixProvider.cs" />
@@ -146,7 +145,6 @@
     <Compile Include="DiagnosticAnalyzers\SimplifyCoalesceExpressionDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\RemoveRedundantCastDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\RemoveImplementationFromAbstractMemberDiagnosticAnalyzer.cs" />
-    <Compile Include="DiagnosticAnalyzers\RemoveUnreachableCodeDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\RemoveInapplicableModifierDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\MarkContainingClassAsAbstractDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\ReplaceReturnWithYieldReturnDiagnosticAnalyzer.cs" />

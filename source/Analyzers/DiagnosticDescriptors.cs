@@ -1363,16 +1363,6 @@ namespace Roslynator.CSharp
             customTags: WellKnownDiagnosticTags.Unnecessary
         );
 
-        public static readonly DiagnosticDescriptor RemoveUnreachableCode = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.RemoveUnreachableCode,
-            title: "Remove unreachable code.",
-            messageFormat: "Remove unreachable code.",
-            category: DiagnosticCategories.General,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
-        );
-
         public static readonly DiagnosticDescriptor RemoveImplementationFromAbstractMember = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.RemoveImplementationFromAbstractMember,
             title: "Remove implementation from abstract member.",
