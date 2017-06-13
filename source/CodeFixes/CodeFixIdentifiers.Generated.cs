@@ -38,5 +38,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string ChangeTypeOfParamsParameter = Prefix + "9029";
         public const string UseUncheckedExpression = Prefix + "9030";
         public const string RemoveImplementationFromAbstractMember = Prefix + "9031";
+        public const string AddStaticModifier = Prefix + "0708";
     }
 }

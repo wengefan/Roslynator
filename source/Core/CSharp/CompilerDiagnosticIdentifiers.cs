@@ -28,6 +28,8 @@ namespace Roslynator.CSharp
         public const string CannotHaveInstancePropertyOrFieldInitializersInStruct = Prefix + "0573";
         public const string DuplicateAttribute = Prefix + "0579";
         public const string NewProtectedMemberDeclaredInSealedClass = Prefix + "0628";
+        public const string CannotDeclareInstanceMembersInStaticClass = Prefix + "0708";
+        public const string StaticClassesCannotHaveInstanceConstructors = Prefix + "0710";
         public const string PartialMethodMayNotHaveMultipleDefiningDeclarations = Prefix + "0756";
         public const string DuplicateModifier = Prefix + "1004";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";

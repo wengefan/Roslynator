@@ -49,6 +49,7 @@
     <Compile Include="ChangeTypeOfParamsParameter.cs" />
     <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
+    <Compile Include="AddStaticModifier.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />
     <Compile Include="MemberTypeMustMatchOverriddenMemberType.cs" />
     <Compile Include="MoveBaseClassBeforeAnyInterface.cs" />

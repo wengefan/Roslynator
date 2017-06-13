@@ -168,4 +168,10 @@
       <Id>CS0531</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9032" Identifier="AddStaticModifier" Title="Add 'static' modifier">
+    <FixableDiagnosticIds>
+      <Id>CS0708</Id>
+      <Id>CS0710</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

@@ -30,7 +30,9 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.NotAllCodePathsReturnValue,
                     CompilerDiagnosticIdentifiers.MissingPartialModifier,
                     CompilerDiagnosticIdentifiers.PartialMethodMayNotHaveMultipleDefiningDeclarations,
-                    CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct);
+                    CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct,
+                    CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass,
+                    CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors);
             }
         }
 
@@ -42,7 +44,8 @@ namespace Roslynator.CSharp.CodeFixes
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier)
-                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddMethodBody))
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddMethodBody)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier))
             {
                 return;
             }
@@ -264,6 +267,29 @@ namespace Roslynator.CSharp.CodeFixes
 
                             context.RegisterCodeFix(codeAction, diagnostic);
 
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass:
+                    case CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Add 'static' modifier",
+                                cancellationToken =>
+                                {
+                                    SyntaxTokenList modifiers = memberDeclaration.GetModifiers();
+
+                                    SyntaxTokenList newModifiers = modifiers.InsertModifier(SyntaxKind.StaticKeyword, ModifierComparer.Instance);
+
+                                    MemberDeclarationSyntax newNode = memberDeclaration.WithModifiers(newModifiers);
+
+                                    return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, cancellationToken);
+                                },
+                                CodeFixIdentifiers.AddStaticModifier + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                 }
