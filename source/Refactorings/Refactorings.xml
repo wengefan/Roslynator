@@ -976,11 +976,6 @@
       <Syntax>string.Format method</Syntax>
     </Syntaxes>
   </Refactoring>
-  <Refactoring Id="RR0146" Identifier="ReplaceStringLiteralWithCharacterLiteral" Title="Replace string literal with character literal">
-    <Syntaxes>
-      <Syntax>string literal</Syntax>
-    </Syntaxes>
-  </Refactoring>
   <Refactoring Id="RR0147" Identifier="ReplaceSwitchWithIfElse" Title="Replace switch statement with if-else">
     <Syntaxes>
       <Syntax>switch statement</Syntax>

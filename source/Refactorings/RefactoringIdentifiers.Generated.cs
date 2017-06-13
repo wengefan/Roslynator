@@ -155,7 +155,6 @@ namespace Roslynator.CSharp.Refactorings
         public const string ReplaceStatementWithIfStatement = Prefix + "0143";
         public const string ReplaceStringContainsWithStringIndexOf = Prefix + "0144";
         public const string ReplaceStringFormatWithInterpolatedString = Prefix + "0145";
-        public const string ReplaceStringLiteralWithCharacterLiteral = Prefix + "0146";
         public const string ReplaceSwitchWithIfElse = Prefix + "0147";
         public const string ReplaceVerbatimStringLiteralWithRegularStringLiteral = Prefix + "0148";
         public const string ReplaceVerbatimStringLiteralWithRegularStringLiterals = Prefix + "0149";
