@@ -13,7 +13,6 @@ namespace Roslynator.VisualStudio
     {
         public RefactoringsOptionsPage()
         {
-            AddBooleanComparison = true;
             AddBraces = true;
             AddBracesToIfElse = true;
             AddBracesToSwitchSection = true;
@@ -193,7 +192,6 @@ namespace Roslynator.VisualStudio
 
         public void MigrateValuesFromIdentifierProperties()
         {
-            SetIsEnabled(RefactoringIdentifiers.AddBooleanComparison, AddBooleanComparison);
             SetIsEnabled(RefactoringIdentifiers.AddBraces, AddBraces);
             SetIsEnabled(RefactoringIdentifiers.AddBracesToIfElse, AddBracesToIfElse);
             SetIsEnabled(RefactoringIdentifiers.AddBracesToSwitchSection, AddBracesToSwitchSection);
@@ -381,7 +379,6 @@ namespace Roslynator.VisualStudio
         public void Fill(ICollection<BaseModel> refactorings)
         {
             refactorings.Clear();
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.AddBooleanComparison, "Add boolean comparison", IsEnabled(RefactoringIdentifiers.AddBooleanComparison)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.AddBraces, "Add braces", IsEnabled(RefactoringIdentifiers.AddBraces)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.AddBracesToIfElse, "Add braces to if-else", IsEnabled(RefactoringIdentifiers.AddBracesToIfElse)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.AddBracesToSwitchSection, "Add braces to switch section", IsEnabled(RefactoringIdentifiers.AddBracesToSwitchSection)));
@@ -564,15 +561,6 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.UseListInsteadOfYield, "Use List<T> instead of yield", IsEnabled(RefactoringIdentifiers.UseListInsteadOfYield)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.SplitIfStatement, "Split if statement", IsEnabled(RefactoringIdentifiers.SplitIfStatement)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceObjectCreationWithDefaultValue, "Replace object creation with default value", IsEnabled(RefactoringIdentifiers.ReplaceObjectCreationWithDefaultValue)));
-        }
-
-        [Browsable(false)]
-        [Category(RefactoringCategory)]
-        [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool AddBooleanComparison
-        {
-            get;
-            set;
         }
 
         [Browsable(false)]

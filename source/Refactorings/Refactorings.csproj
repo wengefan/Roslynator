@@ -228,7 +228,6 @@
     <Compile Include="Refactorings\UseElementAccessInsteadOfEnumerableMethodRefactoring.cs" />
     <Compile Include="Refactorings\NodeInList\DuplicateParameterRefactoring.cs" />
     <Compile Include="Refactorings\ExpandCoalesceExpressionRefactoring.cs" />
-    <Compile Include="Refactorings\AddBooleanComparisonRefactoring.cs" />
     <Compile Include="Refactorings\ExpandEventRefactoring.cs" />
     <Compile Include="Refactorings\PropertyDeclarationRefactoring.cs" />
     <Compile Include="Refactorings\StringLiteralExpressionRefactoring.cs" />

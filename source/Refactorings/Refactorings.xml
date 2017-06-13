@@ -1,10 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Refactorings>
-  <Refactoring Id="RR0001" Identifier="AddBooleanComparison" Title="Add boolean comparison">
-    <Syntaxes>
-      <Syntax>boolean? expression in place where must be boolean expression</Syntax>
-    </Syntaxes>
-  </Refactoring>
   <Refactoring Id="RR0002" Identifier="AddBraces" Title="Add braces">
     <Syntaxes>
       <Syntax>do statement</Syntax>
