@@ -87,6 +87,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="project.json" />
+    <None Include="Roslynator.CodeFixes.nuspec" />
     <None Include="Roslynator.CSharp.CodeFixes.snk" />
   </ItemGroup>
   <ItemGroup>
