@@ -41,7 +41,6 @@
     <AssemblyOriginatorKeyFile>Roslynator.Common.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CSharp\Refactorings\AddBreakStatementToSwitchSectionRefactoring.cs" />
     <Compile Include="CSharp\Refactorings\ExtractDeclarationFromUsingStatementRefactoring.cs" />
     <Compile Include="CSharp\Refactorings\RefactoringHelper.cs" />
     <Compile Include="CSharp\Refactorings\CallExtensionMethodAsInstanceMethodRefactoring.cs" />

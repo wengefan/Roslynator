@@ -72,6 +72,7 @@
     <Compile Include="CodeFixIdentifiers.Generated.cs" />
     <Compile Include="CodeFixIdentifierSet.cs" />
     <Compile Include="CodeFixSettings.cs" />
+    <Compile Include="Refactorings\AddBreakStatementToSwitchSectionRefactoring.cs" />
     <Compile Include="Refactorings\AddComparisonWithBooleanLiteralRefactoring.cs" />
     <Compile Include="Refactorings\AddDocumentationCommentRefactoring.cs" />
     <Compile Include="Refactorings\AddReturnStatementThatReturnsDefaultValueRefactoring.cs" />

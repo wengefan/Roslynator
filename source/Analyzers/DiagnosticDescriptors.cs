@@ -1072,15 +1072,6 @@ namespace Roslynator.CSharp
             customTags: WellKnownDiagnosticTags.Unnecessary
         );
 
-        public static readonly DiagnosticDescriptor AddBreakStatementToSwitchSection = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.AddBreakStatementToSwitchSection,
-            title: "Add break statement to switch section.",
-            messageFormat: "Add break statement to switch section.",
-            category: DiagnosticCategories.ErrorFix,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
-        );
-
         public static readonly DiagnosticDescriptor AddReturnStatementThatReturnsDefaultValue = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.AddReturnStatementThatReturnsDefaultValue,
             title: "Add return statement that returns default value.",
