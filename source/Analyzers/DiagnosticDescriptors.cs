@@ -1252,15 +1252,6 @@ namespace Roslynator.CSharp
             customTags: WellKnownDiagnosticTags.Unnecessary
         );
 
-        public static readonly DiagnosticDescriptor AddDocumentationComment = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.AddDocumentationComment,
-            title: "Add documentation comment to publicly visible type or member.",
-            messageFormat: "Add documentation comment to publicly visible type or member.",
-            category: DiagnosticCategories.Maintainability,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
-        );
-
         public static readonly DiagnosticDescriptor AddSummaryToDocumentationComment = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.AddSummaryToDocumentationComment,
             title: "Add summary to documentation comment.",

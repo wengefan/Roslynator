@@ -77,7 +77,6 @@
     <Compile Include="DiagnosticAnalyzers\UseConstantInsteadOfFieldDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\MarkFieldAsReadOnlyDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\JoinStringExpressionsDiagnosticAnalyzer.cs" />
-    <Compile Include="DiagnosticAnalyzers\AddDocumentationCommentDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\AddEmptyLineAfterClosingBraceDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\AddExceptionToDocumentationCommentDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\AddParameterToDocumentationCommentDiagnosticAnalyzer.cs" />
@@ -172,7 +171,6 @@
     <Compile Include="DiagnosticAnalyzers\UseConditionalAccessDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\RemoveRedundantAsOperatorDiagnosticAnalyzer.cs" />
     <Compile Include="Refactorings\Documentation\AddParameterToDocumentationCommentRefactoring.cs" />
-    <Compile Include="Refactorings\AddDocumentationCommentRefactoring.cs" />
     <Compile Include="DiagnosticAnalyzers\MergeSwitchSectionsDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\DeclareEnumMemberWithZeroValueDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\RemoveRedundantContinueStatementDiagnosticAnalyzer.cs" />

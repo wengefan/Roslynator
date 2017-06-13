@@ -26,7 +26,6 @@ namespace Roslynator.CSharp.CodeFixProviders
                     DiagnosticIdentifiers.FormatDeclarationBraces,
                     DiagnosticIdentifiers.MarkMemberAsStatic,
                     DiagnosticIdentifiers.RemoveRedundantOverridingMember,
-                    DiagnosticIdentifiers.AddDocumentationComment,
                     DiagnosticIdentifiers.MarkContainingClassAsAbstract,
                     DiagnosticIdentifiers.AddDefaultAccessModifier,
                     DiagnosticIdentifiers.AddEmptyLineBetweenDeclarations,
@@ -75,23 +74,6 @@ namespace Roslynator.CSharp.CodeFixProviders
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
-                            break;
-                        }
-                    case DiagnosticIdentifiers.AddDocumentationComment:
-                        {
-                            CodeAction codeAction = CodeAction.Create(
-                                "Add documentation comment",
-                                cancellationToken => AddDocumentationCommentRefactoring.RefactorAsync(context.Document, memberDeclaration, false, cancellationToken),
-                                diagnostic.Id + EquivalenceKeySuffix);
-
-                            context.RegisterCodeFix(codeAction, diagnostic);
-
-                            CodeAction codeAction2 = CodeAction.Create(
-                                "Add documentation comment (copy from base if available)",
-                                cancellationToken => AddDocumentationCommentRefactoring.RefactorAsync(context.Document, memberDeclaration, true, cancellationToken),
-                                diagnostic.Id + "CopyFromBaseIfAvailable" + EquivalenceKeySuffix);
-
-                            context.RegisterCodeFix(codeAction2, diagnostic);
                             break;
                         }
                     case DiagnosticIdentifiers.RemoveRedundantOverridingMember:
