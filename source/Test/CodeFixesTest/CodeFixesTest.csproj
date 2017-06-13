@@ -57,6 +57,7 @@
     <Compile Include="AddOutModifierToArgument.cs" />
     <Compile Include="ChangeAccessibility.cs" />
     <Compile Include="RemoveDuplicateAttribute.cs" />
+    <Compile Include="RemoveImplementationFromAbstractMember.cs" />
     <Compile Include="RemoveNewModifier.cs" />
     <Compile Include="RemoveDuplicateModifier.cs" />
     <Compile Include="RemovePropertyOrFieldInitializer.cs" />

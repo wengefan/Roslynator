@@ -161,4 +161,11 @@
       <Id>CS0221</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9031" Identifier="RemoveImplementationFromAbstractMember" Title="Remove implementation from abstract member">
+    <FixableDiagnosticIds>
+      <Id>CS0069</Id>
+      <Id>CS0500</Id>
+      <Id>CS0531</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

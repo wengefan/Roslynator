@@ -60,6 +60,7 @@
     <Compile Include="CodeFixes\ParameterCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateAttributeCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateModifierCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\RemoveImplementationFromAbstractMemberCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveNewModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ArgumentCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExpressionCodeFixProvider.cs" />

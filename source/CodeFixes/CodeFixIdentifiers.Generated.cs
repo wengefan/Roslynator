@@ -37,5 +37,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string ChangeAccessibility = Prefix + "9028";
         public const string ChangeTypeOfParamsParameter = Prefix + "9029";
         public const string UseUncheckedExpression = Prefix + "9030";
+        public const string RemoveImplementationFromAbstractMember = Prefix + "9031";
     }
 }

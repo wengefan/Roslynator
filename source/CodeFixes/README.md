@@ -23,6 +23,7 @@ RCS9018|Member type must match overridden member type|CS1715|x
 RCS9014|Overriding member cannot change access modifiers|CS0507|x
 RCS9011|Remove duplicate attribute|CS0579|x
 RCS9010|Remove duplicate modifier|CS1004|x
+RCS9031|Remove implementation from abstract member|CS0500, CS0531|x
 RCS9012|Remove new modifier|CS0109|x
 RCS9023|Remove property or field initializer|CS0573|x
 RCS9027|Remove redundant assignment|CS1717|x

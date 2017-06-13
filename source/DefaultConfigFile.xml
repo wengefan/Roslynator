@@ -223,6 +223,7 @@
       <CodeFix Id="RCS9028" IsEnabled="true" /> <!-- ChangeAccessibility (fixes CS0628, CS1057) -->
       <CodeFix Id="RCS9029" IsEnabled="true" /> <!-- ChangeTypeOfParamsParameter (fixes CS0225) -->
       <CodeFix Id="RCS9030" IsEnabled="true" /> <!-- UseUncheckedExpression (fixes CS0221) -->
+      <CodeFix Id="RCS9031" IsEnabled="true" /> <!-- RemoveImplementationFromAbstractMember (fixes CS0500, CS0531) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

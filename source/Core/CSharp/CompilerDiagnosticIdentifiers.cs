@@ -7,6 +7,7 @@ namespace Roslynator.CSharp
         public const string Prefix = "CS";
         public const string OperatorCannotBeAppliedToOperands = Prefix + "0019";
         public const string CannotImplicitlyConvertType = Prefix + "0029";
+        public const string EventInInterfaceCannotHaveAddOrRemoveAccessors = Prefix + "0069";
         public const string MemberDoesNotHideAccessibleMember = Prefix + "0109";
         public const string MemberHidesInheritedMember = Prefix + "0114";
         public const string NotAllCodePathsReturnValue = Prefix + "0161";
@@ -19,8 +20,10 @@ namespace Roslynator.CSharp
         public const string ParamsParameterMustBeSingleDimensionalArray = Prefix + "0225";
         public const string MissingPartialModifier = Prefix + "0260";
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
+        public const string MemberCannotDeclareBodyBecauseItIsNotMarkedAbstract = Prefix + "0500";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
         public const string MemberReturnTypeMustMatchOverriddenMemberReturnType = Prefix + "0508";
+        public const string InterfaceMembersCannotHaveDefinition = Prefix + "0531";
         public const string UserDefinedOperatorMustBeDeclaredStaticAndPublic = Prefix + "0558";
         public const string CannotHaveInstancePropertyOrFieldInitializersInStruct = Prefix + "0573";
         public const string DuplicateAttribute = Prefix + "0579";
