@@ -28,7 +28,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                     DiagnosticDescriptors.UseBitwiseOperationInsteadOfCallingHasFlag,
                     DiagnosticDescriptors.RemoveRedundantToStringCall,
                     DiagnosticDescriptors.RemoveRedundantStringToCharArrayCall,
-                    DiagnosticDescriptors.UseCastMethodInsteadOfSelectMethod,
+                    DiagnosticDescriptors.CallCastInsteadOfSelect,
                     DiagnosticDescriptors.CombineEnumerableWhereMethodChain,
                     DiagnosticDescriptors.CombineEnumerableWhereMethodChainFadeOut,
                     DiagnosticDescriptors.CallFindMethodInsteadOfFirstOrDefaultMethod,
@@ -112,7 +112,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                                 }
                             case "Select":
                                 {
-                                    UseCastMethodInsteadOfSelectMethodRefactoring.Analyze(context, invocation, memberAccess);
+                                    CallCastInsteadOfSelectRefactoring.Analyze(context, invocation, memberAccess);
                                     break;
                                 }
                             case "Where":
@@ -145,7 +145,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                     if (result.Success
                         && context.SemanticModel
                             .GetEnclosingNamedType(result.InvocationExpression.SpanStart, context.CancellationToken)?
-                            .Equals(result.ExtensionMethodInfo.Symbol.ContainingType) == false)
+                            .Equals(result.MethodSymbol.ContainingType) == false)
                     {
                         context.ReportDiagnostic(DiagnosticDescriptors.CallExtensionMethodAsInstanceMethod, invocation);
                     }

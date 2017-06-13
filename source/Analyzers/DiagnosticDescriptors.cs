@@ -1004,10 +1004,10 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor UseCastMethodInsteadOfSelectMethod = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.UseCastMethodInsteadOfSelectMethod,
-            title: "Use 'Cast' method instead of 'Select' method.",
-            messageFormat: "Use 'Cast' method instead of 'Select' method.",
+        public static readonly DiagnosticDescriptor CallCastInsteadOfSelect = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.CallCastInsteadOfSelect,
+            title: "Call 'Enumerable.Cast' instead of 'Enumerable.Select'.",
+            messageFormat: "Call 'Enumerable.Cast' instead of 'Enumerable.Select'.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
@@ -1733,10 +1733,10 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor MarkFieldAsConst = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.MarkFieldAsConst,
-            title: "Mark field as const.",
-            messageFormat: "Mark field as const.",
+        public static readonly DiagnosticDescriptor UseConstantInsteadOfField = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseConstantInsteadOfField,
+            title: "Use constant instead of field.",
+            messageFormat: "Use constant instead of field.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
