@@ -136,7 +136,7 @@ namespace Roslynator.CSharp
         public const string UseCoalesceExpression = Prefix + "1128";
         public const string RemoveRedundantFieldInitialization = Prefix + "1129";
         public const string BitwiseOperationOnEnumWithoutFlagsAttribute = Prefix + "1130";
-        public const string ReplaceReturnWithYieldReturn = Prefix + "1131";
+        //public const string ReplaceReturnWithYieldReturn = Prefix + "1131";
         public const string RemoveRedundantOverridingMember = Prefix + "1132";
         public const string RemoveRedundantDisposeOrCloseCall = Prefix + "1133";
         public const string RemoveRedundantContinueStatement = Prefix + "1134";

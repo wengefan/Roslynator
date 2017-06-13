@@ -1203,15 +1203,6 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor ReplaceReturnWithYieldReturn = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.ReplaceReturnWithYieldReturn,
-            title: "Replace return with yield return.",
-            messageFormat: "Replace return with yield return.",
-            category: DiagnosticCategories.ErrorFix,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
-        );
-
         public static readonly DiagnosticDescriptor RemoveRedundantOverridingMember = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.RemoveRedundantOverridingMember,
             title: "Remove redundant overriding member.",
