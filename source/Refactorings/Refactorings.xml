@@ -303,12 +303,6 @@
       <Syntax>auto-property</Syntax>
     </Syntaxes>
   </Refactoring>
-  <Refactoring Id="RR0042" Identifier="ExtractDeclarationFromUsingStatement" Title="Extract declaration from using statement">
-    <Syntaxes>
-      <Syntax>using statement</Syntax>
-    </Syntaxes>
-    <Scope>declaration</Scope>
-  </Refactoring>
   <Refactoring Id="RR0043" Identifier="ExtractExpressionFromCondition" Title="Extract expression from condition">
     <Syntaxes>
       <Syntax>if statement</Syntax>

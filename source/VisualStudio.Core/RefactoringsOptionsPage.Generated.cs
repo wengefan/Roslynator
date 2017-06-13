@@ -54,7 +54,6 @@ namespace Roslynator.VisualStudio
             ExpandLambdaExpressionBody = true;
             ExpandProperty = true;
             ExpandPropertyAndAddBackingField = true;
-            ExtractDeclarationFromUsingStatement = true;
             ExtractExpressionFromCondition = true;
             ExtractGenericType = true;
             ExtractStatement = true;
@@ -236,7 +235,6 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.ExpandLambdaExpressionBody, ExpandLambdaExpressionBody);
             SetIsEnabled(RefactoringIdentifiers.ExpandProperty, ExpandProperty);
             SetIsEnabled(RefactoringIdentifiers.ExpandPropertyAndAddBackingField, ExpandPropertyAndAddBackingField);
-            SetIsEnabled(RefactoringIdentifiers.ExtractDeclarationFromUsingStatement, ExtractDeclarationFromUsingStatement);
             SetIsEnabled(RefactoringIdentifiers.ExtractExpressionFromCondition, ExtractExpressionFromCondition);
             SetIsEnabled(RefactoringIdentifiers.ExtractGenericType, ExtractGenericType);
             SetIsEnabled(RefactoringIdentifiers.ExtractStatement, ExtractStatement);
@@ -426,7 +424,6 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExpandLambdaExpressionBody, "Expand lambda expression body", IsEnabled(RefactoringIdentifiers.ExpandLambdaExpressionBody)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExpandProperty, "Expand property", IsEnabled(RefactoringIdentifiers.ExpandProperty)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExpandPropertyAndAddBackingField, "Expand property and add backing field", IsEnabled(RefactoringIdentifiers.ExpandPropertyAndAddBackingField)));
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.ExtractDeclarationFromUsingStatement, "Extract declaration from using statement", IsEnabled(RefactoringIdentifiers.ExtractDeclarationFromUsingStatement)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExtractExpressionFromCondition, "Extract expression from condition", IsEnabled(RefactoringIdentifiers.ExtractExpressionFromCondition)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExtractGenericType, "Extract generic type", IsEnabled(RefactoringIdentifiers.ExtractGenericType)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExtractStatement, "Extract statement(s)", IsEnabled(RefactoringIdentifiers.ExtractStatement)));
@@ -936,15 +933,6 @@ namespace Roslynator.VisualStudio
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
         public bool ExpandPropertyAndAddBackingField
-        {
-            get;
-            set;
-        }
-
-        [Browsable(false)]
-        [Category(RefactoringCategory)]
-        [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool ExtractDeclarationFromUsingStatement
         {
             get;
             set;
