@@ -1072,15 +1072,6 @@ namespace Roslynator.CSharp
             customTags: WellKnownDiagnosticTags.Unnecessary
         );
 
-        public static readonly DiagnosticDescriptor AddReturnStatementThatReturnsDefaultValue = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.AddReturnStatementThatReturnsDefaultValue,
-            title: "Add return statement that returns default value.",
-            messageFormat: "Add return statement that returns default value.",
-            category: DiagnosticCategories.ErrorFix,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
-        );
-
         public static readonly DiagnosticDescriptor MarkLocalVariableAsConst = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.MarkLocalVariableAsConst,
             title: "Mark local variable as const.",

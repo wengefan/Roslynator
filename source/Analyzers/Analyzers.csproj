@@ -243,7 +243,6 @@
     <Compile Include="CodeFixProviders\RemoveRedundantBooleanLiteralCodeFixProvider.cs" />
     <Compile Include="DiagnosticAnalyzers\BitwiseOperatorDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\LocalDeclarationStatementDiagnosticAnalyzer.cs" />
-    <Compile Include="Refactorings\AddReturnStatementThatReturnsDefaultValueRefactoring.cs" />
     <Compile Include="CodeFixProviders\DocumentCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\ClassDeclarationCodeFixProvider.cs" />
     <Compile Include="DiagnosticAnalyzers\DestructorDeclarationDiagnosticAnalyzer.cs" />
