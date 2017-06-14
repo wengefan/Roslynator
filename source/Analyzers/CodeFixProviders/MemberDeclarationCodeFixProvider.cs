@@ -24,7 +24,6 @@ namespace Roslynator.CSharp.CodeFixProviders
             {
                 return ImmutableArray.Create(
                     DiagnosticIdentifiers.FormatDeclarationBraces,
-                    DiagnosticIdentifiers.MarkMemberAsStatic,
                     DiagnosticIdentifiers.RemoveRedundantOverridingMember,
                     DiagnosticIdentifiers.MarkContainingClassAsAbstract,
                     DiagnosticIdentifiers.AddDefaultAccessModifier,
@@ -61,16 +60,6 @@ namespace Roslynator.CSharp.CodeFixProviders
                             CodeAction codeAction = CodeAction.Create(
                                 "Format braces",
                                 cancellationToken => FormatDeclarationBracesRefactoring.RefactorAsync(context.Document, memberDeclaration, cancellationToken),
-                                diagnostic.Id + EquivalenceKeySuffix);
-
-                            context.RegisterCodeFix(codeAction, diagnostic);
-                            break;
-                        }
-                    case DiagnosticIdentifiers.MarkMemberAsStatic:
-                        {
-                            CodeAction codeAction = CodeAction.Create(
-                                $"Mark {memberDeclaration.GetTitle()} as static",
-                                cancellationToken => MarkMemberAsStaticRefactoring.RefactorAsync(context.Document, memberDeclaration, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);

@@ -130,7 +130,7 @@ namespace Roslynator.CSharp
         public const string AddMissingSemicolon = Prefix + "1122";
         public const string AddParenthesesAccordingToOperatorPrecedence = Prefix + "1123";
         public const string InlineLocalVariable = Prefix + "1124";
-        public const string MarkMemberAsStatic = Prefix + "1125";
+        //public const string MarkMemberAsStatic = Prefix + "1125";
         public const string AvoidEmbeddedStatementInIfElse = Prefix + "1126";
         public const string MergeLocalDeclarationWithAssignment = Prefix + "1127";
         public const string UseCoalesceExpression = Prefix + "1128";
