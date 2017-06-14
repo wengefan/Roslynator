@@ -40,5 +40,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveImplementationFromAbstractMember = Prefix + "9031";
         public const string AddStaticModifier = Prefix + "9032";
         public const string MakeContainingClassAbstract = Prefix + "9033";
+        public const string AddSemicolon = Prefix + "9034";
     }
 }

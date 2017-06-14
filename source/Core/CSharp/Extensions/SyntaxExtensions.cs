@@ -59,6 +59,64 @@ namespace Roslynator.CSharp
 
             return body ?? (CSharpSyntaxNode)accessorDeclaration.ExpressionBody;
         }
+
+        public static AccessorDeclarationSyntax PreviousAccessor(this AccessorDeclarationSyntax accessor)
+        {
+            if (accessor == null)
+                throw new ArgumentNullException(nameof(accessor));
+
+            SyntaxList<AccessorDeclarationSyntax> accessors;
+            if (accessor.TryGetContainingList(out accessors))
+            {
+                int index = accessors.IndexOf(accessor);
+
+                if (index > 0)
+                {
+                    return accessors[index - 1];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
+        public static AccessorDeclarationSyntax NextAccessor(this AccessorDeclarationSyntax accessor)
+        {
+            if (accessor == null)
+                throw new ArgumentNullException(nameof(accessor));
+
+            SyntaxList<AccessorDeclarationSyntax> accessors;
+            if (TryGetContainingList(accessor, out accessors))
+            {
+                int index = accessors.IndexOf(accessor);
+
+                if (index < accessors.Count - 1)
+                {
+                    return accessors[index + 1];
+                }
+                else
+                {
+                    return null;
+                }
+            }
+
+            return null;
+        }
+
+        public static bool TryGetContainingList(this AccessorDeclarationSyntax accessor, out SyntaxList<AccessorDeclarationSyntax> accessors)
+        {
+            if (accessor?.IsParentKind(SyntaxKind.AccessorList) == true)
+            {
+                accessors = ((AccessorListSyntax)accessor.Parent).Accessors;
+                return true;
+            }
+
+            accessors = default(SyntaxList<AccessorDeclarationSyntax>);
+            return false;
+        }
         #endregion AccessorDeclarationSyntax
 
         #region AccessorListSyntax

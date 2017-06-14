@@ -223,7 +223,10 @@
       <CodeFix Id="RCS9028" IsEnabled="true" /> <!-- ChangeAccessibility (fixes CS0628, CS1057) -->
       <CodeFix Id="RCS9029" IsEnabled="true" /> <!-- ChangeTypeOfParamsParameter (fixes CS0225) -->
       <CodeFix Id="RCS9030" IsEnabled="true" /> <!-- UseUncheckedExpression (fixes CS0221) -->
-      <CodeFix Id="RCS9031" IsEnabled="true" /> <!-- RemoveImplementationFromAbstractMember (fixes CS0500, CS0531) -->
+      <CodeFix Id="RCS9031" IsEnabled="true" /> <!-- RemoveImplementationFromAbstractMember (fixes CS0069, CS0500, CS0531) -->
+      <CodeFix Id="RCS9032" IsEnabled="true" /> <!-- AddStaticModifier (fixes CS0708, CS0710) -->
+      <CodeFix Id="RCS9033" IsEnabled="true" /> <!-- MakeContainingClassAbstract (fixes CS0513) -->
+      <CodeFix Id="RCS9034" IsEnabled="false" /> <!-- AddSemicolon (fixes CS1002) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

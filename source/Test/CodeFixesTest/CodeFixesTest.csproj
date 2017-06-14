@@ -43,6 +43,7 @@
     <Compile Include="AddBreakStatementToSwitchSection.cs" />
     <Compile Include="AddDocumentationComment.cs" />
     <Compile Include="AddMethodBody.cs" />
+    <Compile Include="AddSemicolon.cs" />
     <Compile Include="AddOverrideOrNewModifier.cs" />
     <Compile Include="AddPartialModifier.cs" />
     <Compile Include="AddReturnStatementThatReturnsDefaultValue.cs" />

@@ -179,4 +179,9 @@
       <Id>CS0513</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9034" Identifier="AddSemicolon" Title="Add semicolon" IsEnabledByDefault="false">
+    <FixableDiagnosticIds>
+      <Id>CS1002</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>
