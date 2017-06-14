@@ -154,7 +154,7 @@ namespace Roslynator.CSharp
         public const string UseConditionalAccess = Prefix + "1146";
         public const string RemoveInapplicableModifier = Prefix + "1147";
         //public const string RemoveUnreachableCode = Prefix + "1148";
-        public const string RemoveImplementationFromAbstractMember = Prefix + "1149";
+        //public const string RemoveImplementationFromAbstractMember = Prefix + "1149";
         public const string CallStringConcatInsteadOfStringJoin = Prefix + "1150";
         public const string RemoveRedundantCast = Prefix + "1151";
         //public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "1152";

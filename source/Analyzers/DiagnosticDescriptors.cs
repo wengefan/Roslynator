@@ -1336,16 +1336,6 @@ namespace Roslynator.CSharp
             customTags: WellKnownDiagnosticTags.Unnecessary
         );
 
-        public static readonly DiagnosticDescriptor RemoveImplementationFromAbstractMember = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.RemoveImplementationFromAbstractMember,
-            title: "Remove implementation from abstract member.",
-            messageFormat: "Remove implementation from {0}.",
-            category: DiagnosticCategories.ErrorFix,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
-        );
-
         public static readonly DiagnosticDescriptor CallStringConcatInsteadOfStringJoin = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.CallStringConcatInsteadOfStringJoin,
             title: "Call string.Concat instead of string.Join.",
