@@ -142,7 +142,6 @@
     <Compile Include="DiagnosticAnalyzers\SimplifyCoalesceExpressionDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\RemoveRedundantCastDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\RemoveInapplicableModifierDiagnosticAnalyzer.cs" />
-    <Compile Include="DiagnosticAnalyzers\MarkContainingClassAsAbstractDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\SortEnumMembersDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\UnusedTypeParameterDiagnosticAnalyzer.cs" />
     <Compile Include="Refactorings\EnumMemberShouldDeclareExplicitValueRefactoring.cs" />

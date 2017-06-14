@@ -25,7 +25,6 @@ namespace Roslynator.CSharp.CodeFixProviders
                 return ImmutableArray.Create(
                     DiagnosticIdentifiers.FormatDeclarationBraces,
                     DiagnosticIdentifiers.RemoveRedundantOverridingMember,
-                    DiagnosticIdentifiers.MarkContainingClassAsAbstract,
                     DiagnosticIdentifiers.AddDefaultAccessModifier,
                     DiagnosticIdentifiers.AddEmptyLineBetweenDeclarations,
                     DiagnosticIdentifiers.RemoveRedundantSealedModifier,
@@ -70,16 +69,6 @@ namespace Roslynator.CSharp.CodeFixProviders
                             CodeAction codeAction = CodeAction.Create(
                                 $"Remove redundant overridding {memberDeclaration.GetTitle()}",
                                 cancellationToken => context.Document.RemoveMemberAsync(memberDeclaration, cancellationToken),
-                                diagnostic.Id + EquivalenceKeySuffix);
-
-                            context.RegisterCodeFix(codeAction, diagnostic);
-                            break;
-                        }
-                    case DiagnosticIdentifiers.MarkContainingClassAsAbstract:
-                        {
-                            CodeAction codeAction = CodeAction.Create(
-                                "Mark containing class as abstract",
-                                cancellationToken => MarkContainingClassAsAbstractRefactoring.RefactorAsync(context.Document, memberDeclaration, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
