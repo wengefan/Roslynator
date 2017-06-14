@@ -1108,15 +1108,6 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor AddMissingSemicolon = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.AddMissingSemicolon,
-            title: "Add missing semicolon.",
-            messageFormat: "Add missing semicolon.",
-            category: DiagnosticCategories.ErrorFix,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: false
-        );
-
         public static readonly DiagnosticDescriptor AddParenthesesAccordingToOperatorPrecedence = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.AddParenthesesAccordingToOperatorPrecedence,
             title: "Add parentheses according to operator precedence.",

@@ -58,7 +58,6 @@
     <Compile Include="CodeFixProviders\RemoveRedundantCastCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\TypeCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\TypeParameterCodeFixProvider.cs" />
-    <Compile Include="CodeFixProviders\AddMissingSemicolonCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\DeclareEnumMemberWithZeroValueCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\DocumentationCommentCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\AddExceptionToDocumentationCommentCodeFixProvider.cs" />
@@ -84,7 +83,6 @@
     <Compile Include="DiagnosticAnalyzers\AvoidChainOfAssignmentsDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\AvoidEmbeddedStatementInIfElseDiagnosticAnalyzer.cs" />
     <Compile Include="CodeFixProviders\LocalDeclarationStatementCodeFixProvider.cs" />
-    <Compile Include="DiagnosticAnalyzers\AddMissingSemicolonDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\AddParenthesesDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\CompositeEnumValueContainsUndefinedFlagDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\EnumMemberShouldDeclareExplicitValueDiagnosticAnalyzer.cs" />
