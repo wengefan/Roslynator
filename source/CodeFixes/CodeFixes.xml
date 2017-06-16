@@ -184,4 +184,9 @@
       <Id>CS1002</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9035" Identifier="SynchronizeAccessibility" Title="SynchronizeAccessibility">
+    <FixableDiagnosticIds>
+      <Id>CS0266</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

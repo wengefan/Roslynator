@@ -70,6 +70,8 @@
     <Compile Include="RemoveUnusedLabel.cs" />
     <Compile Include="RemoveUnusedVariable.cs" />
     <Compile Include="ReplaceStringLiteralWithCharacterLiteralRefactoring.cs" />
+    <Compile Include="SynchronizeAccessibility.partial.cs" />
+    <Compile Include="SynchronizeAccessibility.cs" />
     <Compile Include="UseYieldReturnInsteadOfReturn.cs" />
     <Compile Include="WrapInUncheckedExpression.cs" />
   </ItemGroup>

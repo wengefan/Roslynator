@@ -19,6 +19,7 @@ namespace Roslynator.CSharp
         public const string ConstantValueCannotBeConverted = Prefix + "0221";
         public const string ParamsParameterMustBeSingleDimensionalArray = Prefix + "0225";
         public const string MissingPartialModifier = Prefix + "0260";
+        public const string PartialDeclarationsHaveConfictingAccessibilityModifiers = Prefix + "0262";
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
         public const string MemberCannotDeclareBodyBecauseItIsNotMarkedAbstract = Prefix + "0500";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
