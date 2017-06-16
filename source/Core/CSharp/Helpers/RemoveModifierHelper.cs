@@ -47,6 +47,16 @@ namespace Roslynator.CSharp.Helpers
             }
         }
 
+        public static TNode RemoveModifierAt<TNode>(TNode node, int index) where TNode : SyntaxNode
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+            SyntaxTokenList modifiers = node.GetModifiers();
+
+            return RemoveModifier(node, modifiers, modifiers[index], index);
+        }
+
         private static TNode RemoveModifier<TNode>(TNode node, SyntaxTokenList modifiers, SyntaxToken modifier, int i) where TNode : SyntaxNode
         {
             SyntaxTriviaList trivia = GetTrivia(node, modifiers, modifier, i);

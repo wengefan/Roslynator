@@ -3184,31 +3184,53 @@ namespace Roslynator.CSharp
 
         public static SyntaxTokenList InsertModifier(this SyntaxTokenList modifiers, SyntaxToken modifier, IModifierComparer comparer)
         {
-            if (modifiers.Any())
-            {
-                int index = comparer.GetInsertIndex(modifiers, modifier);
+            if (!modifiers.Any())
+                modifiers.Add(modifier);
 
-                if (index == modifiers.Count)
+            int index = comparer.GetInsertIndex(modifiers, modifier);
+
+            if (index == modifiers.Count)
+            {
+                SyntaxToken lastModifier = modifiers[index - 1];
+
+                SyntaxTriviaList trailingTrivia = lastModifier.TrailingTrivia;
+
+                if (trailingTrivia.Any())
+                    modifier = modifier.AppendToTrailingTrivia(trailingTrivia);
+
+                SyntaxTriviaList leadingTrivia = modifier.LeadingTrivia;
+
+                if (!leadingTrivia.Any())
                 {
-                    return modifiers.Add(modifier.PrependToLeadingTrivia(Space));
+                    lastModifier = lastModifier.WithTrailingTrivia(Space);
                 }
                 else
                 {
-                    SyntaxToken nextModifier = modifiers[index];
-
-                    return modifiers
-                        .Replace(nextModifier, nextModifier.WithoutLeadingTrivia())
-                        .Insert(
-                            index,
-                            modifier
-                                .WithLeadingTrivia(nextModifier.LeadingTrivia)
-                                .WithTrailingTrivia(Space));
+                    lastModifier = lastModifier.WithoutTrailingTrivia();
                 }
+
+                modifiers = modifiers.ReplaceAt(index - 1, modifier);
             }
             else
             {
-                return modifiers.Add(modifier);
+                SyntaxToken nextModifier = modifiers[index];
+
+                SyntaxTriviaList leadingTrivia = nextModifier.LeadingTrivia;
+
+                if (leadingTrivia.Any())
+                {
+                    modifier = modifier.PrependToLeadingTrivia(leadingTrivia);
+
+                    nextModifier = nextModifier.WithoutLeadingTrivia();
+                }
+
+                if (!modifier.HasTrailingTrivia)
+                    modifier = modifier.WithTrailingTrivia(Space);
+
+                modifiers = modifiers.ReplaceAt(index, nextModifier);
             }
+
+            return modifiers.Insert(index, modifier);
         }
 
         internal static SyntaxTokenList RemoveAccessModifiers(this SyntaxTokenList tokenList)
