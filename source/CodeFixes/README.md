@@ -24,6 +24,7 @@ RCS9009|Mark operator as 'public' and 'static'|CS0558|x
 RCS9017|Member return type must match overridden member return type|CS0508|x
 RCS9018|Member type must match overridden member type|CS1715|x
 RCS9014|Overriding member cannot change access modifiers|CS0507|x
+RCS9036|Remove argument list|CS1955|x
 RCS9011|Remove duplicate attribute|CS0579|x
 RCS9010|Remove duplicate modifier|CS1004|x
 RCS9031|Remove implementation from abstract member|CS0069, CS0500, CS0531|x
@@ -34,6 +35,7 @@ RCS9026|Remove 'ref' modifier|CS1615|x
 RCS9013|Remove unused label|CS0164|x
 RCS9000|Remove unused variable|CS0168, CS0219|x
 RCS9021|Replace string literal with character literal|CS0029|x
+RCS9035|SynchronizeAccessibility|CS0266|x
 RCS9016|Unreachable code detected|CS0162|x
 RCS9030|Use unchecked expression|CS0221|x
 RCS9020|Use yield return instead of return|CS0029, CS1622|x

@@ -227,6 +227,8 @@
       <CodeFix Id="RCS9032" IsEnabled="true" /> <!-- AddStaticModifier (fixes CS0708, CS0710) -->
       <CodeFix Id="RCS9033" IsEnabled="true" /> <!-- MakeContainingClassAbstract (fixes CS0513) -->
       <CodeFix Id="RCS9034" IsEnabled="false" /> <!-- AddSemicolon (fixes CS1002) -->
+      <CodeFix Id="RCS9035" IsEnabled="true" /> <!-- SynchronizeAccessibility (fixes CS0266) -->
+      <CodeFix Id="RCS9036" IsEnabled="true" /> <!-- RemoveArgumentList (fixes CS1955) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

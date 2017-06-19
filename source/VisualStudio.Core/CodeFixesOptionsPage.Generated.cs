@@ -52,6 +52,8 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddStaticModifier, "Add 'static' modifier (fixes CS0708, CS0710)", IsEnabled(CodeFixIdentifiers.AddStaticModifier)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.MakeContainingClassAbstract, "Make containing class abstract (fixes CS0513)", IsEnabled(CodeFixIdentifiers.MakeContainingClassAbstract)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddSemicolon, "Add semicolon (fixes CS1002)", IsEnabled(CodeFixIdentifiers.AddSemicolon)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.SynchronizeAccessibility, "SynchronizeAccessibility (fixes CS0266)", IsEnabled(CodeFixIdentifiers.SynchronizeAccessibility)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveArgumentList, "Remove argument list (fixes CS1955)", IsEnabled(CodeFixIdentifiers.RemoveArgumentList)));
         }
     }
 }
