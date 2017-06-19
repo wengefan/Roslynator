@@ -13,6 +13,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Comparers;
+using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -61,72 +62,13 @@ namespace Roslynator.CSharp.CodeFixes
                 if (AccessibilityHelper.IsAllowedAccessibility(memberDeclaration, accessibility))
                 {
                     CodeAction codeAction = CodeAction.Create(
-                        $"Change accessibility to '{GetAccessibilityName(accessibility)}'",
-                        cancellationToken => RefactorAsync(context.Solution(), memberDeclarations, accessibility, cancellationToken),
+                        $"Change accessibility to '{AccessibilityHelper.GetAccessibilityName(accessibility)}'",
+                        cancellationToken => ChangeAccessibilityRefactoring.RefactorAsync(context.Solution(), memberDeclarations, accessibility, cancellationToken),
                         $"{CodeFixIdentifiers.SynchronizeAccessibility}_{accessibility}_{EquivalenceKeySuffix}");
 
                     context.RegisterCodeFix(codeAction, context.Diagnostics);
                 }
             }
-        }
-
-        public static async Task<Solution> RefactorAsync(
-            Solution solution,
-            ImmutableArray<MemberDeclarationSyntax> memberDeclarations,
-            Accessibility newAccessibility,
-            CancellationToken cancellationToken)
-        {
-            var newDocuments = new List<KeyValuePair<DocumentId, SyntaxNode>>();
-
-            foreach (IGrouping<SyntaxTree, MemberDeclarationSyntax> grouping in memberDeclarations
-                .GroupBy(f => f.SyntaxTree))
-            {
-                Document document = solution.GetDocument(grouping.Key);
-
-                SyntaxNode root = await document.GetSyntaxRootAsync(cancellationToken).ConfigureAwait(false);
-
-                SyntaxNode newRoot = root.ReplaceNodes(
-                    grouping,
-                    (node, rewrittenNode) =>
-                    {
-                        AccessibilityInfo info = AccessibilityInfo.Create(node.GetModifiers());
-
-                        if (info.Accessibility == Accessibility.NotApplicable)
-                            return node;
-
-                        return AccessibilityHelper.ChangeAccessibility(node, info, newAccessibility, ModifierComparer.Instance);
-                    });
-
-                newDocuments.Add(new KeyValuePair<DocumentId, SyntaxNode>(document.Id, newRoot));
-            }
-
-            Solution newSolution = solution;
-
-            foreach (KeyValuePair<DocumentId, SyntaxNode> kvp in newDocuments)
-                newSolution = newSolution.WithDocumentSyntaxRoot(kvp.Key, kvp.Value);
-
-            return newSolution;
-        }
-
-        private static string GetAccessibilityName(Accessibility accessibility)
-        {
-            switch (accessibility)
-            {
-                case Accessibility.Private:
-                    return "private";
-                case Accessibility.Protected:
-                    return "protected";
-                case Accessibility.Internal:
-                    return "internal";
-                case Accessibility.ProtectedOrInternal:
-                    return "protected internal";
-                case Accessibility.Public:
-                    return "public";
-            }
-
-            Debug.Fail(accessibility.ToString());
-
-            return "";
         }
     }
 }

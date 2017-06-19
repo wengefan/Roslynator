@@ -30,24 +30,29 @@ namespace Roslynator.CSharp
 
                         return true;
                     }
+                case SyntaxKind.EventDeclaration:
+                    {
+                        return CheckProtectedOrProtectedInternalInStaticOrSealedClass(node, accessibility)
+                            && CheckAccessorAccessibility(((EventDeclarationSyntax)node).AccessorList, accessibility);
+                    }
+                case SyntaxKind.IndexerDeclaration:
+                    {
+                        return CheckProtectedOrProtectedInternalInStaticOrSealedClass(node, accessibility)
+                            && CheckAccessorAccessibility(((IndexerDeclarationSyntax)node).AccessorList, accessibility);
+                    }
+                case SyntaxKind.PropertyDeclaration:
+                    {
+                        return CheckProtectedOrProtectedInternalInStaticOrSealedClass(node, accessibility)
+                            && CheckAccessorAccessibility(((PropertyDeclarationSyntax)node).AccessorList, accessibility);
+                    }
                 case SyntaxKind.ConstructorDeclaration:
                 case SyntaxKind.DelegateDeclaration:
-                case SyntaxKind.EventDeclaration:
                 case SyntaxKind.EventFieldDeclaration:
                 case SyntaxKind.FieldDeclaration:
-                case SyntaxKind.IndexerDeclaration:
                 case SyntaxKind.MethodDeclaration:
-                case SyntaxKind.PropertyDeclaration:
                 case SyntaxKind.IncompleteMember:
                     {
-                        if (accessibility == Accessibility.Protected
-                            || accessibility == Accessibility.ProtectedOrInternal)
-                        {
-                            if (IsContainedInStaticOrSealedClass(node))
-                                return false;
-                        }
-
-                        return true;
+                        return CheckProtectedOrProtectedInternalInStaticOrSealedClass(node, accessibility);
                     }
                 case SyntaxKind.OperatorDeclaration:
                 case SyntaxKind.ConversionOperatorDeclaration:
@@ -89,6 +94,34 @@ namespace Roslynator.CSharp
                         return false;
                     }
             }
+        }
+
+        private static bool CheckProtectedOrProtectedInternalInStaticOrSealedClass(SyntaxNode node, Accessibility accessibility)
+        {
+            if (accessibility == Accessibility.Protected
+                || accessibility == Accessibility.ProtectedOrInternal)
+            {
+                if (IsContainedInStaticOrSealedClass(node))
+                    return false;
+            }
+
+            return true;
+        }
+
+        private static bool CheckAccessorAccessibility(AccessorListSyntax accessorList, Accessibility accessibility)
+        {
+            if (accessorList != null)
+            {
+                foreach (AccessorDeclarationSyntax accessor in accessorList.Accessors)
+                {
+                    Accessibility accessorAccessibility = accessor.Modifiers.GetAccessibility();
+
+                    if (accessorAccessibility != Accessibility.NotApplicable)
+                        return accessorAccessibility.IsMoreRestrictiveThan(accessibility);
+                }
+            }
+
+            return true;
         }
 
         private static bool IsContainedInStaticOrSealedClass(SyntaxNode node)
@@ -144,43 +177,42 @@ namespace Roslynator.CSharp
 
             if (newAccessibility != Accessibility.NotApplicable)
             {
-                SyntaxTokenList newModifiers = InsertModifier(node.GetModifiers(), newAccessibility, comparer);
-
-                node = (TNode)node.WithModifiers(newModifiers);
+                node = (TNode)InsertModifier(node, newAccessibility, comparer);
             }
 
             return node;
         }
 
-        private static SyntaxTokenList InsertModifier(SyntaxTokenList modifiers, Accessibility accessibility, IModifierComparer comparer)
+        private static SyntaxNode InsertModifier(SyntaxNode node, Accessibility accessibility, IModifierComparer comparer)
         {
             switch (accessibility)
             {
                 case Accessibility.Private:
                     {
-                        return modifiers.InsertModifier(SyntaxKind.PrivateKeyword, comparer);
+                        return InsertModifierHelper.InsertModifier(node, SyntaxKind.PrivateKeyword, comparer);
                     }
                 case Accessibility.Protected:
                     {
-                        return modifiers.InsertModifier(SyntaxKind.ProtectedKeyword, comparer);
+                        return InsertModifierHelper.InsertModifier(node, SyntaxKind.ProtectedKeyword, comparer);
                     }
                 case Accessibility.Internal:
                     {
-                        return modifiers.InsertModifier(SyntaxKind.InternalKeyword, comparer);
+                        return InsertModifierHelper.InsertModifier(node, SyntaxKind.InternalKeyword, comparer);
                     }
                 case Accessibility.Public:
                     {
-                        return modifiers.InsertModifier(SyntaxKind.PublicKeyword, comparer);
+                        return InsertModifierHelper.InsertModifier(node, SyntaxKind.PublicKeyword, comparer);
                     }
                 case Accessibility.ProtectedOrInternal:
                     {
-                        return modifiers
-                            .InsertModifier(SyntaxKind.ProtectedKeyword, comparer)
-                            .InsertModifier(SyntaxKind.InternalKeyword, comparer);
+                        node = InsertModifierHelper.InsertModifier(node, SyntaxKind.ProtectedKeyword, comparer);
+                        node = InsertModifierHelper.InsertModifier(node, SyntaxKind.InternalKeyword, comparer);
+
+                        return node;
                     }
             }
 
-            return modifiers;
+            return node;
         }
 
         private static bool IsSingleTokenAccessibility(Accessibility accessibility)
@@ -233,6 +265,27 @@ namespace Roslynator.CSharp
                 default:
                     throw new ArgumentException("", nameof(accessibility));
             }
+        }
+
+        public static string GetAccessibilityName(Accessibility accessibility)
+        {
+            switch (accessibility)
+            {
+                case Accessibility.Private:
+                    return "private";
+                case Accessibility.Protected:
+                    return "protected";
+                case Accessibility.Internal:
+                    return "internal";
+                case Accessibility.ProtectedOrInternal:
+                    return "protected internal";
+                case Accessibility.Public:
+                    return "public";
+            }
+
+            Debug.Fail(accessibility.ToString());
+
+            return "";
         }
     }
 }

@@ -59,64 +59,6 @@ namespace Roslynator.CSharp
 
             return body ?? (CSharpSyntaxNode)accessorDeclaration.ExpressionBody;
         }
-
-        public static AccessorDeclarationSyntax PreviousAccessor(this AccessorDeclarationSyntax accessor)
-        {
-            if (accessor == null)
-                throw new ArgumentNullException(nameof(accessor));
-
-            SyntaxList<AccessorDeclarationSyntax> accessors;
-            if (accessor.TryGetContainingList(out accessors))
-            {
-                int index = accessors.IndexOf(accessor);
-
-                if (index > 0)
-                {
-                    return accessors[index - 1];
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
-            return null;
-        }
-
-        public static AccessorDeclarationSyntax NextAccessor(this AccessorDeclarationSyntax accessor)
-        {
-            if (accessor == null)
-                throw new ArgumentNullException(nameof(accessor));
-
-            SyntaxList<AccessorDeclarationSyntax> accessors;
-            if (TryGetContainingList(accessor, out accessors))
-            {
-                int index = accessors.IndexOf(accessor);
-
-                if (index < accessors.Count - 1)
-                {
-                    return accessors[index + 1];
-                }
-                else
-                {
-                    return null;
-                }
-            }
-
-            return null;
-        }
-
-        public static bool TryGetContainingList(this AccessorDeclarationSyntax accessor, out SyntaxList<AccessorDeclarationSyntax> accessors)
-        {
-            if (accessor?.IsParentKind(SyntaxKind.AccessorList) == true)
-            {
-                accessors = ((AccessorListSyntax)accessor.Parent).Accessors;
-                return true;
-            }
-
-            accessors = default(SyntaxList<AccessorDeclarationSyntax>);
-            return false;
-        }
         #endregion AccessorDeclarationSyntax
 
         #region AccessorListSyntax
@@ -3184,50 +3126,30 @@ namespace Roslynator.CSharp
 
         public static SyntaxTokenList InsertModifier(this SyntaxTokenList modifiers, SyntaxToken modifier, IModifierComparer comparer)
         {
-            if (!modifiers.Any())
-                modifiers.Add(modifier);
+            int index = 0;
 
-            int index = comparer.GetInsertIndex(modifiers, modifier);
-
-            if (index == modifiers.Count)
+            if (modifiers.Any())
             {
-                SyntaxToken lastModifier = modifiers[index - 1];
+                index = comparer.GetInsertIndex(modifiers, modifier);
 
-                SyntaxTriviaList trailingTrivia = lastModifier.TrailingTrivia;
-
-                if (trailingTrivia.Any())
-                    modifier = modifier.AppendToTrailingTrivia(trailingTrivia);
-
-                SyntaxTriviaList leadingTrivia = modifier.LeadingTrivia;
-
-                if (!leadingTrivia.Any())
+                if (index == 0)
                 {
-                    lastModifier = lastModifier.WithTrailingTrivia(Space);
+                    SyntaxToken firstModifier = modifiers[index];
+
+                    SyntaxTriviaList trivia = firstModifier.LeadingTrivia;
+
+                    if (trivia.Any())
+                    {
+                        SyntaxTriviaList leadingTrivia = modifier.LeadingTrivia;
+
+                        if (!leadingTrivia.IsSingleElasticMarker())
+                            trivia = trivia.AddRange(leadingTrivia);
+
+                        modifier = modifier.WithLeadingTrivia(trivia);
+
+                        modifiers = modifiers.ReplaceAt(index, firstModifier.WithoutLeadingTrivia());
+                    }
                 }
-                else
-                {
-                    lastModifier = lastModifier.WithoutTrailingTrivia();
-                }
-
-                modifiers = modifiers.ReplaceAt(index - 1, modifier);
-            }
-            else
-            {
-                SyntaxToken nextModifier = modifiers[index];
-
-                SyntaxTriviaList leadingTrivia = nextModifier.LeadingTrivia;
-
-                if (leadingTrivia.Any())
-                {
-                    modifier = modifier.PrependToLeadingTrivia(leadingTrivia);
-
-                    nextModifier = nextModifier.WithoutLeadingTrivia();
-                }
-
-                if (!modifier.HasTrailingTrivia)
-                    modifier = modifier.WithTrailingTrivia(Space);
-
-                modifiers = modifiers.ReplaceAt(index, nextModifier);
             }
 
             return modifiers.Insert(index, modifier);
@@ -3342,6 +3264,13 @@ namespace Roslynator.CSharp
         {
             return trivia.IsWhitespaceTrivia() || trivia.IsEndOfLineTrivia();
         }
+
+        internal static bool IsElasticMarker(this SyntaxTrivia trivia)
+        {
+            return trivia.IsWhitespaceTrivia()
+                && trivia.Span.IsEmpty
+                && trivia.HasAnnotation(SyntaxAnnotation.ElasticAnnotation);
+        }
         #endregion SyntaxTrivia
 
         #region SyntaxTriviaList
@@ -3431,6 +3360,26 @@ namespace Roslynator.CSharp
             {
                 return triviaList;
             }
+        }
+
+        internal static bool IsEmptyOrWhitespace(this SyntaxTriviaList triviaList)
+        {
+            if (!triviaList.Any())
+                return true;
+
+            foreach (SyntaxTrivia trivia in triviaList)
+            {
+                if (!trivia.IsWhitespaceOrEndOfLineTrivia())
+                    return false;
+            }
+
+            return true;
+        }
+
+        internal static bool IsSingleElasticMarker(this SyntaxTriviaList triviaList)
+        {
+            return triviaList.Count == 1
+                && triviaList[0].IsElasticMarker();
         }
         #endregion SyntaxTriviaList
 
