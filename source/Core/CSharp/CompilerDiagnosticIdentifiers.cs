@@ -46,6 +46,7 @@ namespace Roslynator.CSharp
         public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "1715";
         public const string AssignmentMadeToSameVariable = Prefix + "1717";
         public const string BaseClassMustComeBeforeAnyInterface = Prefix + "1722";
+        public const string NonInvocableMemberCannotBeUsedLikeMethod = Prefix + "1955";
         public const string ControlCannotFallOutOfSwitchFromFinalCaseLabel = Prefix + "8070";
         public const string PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct = Prefix + "0751";
     }

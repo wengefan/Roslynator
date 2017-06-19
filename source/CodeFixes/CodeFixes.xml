@@ -189,4 +189,9 @@
       <Id>CS0266</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9036" Identifier="RemoveArgumentList" Title="Remove argument list">
+    <FixableDiagnosticIds>
+      <Id>CS1955</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

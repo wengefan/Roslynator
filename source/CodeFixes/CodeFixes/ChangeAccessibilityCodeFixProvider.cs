@@ -12,6 +12,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.CodeFixes
 {
+
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ChangeAccessibilityCodeFixProvider))]
     [Shared]
     public class ChangeAccessibilityCodeFixProvider : BaseCodeFixProvider

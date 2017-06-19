@@ -42,5 +42,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string MakeContainingClassAbstract = Prefix + "9033";
         public const string AddSemicolon = Prefix + "9034";
         public const string SynchronizeAccessibility = Prefix + "9035";
+        public const string RemoveArgumentList = Prefix + "9036";
     }
 }
