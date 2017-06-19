@@ -48,10 +48,12 @@
     <Compile Include="CodeFixes\AddBracesToDeclarationOrLabeledStatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AddBreakStatementToSwitchSectionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AddOverrideOrNewModifierCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\AddSemicolonCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AssignmentExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseListCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ChangeAccessibilityCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExtractDeclarationFromUsingStatementCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\InvocationExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\LabeledStatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\CannotImplicitlyConvertTypeCodeFixProvider.cs" />
     <Compile Include="CodeFixes\MarkOperatorAsPublicAndStaticCodeFixProvider.cs" />
@@ -60,6 +62,7 @@
     <Compile Include="CodeFixes\ParameterCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateAttributeCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveDuplicateModifierCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\RemoveImplementationFromAbstractMemberCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveNewModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ArgumentCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExpressionCodeFixProvider.cs" />
@@ -68,6 +71,7 @@
     <Compile Include="CodeFixes\BaseCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ReturnStatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\StatementCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\SynchronizeAccessibilityCodeFixProvider.cs" />
     <Compile Include="CodeFixIdentifiers.cs" />
     <Compile Include="CodeFixIdentifiers.Generated.cs" />
     <Compile Include="CodeFixIdentifierSet.cs" />
@@ -88,6 +92,7 @@
   <ItemGroup>
     <None Include="app.config" />
     <None Include="project.json" />
+    <None Include="Roslynator.CodeFixes.nuspec" />
     <None Include="Roslynator.CSharp.CodeFixes.snk" />
   </ItemGroup>
   <ItemGroup>

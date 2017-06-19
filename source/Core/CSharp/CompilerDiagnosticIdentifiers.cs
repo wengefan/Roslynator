@@ -7,6 +7,7 @@ namespace Roslynator.CSharp
         public const string Prefix = "CS";
         public const string OperatorCannotBeAppliedToOperands = Prefix + "0019";
         public const string CannotImplicitlyConvertType = Prefix + "0029";
+        public const string EventInInterfaceCannotHaveAddOrRemoveAccessors = Prefix + "0069";
         public const string MemberDoesNotHideAccessibleMember = Prefix + "0109";
         public const string MemberHidesInheritedMember = Prefix + "0114";
         public const string NotAllCodePathsReturnValue = Prefix + "0161";
@@ -18,14 +19,21 @@ namespace Roslynator.CSharp
         public const string ConstantValueCannotBeConverted = Prefix + "0221";
         public const string ParamsParameterMustBeSingleDimensionalArray = Prefix + "0225";
         public const string MissingPartialModifier = Prefix + "0260";
+        public const string PartialDeclarationsHaveConfictingAccessibilityModifiers = Prefix + "0262";
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
+        public const string MemberCannotDeclareBodyBecauseItIsNotMarkedAbstract = Prefix + "0500";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
+        public const string MemberIsAbstractButItIsContainedInNonAbstractClass = Prefix + "0513";
         public const string MemberReturnTypeMustMatchOverriddenMemberReturnType = Prefix + "0508";
+        public const string InterfaceMembersCannotHaveDefinition = Prefix + "0531";
         public const string UserDefinedOperatorMustBeDeclaredStaticAndPublic = Prefix + "0558";
         public const string CannotHaveInstancePropertyOrFieldInitializersInStruct = Prefix + "0573";
         public const string DuplicateAttribute = Prefix + "0579";
         public const string NewProtectedMemberDeclaredInSealedClass = Prefix + "0628";
+        public const string CannotDeclareInstanceMembersInStaticClass = Prefix + "0708";
+        public const string StaticClassesCannotHaveInstanceConstructors = Prefix + "0710";
         public const string PartialMethodMayNotHaveMultipleDefiningDeclarations = Prefix + "0756";
+        public const string SemicolonExpected = Prefix + "1002";
         public const string DuplicateModifier = Prefix + "1004";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";
         public const string StaticClassesCannotContainProtectedMembers = Prefix + "1057";
@@ -38,6 +46,7 @@ namespace Roslynator.CSharp
         public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "1715";
         public const string AssignmentMadeToSameVariable = Prefix + "1717";
         public const string BaseClassMustComeBeforeAnyInterface = Prefix + "1722";
+        public const string NonInvocableMemberCannotBeUsedLikeMethod = Prefix + "1955";
         public const string ControlCannotFallOutOfSwitchFromFinalCaseLabel = Prefix + "8070";
         public const string PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct = Prefix + "0751";
     }

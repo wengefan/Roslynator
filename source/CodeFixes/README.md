@@ -12,17 +12,21 @@ RCS9003|Add 'out' modifier to argument|CS1620|x
 RCS9005|Add 'override' modifier|CS0114|x
 RCS9024|Add partial modifier|CS0260, CS0751|x
 RCS9019|Add return statement that returns default value|CS0161|x
+RCS9034|Add semicolon|CS1002|
+RCS9032|Add 'static' modifier|CS0708, CS0710|x
 RCS9004|Base base class before any interface|CS1722|x
 RCS9028|Change accessibility|CS0628, CS1057|x
 RCS9029|Change type of 'params' parameter|CS0225|x
 RCS9002|Create singleton array|CS0266|x
 RCS9007|Extract declaration from using statement|CS1674|x
+RCS9033|Make containing class abstract|CS0513|x
 RCS9009|Mark operator as 'public' and 'static'|CS0558|x
 RCS9017|Member return type must match overridden member return type|CS0508|x
 RCS9018|Member type must match overridden member type|CS1715|x
 RCS9014|Overriding member cannot change access modifiers|CS0507|x
 RCS9011|Remove duplicate attribute|CS0579|x
 RCS9010|Remove duplicate modifier|CS1004|x
+RCS9031|Remove implementation from abstract member|CS0069, CS0500, CS0531|x
 RCS9012|Remove new modifier|CS0109|x
 RCS9023|Remove property or field initializer|CS0573|x
 RCS9027|Remove redundant assignment|CS1717|x

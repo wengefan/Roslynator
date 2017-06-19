@@ -43,12 +43,15 @@
     <Compile Include="AddBreakStatementToSwitchSection.cs" />
     <Compile Include="AddDocumentationComment.cs" />
     <Compile Include="AddMethodBody.cs" />
+    <Compile Include="AddSemicolon.cs" />
     <Compile Include="AddOverrideOrNewModifier.cs" />
     <Compile Include="AddPartialModifier.cs" />
     <Compile Include="AddReturnStatementThatReturnsDefaultValue.cs" />
     <Compile Include="ChangeTypeOfParamsParameter.cs" />
     <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
+    <Compile Include="AddStaticModifier.cs" />
+    <Compile Include="MakeContainingClassAbstract.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />
     <Compile Include="MemberTypeMustMatchOverriddenMemberType.cs" />
     <Compile Include="MoveBaseClassBeforeAnyInterface.cs" />
@@ -56,7 +59,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AddOutModifierToArgument.cs" />
     <Compile Include="ChangeAccessibility.cs" />
+    <Compile Include="RemoveArgumentList.cs" />
     <Compile Include="RemoveDuplicateAttribute.cs" />
+    <Compile Include="RemoveImplementationFromAbstractMember.cs" />
     <Compile Include="RemoveNewModifier.cs" />
     <Compile Include="RemoveDuplicateModifier.cs" />
     <Compile Include="RemovePropertyOrFieldInitializer.cs" />
@@ -66,6 +71,8 @@
     <Compile Include="RemoveUnusedLabel.cs" />
     <Compile Include="RemoveUnusedVariable.cs" />
     <Compile Include="ReplaceStringLiteralWithCharacterLiteralRefactoring.cs" />
+    <Compile Include="SynchronizeAccessibility.partial.cs" />
+    <Compile Include="SynchronizeAccessibility.cs" />
     <Compile Include="UseYieldReturnInsteadOfReturn.cs" />
     <Compile Include="WrapInUncheckedExpression.cs" />
   </ItemGroup>

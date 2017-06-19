@@ -3126,31 +3126,33 @@ namespace Roslynator.CSharp
 
         public static SyntaxTokenList InsertModifier(this SyntaxTokenList modifiers, SyntaxToken modifier, IModifierComparer comparer)
         {
+            int index = 0;
+
             if (modifiers.Any())
             {
-                int index = comparer.GetInsertIndex(modifiers, modifier);
+                index = comparer.GetInsertIndex(modifiers, modifier);
 
-                if (index == modifiers.Count)
+                if (index == 0)
                 {
-                    return modifiers.Add(modifier.PrependToLeadingTrivia(Space));
-                }
-                else
-                {
-                    SyntaxToken nextModifier = modifiers[index];
+                    SyntaxToken firstModifier = modifiers[index];
 
-                    return modifiers
-                        .Replace(nextModifier, nextModifier.WithoutLeadingTrivia())
-                        .Insert(
-                            index,
-                            modifier
-                                .WithLeadingTrivia(nextModifier.LeadingTrivia)
-                                .WithTrailingTrivia(Space));
+                    SyntaxTriviaList trivia = firstModifier.LeadingTrivia;
+
+                    if (trivia.Any())
+                    {
+                        SyntaxTriviaList leadingTrivia = modifier.LeadingTrivia;
+
+                        if (!leadingTrivia.IsSingleElasticMarker())
+                            trivia = trivia.AddRange(leadingTrivia);
+
+                        modifier = modifier.WithLeadingTrivia(trivia);
+
+                        modifiers = modifiers.ReplaceAt(index, firstModifier.WithoutLeadingTrivia());
+                    }
                 }
             }
-            else
-            {
-                return modifiers.Add(modifier);
-            }
+
+            return modifiers.Insert(index, modifier);
         }
 
         internal static SyntaxTokenList RemoveAccessModifiers(this SyntaxTokenList tokenList)
@@ -3262,6 +3264,13 @@ namespace Roslynator.CSharp
         {
             return trivia.IsWhitespaceTrivia() || trivia.IsEndOfLineTrivia();
         }
+
+        internal static bool IsElasticMarker(this SyntaxTrivia trivia)
+        {
+            return trivia.IsWhitespaceTrivia()
+                && trivia.Span.IsEmpty
+                && trivia.HasAnnotation(SyntaxAnnotation.ElasticAnnotation);
+        }
         #endregion SyntaxTrivia
 
         #region SyntaxTriviaList
@@ -3351,6 +3360,26 @@ namespace Roslynator.CSharp
             {
                 return triviaList;
             }
+        }
+
+        internal static bool IsEmptyOrWhitespace(this SyntaxTriviaList triviaList)
+        {
+            if (!triviaList.Any())
+                return true;
+
+            foreach (SyntaxTrivia trivia in triviaList)
+            {
+                if (!trivia.IsWhitespaceOrEndOfLineTrivia())
+                    return false;
+            }
+
+            return true;
+        }
+
+        internal static bool IsSingleElasticMarker(this SyntaxTriviaList triviaList)
+        {
+            return triviaList.Count == 1
+                && triviaList[0].IsElasticMarker();
         }
         #endregion SyntaxTriviaList
 

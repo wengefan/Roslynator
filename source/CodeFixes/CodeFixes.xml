@@ -161,4 +161,37 @@
       <Id>CS0221</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9031" Identifier="RemoveImplementationFromAbstractMember" Title="Remove implementation from abstract member">
+    <FixableDiagnosticIds>
+      <Id>CS0069</Id>
+      <Id>CS0500</Id>
+      <Id>CS0531</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCS9032" Identifier="AddStaticModifier" Title="Add 'static' modifier">
+    <FixableDiagnosticIds>
+      <Id>CS0708</Id>
+      <Id>CS0710</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCS9033" Identifier="MakeContainingClassAbstract" Title="Make containing class abstract">
+    <FixableDiagnosticIds>
+      <Id>CS0513</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCS9034" Identifier="AddSemicolon" Title="Add semicolon" IsEnabledByDefault="false">
+    <FixableDiagnosticIds>
+      <Id>CS1002</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCS9035" Identifier="SynchronizeAccessibility" Title="SynchronizeAccessibility">
+    <FixableDiagnosticIds>
+      <Id>CS0266</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCS9036" Identifier="RemoveArgumentList" Title="Remove argument list">
+    <FixableDiagnosticIds>
+      <Id>CS1955</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>
