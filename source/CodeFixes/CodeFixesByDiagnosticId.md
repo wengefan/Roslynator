@@ -3,7 +3,7 @@
 Diagnostic | Code Fixes
 --- | ---
 [CS0019](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0019)|RCS9022
-CS0023|RCS9038
+[CS0023](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0023)|RCS9038
 [CS0029](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029)|RCS9020, RCS9021
 [CS0069](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0069)|RCS9031
 [CS0109](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0109)|RCS9012
@@ -18,7 +18,7 @@ CS0023|RCS9038
 [CS0225](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0225)|RCS9029
 [CS0260](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0260)|RCS9024
 [CS0266](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0266)|RCS9002, RCS9022, RCS9035
-CS0428|RCS9038
+[CS0428](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0428)|RCS9038
 [CS0500](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500)|RCS9031
 [CS0507](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0507)|RCS9014
 [CS0508](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0508)|RCS9017
