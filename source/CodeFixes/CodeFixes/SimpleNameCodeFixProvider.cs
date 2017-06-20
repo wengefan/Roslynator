@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -19,13 +20,22 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound); }
+            get
+            {
+                return ImmutableArray.Create(
+                    CompilerDiagnosticIdentifiers.TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound,
+                    CompilerDiagnosticIdentifiers.CannotConvertMethodGroupToNonDelegateType);
+            }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.FixMemberAccessName))
+            if (!Settings.IsAnyCodeFixEnabled(
+                CodeFixIdentifiers.FixMemberAccessName,
+                CodeFixIdentifiers.AddArgumentList))
+            {
                 return;
+            }
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
@@ -44,6 +54,9 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case CompilerDiagnosticIdentifiers.TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound:
                         {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.FixMemberAccessName))
+                                break;
+
                             if (!simpleName.IsParentKind(SyntaxKind.SimpleMemberAccessExpression))
                                 break;
 
@@ -70,6 +83,31 @@ namespace Roslynator.CSharp.CodeFixes
                                     }
                             }
 
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.CannotConvertMethodGroupToNonDelegateType:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddArgumentList))
+                                break;
+
+                            if (!simpleName.IsParentKind(SyntaxKind.SimpleMemberAccessExpression))
+                                break;
+
+                            var memberAccess = (MemberAccessExpressionSyntax)simpleName.Parent;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Add argument list",
+                                cancellationToken =>
+                                {
+                                    InvocationExpressionSyntax invocationExpression = InvocationExpression(
+                                        memberAccess.WithoutTrailingTrivia(),
+                                        ArgumentList().WithTrailingTrivia(memberAccess.GetTrailingTrivia()));
+
+                                    return context.Document.ReplaceNodeAsync(memberAccess, invocationExpression, cancellationToken);
+                                },
+                                diagnostic.Id + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                 }

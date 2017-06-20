@@ -21,6 +21,7 @@ namespace Roslynator.CSharp
         public const string MissingPartialModifier = Prefix + "0260";
         public const string PartialDeclarationsHaveConfictingAccessibilityModifiers = Prefix + "0262";
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
+        public const string CannotConvertMethodGroupToNonDelegateType = Prefix + "0428";
         public const string MemberCannotDeclareBodyBecauseItIsNotMarkedAbstract = Prefix + "0500";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
         public const string MemberIsAbstractButItIsContainedInNonAbstractClass = Prefix + "0513";
