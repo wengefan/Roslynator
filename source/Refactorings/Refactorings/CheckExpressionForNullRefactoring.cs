@@ -36,8 +36,7 @@ namespace Roslynator.CSharp.Refactorings
                         {
                             var statement = (ExpressionStatementSyntax)parent;
 
-                            if (statement != null
-                                && !NullCheckExists(expression, statement))
+                            if (!NullCheckExists(expression, statement))
                             {
                                 SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
@@ -383,9 +382,7 @@ namespace Roslynator.CSharp.Refactorings
                 NotEqualsExpression(expression.WithoutTrivia(), NullLiteralExpression()),
                 Block(openBrace, statements, closeBrace));
 
-            return ifStatement
-                .WithLeadingTrivia(NewLine())
-                .WithFormatterAnnotation();
+            return ifStatement.WithFormatterAnnotation();
         }
 
         private static int IncludeAllReferencesOfSymbol(

@@ -42,33 +42,31 @@ namespace Roslynator.CSharp.Refactorings
 
                     if (string.Equals(memberAccess2.Name?.Identifier.ValueText, "Where", StringComparison.Ordinal))
                     {
-                        ExtensionMethodInfo info2 = semanticModel.GetExtensionMethodInfo(invocation2, ExtensionMethodKind.Reduced, cancellationToken);
-
-                        if (info2.MethodInfo.IsLinqExtensionOfIEnumerableOfT("Where", parameterCount: 2))
+                        MethodInfo methodInfo2;
+                        if (semanticModel.TryGetExtensionMethodInfo(invocation2, out methodInfo2, ExtensionMethodKind.Reduced, cancellationToken)
+                            && methodInfo2.IsLinqExtensionOfIEnumerableOfT("Where", parameterCount: 2))
                         {
                             if (SymbolUtility.IsPredicateFunc(
-                                info2.Symbol.Parameters[1].Type,
-                                info2.Symbol.TypeArguments[0],
+                                methodInfo2.Parameters[1].Type,
+                                methodInfo2.TypeArguments[0],
                                 semanticModel))
                             {
-                                if (semanticModel
-                                    .GetExtensionMethodInfo(invocation, ExtensionMethodKind.Reduced, cancellationToken)
-                                    .MethodInfo
-                                    .IsLinqWhere())
+                                MethodInfo methodInfo;
+                                if (semanticModel.TryGetExtensionMethodInfo(invocation, out methodInfo, ExtensionMethodKind.Reduced, cancellationToken)
+                                    && methodInfo.IsLinqWhere())
                                 {
                                     Analyze(context, invocation, invocation2, memberAccess, memberAccess2);
                                 }
                             }
                             else if (SymbolUtility.IsPredicateFunc(
-                                info2.Symbol.Parameters[1].Type,
-                                info2.Symbol.TypeArguments[0],
+                                methodInfo2.Parameters[1].Type,
+                                methodInfo2.TypeArguments[0],
                                 semanticModel.Compilation.GetSpecialType(SpecialType.System_Int32),
                                 semanticModel))
                             {
-                                if (semanticModel
-                                    .GetExtensionMethodInfo(invocation, ExtensionMethodKind.Reduced, cancellationToken)
-                                    .MethodInfo
-                                    .IsLinqWhereWithIndex())
+                                MethodInfo methodInfo;
+                                if (semanticModel.TryGetExtensionMethodInfo(invocation, out methodInfo, ExtensionMethodKind.Reduced, cancellationToken)
+                                    && methodInfo.IsLinqWhereWithIndex())
                                 {
                                     Analyze(context, invocation, invocation2, memberAccess, memberAccess2);
                                 }
@@ -137,28 +135,24 @@ namespace Roslynator.CSharp.Refactorings
                             var lambda1 = (ParenthesizedLambdaExpressionSyntax)expression1;
                             var lambda2 = (ParenthesizedLambdaExpressionSyntax)expression2;
 
-                            if (lambda1 is ExpressionSyntax
-                                && lambda2 is ExpressionSyntax)
+                            ParameterListSyntax parameterList1 = lambda1.ParameterList;
+                            ParameterListSyntax parameterList2 = lambda2.ParameterList;
+
+                            if (parameterList1 != null
+                                && parameterList2 != null)
                             {
-                                ParameterListSyntax parameterList1 = lambda1.ParameterList;
-                                ParameterListSyntax parameterList2 = lambda2.ParameterList;
+                                SeparatedSyntaxList<ParameterSyntax> parameters1 = parameterList1.Parameters;
+                                SeparatedSyntaxList<ParameterSyntax> parameters2 = parameterList2.Parameters;
 
-                                if (parameterList1 != null
-                                    && parameterList2 != null)
+                                if (parameters1.Count == parameters2.Count)
                                 {
-                                    SeparatedSyntaxList<ParameterSyntax> parameters1 = parameterList1.Parameters;
-                                    SeparatedSyntaxList<ParameterSyntax> parameters2 = parameterList2.Parameters;
-
-                                    if (parameters1.Count == parameters2.Count)
+                                    for (int i = 0; i < parameters1.Count; i++)
                                     {
-                                        for (int i = 0; i < parameters1.Count; i++)
-                                        {
-                                            if (!ParameterIdentifierEquals(parameters1[i], parameters2[i]))
-                                                return false;
-                                        }
-
-                                        return true;
+                                        if (!ParameterIdentifierEquals(parameters1[i], parameters2[i]))
+                                            return false;
                                     }
+
+                                    return true;
                                 }
                             }
                         }
@@ -183,8 +177,6 @@ namespace Roslynator.CSharp.Refactorings
             var memberAccess = (MemberAccessExpressionSyntax)invocation.Expression;
 
             var invocation2 = (InvocationExpressionSyntax)memberAccess.Expression;
-
-            var memberAccess2 = (MemberAccessExpressionSyntax)invocation2.Expression;
 
             ExpressionSyntax expression1 = GetCondition(invocation);
             ExpressionSyntax expression2 = GetCondition(invocation2);

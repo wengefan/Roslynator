@@ -38,6 +38,7 @@ namespace Roslynator.CSharp.CodeFixProviders
                     DiagnosticIdentifiers.ReorderModifiers,
                     DiagnosticIdentifiers.OverridingMemberCannotChangeAccessModifiers,
                     DiagnosticIdentifiers.MarkFieldAsReadOnly,
+                    DiagnosticIdentifiers.UseConstantInsteadOfField,
                     DiagnosticIdentifiers.UseReadOnlyProperty,
                     DiagnosticIdentifiers.ReplaceCommentWithDocumentationComment);
             }
@@ -255,6 +256,16 @@ namespace Roslynator.CSharp.CodeFixProviders
                             CodeAction codeAction = CodeAction.Create(
                                 title,
                                 cancellationToken => MarkFieldAsReadOnlyRefactoring.RefactorAsync(context.Document, fieldDeclaration, cancellationToken),
+                                diagnostic.Id + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case DiagnosticIdentifiers.UseConstantInsteadOfField:
+                        {
+                            CodeAction codeAction = CodeAction.Create(
+                                "Use constant instead of field",
+                                cancellationToken => UseConstantInsteadOfFieldRefactoring.RefactorAsync(context.Document, (FieldDeclarationSyntax)memberDeclaration, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);

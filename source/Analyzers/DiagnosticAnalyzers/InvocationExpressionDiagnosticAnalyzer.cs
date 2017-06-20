@@ -28,12 +28,14 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                     DiagnosticDescriptors.UseBitwiseOperationInsteadOfCallingHasFlag,
                     DiagnosticDescriptors.RemoveRedundantToStringCall,
                     DiagnosticDescriptors.RemoveRedundantStringToCharArrayCall,
-                    DiagnosticDescriptors.UseCastMethodInsteadOfSelectMethod,
+                    DiagnosticDescriptors.CallCastInsteadOfSelect,
                     DiagnosticDescriptors.CombineEnumerableWhereMethodChain,
                     DiagnosticDescriptors.CombineEnumerableWhereMethodChainFadeOut,
                     DiagnosticDescriptors.CallFindMethodInsteadOfFirstOrDefaultMethod,
                     DiagnosticDescriptors.UseElementAccessInsteadOfElementAt,
-                    DiagnosticDescriptors.UseElementAccessInsteadOfFirst);
+                    DiagnosticDescriptors.UseElementAccessInsteadOfFirst,
+                    DiagnosticDescriptors.UseRegexInstanceInsteadOfStaticMethod,
+                    DiagnosticDescriptors.CallExtensionMethodAsInstanceMethod);
             }
         }
 
@@ -110,7 +112,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                                 }
                             case "Select":
                                 {
-                                    UseCastMethodInsteadOfSelectMethodRefactoring.Analyze(context, invocation, memberAccess);
+                                    CallCastInsteadOfSelectRefactoring.Analyze(context, invocation, memberAccess);
                                     break;
                                 }
                             case "Where":
@@ -129,17 +131,32 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                 context.ReportDiagnostic(DiagnosticDescriptors.UseBitwiseOperationInsteadOfCallingHasFlag, invocation);
             }
 
-            RemoveRedundantToStringCallRefactoring.Analyze(context, invocation);
-
             RemoveRedundantStringToCharArrayCallRefactoring.Analyze(context, invocation);
 
             CombineEnumerableWhereAndAnyRefactoring.AnalyzeInvocationExpression(context);
 
             if (!invocation.ContainsDiagnostics)
             {
+                if (!invocation.SpanContainsDirectives())
+                {
+                    CallExtensionMethodAsInstanceMethodRefactoring.AnalysisResult result =
+                        CallExtensionMethodAsInstanceMethodRefactoring.Analyze(invocation, context.SemanticModel, context.CancellationToken);
+
+                    if (result.Success
+                        && context.SemanticModel
+                            .GetEnclosingNamedType(result.InvocationExpression.SpanStart, context.CancellationToken)?
+                            .Equals(result.MethodSymbol.ContainingType) == false)
+                    {
+                        context.ReportDiagnostic(DiagnosticDescriptors.CallExtensionMethodAsInstanceMethod, invocation);
+                    }
+                }
+
                 MemberInvocationExpression memberInvocation;
                 if (MemberInvocationExpression.TryCreate(invocation, out memberInvocation))
                 {
+                    if (!invocation.SpanContainsDirectives())
+                        UseRegexInstanceInsteadOfStaticMethodRefactoring.Analyze(context, memberInvocation);
+
                     string methodName = memberInvocation.Name.Identifier.ValueText;
 
                     switch (memberInvocation.ArgumentList.Arguments.Count)
@@ -156,6 +173,11 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                                                 context.ReportDiagnostic(DiagnosticDescriptors.UseElementAccessInsteadOfFirst, memberInvocation.Name);
                                             }
 
+                                            break;
+                                        }
+                                    case "ToString":
+                                        {
+                                            RemoveRedundantToStringCallRefactoring.Analyze(context, memberInvocation);
                                             break;
                                         }
                                 }

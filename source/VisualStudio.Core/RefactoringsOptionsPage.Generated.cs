@@ -80,7 +80,7 @@ namespace Roslynator.VisualStudio
             IntroduceAndInitializeProperty = true;
             IntroduceConstructor = false;
             IntroduceFieldToLockOn = true;
-            IntroduceLocalFromStatementThatReturnsValue = true;
+            IntroduceLocalVariable = true;
             MakeMemberAbstract = true;
             MakeMemberVirtual = true;
             MarkContainingClassAsAbstract = true;
@@ -90,7 +90,7 @@ namespace Roslynator.VisualStudio
             MergeIfStatements = true;
             MergeInterpolationIntoInterpolatedString = true;
             MergeLocalDeclarations = true;
-            MergeStringExpressions = true;
+            JoinStringExpressions = true;
             NegateBinaryExpression = true;
             NegateBooleanLiteral = true;
             NegateIsExpression = true;
@@ -262,7 +262,7 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.IntroduceAndInitializeProperty, IntroduceAndInitializeProperty);
             SetIsEnabled(RefactoringIdentifiers.IntroduceConstructor, IntroduceConstructor);
             SetIsEnabled(RefactoringIdentifiers.IntroduceFieldToLockOn, IntroduceFieldToLockOn);
-            SetIsEnabled(RefactoringIdentifiers.IntroduceLocalFromStatementThatReturnsValue, IntroduceLocalFromStatementThatReturnsValue);
+            SetIsEnabled(RefactoringIdentifiers.IntroduceLocalVariable, IntroduceLocalVariable);
             SetIsEnabled(RefactoringIdentifiers.MakeMemberAbstract, MakeMemberAbstract);
             SetIsEnabled(RefactoringIdentifiers.MakeMemberVirtual, MakeMemberVirtual);
             SetIsEnabled(RefactoringIdentifiers.MarkContainingClassAsAbstract, MarkContainingClassAsAbstract);
@@ -272,7 +272,7 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.MergeIfStatements, MergeIfStatements);
             SetIsEnabled(RefactoringIdentifiers.MergeInterpolationIntoInterpolatedString, MergeInterpolationIntoInterpolatedString);
             SetIsEnabled(RefactoringIdentifiers.MergeLocalDeclarations, MergeLocalDeclarations);
-            SetIsEnabled(RefactoringIdentifiers.MergeStringExpressions, MergeStringExpressions);
+            SetIsEnabled(RefactoringIdentifiers.JoinStringExpressions, JoinStringExpressions);
             SetIsEnabled(RefactoringIdentifiers.NegateBinaryExpression, NegateBinaryExpression);
             SetIsEnabled(RefactoringIdentifiers.NegateBooleanLiteral, NegateBooleanLiteral);
             SetIsEnabled(RefactoringIdentifiers.NegateIsExpression, NegateIsExpression);
@@ -452,7 +452,7 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.IntroduceAndInitializeProperty, "Introduce and initialize property", IsEnabled(RefactoringIdentifiers.IntroduceAndInitializeProperty)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.IntroduceConstructor, "Introduce constructor", IsEnabled(RefactoringIdentifiers.IntroduceConstructor)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.IntroduceFieldToLockOn, "Introduce field to lock on", IsEnabled(RefactoringIdentifiers.IntroduceFieldToLockOn)));
-            refactorings.Add(new RefactoringModel(RefactoringIdentifiers.IntroduceLocalFromStatementThatReturnsValue, "Introduce local from statement that returns value", IsEnabled(RefactoringIdentifiers.IntroduceLocalFromStatementThatReturnsValue)));
+            refactorings.Add(new RefactoringModel(RefactoringIdentifiers.IntroduceLocalVariable, "Introduce local variable", IsEnabled(RefactoringIdentifiers.IntroduceLocalVariable)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.MakeMemberAbstract, "Make member abstract", IsEnabled(RefactoringIdentifiers.MakeMemberAbstract)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.MakeMemberVirtual, "Make member virtual", IsEnabled(RefactoringIdentifiers.MakeMemberVirtual)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.MarkContainingClassAsAbstract, "Mark containing class as abstract", IsEnabled(RefactoringIdentifiers.MarkContainingClassAsAbstract)));
@@ -462,7 +462,7 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.MergeIfStatements, "Merge if statements", IsEnabled(RefactoringIdentifiers.MergeIfStatements)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.MergeInterpolationIntoInterpolatedString, "Merge interpolation into interpolated string", IsEnabled(RefactoringIdentifiers.MergeInterpolationIntoInterpolatedString)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.MergeLocalDeclarations, "Merge local declarations", IsEnabled(RefactoringIdentifiers.MergeLocalDeclarations)));
-            refactorings.Add(new RefactoringModel(RefactoringIdentifiers.MergeStringExpressions, "Merge string expressions", IsEnabled(RefactoringIdentifiers.MergeStringExpressions)));
+            refactorings.Add(new RefactoringModel(RefactoringIdentifiers.JoinStringExpressions, "Join string expressions", IsEnabled(RefactoringIdentifiers.JoinStringExpressions)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.NegateBinaryExpression, "Negate binary expression", IsEnabled(RefactoringIdentifiers.NegateBinaryExpression)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.NegateBooleanLiteral, "Negate boolean literal", IsEnabled(RefactoringIdentifiers.NegateBooleanLiteral)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.NegateIsExpression, "Negate is expression", IsEnabled(RefactoringIdentifiers.NegateIsExpression)));
@@ -565,6 +565,11 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.AddTypeParameter, "Add type parameter", IsEnabled(RefactoringIdentifiers.AddTypeParameter)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.ImplementIEquatableOfT, "Implement IEquatable<T>", IsEnabled(RefactoringIdentifiers.ImplementIEquatableOfT)));
             refactorings.Add(new RefactoringModel(RefactoringIdentifiers.InlineUsingStatic, "Inline using static", IsEnabled(RefactoringIdentifiers.InlineUsingStatic)));
+            refactorings.Add(new RefactoringModel(RefactoringIdentifiers.InlineConstant, "Inline constant", IsEnabled(RefactoringIdentifiers.InlineConstant)));
+            refactorings.Add(new RefactoringModel(RefactoringIdentifiers.UseStringBuilderInsteadOfConcatenation, "Use StringBuilder instead of concatenation", IsEnabled(RefactoringIdentifiers.UseStringBuilderInsteadOfConcatenation)));
+            refactorings.Add(new RefactoringModel(RefactoringIdentifiers.UseListInsteadOfYield, "Use List<T> instead of yield", IsEnabled(RefactoringIdentifiers.UseListInsteadOfYield)));
+            refactorings.Add(new RefactoringModel(RefactoringIdentifiers.SplitIfStatement, "Split if statement", IsEnabled(RefactoringIdentifiers.SplitIfStatement)));
+            refactorings.Add(new RefactoringModel(RefactoringIdentifiers.ReplaceObjectCreationWithDefaultValue, "Replace object creation with default value", IsEnabled(RefactoringIdentifiers.ReplaceObjectCreationWithDefaultValue)));
         }
 
         [Browsable(false)]
@@ -1173,7 +1178,16 @@ namespace Roslynator.VisualStudio
         [Browsable(false)]
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool IntroduceLocalFromStatementThatReturnsValue
+        public bool IntroduceLocalVariable
+        {
+            get;
+            set;
+        }
+
+        [Browsable(false)]
+        [Category(RefactoringCategory)]
+        [TypeConverter(typeof (EnabledDisabledConverter))]
+        public bool JoinStringExpressions
         {
             get;
             set;
@@ -1255,15 +1269,6 @@ namespace Roslynator.VisualStudio
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
         public bool MergeLocalDeclarations
-        {
-            get;
-            set;
-        }
-
-        [Browsable(false)]
-        [Category(RefactoringCategory)]
-        [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool MergeStringExpressions
         {
             get;
             set;

@@ -16,8 +16,8 @@ namespace Roslynator.CSharp
             ExpressionSyntax expression,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            return Microsoft.CodeAnalysis.CSharp.CSharpExtensions
-                .GetSymbolInfo(semanticModel, expression, cancellationToken)
+            return semanticModel
+                .GetSymbolInfo(expression, cancellationToken)
                 .Symbol;
         }
 
@@ -26,8 +26,8 @@ namespace Roslynator.CSharp
             AttributeSyntax attribute,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            return Microsoft.CodeAnalysis.CSharp.CSharpExtensions
-                .GetTypeInfo(semanticModel, attribute, cancellationToken)
+            return semanticModel
+                .GetTypeInfo(attribute, cancellationToken)
                 .Type;
         }
 
@@ -36,8 +36,8 @@ namespace Roslynator.CSharp
             ConstructorInitializerSyntax constructorInitializer,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            return Microsoft.CodeAnalysis.CSharp.CSharpExtensions
-                .GetTypeInfo(semanticModel, constructorInitializer, cancellationToken)
+            return semanticModel
+                .GetTypeInfo(constructorInitializer, cancellationToken)
                 .Type;
         }
 
@@ -46,8 +46,8 @@ namespace Roslynator.CSharp
             ExpressionSyntax expression,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            return Microsoft.CodeAnalysis.CSharp.CSharpExtensions
-                .GetTypeInfo(semanticModel, expression, cancellationToken)
+            return semanticModel
+                .GetTypeInfo(expression, cancellationToken)
                 .Type;
         }
 
@@ -56,8 +56,8 @@ namespace Roslynator.CSharp
             SelectOrGroupClauseSyntax selectOrGroupClause,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            return Microsoft.CodeAnalysis.CSharp.CSharpExtensions
-                .GetTypeInfo(semanticModel, selectOrGroupClause, cancellationToken)
+            return semanticModel
+                .GetTypeInfo(selectOrGroupClause, cancellationToken)
                 .Type;
         }
 
@@ -296,46 +296,46 @@ namespace Roslynator.CSharp
             return false;
         }
 
-        public static ExtensionMethodInfo GetExtensionMethodInfo(
+        public static bool TryGetExtensionMethodInfo(
             this SemanticModel semanticModel,
             ExpressionSyntax expression,
+            out MethodInfo methodInfo,
+            ExtensionMethodKind kind = ExtensionMethodKind.None,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            return GetExtensionMethodInfo(semanticModel, expression, ExtensionMethodKind.OrdinaryOrReduced, cancellationToken);
+            ISymbol symbol = semanticModel.GetSymbol(expression, cancellationToken);
+
+            if (symbol?.IsMethod() == true)
+            {
+                ExtensionMethodInfo extensionMethodInfo;
+                if (ExtensionMethodInfo.TryCreate((IMethodSymbol)symbol, semanticModel, out extensionMethodInfo, kind))
+                {
+                    methodInfo = extensionMethodInfo.MethodInfo;
+                    return true;
+                }
+            }
+
+            methodInfo = default(MethodInfo);
+            return false;
         }
 
-        public static ExtensionMethodInfo GetExtensionMethodInfo(
+        public static bool TryGetMethodInfo(
             this SemanticModel semanticModel,
             ExpressionSyntax expression,
-            ExtensionMethodKind allowedKinds,
+            out MethodInfo methodInfo,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             ISymbol symbol = GetSymbol(semanticModel, expression, cancellationToken);
 
             if (symbol?.IsMethod() == true)
             {
-                return ExtensionMethodInfo.Create((IMethodSymbol)symbol, semanticModel, allowedKinds);
+                methodInfo = new MethodInfo((IMethodSymbol)symbol, semanticModel);
+                return true;
             }
             else
             {
-                return default(ExtensionMethodInfo);
-            }
-        }
-
-        public static MethodInfo GetMethodInfo(
-            this SemanticModel semanticModel,
-            ExpressionSyntax expression,
-            CancellationToken cancellationToken = default(CancellationToken))
-        {
-            ISymbol symbol = GetSymbol(semanticModel, expression, cancellationToken);
-
-            if (symbol?.IsMethod() == true)
-            {
-                return new MethodInfo((IMethodSymbol)symbol, semanticModel);
-            }
-            else
-            {
-                return default(MethodInfo);
+                methodInfo = default(MethodInfo);
+                return false;
             }
         }
     }

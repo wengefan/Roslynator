@@ -15,7 +15,7 @@ using static Roslynator.CSharp.CSharpFactory;
 
 namespace Roslynator.CSharp.Refactorings
 {
-    internal static class UseCastMethodInsteadOfSelectMethodRefactoring
+    internal static class CallCastInsteadOfSelectRefactoring
     {
         public static void Analyze(
             SyntaxNodeAnalysisContext context,
@@ -29,7 +29,7 @@ namespace Roslynator.CSharp.Refactorings
                 if (!invocation.ContainsDirectives(span))
                 {
                     context.ReportDiagnostic(
-                        DiagnosticDescriptors.UseCastMethodInsteadOfSelectMethod,
+                        DiagnosticDescriptors.CallCastInsteadOfSelect,
                         Location.Create(invocation.SyntaxTree, span));
                 }
             }
@@ -40,10 +40,9 @@ namespace Roslynator.CSharp.Refactorings
             SemanticModel semanticModel,
             CancellationToken cancellationToken)
         {
-            if (semanticModel
-                .GetExtensionMethodInfo(invocation, cancellationToken)
-                .MethodInfo
-                .IsLinqSelect(allowImmutableArrayExtension: true))
+            MethodInfo methodInfo;
+            if (semanticModel.TryGetExtensionMethodInfo(invocation, out methodInfo, ExtensionMethodKind.None, cancellationToken)
+                && methodInfo.IsLinqSelect(allowImmutableArrayExtension: true))
             {
                 ArgumentListSyntax argumentList = invocation.ArgumentList;
 

@@ -49,11 +49,13 @@
     <Compile Include="GenerateCombinedEnumMemberRefactoring.cs" />
     <Compile Include="GenerateEnumValuesRefactoring.cs" />
     <Compile Include="ImplementIEquatableOfTRefactoring.cs" />
+    <Compile Include="InlineConstant\InlineConstant2.cs" />
+    <Compile Include="InlineConstant\InlineConstant.cs" />
     <Compile Include="InlineUsingStaticRefactoring.cs" />
     <Compile Include="IntroduceFieldToLockOnRefactoring.cs" />
     <Compile Include="GenerateBaseConstructorsRefactoring.cs" />
     <Compile Include="GenerateOnEventMethodRefactoring.cs" />
-    <Compile Include="IntroduceLocalFromExpressionStatementThatReturnsValueRefactoring.cs" />
+    <Compile Include="IntroduceLocalVariableRefactoring.cs" />
     <Compile Include="MarkContainingClassAsAbstractRefactoring.cs" />
     <Compile Include="MakeMemberVirtualRefactoring.cs" />
     <Compile Include="MergeInterpolationIntoInterpolatedStringRefactoring.cs" />
@@ -85,6 +87,9 @@
     <Compile Include="ReplaceForWithWhileRefactoring.cs" />
     <Compile Include="ReplaceIfElseWithSwitchRefactoring.cs" />
     <Compile Include="GenerateEnumMemberRefactoring.cs" />
+    <Compile Include="UseListInsteadOfYield.cs" />
+    <Compile Include="ReplaceObjectCreationWithDefaultValue.cs" />
+    <Compile Include="SplitIfStatementsRefactoring.cs" />
     <Compile Include="UseInsteadOfIfRefactoring.cs" />
     <Compile Include="ReplaceNullLiteralExpressionWithDefaultExpressionRefactoring.cs" />
     <Compile Include="ReplaceInterpolatedStringWithInterpolationExpressionRefactoring.cs" />
@@ -97,6 +102,7 @@
     <Compile Include="SortMemberDeclarationsRefactoring.cs" />
     <Compile Include="SplitSwitchLabelsRefactoring.cs" />
     <Compile Include="ReplaceStringContainsWithStringIndexOfRefactoring.cs" />
+    <Compile Include="UseStringBuilderInsteadOfConcatenation.cs" />
     <Compile Include="WrapInElseClauseRefactoring.cs" />
     <Compile Include="Tuple.cs" />
     <Compile Include="WrapInIfDirectiveRefactoring.cs" />

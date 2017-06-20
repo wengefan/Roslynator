@@ -42,6 +42,8 @@
     <AssemblyOriginatorKeyFile>Roslynator.CSharp.Refactorings.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Refactorings\DeclarationPatternRefactoring.cs" />
+    <Compile Include="Refactorings\InlineConstantRefactoring.cs" />
     <Compile Include="Refactorings\InlineMethod\AbstractInlineMethodRefactoring.cs" />
     <Compile Include="Refactorings\InlineMethod\InlineMethodExpressionRefactoring.cs" />
     <Compile Include="Refactorings\InlineMethod\InlineMethodRewriter.cs" />
@@ -71,15 +73,13 @@
     <Compile Include="Refactorings\ExtractCondition\ExtractConditionRefactoring.cs" />
     <Compile Include="Refactorings\ExtractCondition\ExtractConditionFromIfToNestedIfRefactoring.cs" />
     <Compile Include="Refactorings\ExtractCondition\ExtractConditionFromIfToIfRefactoring.cs" />
-    <Compile Include="Refactorings\IntroduceLocalFromStatementThatReturnsValueRefactoring.cs" />
-    <Compile Include="Refactorings\CallExtensionMethodAsInstanceMethodRefactoring.cs" />
+    <Compile Include="Refactorings\IntroduceLocalVariableRefactoring.cs" />
     <Compile Include="Refactorings\ConstructorDeclarationRefactoring.cs" />
     <Compile Include="Refactorings\LockStatementRefactoring.cs" />
     <Compile Include="Refactorings\CopyDocumentationCommentFromBaseMemberRefactoring.cs" />
     <Compile Include="Refactorings\GenerateOnEventMethodRefactoring.cs" />
     <Compile Include="Refactorings\CallToMethodRefactoring.cs" />
     <Compile Include="Refactorings\EventDeclarationRefactoring.cs" />
-    <Compile Include="Refactorings\GenerateBaseConstructorsRefactoring.cs" />
     <Compile Include="Refactorings\InlineMethod\ParameterInfo.cs" />
     <Compile Include="Refactorings\InterpolationRefactoring.cs" />
     <Compile Include="Refactorings\AttributeListRefactoring.cs" />
@@ -88,13 +88,14 @@
     <Compile Include="RefactoringSettings.cs" />
     <Compile Include="Refactorings\ExtractTypeDeclarationToNewFileRefactoring.cs" />
     <Compile Include="Refactorings\MergeLocalDeclarationsRefactoring.cs" />
-    <Compile Include="Refactorings\MergeStringExpressionsRefactoring.cs" />
+    <Compile Include="Refactorings\JoinStringExpressionsRefactoring.cs" />
     <Compile Include="Refactorings\NegateIsExpressionRefactoring.cs" />
     <Compile Include="Refactorings\RemoveConditionFromLastElseRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceEqualsExpression\ReplaceEqualsExpressionRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceEqualsExpression\ReplaceEqualsExpressionWithStringIsNullOrEmptyRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceEqualsExpression\ReplaceEqualsExpressionWithStringIsNullOrWhiteSpaceRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceInterpolatedStringWithInterpolationExpressionRefactoring.cs" />
+    <Compile Include="Refactorings\ReplaceObjectCreationWithDefaultValueRefactoring.cs" />
     <Compile Include="Refactorings\ReplacePropertyWithMethod\ReplacePropertyWithMethodSyntaxRewriter.cs" />
     <Compile Include="Refactorings\ReplaceStatementWithIf\ReplaceExpressionStatementWithIfStatementRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceStatementWithIf\ReplaceReturnStatementWithIfStatementRefactoring.cs" />
@@ -117,7 +118,10 @@
     <Compile Include="Refactorings\SelectedSwitchSectionsRefactoring.cs" />
     <Compile Include="Refactorings\SemicolonTokenRefactoring.cs" />
     <Compile Include="Refactorings\SortMemberDeclarations\SortMemberDeclarationsRewriter.cs" />
+    <Compile Include="Refactorings\SplitIfStatementRefactoring.cs" />
     <Compile Include="Refactorings\ThrowExpressionRefactoring.cs" />
+    <Compile Include="Refactorings\UseStringBuilderInsteadOfConcatenationRefactoring.cs" />
+    <Compile Include="Refactorings\UseListInsteadOfYieldRefactoring.cs" />
     <Compile Include="Refactorings\WrapSelectedLines\WrapInIfDirectiveRefactoring.cs" />
     <Compile Include="Refactorings\AddUsingDirectiveRefactoring.cs" />
     <Compile Include="Refactorings\CollapseToInitializerRefactoring.cs" />

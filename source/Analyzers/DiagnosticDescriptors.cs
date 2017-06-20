@@ -220,7 +220,7 @@ namespace Roslynator.CSharp
             messageFormat: "Format empty block.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: false
         );
 
         public static readonly DiagnosticDescriptor FormatAccessorList = new DiagnosticDescriptor(
@@ -229,7 +229,7 @@ namespace Roslynator.CSharp
             messageFormat: "Format accessor list.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: false
         );
 
         public static readonly DiagnosticDescriptor FormatEachEnumMemberOnSeparateLine = new DiagnosticDescriptor(
@@ -492,17 +492,6 @@ namespace Roslynator.CSharp
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: false
         );
-
-        public static readonly DiagnosticDescriptor MergeLocalDeclarationWithReturnStatement = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.MergeLocalDeclarationWithReturnStatement,
-            title: "Merge local declaration with return statement.",
-            messageFormat: "Merge local declaration with return statement.",
-            category: DiagnosticCategories.Simplification,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
-        );
-
-        public static readonly DiagnosticDescriptor MergeLocalDeclarationWithReturnStatementFadeOut = MergeLocalDeclarationWithReturnStatement.CreateFadeOut();
 
         public static readonly DiagnosticDescriptor AvoidSemicolonAtEndOfDeclaration = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.AvoidSemicolonAtEndOfDeclaration,
@@ -853,7 +842,7 @@ namespace Roslynator.CSharp
              title: "Remove empty region.",
              messageFormat: "Remove empty region.",
              category: DiagnosticCategories.Redundancy,
-             defaultSeverity: DiagnosticSeverity.Info,
+             defaultSeverity: DiagnosticSeverity.Hidden,
              isEnabledByDefault: true
         );
 
@@ -1015,10 +1004,10 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor UseCastMethodInsteadOfSelectMethod = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.UseCastMethodInsteadOfSelectMethod,
-            title: "Use 'Cast' method instead of 'Select' method.",
-            messageFormat: "Use 'Cast' method instead of 'Select' method.",
+        public static readonly DiagnosticDescriptor CallCastInsteadOfSelect = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.CallCastInsteadOfSelect,
+            title: "Call 'Enumerable.Cast' instead of 'Enumerable.Select'.",
+            messageFormat: "Call 'Enumerable.Cast' instead of 'Enumerable.Select'.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
@@ -1472,7 +1461,7 @@ namespace Roslynator.CSharp
             title: "Composite enum value contains undefined flag.",
             messageFormat: "Composite enum value contains undefined flag {0}.",
             category: DiagnosticCategories.Design,
-            defaultSeverity: DiagnosticSeverity.Warning,
+            defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
         );
 
@@ -1733,6 +1722,107 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: false
+        );
+
+        public static readonly DiagnosticDescriptor UseRegexInstanceInsteadOfStaticMethod = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseRegexInstanceInsteadOfStaticMethod,
+            title: "Use Regex instance instead of static method.",
+            messageFormat: "Use Regex instance instead of static method.",
+            category: DiagnosticCategories.Usage,
+            defaultSeverity: DiagnosticSeverity.Hidden,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor UseConstantInsteadOfField = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseConstantInsteadOfField,
+            title: "Use constant instead of field.",
+            messageFormat: "Use constant instead of field.",
+            category: DiagnosticCategories.Design,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor RemoveRedundantAutoPropertyInitialization = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.RemoveRedundantAutoPropertyInitialization,
+            title: "Remove redundant auto-property initialization.",
+            messageFormat: "Remove redundant auto-property initialization.",
+            category: DiagnosticCategories.Redundancy,
+            defaultSeverity: DiagnosticSeverity.Hidden,
+            isEnabledByDefault: true,
+            customTags: WellKnownDiagnosticTags.Unnecessary
+        );
+
+        public static readonly DiagnosticDescriptor AddOrRemoveRegionName = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.AddOrRemoveRegionName,
+            title: "Add or remove region name.",
+            messageFormat: "{0} region name {1} #endregion.",
+            category: DiagnosticCategories.Readability,
+            defaultSeverity: DiagnosticSeverity.Hidden,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor JoinStringExpressions = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.JoinStringExpressions,
+            title: "Join string expressions.",
+            messageFormat: "Join string expressions.",
+            category: DiagnosticCategories.Simplification,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor DeclareEnumValueAsCombinationOfNames = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.DeclareEnumValueAsCombinationOfNames,
+            title: "Declare enum value as combination of names.",
+            messageFormat: "Declare enum value as combination of names.",
+            category: DiagnosticCategories.Readability,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor UseRegularStringLiteralInsteadOfVerbatimStringLiteral = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseRegularStringLiteralInsteadOfVerbatimStringLiteral,
+            title: "Use regular string literal instead of verbatim string literal.",
+            messageFormat: "Use regular string literal instead of verbatim string literal.",
+            category: DiagnosticCategories.Readability,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true,
+            customTags: WellKnownDiagnosticTags.Unnecessary
+        );
+
+        public static readonly DiagnosticDescriptor OverridingMemberCannotChangeParamsModifier = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.OverridingMemberCannotChangeParamsModifier,
+            title: "Overriding member cannot change 'params' modifier.",
+            messageFormat: "Overriding member cannot change 'params' modifier.",
+            category: DiagnosticCategories.Design,
+            defaultSeverity: DiagnosticSeverity.Warning,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor ImplementExceptionConstructors = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.ImplementExceptionConstructors,
+            title: "Implement exception constructors.",
+            messageFormat: "Implement exception constructors.",
+            category: DiagnosticCategories.Design,
+            defaultSeverity: DiagnosticSeverity.Warning,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor UseExclusiveOrOperator = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseExclusiveOrOperator,
+            title: "Use ^ operator.",
+            messageFormat: "Use ^ operator.",
+            category: DiagnosticCategories.Simplification,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor CallExtensionMethodAsInstanceMethod = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.CallExtensionMethodAsInstanceMethod,
+            title: "Call extension method as instance method.",
+            messageFormat: "Call extension method as instance method.",
+            category: DiagnosticCategories.Style,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
         );
     }
 }

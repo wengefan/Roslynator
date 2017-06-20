@@ -42,6 +42,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="CSharp\Analysis\BracesAnalysisResult.cs" />
+    <Compile Include="CSharp\BinaryExpressionChain.cs" />
+    <Compile Include="CSharp\StringLiteralParser.cs" />
+    <Compile Include="CSharp\StringLiteralParser.StringLiteralParseResult.cs" />
     <Compile Include="CSharp\XmlElementInfo.cs" />
     <Compile Include="CSharp\XmlElementKind.cs" />
     <Compile Include="CSharp\Helpers\InsertModifierHelper.cs" />
@@ -57,6 +60,7 @@
     <Compile Include="CSharp\Documentation\BaseDocumentationCommentOrigin.cs" />
     <Compile Include="CSharp\Extensions\DocumentExtensions.cs" />
     <Compile Include="CSharp\SyntaxRewriters\WhitespaceOrEndOfLineTriviaRewriter.cs" />
+    <Compile Include="CSharp\Refactorings\GenerateBaseConstructorsRefactoring.cs" />
     <Compile Include="CSharp\Syntax\EqualsToNullExpression.cs" />
     <Compile Include="CSharp\StatementContainer.cs" />
     <Compile Include="CSharp\Syntax\SingleLocalDeclarationStatement.cs" />
@@ -89,7 +93,7 @@
     <Compile Include="CSharp\MemberDeclarationSelection.cs" />
     <Compile Include="CSharp\Syntax\SimpleAssignmentStatement.cs" />
     <Compile Include="CSharp\Syntax\SimpleIfStatementWithSingleStatement.cs" />
-    <Compile Include="CSharp\StringExpressionChain.cs" />
+    <Compile Include="CSharp\StringConcatenationExpression.cs" />
     <Compile Include="CommentRemoveOptions.cs" />
     <Compile Include="CSharp\CSharpFactory.cs" />
     <Compile Include="CSharp\Helpers\DetermineParameterHelper.cs" />

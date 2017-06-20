@@ -69,6 +69,7 @@ namespace Roslynator.CSharp.Refactorings
         public const string ImplementIEquatableOfT = Prefix + "0179";
         public const string InitializeLocalWithDefaultValue = Prefix + "0060";
         public const string InlineAliasExpression = Prefix + "0061";
+        public const string InlineConstant = Prefix + "0181";
         public const string InlineMethod = Prefix + "0062";
         public const string InlineUsingStatic = Prefix + "0180";
         public const string InsertStringInterpolation = Prefix + "0063";
@@ -76,7 +77,8 @@ namespace Roslynator.CSharp.Refactorings
         public const string IntroduceAndInitializeProperty = Prefix + "0065";
         public const string IntroduceConstructor = Prefix + "0066";
         public const string IntroduceFieldToLockOn = Prefix + "0067";
-        public const string IntroduceLocalFromStatementThatReturnsValue = Prefix + "0068";
+        public const string IntroduceLocalVariable = Prefix + "0068";
+        public const string JoinStringExpressions = Prefix + "0078";
         public const string MakeMemberAbstract = Prefix + "0069";
         public const string MakeMemberVirtual = Prefix + "0070";
         public const string MarkContainingClassAsAbstract = Prefix + "0071";
@@ -86,7 +88,6 @@ namespace Roslynator.CSharp.Refactorings
         public const string MergeIfStatements = Prefix + "0075";
         public const string MergeInterpolationIntoInterpolatedString = Prefix + "0076";
         public const string MergeLocalDeclarations = Prefix + "0077";
-        public const string MergeStringExpressions = Prefix + "0078";
         public const string NegateBinaryExpression = Prefix + "0079";
         public const string NegateBooleanLiteral = Prefix + "0080";
         public const string NegateIsExpression = Prefix + "0081";
@@ -148,6 +149,7 @@ namespace Roslynator.CSharp.Refactorings
         public const string ReplaceMethodGroupWithLambda = Prefix + "0137";
         public const string ReplaceMethodWithProperty = Prefix + "0138";
         public const string ReplaceNullLiteralExpressionWithDefaultExpression = Prefix + "0139";
+        public const string ReplaceObjectCreationWithDefaultValue = Prefix + "0185";
         public const string ReplacePrefixOperatorWithPostfixOperator = Prefix + "0140";
         public const string ReplacePropertyWithMethod = Prefix + "0141";
         public const string ReplaceRegularStringLiteralWithVerbatimStringLiteral = Prefix + "0142";
@@ -165,6 +167,7 @@ namespace Roslynator.CSharp.Refactorings
         public const string SimplifyLambdaExpression = Prefix + "0154";
         public const string SortMemberDeclarations = Prefix + "0155";
         public const string SplitAttributes = Prefix + "0156";
+        public const string SplitIfStatement = Prefix + "0184";
         public const string SplitSwitchLabels = Prefix + "0157";
         public const string SplitVariableDeclaration = Prefix + "0158";
         public const string SwapExpressionsInBinaryExpression = Prefix + "0159";
@@ -179,6 +182,8 @@ namespace Roslynator.CSharp.Refactorings
         public const string UseEmptyStringLiteralInsteadOfStringEmpty = Prefix + "0168";
         public const string UseExpressionBodiedMember = Prefix + "0169";
         public const string UseLambdaExpressionInsteadOfAnonymousMethod = Prefix + "0170";
+        public const string UseListInsteadOfYield = Prefix + "0183";
+        public const string UseStringBuilderInsteadOfConcatenation = Prefix + "0182";
         public const string UseStringEmptyInsteadOfEmptyStringLiteral = Prefix + "0171";
         public const string WrapInCondition = Prefix + "0172";
         public const string WrapInElseClause = Prefix + "0173";

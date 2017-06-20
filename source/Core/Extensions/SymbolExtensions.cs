@@ -369,6 +369,27 @@ namespace Roslynator
                 .GetSyntax(cancellationToken);
         }
 
+        internal static bool TryGetSyntax<TNode>(this ISymbol symbol, out TNode node) where TNode : SyntaxNode
+        {
+            return TryGetSyntax(symbol, default(CancellationToken), out node);
+        }
+
+        internal static bool TryGetSyntax<TNode>(this ISymbol symbol, CancellationToken cancellationToken, out TNode node) where TNode : SyntaxNode
+        {
+            ImmutableArray<SyntaxReference> syntaxReferences = symbol.DeclaringSyntaxReferences;
+
+            if (syntaxReferences.Any())
+            {
+                node = syntaxReferences[0].GetSyntax(cancellationToken) as TNode;
+
+                if (node != null)
+                    return true;
+            }
+
+            node = null;
+            return false;
+        }
+
         public static bool HasAttribute(this ISymbol symbol, INamedTypeSymbol attributeSymbol)
         {
             if (symbol == null)
@@ -751,6 +772,12 @@ namespace Roslynator
             }
 
             return false;
+        }
+
+        public static bool IsNonReducedExtensionMethod(this IMethodSymbol methodSymbol)
+        {
+            return methodSymbol?.IsExtensionMethod == true
+                && methodSymbol.MethodKind != MethodKind.ReducedExtension;
         }
         #endregion IMethodSymbol
 

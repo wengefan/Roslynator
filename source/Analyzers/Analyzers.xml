@@ -194,7 +194,7 @@
     <Title>Format empty block.</Title>
     <Category>Formatting</Category>
     <DefaultSeverity>Info</DefaultSeverity>
-    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <IsEnabledByDefault>false</IsEnabledByDefault>
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
   </Analyzer>
@@ -203,7 +203,7 @@
     <Title>Format accessor list.</Title>
     <Category>Formatting</Category>
     <DefaultSeverity>Info</DefaultSeverity>
-    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <IsEnabledByDefault>false</IsEnabledByDefault>
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
   </Analyzer>
@@ -449,15 +449,6 @@
     <IsEnabledByDefault>false</IsEnabledByDefault>
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
-  </Analyzer>
-  <Analyzer Identifier="MergeLocalDeclarationWithReturnStatement">
-    <Id>RCS1054</Id>
-    <Title>Merge local declaration with return statement.</Title>
-    <Category>Simplification</Category>
-    <DefaultSeverity>Hidden</DefaultSeverity>
-    <IsEnabledByDefault>true</IsEnabledByDefault>
-    <SupportsFadeOut>false</SupportsFadeOut>
-    <SupportsFadeOutAnalyzer>true</SupportsFadeOutAnalyzer>
   </Analyzer>
   <Analyzer Identifier="AvoidSemicolonAtEndOfDeclaration">
     <Id>RCS1055</Id>
@@ -787,7 +778,7 @@
     <Id>RCS1091</Id>
     <Title>Remove empty region.</Title>
     <Category>Redundancy</Category>
-    <DefaultSeverity>Info</DefaultSeverity>
+    <DefaultSeverity>Hidden</DefaultSeverity>
     <IsEnabledByDefault>true</IsEnabledByDefault>
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>true</SupportsFadeOutAnalyzer>
@@ -1381,7 +1372,7 @@
     <Id>RCS1157</Id>
     <Title>Composite enum value contains undefined flag.</Title>
     <Category>Design</Category>
-    <DefaultSeverity>Warning</DefaultSeverity>
+    <DefaultSeverity>Info</DefaultSeverity>
     <IsEnabledByDefault>true</IsEnabledByDefault>
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
@@ -1635,6 +1626,105 @@
     <Category>Formatting</Category>
     <DefaultSeverity>Info</DefaultSeverity>
     <IsEnabledByDefault>false</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="UseRegexInstanceInsteadOfStaticMethod">
+    <Id>RCS1186</Id>
+    <Title>Use Regex instance instead of static method.</Title>
+    <Category>Usage</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="MarkFieldAsConst">
+    <Id>RCS1187</Id>
+    <Title>Mark field as const.</Title>
+    <Category>Design</Category>
+    <DefaultSeverity>Info</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="RemoveRedundantAutoPropertyInitialization">
+    <Id>RCS1188</Id>
+    <Title>Remove redundant auto-property initialization.</Title>
+    <Category>Redundancy</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>true</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="AddOrRemoveRegionName">
+    <Id>RCS1189</Id>
+    <Title>Add or remove region name.</Title>
+    <Category>Readability</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="JoinStringExpressions">
+    <Id>RCS1190</Id>
+    <Title>Join string expressions.</Title>
+    <Category>Simplification</Category>
+    <DefaultSeverity>Info</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="DeclareEnumValueAsCombinationOfNames">
+    <Id>RCS1191</Id>
+    <Title>Declare enum value as combination of names.</Title>
+    <Category>Readability</Category>
+    <DefaultSeverity>Info</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="UseRegularStringLiteralInsteadOfVerbatimStringLiteral">
+    <Id>RCS1192</Id>
+    <Title>Use regular string literal instead of verbatim string literal.</Title>
+    <Category>Readability</Category>
+    <DefaultSeverity>Info</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>true</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="OverridingMemberCannotChangeParamsModifier">
+    <Id>RCS1193</Id>
+    <Title>Overriding member cannot change 'params' modifier.</Title>
+    <Category>Design</Category>
+    <DefaultSeverity>Warning</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="ImplementExceptionConstructors">
+    <Id>RCS1194</Id>
+    <Title>Implement exception constructors.</Title>
+    <Category>Design</Category>
+    <DefaultSeverity>Warning</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="UseExclusiveOrOperator">
+    <Id>RCS1195</Id>
+    <Title>Use ^ operator.</Title>
+    <Category>Simplification</Category>
+    <DefaultSeverity>Info</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="CallExtensionMethodAsInstanceMethod">
+    <Id>RCS1196</Id>
+    <Title>Call extension method as instance method.</Title>
+    <Category>Style</Category>
+    <DefaultSeverity>Info</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
   </Analyzer>

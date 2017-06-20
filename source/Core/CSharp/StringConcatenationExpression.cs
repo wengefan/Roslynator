@@ -15,10 +15,16 @@ using Roslynator.Utilities;
 
 namespace Roslynator.CSharp
 {
-    internal class StringExpressionChain
+    internal struct StringConcatenationExpression
     {
-        private StringExpressionChain(BinaryExpressionSyntax addExpression, IEnumerable<ExpressionSyntax> expressions, TextSpan? span = null)
+        private StringConcatenationExpression(BinaryExpressionSyntax addExpression, IEnumerable<ExpressionSyntax> expressions, TextSpan? span = null)
         {
+            ContainsNonSpecificExpression = false;
+            ContainsRegularLiteralExpression = false;
+            ContainsVerbatimLiteralExpression = false;
+            ContainsRegularInterpolatedStringExpression = false;
+            ContainsVerbatimInterpolatedStringExpression = false;
+
             OriginalExpression = addExpression;
             Expressions = ImmutableArray.CreateRange(expressions);
             Span = span;
@@ -31,21 +37,17 @@ namespace Roslynator.CSharp
                 {
                     if (((LiteralExpressionSyntax)expression).IsVerbatimStringLiteral())
                     {
-                        ContainsVerbatimLiteral = true;
+                        ContainsVerbatimLiteralExpression = true;
                     }
                     else
                     {
-                        ContainsRegularLiteral = true;
+                        ContainsRegularLiteralExpression = true;
                     }
                 }
                 else
                 {
-                    ContainsExpression = true;
-
                     if (kind == SyntaxKind.InterpolatedStringExpression)
                     {
-                        ContainsInterpolatedStringExpression = true;
-
                         if (((InterpolatedStringExpressionSyntax)expression).IsVerbatim())
                         {
                             ContainsVerbatimInterpolatedStringExpression = true;
@@ -54,6 +56,10 @@ namespace Roslynator.CSharp
                         {
                             ContainsRegularInterpolatedStringExpression = true;
                         }
+                    }
+                    else
+                    {
+                        ContainsNonSpecificExpression = true;
                     }
                 }
             }
@@ -65,18 +71,26 @@ namespace Roslynator.CSharp
 
         public TextSpan? Span { get; }
 
-        public bool ContainsExpression { get; }
+        public bool ContainsNonSpecificExpression { get; }
 
-        public bool ContainsLiteral
+        public bool ContainsNonLiteralExpression
         {
-            get { return ContainsRegularLiteral || ContainsVerbatimLiteral; }
+            get { return ContainsInterpolatedStringExpression || ContainsNonSpecificExpression; }
         }
 
-        public bool ContainsRegularLiteral { get; }
+        public bool ContainsLiteralExpression
+        {
+            get { return ContainsRegularLiteralExpression || ContainsVerbatimLiteralExpression; }
+        }
 
-        public bool ContainsVerbatimLiteral { get; }
+        public bool ContainsRegularLiteralExpression { get; }
 
-        public bool ContainsInterpolatedStringExpression { get; }
+        public bool ContainsVerbatimLiteralExpression { get; }
+
+        public bool ContainsInterpolatedStringExpression
+        {
+            get { return ContainsRegularInterpolatedStringExpression || ContainsVerbatimInterpolatedStringExpression; }
+        }
 
         public bool ContainsRegularInterpolatedStringExpression { get; }
 
@@ -84,23 +98,27 @@ namespace Roslynator.CSharp
 
         public bool ContainsRegular
         {
-            get { return ContainsRegularLiteral || ContainsRegularInterpolatedStringExpression; }
+            get { return ContainsRegularLiteralExpression || ContainsRegularInterpolatedStringExpression; }
         }
 
         public bool ContainsVerbatim
         {
-            get { return ContainsVerbatimLiteral || ContainsVerbatimInterpolatedStringExpression; }
+            get { return ContainsVerbatimLiteralExpression || ContainsVerbatimInterpolatedStringExpression; }
         }
 
-        private SyntaxTree SyntaxTree
-        {
-            get { return OriginalExpression.SyntaxTree; }
-        }
-
-        public static StringExpressionChain TryCreate(
+        public static bool TryCreate(
             BinaryExpressionSyntax binaryExpression,
             SemanticModel semanticModel,
-            CancellationToken cancellationToken)
+            out StringConcatenationExpression concatenation)
+        {
+            return TryCreate(binaryExpression, semanticModel, default(CancellationToken), out concatenation);
+        }
+
+        public static bool TryCreate(
+            BinaryExpressionSyntax binaryExpression,
+            SemanticModel semanticModel,
+            CancellationToken cancellationToken,
+            out StringConcatenationExpression concatenation)
         {
             if (binaryExpression.IsKind(SyntaxKind.AddExpression))
             {
@@ -109,17 +127,28 @@ namespace Roslynator.CSharp
                 if (expressions != null)
                 {
                     expressions.Reverse();
-                    return new StringExpressionChain(binaryExpression, expressions);
+                    concatenation = new StringConcatenationExpression(binaryExpression, expressions);
+                    return true;
                 }
             }
 
-            return null;
+            concatenation = default(StringConcatenationExpression);
+            return false;
         }
 
-        public static StringExpressionChain TryCreate(
+        public static bool TryCreate(
             BinaryExpressionSelection binaryExpressionSelection,
             SemanticModel semanticModel,
-            CancellationToken cancellationToken)
+            out StringConcatenationExpression concatenation)
+        {
+            return TryCreate(binaryExpressionSelection, semanticModel, default(CancellationToken), out concatenation);
+        }
+
+        public static bool TryCreate(
+            BinaryExpressionSelection binaryExpressionSelection,
+            SemanticModel semanticModel,
+            CancellationToken cancellationToken,
+            out StringConcatenationExpression concatenation)
         {
             BinaryExpressionSyntax binaryExpression = binaryExpressionSelection.BinaryExpression;
             ImmutableArray<ExpressionSyntax> expressions = binaryExpressionSelection.Expressions;
@@ -127,17 +156,34 @@ namespace Roslynator.CSharp
             if (binaryExpression.IsKind(SyntaxKind.AddExpression)
                 && expressions.All(expression => IsStringExpression(expression, semanticModel, cancellationToken)))
             {
-                return new StringExpressionChain(binaryExpression, expressions, binaryExpressionSelection.Span);
+                concatenation = new StringConcatenationExpression(binaryExpression, expressions, binaryExpressionSelection.Span);
+                return true;
             }
 
-            return null;
+            concatenation = default(StringConcatenationExpression);
+            return false;
         }
 
         private static bool IsStringExpression(ExpressionSyntax expression, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
-            return expression != null
-                && (expression.IsKind(SyntaxKind.StringLiteralExpression)
-                    || IsString(expression, semanticModel, cancellationToken));
+            if (expression != null)
+            {
+                if (expression.IsKind(
+                    SyntaxKind.StringLiteralExpression,
+                    SyntaxKind.InterpolatedStringExpression))
+                {
+                    return true;
+                }
+
+                if (semanticModel.GetTypeInfo(expression, cancellationToken)
+                    .ConvertedType?
+                    .IsString() == true)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static List<ExpressionSyntax> GetExpressions(
@@ -146,58 +192,34 @@ namespace Roslynator.CSharp
             CancellationToken cancellationToken)
         {
             List<ExpressionSyntax> expressions = null;
-            bool success = true;
 
-            while (success)
+            while (true)
             {
-                success = false;
-
-                if (binaryExpression.IsKind(SyntaxKind.AddExpression))
+                MethodInfo methodInfo;
+                if (semanticModel.TryGetMethodInfo(binaryExpression, out methodInfo, cancellationToken)
+                    && methodInfo.MethodKind == MethodKind.BuiltinOperator
+                    && methodInfo.Name == WellKnownMemberNames.AdditionOperatorName
+                    && methodInfo.IsContainingType(SpecialType.System_String))
                 {
-                    ExpressionSyntax right = binaryExpression.Right;
+                    (expressions ?? (expressions = new List<ExpressionSyntax>())).Add(binaryExpression.Right);
 
-                    if (right?.IsMissing == false)
+                    ExpressionSyntax left = binaryExpression.Left;
+
+                    if (left.IsKind(SyntaxKind.AddExpression))
                     {
-                        if (right.IsKind(SyntaxKind.StringLiteralExpression)
-                            || IsString(right, semanticModel, cancellationToken))
-                        {
-                            (expressions ?? (expressions = new List<ExpressionSyntax>())).Add(right);
-
-                            ExpressionSyntax left = binaryExpression.Left;
-
-                            if (left?.IsMissing == false)
-                            {
-                                switch (left.Kind())
-                                {
-                                    case SyntaxKind.StringLiteralExpression:
-                                        {
-                                            expressions.Add(left);
-                                            return expressions;
-                                        }
-                                    case SyntaxKind.AddExpression:
-                                        {
-                                            binaryExpression = (BinaryExpressionSyntax)left;
-                                            success = true;
-                                            break;
-                                        }
-                                    default:
-                                        {
-                                            if (IsString(left, semanticModel, cancellationToken))
-                                            {
-                                                expressions.Add(left);
-                                                return expressions;
-                                            }
-
-                                            break;
-                                        }
-                                }
-                            }
-                        }
+                        binaryExpression = (BinaryExpressionSyntax)left;
+                    }
+                    else
+                    {
+                        expressions.Add(left);
+                        return expressions;
                     }
                 }
+                else
+                {
+                    return null;
+                }
             }
-
-            return null;
         }
 
         public InterpolatedStringExpressionSyntax ToInterpolatedString()
@@ -220,12 +242,14 @@ namespace Roslynator.CSharp
                     var literal = (LiteralExpressionSyntax)Expressions[i];
 
                     if (ContainsRegular
-                        && ContainsVerbatimLiteral
                         && literal.IsVerbatimStringLiteral())
                     {
                         string s = literal.Token.ValueText;
+                        s = StringUtility.DoubleBackslash(s);
                         s = StringUtility.EscapeQuote(s);
                         s = StringUtility.DoubleBraces(s);
+                        s = s.Replace("\n", @"\n");
+                        s = s.Replace("\r", @"\r");
                         sb.Append(s);
                     }
                     else
@@ -243,29 +267,36 @@ namespace Roslynator.CSharp
 
                     foreach (InterpolatedStringContentSyntax content in interpolatedString.Contents)
                     {
-                        SyntaxKind contentKind = content.Kind();
-
                         Debug.Assert(content.IsKind(SyntaxKind.Interpolation, SyntaxKind.InterpolatedStringText), content.Kind().ToString());
 
-                        if (contentKind == SyntaxKind.InterpolatedStringText)
+                        switch (content.Kind())
                         {
-                            var text = (InterpolatedStringTextSyntax)content;
+                            case SyntaxKind.InterpolatedStringText:
+                                {
+                                    var text = (InterpolatedStringTextSyntax)content;
 
-                            if (ContainsRegular
-                                && isVerbatimInterpolatedString)
-                            {
-                                string s = text.TextToken.ValueText;
-                                s = StringUtility.EscapeQuote(s);
-                                sb.Append(s);
-                            }
-                            else
-                            {
-                                sb.Append(content.ToString());
-                            }
-                        }
-                        else if (contentKind == SyntaxKind.Interpolation)
-                        {
-                            sb.Append(content.ToString());
+                                    if (ContainsRegular
+                                        && isVerbatimInterpolatedString)
+                                    {
+                                        string s = text.TextToken.ValueText;
+                                        s = StringUtility.DoubleBackslash(s);
+                                        s = StringUtility.EscapeQuote(s);
+                                        s = s.Replace("\n", @"\n");
+                                        s = s.Replace("\r", @"\r");
+                                        sb.Append(s);
+                                    }
+                                    else
+                                    {
+                                        sb.Append(content.ToString());
+                                    }
+
+                                    break;
+                                }
+                            case SyntaxKind.Interpolation:
+                                {
+                                    sb.Append(content.ToString());
+                                    break;
+                                }
                         }
                     }
                 }
@@ -284,7 +315,7 @@ namespace Roslynator.CSharp
 
         public LiteralExpressionSyntax ToStringLiteral()
         {
-            if (ContainsExpression)
+            if (ContainsNonLiteralExpression)
                 throw new InvalidOperationException();
 
             var sb = new StringBuilder();
@@ -300,10 +331,15 @@ namespace Roslynator.CSharp
                 {
                     var literal = (LiteralExpressionSyntax)expression;
 
-                    if (ContainsVerbatimLiteral
+                    if (ContainsRegular
                         && literal.IsVerbatimStringLiteral())
                     {
-                        sb.Append(StringUtility.EscapeQuote(literal.Token.ValueText));
+                        string s = literal.Token.ValueText;
+                        s = StringUtility.DoubleBackslash(s);
+                        s = StringUtility.EscapeQuote(s);
+                        s = s.Replace("\n", @"\n");
+                        s = s.Replace("\r", @"\r");
+                        sb.Append(s);
                     }
                     else
                     {
@@ -319,7 +355,7 @@ namespace Roslynator.CSharp
 
         public LiteralExpressionSyntax ToMultilineStringLiteral()
         {
-            if (ContainsExpression)
+            if (ContainsNonLiteralExpression)
                 throw new InvalidOperationException();
 
             var sb = new StringBuilder();
@@ -359,7 +395,7 @@ namespace Roslynator.CSharp
                     {
                         TextSpan span = TextSpan.FromBounds(Expressions[i].Span.End, Expressions[i + 1].SpanStart);
 
-                        if (SyntaxTree.IsMultiLineSpan(span))
+                        if (OriginalExpression.SyntaxTree.IsMultiLineSpan(span))
                             sb.AppendLine();
                     }
                 }
@@ -391,14 +427,6 @@ namespace Roslynator.CSharp
             return (s[0] == '@')
                 ? s.Substring(2, s.Length - 3)
                 : s.Substring(1, s.Length - 2);
-        }
-
-        private static bool IsString(ExpressionSyntax right, SemanticModel semanticModel, CancellationToken cancellationToken)
-        {
-            return semanticModel
-                .GetTypeInfo(right, cancellationToken)
-                .ConvertedType?
-                .IsString() == true;
         }
     }
 }

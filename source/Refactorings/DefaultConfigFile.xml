@@ -72,7 +72,7 @@
       <Refactoring Id="RR0065" IsEnabled="true" /> <!-- IntroduceAndInitializeProperty -->
       <Refactoring Id="RR0066" IsEnabled="false" /> <!-- IntroduceConstructor -->
       <Refactoring Id="RR0067" IsEnabled="true" /> <!-- IntroduceFieldToLockOn -->
-      <Refactoring Id="RR0068" IsEnabled="true" /> <!-- IntroduceLocalFromStatementThatReturnsValue -->
+      <Refactoring Id="RR0068" IsEnabled="true" /> <!-- IntroduceLocalVariable -->
       <Refactoring Id="RR0069" IsEnabled="true" /> <!-- MakeMemberAbstract -->
       <Refactoring Id="RR0070" IsEnabled="true" /> <!-- MakeMemberVirtual -->
       <Refactoring Id="RR0071" IsEnabled="true" /> <!-- MarkContainingClassAsAbstract -->
@@ -82,7 +82,7 @@
       <Refactoring Id="RR0075" IsEnabled="true" /> <!-- MergeIfStatements -->
       <Refactoring Id="RR0076" IsEnabled="true" /> <!-- MergeInterpolationIntoInterpolatedString -->
       <Refactoring Id="RR0077" IsEnabled="true" /> <!-- MergeLocalDeclarations -->
-      <Refactoring Id="RR0078" IsEnabled="true" /> <!-- MergeStringExpressions -->
+      <Refactoring Id="RR0078" IsEnabled="true" /> <!-- JoinStringExpressions -->
       <Refactoring Id="RR0079" IsEnabled="true" /> <!-- NegateBinaryExpression -->
       <Refactoring Id="RR0080" IsEnabled="true" /> <!-- NegateBooleanLiteral -->
       <Refactoring Id="RR0081" IsEnabled="true" /> <!-- NegateIsExpression -->
@@ -185,6 +185,11 @@
       <Refactoring Id="RR0178" IsEnabled="true" /> <!-- AddTypeParameter -->
       <Refactoring Id="RR0179" IsEnabled="true" /> <!-- ImplementIEquatableOfT -->
       <Refactoring Id="RR0180" IsEnabled="true" /> <!-- InlineUsingStatic -->
+      <Refactoring Id="RR0181" IsEnabled="true" /> <!-- InlineConstant -->
+      <Refactoring Id="RR0182" IsEnabled="true" /> <!-- UseStringBuilderInsteadOfConcatenation -->
+      <Refactoring Id="RR0183" IsEnabled="true" /> <!-- UseListInsteadOfYield -->
+      <Refactoring Id="RR0184" IsEnabled="true" /> <!-- SplitIfStatement -->
+      <Refactoring Id="RR0185" IsEnabled="true" /> <!-- ReplaceObjectCreationWithDefaultValue -->
     </Refactorings>
   </Settings>
 </Roslynator>

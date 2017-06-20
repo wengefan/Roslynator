@@ -59,7 +59,7 @@ namespace Roslynator.CSharp
         public const string ParenthesizeConditionInConditionalExpression = Prefix + "1051";
         public const string DeclareEachAttributeSeparately = Prefix + "1052";
         //public const string ReplaceForEachWithFor = Prefix + "1053";
-        public const string MergeLocalDeclarationWithReturnStatement = Prefix + "1054";
+        //public const string MergeLocalDeclarationWithReturnStatement = Prefix + "1054";
         public const string AvoidSemicolonAtEndOfDeclaration = Prefix + "1055";
         public const string AvoidUsageOfUsingAliasDirective = Prefix + "1056";
         public const string AddEmptyLineBetweenDeclarations = Prefix + "1057";
@@ -114,7 +114,7 @@ namespace Roslynator.CSharp
         public const string RemoveEmptyDestructor = Prefix + "1106";
         public const string RemoveRedundantStringToCharArrayCall = Prefix + "1107";
         public const string AddStaticModifierToAllPartialClassDeclarations = Prefix + "1108";
-        public const string UseCastMethodInsteadOfSelectMethod = Prefix + "1109";
+        public const string CallCastInsteadOfSelect = Prefix + "1109";
         public const string DeclareTypeInsideNamespace = Prefix + "1110";
         public const string AddBracesToSwitchSectionWithMultipleStatements = Prefix + "1111";
         public const string CombineEnumerableWhereMethodChain = Prefix + "1112";
@@ -191,5 +191,16 @@ namespace Roslynator.CSharp
         public const string FormatInitializerWithSingleExpressionOnSingleLine = Prefix + "1183";
         public const string FormatConditionalExpression = Prefix + "1184";
         public const string AvoidSingleLineBlock = Prefix + "1185";
+        public const string UseRegexInstanceInsteadOfStaticMethod = Prefix + "1186";
+        public const string UseConstantInsteadOfField = Prefix + "1187";
+        public const string RemoveRedundantAutoPropertyInitialization = Prefix + "1188";
+        public const string AddOrRemoveRegionName = Prefix + "1189";
+        public const string JoinStringExpressions = Prefix + "1190";
+        public const string DeclareEnumValueAsCombinationOfNames = Prefix + "1191";
+        public const string UseRegularStringLiteralInsteadOfVerbatimStringLiteral = Prefix + "1192";
+        public const string OverridingMemberCannotChangeParamsModifier = Prefix + "1193";
+        public const string ImplementExceptionConstructors = Prefix + "1194";
+        public const string UseExclusiveOrOperator = Prefix + "1195";
+        public const string CallExtensionMethodAsInstanceMethod = Prefix + "1196";
     }
 }

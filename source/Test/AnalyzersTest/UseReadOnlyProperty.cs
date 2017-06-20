@@ -16,6 +16,8 @@ namespace Roslynator.CSharp.Analyzers.Test
 
         public static string StaticProperty { get; private set; }
         public string Property { get; private set; }
+        public int IntProperty { get; private set; }
+        public StringSplitOptions EnumProperty { get; private set; }
 
         public string ExpandedProperty
         {
@@ -64,6 +66,8 @@ namespace Roslynator.CSharp.Analyzers.Test
         public UseReadOnlyProperty()
         {
             Property = null;
+            IntProperty = 0;
+            EnumProperty = StringSplitOptions.None;
             StaticAssignedInInstanceConstructor = null;
             _expandedProperty = null;
             ExpandedPropertyAssignedInConstructor = null;

@@ -430,6 +430,12 @@
 
 ![Inline alias expression](../../images/refactorings/InlineAliasExpression.png)
 
+#### Inline constant (RR0181)
+
+* **Syntax**: constant declaration
+
+![Inline constant](../../images/refactorings/InlineConstant.png)
+
 #### Inline method (RR0062)
 
 * **Syntax**: static/extension method invocation
@@ -475,11 +481,21 @@
 
 ![Introduce field to lock on](../../images/refactorings/IntroduceFieldToLockOn.png)
 
-#### Introduce local from statement that returns value (RR0068)
+#### Introduce local variable (RR0068)
 
-* **Syntax**: expression statement
+* **Syntax**: expression statement, expression in using statement
 
-![Introduce local from statement that returns value](../../images/refactorings/IntroduceLocalFromStatementThatReturnsValue.png)
+![Introduce local variable](../../images/refactorings/IntroduceLocalVariable.png)
+
+#### Join string expressions (RR0078)
+
+* **Syntax**: concatenated string expressions
+
+![Join string expressions](../../images/refactorings/JoinStringExpressions.png)
+
+![Join string expressions](../../images/refactorings/JoinStringLiterals.png)
+
+![Join string expressions](../../images/refactorings/JoinStringLiteralsIntoMultilineStringLiteral.png)
 
 #### Make member abstract (RR0069)
 
@@ -535,16 +551,6 @@
 * **Syntax**: local declarations with same type
 
 ![Merge local declarations](../../images/refactorings/MergeLocalDeclarations.png)
-
-#### Merge string expressions (RR0078)
-
-* **Syntax**: concatenated string expressions
-
-![Merge string expressions](../../images/refactorings/MergeStringExpressions.png)
-
-![Merge string expressions](../../images/refactorings/MergeStringLiterals.png)
-
-![Merge string expressions](../../images/refactorings/MergeStringLiteralsIntoMultilineStringLiteral.png)
 
 #### Negate binary expression (RR0079)
 
@@ -939,6 +945,12 @@
 
 ![Replace null literal expression with default expression](../../images/refactorings/ReplaceNullLiteralExpressionWithDefaultExpression.png)
 
+#### Replace object creation with default value (RR0185)
+
+* **Syntax**: object creation expression
+
+![Replace object creation with default value](../../images/refactorings/ReplaceObjectCreationWithDefaultValue.png)
+
 #### Replace prefix operator to postfix operator (RR0140)
 
 * **Syntax**: prefix/postfix unary expression
@@ -1053,6 +1065,12 @@
 
 ![Split attributes](../../images/refactorings/SplitAttributes.png)
 
+#### Split if statement (RR0184)
+
+* **Syntax**: if statement that has logical or expression as a condition
+
+![Split if statement](../../images/refactorings/SplitIfStatement.png)
+
 #### Split switch labels (RR0157)
 
 * **Syntax**: selected switch labels
@@ -1143,11 +1161,23 @@
 
 ![Use lambda expression instead of anonymous method](../../images/refactorings/UseLambdaExpressionInsteadOfAnonymousMethod.png)
 
+#### Use List\<T\> instead of yield (RR0183)
+
+* **Syntax**: yield return, yield break
+
+![Use List\<T\> instead of yield](../../images/refactorings/UseListInsteadOfYield.png)
+
 #### Use string\.Empty instead of "" (RR0171)
 
 * **Syntax**: empty string literal
 
 ![Use string\.Empty instead of ""](../../images/refactorings/UseStringEmptyInsteadOfEmptyStringLiteral.png)
+
+#### Use StringBuilder instead of concatenation (RR0182)
+
+* **Syntax**: string concatenation
+
+![Use StringBuilder instead of concatenation](../../images/refactorings/UseStringBuilderInsteadOfConcatenation.png)
 
 #### Wrap in \#if directive (RR0174)
 

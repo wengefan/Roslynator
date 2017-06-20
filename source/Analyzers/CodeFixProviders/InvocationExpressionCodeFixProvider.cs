@@ -27,13 +27,14 @@ namespace Roslynator.CSharp.CodeFixProviders
                     DiagnosticIdentifiers.UseBitwiseOperationInsteadOfCallingHasFlag,
                     DiagnosticIdentifiers.RemoveRedundantToStringCall,
                     DiagnosticIdentifiers.RemoveRedundantStringToCharArrayCall,
-                    DiagnosticIdentifiers.UseCastMethodInsteadOfSelectMethod,
+                    DiagnosticIdentifiers.CallCastInsteadOfSelect,
                     DiagnosticIdentifiers.CombineEnumerableWhereMethodChain,
                     DiagnosticIdentifiers.CallFindMethodInsteadOfFirstOrDefaultMethod,
                     DiagnosticIdentifiers.UseElementAccessInsteadOfElementAt,
                     DiagnosticIdentifiers.UseElementAccessInsteadOfFirst,
                     DiagnosticIdentifiers.CallStringConcatInsteadOfStringJoin,
-                    DiagnosticIdentifiers.CallDebugFailInsteadOfDebugAssert);
+                    DiagnosticIdentifiers.CallDebugFailInsteadOfDebugAssert,
+                    DiagnosticIdentifiers.CallExtensionMethodAsInstanceMethod);
             }
         }
 
@@ -140,11 +141,11 @@ namespace Roslynator.CSharp.CodeFixProviders
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
-                    case DiagnosticIdentifiers.UseCastMethodInsteadOfSelectMethod:
+                    case DiagnosticIdentifiers.CallCastInsteadOfSelect:
                         {
                             CodeAction codeAction = CodeAction.Create(
                                 "Call 'Cast' instead of 'Select'",
-                                cancellationToken => UseCastMethodInsteadOfSelectMethodRefactoring.RefactorAsync(context.Document, invocation, cancellationToken),
+                                cancellationToken => CallCastInsteadOfSelectRefactoring.RefactorAsync(context.Document, invocation, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
@@ -205,6 +206,16 @@ namespace Roslynator.CSharp.CodeFixProviders
                             CodeAction codeAction = CodeAction.Create(
                                 "Call 'Fail' instead of 'Assert'",
                                 cancellationToken => CallDebugFailInsteadOfDebugAssertRefactoring.RefactorAsync(context.Document, invocation, cancellationToken),
+                                diagnostic.Id + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case DiagnosticIdentifiers.CallExtensionMethodAsInstanceMethod:
+                        {
+                            CodeAction codeAction = CodeAction.Create(
+                                "Call extension method as instance method",
+                                cancellationToken => CallExtensionMethodAsInstanceMethodRefactoring.RefactorAsync(context.Document, invocation, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);

@@ -40,9 +40,8 @@ namespace Roslynator.CSharp.Refactorings
                             SemanticModel semanticModel = context.SemanticModel;
                             CancellationToken cancellationToken = context.CancellationToken;
 
-                            MethodInfo info = semanticModel.GetMethodInfo(invocation, cancellationToken);
-
-                            if (info.IsValid
+                            MethodInfo info;
+                            if (semanticModel.TryGetMethodInfo(invocation, out info, cancellationToken)
                                 && info.IsName("Join")
                                 && info.IsContainingType(SpecialType.System_String)
                                 && info.IsPublic

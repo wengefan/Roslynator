@@ -23,8 +23,8 @@ RCS1019|Reorder modifiers|Readability|
 RCS1020|Simplify Nullable\<T\> to T?|Simplification|x
 RCS1021|Simplify lambda expression|Simplification|x
 RCS1022|Simplify lambda expression parameter list|Simplification|
-RCS1023|Format empty block|Formatting|x
-RCS1024|Format accessor list|Formatting|x
+RCS1023|Format empty block|Formatting|
+RCS1024|Format accessor list|Formatting|
 RCS1025|Format each enum member on a separate line|Formatting|
 RCS1026|Format each statement on a separate line|Formatting|
 RCS1027|Format embedded statement on a separate line|Formatting|
@@ -52,7 +52,6 @@ RCS1049|Simplify boolean comparison|Simplification|x
 RCS1050|Add constructor argument list|Style|
 RCS1051|Parenthesize condition in conditional expression|Style|
 RCS1052|Declare each attribute separately|Readability|
-RCS1054|Merge local declaration with return statement|Simplification|x
 RCS1055|Avoid semicolon at the end of declaration|Redundancy|x
 RCS1056|Avoid usage of using alias directive|Readability|
 RCS1057|Add empty line between declarations|Formatting|x
@@ -184,3 +183,14 @@ RCS1182|Remove redundant base interface|Redundancy|x
 RCS1183|Format initializer with single expression on single line|Formatting|x
 RCS1184|Format conditional expression \(format ? and : on next line\)|Formatting|
 RCS1185|Avoid single\-line block|Formatting|
+RCS1186|Use Regex instance instead of static method|Usage|x
+RCS1187|Mark field as const|Design|x
+RCS1188|Remove redundant auto\-property initialization|Redundancy|x
+RCS1189|Add or remove region name|Readability|x
+RCS1190|Join string expressions|Simplification|x
+RCS1191|Declare enum value as combination of names|Readability|x
+RCS1192|Use regular string literal instead of verbatim string literal|Readability|x
+RCS1193|Overriding member cannot change 'params' modifier|Design|x
+RCS1194|Implement exception constructors|Design|x
+RCS1195|Use ^ operator|Simplification|x
+RCS1196|Call extension method as instance method|Style|x

@@ -1,3 +1,61 @@
+### 1.4.12 (2017-06-11)
+
+#### Analyzers
+
+##### New Analyzers
+
+* UseRegularStringLiteralInsteadOfVerbatimStringLiteral (RCS1192)
+* OverridingMemberCannotChangeParamsModifier (RCS1193)
+* ImplementExceptionConstructors (RCS1194)
+* UseExclusiveOrOperator (RCS1195)
+* CallExtensionMethodAsInstanceMethod (RCS1196)
+
+#### Refactorings
+
+##### New Refactorings
+
+* UseListInsteadOfYield (RR0183)
+* SplitIfStatement (RR0184)
+* ReplaceObjectCreationWithDefaultValue (RR0185)
+
+### 1.4.1 (2017-06-05)
+
+#### Analyzers
+
+##### New Analyzers
+
+* DeclareEnumValueAsCombinationOfNames (RCS1191)
+* MergeStringExpressions (RCS1190)
+* AddOrRemoveRegionName (RCS1189)
+* RemoveRedundantAutoPropertyInitialization (RCS1188)
+* MarkFieldAsConst (RCS1187)
+* UseRegexInstanceInsteadOfStaticMethod (RCS1186)
+
+#### Refactorings
+
+##### New Refactorings
+
+* UseStringBuilderInsteadOfConcatenation (RR0182)
+* InlineConstant (RR0181)
+
+### 1.4.0 (2017-05-29)
+
+#### Analyzers
+
+* Delete analyzer MergeLocalDeclarationWithReturnStatement (RCS1054) - Its functionality is incorporated into analyzer InlineLocalVariable (RCS1124).
+* Disable analyzer FormatAccessorList (RCS1024) by default.
+* Disable analyzer FormatEmptyBlock (RCS1023) by default.
+* Modify analyzer RemoveEmptyRegion (RCS1091) - Change default severity from Info to Hidden.
+* Modify analyzer CompositeEnumValueContainsUndefinedFlag (RCS1157) - Change default severity from Warning to Info.
+* Modify analyzer RemoveRedundantParentheses (RCS1032) - Exclude following syntaxes from analyzer:
+  * AssignmentExpression.Right
+  * ForEachExpression.Expression
+  * EqualsValueClause.Value
+
+#### Refactorings
+
+* Modify refactoring CheckExpressionForNull (RR0024) - Do not add empty line.
+
 ### 1.3.11 (2017-05-18)
 
 * A lot of bug fixes and improvements.

@@ -43,9 +43,8 @@ namespace Roslynator.CSharp.Refactorings
 
                     if (memberAccess.Name?.Identifier.ValueText.Equals("ToCharArray", StringComparison.Ordinal) == true)
                     {
-                        MethodInfo info = semanticModel.GetMethodInfo(invocation, cancellationToken);
-
-                        if (info.IsValid
+                        MethodInfo info;
+                        if (semanticModel.TryGetMethodInfo(invocation, out info, cancellationToken)
                             && info.IsName("ToCharArray")
                             && info.IsPublic
                             && info.IsInstance

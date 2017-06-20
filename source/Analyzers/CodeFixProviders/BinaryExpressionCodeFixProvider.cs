@@ -30,7 +30,9 @@ namespace Roslynator.CSharp.CodeFixProviders
                     DiagnosticIdentifiers.UseStringLengthInsteadOfComparisonWithEmptyString,
                     DiagnosticIdentifiers.UnconstrainedTypeParameterCheckedForNull,
                     DiagnosticIdentifiers.ValueTypeCheckedForNull,
-                    DiagnosticIdentifiers.UseIsOperatorInsteadOfAsOperator);
+                    DiagnosticIdentifiers.UseIsOperatorInsteadOfAsOperator,
+                    DiagnosticIdentifiers.JoinStringExpressions,
+                    DiagnosticIdentifiers.UseExclusiveOrOperator);
             }
         }
 
@@ -174,8 +176,27 @@ namespace Roslynator.CSharp.CodeFixProviders
                         {
                             CodeAction codeAction = CodeAction.Create(
                                 "Use is operator",
-                                cancellationToken => UseIsOperatorInsteadOfAsOperatorRefactoring.
-                                RefactorAsync(context.Document, binaryExpression, cancellationToken),
+                                cancellationToken => UseIsOperatorInsteadOfAsOperatorRefactoring.RefactorAsync(context.Document, binaryExpression, cancellationToken),
+                                diagnostic.Id + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case DiagnosticIdentifiers.JoinStringExpressions:
+                        {
+                            CodeAction codeAction = CodeAction.Create(
+                                "Join string expressions",
+                                cancellationToken => JoinStringExpressionsRefactoring.RefactorAsync(context.Document, binaryExpression, cancellationToken),
+                                diagnostic.Id + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case DiagnosticIdentifiers.UseExclusiveOrOperator:
+                        {
+                            CodeAction codeAction = CodeAction.Create(
+                                "Use ^ operator",
+                                cancellationToken => UseExclusiveOrOperatorRefactoring.RefactorAsync(context.Document, binaryExpression, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
