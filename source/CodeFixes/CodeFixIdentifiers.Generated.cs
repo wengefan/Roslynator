@@ -44,5 +44,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string SynchronizeAccessibility = Prefix + "9035";
         public const string RemoveArgumentList = Prefix + "9036";
         public const string FixMemberAccessName = Prefix + "9037";
+        public const string AddArgumentList = Prefix + "9038";
     }
 }

@@ -38,6 +38,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="AddArgumentList.cs" />
     <Compile Include="AddComparisonWithBooleanLiteralRefactoring.cs" />
     <Compile Include="AddBracesToDeclarationOrLabeledStatement.cs" />
     <Compile Include="AddBreakStatementToSwitchSection.cs" />

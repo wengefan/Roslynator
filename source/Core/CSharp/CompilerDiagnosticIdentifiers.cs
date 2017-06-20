@@ -6,6 +6,7 @@ namespace Roslynator.CSharp
     {
         public const string Prefix = "CS";
         public const string OperatorCannotBeAppliedToOperands = Prefix + "0019";
+        public const string OperatorCannotBeAppliedToOperandOfType = Prefix + "0023";
         public const string CannotImplicitlyConvertType = Prefix + "0029";
         public const string EventInInterfaceCannotHaveAddOrRemoveAccessors = Prefix + "0069";
         public const string MemberDoesNotHideAccessibleMember = Prefix + "0109";
@@ -21,6 +22,7 @@ namespace Roslynator.CSharp
         public const string MissingPartialModifier = Prefix + "0260";
         public const string PartialDeclarationsHaveConfictingAccessibilityModifiers = Prefix + "0262";
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
+        public const string CannotConvertMethodGroupToNonDelegateType = Prefix + "0428";
         public const string MemberCannotDeclareBodyBecauseItIsNotMarkedAbstract = Prefix + "0500";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
         public const string MemberIsAbstractButItIsContainedInNonAbstractClass = Prefix + "0513";

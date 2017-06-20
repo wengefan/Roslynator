@@ -199,4 +199,10 @@
       <Id>CS1061</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9038" Identifier="AddArgumentList" Title="Add argument list">
+    <FixableDiagnosticIds>
+      <Id>CS0428</Id>
+      <Id>CS0023</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>
