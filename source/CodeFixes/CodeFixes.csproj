@@ -91,7 +91,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="CodeFixesByDiagnosticId.md" />
     <None Include="project.json" />
+    <None Include="README.md" />
     <None Include="Roslynator.CodeFixes.nuspec" />
     <None Include="Roslynator.CSharp.CodeFixes.snk" />
   </ItemGroup>
@@ -109,6 +111,7 @@
     <Content Include="CodeFixes.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Diagnostics.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
