@@ -229,6 +229,8 @@
       <CodeFix Id="RCS9034" IsEnabled="false" /> <!-- AddSemicolon (fixes CS1002) -->
       <CodeFix Id="RCS9035" IsEnabled="true" /> <!-- SynchronizeAccessibility (fixes CS0266) -->
       <CodeFix Id="RCS9036" IsEnabled="true" /> <!-- RemoveArgumentList (fixes CS1955) -->
+      <CodeFix Id="RCS9037" IsEnabled="true" /> <!-- FixMemberAccessName (fixes CS1061) -->
+      <CodeFix Id="RCS9038" IsEnabled="true" /> <!-- AddArgumentList (fixes CS0428, CS0023) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

@@ -2,6 +2,7 @@
 
 Id | Title | Fixable Diagnostics | Enabled by Default 
 --- | --- | --- |:---:
+RCS9038|Add argument list||x
 RCS9008|Add braces to declaration or labeled statement|[CS1023](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1023)|x
 RCS9001|Add break statement to switch section|[CS0163](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0163), CS8070|x
 RCS9022|Add comparison with boolean literal|[CS0019](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0019), [CS0266](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0266)|x
