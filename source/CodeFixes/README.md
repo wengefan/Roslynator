@@ -21,6 +21,7 @@ RCS9029|Change type of 'params' parameter|[CS0225](http://docs.microsoft.com/en-
 RCS9002|Create singleton array|[CS0266](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0266)|x
 RCS9007|Extract declaration from using statement|[CS1674](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1674)|x
 RCS9037|Fix member access name|[CS1061](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1061)|x
+RCS9039|Initialize local variable with default value|[CS0165](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0165)|x
 RCS9033|Make containing class abstract|[CS0513](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0513)|x
 RCS9009|Mark operator as 'public' and 'static'|[CS0558](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0558)|x
 RCS9017|Member return type must match overridden member return type|[CS0508](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0508)|x

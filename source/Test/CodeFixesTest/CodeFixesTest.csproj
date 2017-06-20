@@ -53,6 +53,7 @@
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
     <Compile Include="AddStaticModifier.cs" />
     <Compile Include="FixMemberAccessName.cs" />
+    <Compile Include="InitializeLocalVariableWithDefaultValue.cs" />
     <Compile Include="MakeContainingClassAbstract.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />
     <Compile Include="MemberTypeMustMatchOverriddenMemberType.cs" />

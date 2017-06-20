@@ -12,6 +12,7 @@ Diagnostic | Code Fixes
 [CS0162](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0162)|RCS9016
 [CS0163](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0163)|RCS9001
 [CS0164](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0164)|RCS9013
+[CS0165](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0165)|RCS9039
 [CS0168](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0168)|RCS9000
 [CS0219](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0219)|RCS9000
 [CS0221](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0221)|RCS9030

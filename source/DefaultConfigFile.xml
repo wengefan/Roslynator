@@ -231,6 +231,7 @@
       <CodeFix Id="RCS9036" IsEnabled="true" /> <!-- RemoveArgumentList (fixes CS1955) -->
       <CodeFix Id="RCS9037" IsEnabled="true" /> <!-- FixMemberAccessName (fixes CS1061) -->
       <CodeFix Id="RCS9038" IsEnabled="true" /> <!-- AddArgumentList (fixes CS0428, CS0023) -->
+      <CodeFix Id="RCS9039" IsEnabled="true" /> <!-- InitializeLocalVariableWithDefaultValue (fixes CS0165) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

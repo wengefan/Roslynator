@@ -15,6 +15,7 @@ namespace Roslynator.CSharp
         public const string UnreachableCodeDetected = Prefix + "0162";
         public const string ControlCannotFallThroughFromOneCaseLabelToAnother = Prefix + "0163";
         public const string LabelHasNotBeenReferenced = Prefix + "0164";
+        public const string UseOfUnassignedLocalVariable = Prefix + "0165";
         public const string VariableIsDeclaredButNeverUsed = Prefix + "0168";
         public const string VariableIsAssignedButItsValueIsNeverUsed = Prefix + "0219";
         public const string ConstantValueCannotBeConverted = Prefix + "0221";

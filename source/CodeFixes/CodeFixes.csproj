@@ -53,6 +53,7 @@
     <Compile Include="CodeFixes\BaseListCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ChangeAccessibilityCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExtractDeclarationFromUsingStatementCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\IdentifierNameCodeFixProvider.cs" />
     <Compile Include="CodeFixes\InvocationExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\LabeledStatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\CannotImplicitlyConvertTypeCodeFixProvider.cs" />

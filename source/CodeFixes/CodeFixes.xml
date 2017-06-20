@@ -205,4 +205,9 @@
       <Id>CS0023</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9039" Identifier="InitializeLocalVariableWithDefaultValue" Title="Initialize local variable with default value">
+    <FixableDiagnosticIds>
+      <Id>CS0165</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>
