@@ -45,6 +45,11 @@ namespace MetadataGenerator
                 .OrderBy(f => f.Identifier, _invariantComparer)
                 .ToArray();
 
+            CompilerDiagnosticDescriptor[] diagnostics = CompilerDiagnosticDescriptor
+                .LoadFromFile(Path.Combine(dirPath, @"CodeFixes\Diagnostics.xml"))
+                .OrderBy(f => f.Id, _invariantComparer)
+                .ToArray();
+
             Console.WriteLine($"number of code fixes: {codeFixes.Length}");
 
             AnalyzerDescriptor[] analyzers = AnalyzerDescriptor
@@ -87,11 +92,11 @@ namespace MetadataGenerator
 
             SaveFile(
                 Path.Combine(dirPath, @"CodeFixes\README.md"),
-                markdownGenerator.CreateCodeFixesReadMe(codeFixes));
+                markdownGenerator.CreateCodeFixesReadMe(codeFixes, diagnostics));
 
             SaveFile(
                 Path.Combine(dirPath, @"CodeFixes\CodeFixesByDiagnosticId.md"),
-                markdownGenerator.CreateCodeFixesByDiagnosticId(codeFixes));
+                markdownGenerator.CreateCodeFixesByDiagnosticId(codeFixes, diagnostics));
 
             foreach (RefactoringDescriptor refactoring in refactorings)
             {

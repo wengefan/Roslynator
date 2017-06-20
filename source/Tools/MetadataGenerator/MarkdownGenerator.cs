@@ -170,23 +170,27 @@ namespace MetadataGenerator
             }
         }
 
-        public string CreateCodeFixesReadMe(IEnumerable<CodeFixDescriptor> codeFixes)
+        public string CreateCodeFixesReadMe(CodeFixDescriptor[] codeFixes, CompilerDiagnosticDescriptor[] diagnostics)
         {
             using (var sw = new StringWriter())
             {
                 sw.WriteLine("## Roslynator Code Fixes");
                 sw.WriteLine();
 
-                sw.WriteLine("Id | Title | Fixable Codes | Enabled by Default ");
+                sw.WriteLine("Id | Title | Fixable Diagnostics | Enabled by Default ");
                 sw.WriteLine("--- | --- | --- |:---:");
 
                 foreach (CodeFixDescriptor descriptor in codeFixes.OrderBy(f => f.Title, StringComparer))
                 {
+                    IEnumerable<string> fixableDiagnostics = descriptor
+                        .FixableDiagnosticIds
+                        .Join(diagnostics, f => f, f => f.Id, (f, g) => (!string.IsNullOrEmpty(g.HelpUrl)) ? $"[{g.Id}]({g.HelpUrl})" : g.Id);
+
                     sw.Write(descriptor.Id);
                     sw.Write('|');
                     sw.Write(descriptor.Title.TrimEnd('.').EscapeMarkdown());
                     sw.Write('|');
-                    sw.Write(string.Join(", ", descriptor.FixableDiagnosticIds));
+                    sw.Write(string.Join(", ", fixableDiagnostics));
                     sw.Write('|');
                     sw.Write((descriptor.IsEnabledByDefault) ? "x" : "");
                     sw.WriteLine();
@@ -196,14 +200,14 @@ namespace MetadataGenerator
             }
         }
 
-        public string CreateCodeFixesByDiagnosticId(IEnumerable<CodeFixDescriptor> codeFixes)
+        public string CreateCodeFixesByDiagnosticId(CodeFixDescriptor[] codeFixes, CompilerDiagnosticDescriptor[] diagnostics)
         {
             using (var sw = new StringWriter())
             {
                 sw.WriteLine("## Roslynator Code Fixes by Diagnostic Id");
                 sw.WriteLine();
 
-                sw.WriteLine("Diagnostic Id | Code Fixes");
+                sw.WriteLine("Diagnostic | Code Fixes");
                 sw.WriteLine("--- | ---");
 
                 foreach (var grouping in codeFixes
@@ -212,7 +216,9 @@ namespace MetadataGenerator
                     .ThenBy(f => f.CodeFixDescriptor.Id)
                     .GroupBy(f => f.DiagnosticId))
                 {
-                    sw.Write(grouping.Key);
+                    CompilerDiagnosticDescriptor diagnostic = Array.Find(diagnostics, f => f.Id == grouping.Key);
+
+                    sw.Write((diagnostic != null) ? $"[{diagnostic.Id}]({diagnostic.HelpUrl})" : grouping.Key);
                     sw.Write('|');
                     sw.Write(string.Join(", ", grouping.Select(f => f.CodeFixDescriptor.Id)));
                     sw.WriteLine();
