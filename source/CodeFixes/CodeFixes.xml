@@ -194,4 +194,9 @@
       <Id>CS1955</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCS9037" Identifier="FixMemberAccessName" Title="Fix member access name">
+    <FixableDiagnosticIds>
+      <Id>CS1061</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>
