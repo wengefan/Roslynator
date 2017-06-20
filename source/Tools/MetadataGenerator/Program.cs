@@ -89,6 +89,10 @@ namespace MetadataGenerator
                 Path.Combine(dirPath, @"CodeFixes\README.md"),
                 markdownGenerator.CreateCodeFixesReadMe(codeFixes));
 
+            SaveFile(
+                Path.Combine(dirPath, @"CodeFixes\CodeFixesByDiagnosticId.md"),
+                markdownGenerator.CreateCodeFixesByDiagnosticId(codeFixes));
+
             foreach (RefactoringDescriptor refactoring in refactorings)
             {
                 SaveFile(
@@ -97,7 +101,7 @@ namespace MetadataGenerator
             }
 
             SaveFile(
-                Path.Combine(dirPath, @"DefaultConfigFile.xml"),
+                Path.Combine(dirPath, "DefaultConfigFile.xml"),
                 XmlGenerator.CreateDefaultConfigFile(refactorings, codeFixes));
 
             SaveFile(

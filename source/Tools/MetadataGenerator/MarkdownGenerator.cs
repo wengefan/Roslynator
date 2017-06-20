@@ -196,6 +196,32 @@ namespace MetadataGenerator
             }
         }
 
+        public string CreateCodeFixesByDiagnosticId(IEnumerable<CodeFixDescriptor> codeFixes)
+        {
+            using (var sw = new StringWriter())
+            {
+                sw.WriteLine("## Roslynator Code Fixes by Diagnostic Id");
+                sw.WriteLine();
+
+                sw.WriteLine("Diagnostic Id | Code Fixes");
+                sw.WriteLine("--- | ---");
+
+                foreach (var grouping in codeFixes
+                    .SelectMany(f => f.FixableDiagnosticIds.Select(ff => new { DiagnosticId = ff, CodeFixDescriptor = f}))
+                    .OrderBy(f => f.DiagnosticId)
+                    .ThenBy(f => f.CodeFixDescriptor.Id)
+                    .GroupBy(f => f.DiagnosticId))
+                {
+                    sw.Write(grouping.Key);
+                    sw.Write('|');
+                    sw.Write(string.Join(", ", grouping.Select(f => f.CodeFixDescriptor.Id)));
+                    sw.WriteLine();
+                }
+
+                return sw.ToString();
+            }
+        }
+
         public string CreateAnalyzersByCategoryMarkDown(IEnumerable<AnalyzerDescriptor> analyzers)
         {
             using (var sw = new StringWriter())

@@ -37,6 +37,7 @@ namespace Roslynator.CSharp
         public const string DuplicateModifier = Prefix + "1004";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";
         public const string StaticClassesCannotContainProtectedMembers = Prefix + "1057";
+        public const string TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound = Prefix + "1061";
         public const string CannotConvertArgumentType = Prefix + "1503";
         public const string MissingXmlCommentForPubliclyVisibleTypeOrMember = Prefix + "1591";
         public const string ArgumentMayNotBePassedWithRefKeyword = Prefix + "1615";

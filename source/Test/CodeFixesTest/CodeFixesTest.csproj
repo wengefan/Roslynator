@@ -51,6 +51,7 @@
     <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
     <Compile Include="AddStaticModifier.cs" />
+    <Compile Include="FixMemberAccessName.cs" />
     <Compile Include="MakeContainingClassAbstract.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />
     <Compile Include="MemberTypeMustMatchOverriddenMemberType.cs" />
