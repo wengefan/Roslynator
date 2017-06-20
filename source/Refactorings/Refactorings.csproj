@@ -156,7 +156,6 @@
     <Compile Include="Refactorings\AddIdentifierToLocalDeclarationRefactoring.cs" />
     <Compile Include="Refactorings\ExpressionStatementRefactoring.cs" />
     <Compile Include="Refactorings\RemoveAllMemberDeclarationsRefactoring.cs" />
-    <Compile Include="Refactorings\ReplaceCountWithLengthOrLengthWithCountRefactoring.cs" />
     <Compile Include="Refactorings\ReverseReversedForLoopRefactoringy.cs" />
     <Compile Include="Refactorings\StatementRefactoring.cs" />
     <Compile Include="Refactorings\ElseClauseRefactoring.cs" />

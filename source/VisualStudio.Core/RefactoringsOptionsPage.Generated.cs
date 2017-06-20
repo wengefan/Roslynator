@@ -132,7 +132,6 @@ namespace Roslynator.VisualStudio
             ReplaceConditionalExpressionWithExpression = true;
             ReplaceConditionalExpressionWithIfElse = true;
             ReplaceConstantWithField = true;
-            ReplaceCountWithLengthOrLengthWithCount = true;
             ReplaceDoStatementWithWhileStatement = true;
             ReplaceEqualsExpressionWithStringEquals = true;
             ReplaceEqualsExpressionWithStringIsNullOrEmpty = true;
@@ -311,7 +310,6 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.ReplaceConditionalExpressionWithExpression, ReplaceConditionalExpressionWithExpression);
             SetIsEnabled(RefactoringIdentifiers.ReplaceConditionalExpressionWithIfElse, ReplaceConditionalExpressionWithIfElse);
             SetIsEnabled(RefactoringIdentifiers.ReplaceConstantWithField, ReplaceConstantWithField);
-            SetIsEnabled(RefactoringIdentifiers.ReplaceCountWithLengthOrLengthWithCount, ReplaceCountWithLengthOrLengthWithCount);
             SetIsEnabled(RefactoringIdentifiers.ReplaceDoStatementWithWhileStatement, ReplaceDoStatementWithWhileStatement);
             SetIsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringEquals, ReplaceEqualsExpressionWithStringEquals);
             SetIsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty, ReplaceEqualsExpressionWithStringIsNullOrEmpty);
@@ -498,7 +496,6 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceConditionalExpressionWithExpression, "Replace conditional expression with expression", IsEnabled(RefactoringIdentifiers.ReplaceConditionalExpressionWithExpression)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceConditionalExpressionWithIfElse, "Replace conditional expression with if-else", IsEnabled(RefactoringIdentifiers.ReplaceConditionalExpressionWithIfElse)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceConstantWithField, "Replace constant with field", IsEnabled(RefactoringIdentifiers.ReplaceConstantWithField)));
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceCountWithLengthOrLengthWithCount, "Replace Count property with Length property (or Length with Count)", IsEnabled(RefactoringIdentifiers.ReplaceCountWithLengthOrLengthWithCount)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceDoStatementWithWhileStatement, "Replace do statement with while statement", IsEnabled(RefactoringIdentifiers.ReplaceDoStatementWithWhileStatement)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringEquals, "Replace equals expression with string.Equals", IsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringEquals)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty, "Replace equals expression with string.IsNullOrEmpty", IsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty)));
@@ -1629,15 +1626,6 @@ namespace Roslynator.VisualStudio
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
         public bool ReplaceConstantWithField
-        {
-            get;
-            set;
-        }
-
-        [Browsable(false)]
-        [Category(RefactoringCategory)]
-        [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool ReplaceCountWithLengthOrLengthWithCount
         {
             get;
             set;

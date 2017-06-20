@@ -129,7 +129,6 @@ namespace Roslynator.CSharp.Refactorings
         public const string ReplaceConditionalExpressionWithExpression = Prefix + "0119";
         public const string ReplaceConditionalExpressionWithIfElse = Prefix + "0120";
         public const string ReplaceConstantWithField = Prefix + "0121";
-        public const string ReplaceCountWithLengthOrLengthWithCount = Prefix + "0122";
         public const string ReplaceDoStatementWithWhileStatement = Prefix + "0123";
         public const string ReplaceEqualsExpressionWithStringEquals = Prefix + "0124";
         public const string ReplaceEqualsExpressionWithStringIsNullOrEmpty = Prefix + "0125";

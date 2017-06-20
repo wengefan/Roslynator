@@ -833,12 +833,6 @@
       <Syntax>constant declaration</Syntax>
     </Syntaxes>
   </Refactoring>
-  <Refactoring Id="RR0122" Identifier="ReplaceCountWithLengthOrLengthWithCount" Title="Replace Count property with Length property (or Length with Count)">
-    <Syntaxes>
-      <Syntax>member access expression</Syntax>
-    </Syntaxes>
-    <Scope>name</Scope>
-  </Refactoring>
   <Refactoring Id="RR0123" Identifier="ReplaceDoStatementWithWhileStatement" Title="Replace do statement with while statement">
     <Syntaxes>
       <Syntax>do statement</Syntax>
