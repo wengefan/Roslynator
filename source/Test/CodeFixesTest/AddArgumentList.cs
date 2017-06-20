@@ -9,6 +9,7 @@ namespace Roslynator.CSharp.CodeFixes.Test
             string s = null;
 
             s = s.ToString;
+            s = s?.ToString;
         }
     }
 }

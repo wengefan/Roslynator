@@ -6,6 +6,7 @@ namespace Roslynator.CSharp
     {
         public const string Prefix = "CS";
         public const string OperatorCannotBeAppliedToOperands = Prefix + "0019";
+        public const string OperatorCannotBeAppliedToOperandOfType = Prefix + "0023";
         public const string CannotImplicitlyConvertType = Prefix + "0029";
         public const string EventInInterfaceCannotHaveAddOrRemoveAccessors = Prefix + "0069";
         public const string MemberDoesNotHideAccessibleMember = Prefix + "0109";
