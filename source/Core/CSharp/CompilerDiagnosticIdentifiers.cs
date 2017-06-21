@@ -11,6 +11,7 @@ namespace Roslynator.CSharp
         public const string EventInInterfaceCannotHaveAddOrRemoveAccessors = Prefix + "0069";
         public const string MemberDoesNotHideAccessibleMember = Prefix + "0109";
         public const string MemberHidesInheritedMember = Prefix + "0114";
+        public const string NoOverloadMatchesDelegate = Prefix + "0123";
         public const string NotAllCodePathsReturnValue = Prefix + "0161";
         public const string UnreachableCodeDetected = Prefix + "0162";
         public const string ControlCannotFallThroughFromOneCaseLabelToAnother = Prefix + "0163";
@@ -23,6 +24,7 @@ namespace Roslynator.CSharp
         public const string MissingPartialModifier = Prefix + "0260";
         public const string PartialDeclarationsHaveConfictingAccessibilityModifiers = Prefix + "0262";
         public const string CannotImplicitlyConvertTypeExplicitConversionExists = Prefix + "0266";
+        public const string MethodHasWrongReturnType = Prefix + "0407";
         public const string CannotConvertMethodGroupToNonDelegateType = Prefix + "0428";
         public const string MemberCannotDeclareBodyBecauseItIsNotMarkedAbstract = Prefix + "0500";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = Prefix + "0507";
@@ -36,6 +38,7 @@ namespace Roslynator.CSharp
         public const string CannotDeclareInstanceMembersInStaticClass = Prefix + "0708";
         public const string StaticClassesCannotHaveInstanceConstructors = Prefix + "0710";
         public const string PartialMethodMayNotHaveMultipleDefiningDeclarations = Prefix + "0756";
+        public const string CannotAssignMethodGroupToImplicitlyTypedVariable = Prefix + "0815";
         public const string SemicolonExpected = Prefix + "1002";
         public const string DuplicateModifier = Prefix + "1004";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";

@@ -210,4 +210,11 @@
       <Id>CS0165</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0041" Identifier="ChangeTypeOfLocalVariable" Title="Change type of local variable">
+    <FixableDiagnosticIds>
+      <Id>CS0123</Id>
+      <Id>CS0407</Id>
+      <Id>CS0815</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>
