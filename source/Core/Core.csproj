@@ -47,6 +47,7 @@
     <Compile Include="CSharp\Extensions\AccessibilityExtensions.cs" />
     <Compile Include="CSharp\Helpers\DetermineParameterTypeHelper.cs" />
     <Compile Include="CSharp\BinaryExpressionChain.cs" />
+    <Compile Include="CSharp\StringExpressionKind.cs" />
     <Compile Include="CSharp\StringLiteralParser.cs" />
     <Compile Include="CSharp\StringLiteralParser.StringLiteralParseResult.cs" />
     <Compile Include="CSharp\XmlElementInfo.cs" />

@@ -48,11 +48,13 @@
     <Compile Include="AddOverrideOrNewModifier.cs" />
     <Compile Include="AddPartialModifier.cs" />
     <Compile Include="AddReturnStatementThatReturnsDefaultValue.cs" />
+    <Compile Include="ChangeTypeOfLocalVariable.cs" />
     <Compile Include="ChangeTypeOfParamsParameter.cs" />
     <Compile Include="CreateSingletonArray.cs" />
     <Compile Include="ExtractDeclarationFromUsingStatement.cs" />
     <Compile Include="AddStaticModifier.cs" />
     <Compile Include="FixMemberAccessName.cs" />
+    <Compile Include="InitializeLocalVariableWithDefaultValue.cs" />
     <Compile Include="MakeContainingClassAbstract.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />
     <Compile Include="MemberTypeMustMatchOverriddenMemberType.cs" />

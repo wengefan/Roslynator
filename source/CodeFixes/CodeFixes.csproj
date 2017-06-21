@@ -53,6 +53,7 @@
     <Compile Include="CodeFixes\BaseListCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ChangeAccessibilityCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ExtractDeclarationFromUsingStatementCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\IdentifierNameCodeFixProvider.cs" />
     <Compile Include="CodeFixes\InvocationExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\LabeledStatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\CannotImplicitlyConvertTypeCodeFixProvider.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="CodeFixes\StatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\SynchronizeAccessibilityCodeFixProvider.cs" />
     <Compile Include="CodeFixes\TokenCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\ChangeTypeOfLocalVariableCodeFixProvider.cs" />
     <Compile Include="CodeFixIdentifiers.cs" />
     <Compile Include="CodeFixIdentifiers.Generated.cs" />
     <Compile Include="CodeFixIdentifierSet.cs" />
@@ -93,7 +95,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="CodeFixesByDiagnosticId.md" />
     <None Include="project.json" />
+    <None Include="README.md" />
     <None Include="Roslynator.CodeFixes.nuspec" />
     <None Include="Roslynator.CSharp.CodeFixes.snk" />
   </ItemGroup>
@@ -111,6 +115,7 @@
     <Content Include="CodeFixes.xml">
       <SubType>Designer</SubType>
     </Content>
+    <Content Include="Diagnostics.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
