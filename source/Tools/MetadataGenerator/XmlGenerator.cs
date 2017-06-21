@@ -74,7 +74,7 @@ namespace MetadataGenerator
         }
 
         private static readonly Regex _regex = new Regex(@"
-            (?<grp><(Refactoring|CodeFix)\ Id=""(RR|RCS|RCF)[0-9]{4}""\ IsEnabled=""(true|false)""\ />)
+            (?<grp><(Refactoring|CodeFix)\ Id=""(RR|RCF)[0-9]{4}""\ IsEnabled=""(true|false)""\ />)
             \s+
             (?<comment><!--\ [a-zA-Z0-9 (),]+\ -->)
             ", RegexOptions.IgnorePatternWhitespace);
