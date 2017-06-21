@@ -192,46 +192,46 @@
       <Refactoring Id="RR0185" IsEnabled="true" /> <!-- ReplaceObjectCreationWithDefaultValue -->
     </Refactorings>
     <CodeFixes>
-      <CodeFix Id="RCS9000" IsEnabled="true" /> <!-- RemoveUnusedVariable (fixes CS0168, CS0219) -->
-      <CodeFix Id="RCS9001" IsEnabled="true" /> <!-- AddBreakStatementToSwitchSection (fixes CS0163, CS8070) -->
-      <CodeFix Id="RCS9002" IsEnabled="true" /> <!-- CreateSingletonArray (fixes CS0266) -->
-      <CodeFix Id="RCS9003" IsEnabled="true" /> <!-- AddOutModifierToArgument (fixes CS1620) -->
-      <CodeFix Id="RCS9004" IsEnabled="true" /> <!-- MoveBaseClassBeforeAnyInterface (fixes CS1722) -->
-      <CodeFix Id="RCS9005" IsEnabled="true" /> <!-- AddOverrideModifier (fixes CS0114) -->
-      <CodeFix Id="RCS9006" IsEnabled="true" /> <!-- AddNewModifier (fixes CS0114) -->
-      <CodeFix Id="RCS9007" IsEnabled="true" /> <!-- ExtractDeclarationFromUsingStatement (fixes CS1674) -->
-      <CodeFix Id="RCS9008" IsEnabled="true" /> <!-- AddBracesToDeclarationOrLabeledStatement (fixes CS1023) -->
-      <CodeFix Id="RCS9009" IsEnabled="true" /> <!-- MarkOperatorAsPublicAndStatic (fixes CS0558) -->
-      <CodeFix Id="RCS9010" IsEnabled="true" /> <!-- RemoveDuplicateModifier (fixes CS1004) -->
-      <CodeFix Id="RCS9011" IsEnabled="true" /> <!-- RemoveDuplicateAttribute (fixes CS0579) -->
-      <CodeFix Id="RCS9012" IsEnabled="true" /> <!-- RemoveNewModifier (fixes CS0109) -->
-      <CodeFix Id="RCS9013" IsEnabled="true" /> <!-- RemoveUnusedLabel (fixes CS0164) -->
-      <CodeFix Id="RCS9014" IsEnabled="true" /> <!-- OverridingMemberCannotChangeAccessModifiers (fixes CS0507) -->
-      <CodeFix Id="RCS9015" IsEnabled="true" /> <!-- AddDocumentationComment (fixes CS1591) -->
-      <CodeFix Id="RCS9016" IsEnabled="true" /> <!-- RemoveUnreachableCode (fixes CS0162) -->
-      <CodeFix Id="RCS9017" IsEnabled="true" /> <!-- MemberReturnTypeMustMatchOverriddenMemberReturnType (fixes CS0508) -->
-      <CodeFix Id="RCS9018" IsEnabled="true" /> <!-- MemberTypeMustMatchOverriddenMemberType (fixes CS1715) -->
-      <CodeFix Id="RCS9019" IsEnabled="true" /> <!-- AddReturnStatementThatReturnsDefaultValue (fixes CS0161) -->
-      <CodeFix Id="RCS9020" IsEnabled="true" /> <!-- UseYieldReturnInsteadOfReturn (fixes CS0029, CS1622) -->
-      <CodeFix Id="RCS9021" IsEnabled="true" /> <!-- ReplaceStringLiteralWithCharacterLiteral (fixes CS0029) -->
-      <CodeFix Id="RCS9022" IsEnabled="true" /> <!-- AddComparisonWithBooleanLiteral (fixes CS0019, CS0266) -->
-      <CodeFix Id="RCS9023" IsEnabled="true" /> <!-- RemovePropertyOrFieldInitializer (fixes CS0573) -->
-      <CodeFix Id="RCS9024" IsEnabled="true" /> <!-- AddPartialModifier (fixes CS0260, CS0751) -->
-      <CodeFix Id="RCS9025" IsEnabled="true" /> <!-- AddMethodBody (fixes CS0756) -->
-      <CodeFix Id="RCS9026" IsEnabled="true" /> <!-- RemoveRefModifier (fixes CS1615) -->
-      <CodeFix Id="RCS9027" IsEnabled="true" /> <!-- RemoveRedundantAssignment (fixes CS1717) -->
-      <CodeFix Id="RCS9028" IsEnabled="true" /> <!-- ChangeAccessibility (fixes CS0628, CS1057) -->
-      <CodeFix Id="RCS9029" IsEnabled="true" /> <!-- ChangeTypeOfParamsParameter (fixes CS0225) -->
-      <CodeFix Id="RCS9030" IsEnabled="true" /> <!-- UseUncheckedExpression (fixes CS0221) -->
-      <CodeFix Id="RCS9031" IsEnabled="true" /> <!-- RemoveImplementationFromAbstractMember (fixes CS0069, CS0500, CS0531) -->
-      <CodeFix Id="RCS9032" IsEnabled="true" /> <!-- AddStaticModifier (fixes CS0708, CS0710) -->
-      <CodeFix Id="RCS9033" IsEnabled="true" /> <!-- MakeContainingClassAbstract (fixes CS0513) -->
-      <CodeFix Id="RCS9034" IsEnabled="false" /> <!-- AddSemicolon (fixes CS1002) -->
-      <CodeFix Id="RCS9035" IsEnabled="true" /> <!-- SynchronizeAccessibility (fixes CS0266) -->
-      <CodeFix Id="RCS9036" IsEnabled="true" /> <!-- RemoveArgumentList (fixes CS1955) -->
-      <CodeFix Id="RCS9037" IsEnabled="true" /> <!-- FixMemberAccessName (fixes CS1061) -->
-      <CodeFix Id="RCS9038" IsEnabled="true" /> <!-- AddArgumentList (fixes CS0428, CS0023) -->
-      <CodeFix Id="RCS9039" IsEnabled="true" /> <!-- InitializeLocalVariableWithDefaultValue (fixes CS0165) -->
+      <CodeFix Id="RCF0001" IsEnabled="true" /> <!-- RemoveUnusedVariable (fixes CS0168, CS0219) -->
+      <CodeFix Id="RCF0002" IsEnabled="true" /> <!-- AddBreakStatementToSwitchSection (fixes CS0163, CS8070) -->
+      <CodeFix Id="RCF0003" IsEnabled="true" /> <!-- CreateSingletonArray (fixes CS0266) -->
+      <CodeFix Id="RCF0004" IsEnabled="true" /> <!-- AddOutModifierToArgument (fixes CS1620) -->
+      <CodeFix Id="RCF0005" IsEnabled="true" /> <!-- MoveBaseClassBeforeAnyInterface (fixes CS1722) -->
+      <CodeFix Id="RCF0006" IsEnabled="true" /> <!-- AddOverrideModifier (fixes CS0114) -->
+      <CodeFix Id="RCF0007" IsEnabled="true" /> <!-- AddNewModifier (fixes CS0114) -->
+      <CodeFix Id="RCF0008" IsEnabled="true" /> <!-- ExtractDeclarationFromUsingStatement (fixes CS1674) -->
+      <CodeFix Id="RCF0009" IsEnabled="true" /> <!-- AddBracesToDeclarationOrLabeledStatement (fixes CS1023) -->
+      <CodeFix Id="RCF0010" IsEnabled="true" /> <!-- MarkOperatorAsPublicAndStatic (fixes CS0558) -->
+      <CodeFix Id="RCF0011" IsEnabled="true" /> <!-- RemoveDuplicateModifier (fixes CS1004) -->
+      <CodeFix Id="RCF0012" IsEnabled="true" /> <!-- RemoveDuplicateAttribute (fixes CS0579) -->
+      <CodeFix Id="RCF0013" IsEnabled="true" /> <!-- RemoveNewModifier (fixes CS0109) -->
+      <CodeFix Id="RCF0014" IsEnabled="true" /> <!-- RemoveUnusedLabel (fixes CS0164) -->
+      <CodeFix Id="RCF0015" IsEnabled="true" /> <!-- OverridingMemberCannotChangeAccessModifiers (fixes CS0507) -->
+      <CodeFix Id="RCF0016" IsEnabled="true" /> <!-- AddDocumentationComment (fixes CS1591) -->
+      <CodeFix Id="RCF0017" IsEnabled="true" /> <!-- RemoveUnreachableCode (fixes CS0162) -->
+      <CodeFix Id="RCF0018" IsEnabled="true" /> <!-- MemberReturnTypeMustMatchOverriddenMemberReturnType (fixes CS0508) -->
+      <CodeFix Id="RCF0019" IsEnabled="true" /> <!-- MemberTypeMustMatchOverriddenMemberType (fixes CS1715) -->
+      <CodeFix Id="RCF0020" IsEnabled="true" /> <!-- AddReturnStatementThatReturnsDefaultValue (fixes CS0161) -->
+      <CodeFix Id="RCF0021" IsEnabled="true" /> <!-- UseYieldReturnInsteadOfReturn (fixes CS0029, CS1622) -->
+      <CodeFix Id="RCF0022" IsEnabled="true" /> <!-- ReplaceStringLiteralWithCharacterLiteral (fixes CS0029) -->
+      <CodeFix Id="RCF0023" IsEnabled="true" /> <!-- AddComparisonWithBooleanLiteral (fixes CS0019, CS0266) -->
+      <CodeFix Id="RCF0024" IsEnabled="true" /> <!-- RemovePropertyOrFieldInitializer (fixes CS0573) -->
+      <CodeFix Id="RCF0025" IsEnabled="true" /> <!-- AddPartialModifier (fixes CS0260, CS0751) -->
+      <CodeFix Id="RCF0026" IsEnabled="true" /> <!-- AddMethodBody (fixes CS0756) -->
+      <CodeFix Id="RCF0027" IsEnabled="true" /> <!-- RemoveRefModifier (fixes CS1615) -->
+      <CodeFix Id="RCF0028" IsEnabled="true" /> <!-- RemoveRedundantAssignment (fixes CS1717) -->
+      <CodeFix Id="RCF0029" IsEnabled="true" /> <!-- ChangeAccessibility (fixes CS0628, CS1057) -->
+      <CodeFix Id="RCF0030" IsEnabled="true" /> <!-- ChangeTypeOfParamsParameter (fixes CS0225) -->
+      <CodeFix Id="RCF0031" IsEnabled="true" /> <!-- UseUncheckedExpression (fixes CS0221) -->
+      <CodeFix Id="RCF0032" IsEnabled="true" /> <!-- RemoveImplementationFromAbstractMember (fixes CS0069, CS0500, CS0531) -->
+      <CodeFix Id="RCF0033" IsEnabled="true" /> <!-- AddStaticModifier (fixes CS0708, CS0710) -->
+      <CodeFix Id="RCF0034" IsEnabled="true" /> <!-- MakeContainingClassAbstract (fixes CS0513) -->
+      <CodeFix Id="RCF0035" IsEnabled="false" /> <!-- AddSemicolon (fixes CS1002) -->
+      <CodeFix Id="RCF0036" IsEnabled="true" /> <!-- SynchronizeAccessibility (fixes CS0266) -->
+      <CodeFix Id="RCF0037" IsEnabled="true" /> <!-- RemoveArgumentList (fixes CS1955) -->
+      <CodeFix Id="RCF0038" IsEnabled="true" /> <!-- FixMemberAccessName (fixes CS1061) -->
+      <CodeFix Id="RCF0039" IsEnabled="true" /> <!-- AddArgumentList (fixes CS0428, CS0023) -->
+      <CodeFix Id="RCF0040" IsEnabled="true" /> <!-- InitializeLocalVariableWithDefaultValue (fixes CS0165) -->
     </CodeFixes>
   </Settings>
 </Roslynator>
