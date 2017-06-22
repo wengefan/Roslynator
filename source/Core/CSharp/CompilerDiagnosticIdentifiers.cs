@@ -11,6 +11,7 @@ namespace Roslynator.CSharp
         public const string EventInInterfaceCannotHaveAddOrRemoveAccessors = Prefix + "0069";
         public const string MemberDoesNotHideAccessibleMember = Prefix + "0109";
         public const string MemberHidesInheritedMember = Prefix + "0114";
+        public const string ObjectReferenceIsRequiredForNonStaticMember = Prefix + "0120";
         public const string NoOverloadMatchesDelegate = Prefix + "0123";
         public const string NotAllCodePathsReturnValue = Prefix + "0161";
         public const string UnreachableCodeDetected = Prefix + "0162";

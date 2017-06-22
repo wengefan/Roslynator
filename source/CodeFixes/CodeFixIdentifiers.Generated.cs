@@ -47,5 +47,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string AddArgumentList = Prefix + "0039";
         public const string InitializeLocalVariableWithDefaultValue = Prefix + "0040";
         public const string ChangeTypeOfLocalVariable = Prefix + "0041";
+        public const string MakeMemberNonStatic = Prefix + "0042";
     }
 }

@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Comparers;
+using Roslynator.CSharp.Helpers;
 using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
@@ -33,7 +34,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct,
                     CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass,
                     CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors,
-                    CompilerDiagnosticIdentifiers.MemberIsAbstractButItIsContainedInNonAbstractClass);
+                    CompilerDiagnosticIdentifiers.MemberIsAbstractButItIsContainedInNonAbstractClass,
+                    CompilerDiagnosticIdentifiers.ObjectReferenceIsRequiredForNonStaticMember);
             }
         }
 
@@ -47,7 +49,8 @@ namespace Roslynator.CSharp.CodeFixes
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddMethodBody)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier)
-                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeContainingClassAbstract))
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeContainingClassAbstract)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeMemberNonStatic))
             {
                 return;
             }
@@ -311,6 +314,31 @@ namespace Roslynator.CSharp.CodeFixes
                                     MemberDeclarationSyntax newNode = classDeclaration.WithModifiers(newModifiers);
 
                                     return context.Document.ReplaceNodeAsync(classDeclaration, newNode, cancellationToken);
+                                },
+                                GetEquivalenceKey(diagnostic));
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.ObjectReferenceIsRequiredForNonStaticMember:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeMemberNonStatic))
+                                break;
+
+                            SyntaxTokenList modifiers = memberDeclaration.GetModifiers();
+
+                            Debug.Assert(modifiers.Contains(SyntaxKind.StaticKeyword), memberDeclaration.ToString());
+
+                            if (!modifiers.Contains(SyntaxKind.StaticKeyword))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                $"Make {memberDeclaration.GetTitle()} non-static",
+                                cancellationToken =>
+                                {
+                                    MemberDeclarationSyntax newNode = memberDeclaration.RemoveModifier(SyntaxKind.StaticKeyword);
+
+                                    return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, cancellationToken);
                                 },
                                 GetEquivalenceKey(diagnostic));
 
