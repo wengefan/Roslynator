@@ -105,7 +105,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                     return context.Document.ReplaceNodeAsync(memberAccess, invocationExpression, cancellationToken);
                                 },
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -114,7 +114,7 @@ namespace Roslynator.CSharp.CodeFixes
             }
         }
 
-        private static void ComputeCodeFix(
+        private void ComputeCodeFix(
             CodeFixContext context,
             Diagnostic diagnostic,
             MemberAccessExpressionSyntax memberAccess,
@@ -127,7 +127,7 @@ namespace Roslynator.CSharp.CodeFixes
                 CodeAction codeAction = CodeAction.Create(
                     $"Use '{newName}' instead of '{name}'",
                     cancellationToken => RefactorAsync(context.Document, memberAccess, newName, cancellationToken),
-                    diagnostic.Id + EquivalenceKeySuffix);
+                    GetEquivalenceKey(diagnostic));
 
                 context.RegisterCodeFix(codeAction, diagnostic);
             }
@@ -173,7 +173,7 @@ namespace Roslynator.CSharp.CodeFixes
             CancellationToken cancellationToken = default(CancellationToken))
         {
             MemberAccessExpressionSyntax newNode = memberAccess
-                .WithName(SyntaxFactory.IdentifierName(newName))
+                .WithName(IdentifierName(newName))
                 .WithTriviaFrom(memberAccess.Name);
 
             return document.ReplaceNodeAsync(memberAccess, newNode, cancellationToken);

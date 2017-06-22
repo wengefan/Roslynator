@@ -45,7 +45,7 @@ namespace Roslynator.CSharp.CodeFixes
                             CodeAction codeAction = CodeAction.Create(
                                 "Remove unused label",
                                 cancellationToken => context.Document.RemoveStatementAsync(labeledStatement, context.CancellationToken),
-                                CodeFixIdentifiers.RemoveUnusedLabel + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;

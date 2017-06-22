@@ -52,7 +52,7 @@ namespace Roslynator.CSharp.CodeFixes
                             CodeAction codeAction = CodeAction.Create(
                                 "Add break statement",
                                 cancellationToken => AddBreakStatementToSwitchSectionRefactoring.RefactorAsync(context.Document, switchSection, cancellationToken),
-                                CodeFixIdentifiers.AddBreakStatementToSwitchSection + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;

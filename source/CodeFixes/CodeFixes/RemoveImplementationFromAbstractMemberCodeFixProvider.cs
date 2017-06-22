@@ -47,15 +47,27 @@ namespace Roslynator.CSharp.CodeFixes
             if (node == null)
                 return;
 
-            if (node.IsKind(SyntaxKind.AddAccessorDeclaration, SyntaxKind.RemoveAccessorDeclaration))
-                node = node.Parent.Parent;
+            foreach (Diagnostic diagnostic in context.Diagnostics)
+            {
+                switch (diagnostic.Id)
+                {
+                    case CompilerDiagnosticIdentifiers.EventInInterfaceCannotHaveAddOrRemoveAccessors:
+                    case CompilerDiagnosticIdentifiers.MemberCannotDeclareBodyBecauseItIsNotMarkedAbstract:
+                    case CompilerDiagnosticIdentifiers.InterfaceMembersCannotHaveDefinition:
+                        {
+                            if (node.IsKind(SyntaxKind.AddAccessorDeclaration, SyntaxKind.RemoveAccessorDeclaration))
+                                node = node.Parent.Parent;
 
-            CodeAction codeAction = CodeAction.Create(
-                (node.IsKind(SyntaxKind.EventDeclaration)) ? "Remove accessor" : "Remove body",
-                cancellationToken => RefactorAsync(context.Document, node, cancellationToken),
-                CodeFixIdentifiers.RemoveImplementationFromAbstractMember + EquivalenceKeySuffix);
+                            CodeAction codeAction = CodeAction.Create(
+                                (node.IsKind(SyntaxKind.EventDeclaration)) ? "Remove accessor" : "Remove body",
+                                cancellationToken => RefactorAsync(context.Document, node, cancellationToken),
+                                GetEquivalenceKey(diagnostic));
 
-            context.RegisterCodeFix(codeAction, context.Diagnostics);
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                }
+            }
         }
 
         private static Task<Document> RefactorAsync(

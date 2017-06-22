@@ -12,7 +12,6 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.CodeFixes
 {
-
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ChangeAccessibilityCodeFixProvider))]
     [Shared]
     public class ChangeAccessibilityCodeFixProvider : BaseCodeFixProvider
@@ -43,23 +42,34 @@ namespace Roslynator.CSharp.CodeFixes
             if (node == null)
                 return;
 
-            CodeAction codeAction = CodeAction.Create(
-                "Change accessibility to 'private'",
-                cancellationToken =>
+            foreach (Diagnostic diagnostic in context.Diagnostics)
+            {
+                switch (diagnostic.Id)
                 {
-                    SyntaxTokenList modifiers = node.GetModifiers();
+                    case CompilerDiagnosticIdentifiers.NewProtectedMemberDeclaredInSealedClass:
+                    case CompilerDiagnosticIdentifiers.StaticClassesCannotContainProtectedMembers:
+                        {
+                            CodeAction codeAction = CodeAction.Create(
+                                "Change accessibility to 'private'",
+                                cancellationToken =>
+                                {
+                                    SyntaxTokenList modifiers = node.GetModifiers();
 
-                    SyntaxToken protectedKeyword = modifiers[modifiers.IndexOf(SyntaxKind.ProtectedKeyword)];
+                                    SyntaxToken protectedKeyword = modifiers[modifiers.IndexOf(SyntaxKind.ProtectedKeyword)];
 
-                    SyntaxTokenList newModifiers = modifiers.Replace(protectedKeyword, CSharpFactory.PrivateKeyword().WithTriviaFrom(protectedKeyword));
+                                    SyntaxTokenList newModifiers = modifiers.Replace(protectedKeyword, CSharpFactory.PrivateKeyword().WithTriviaFrom(protectedKeyword));
 
-                    SyntaxNode newNode = node.WithModifiers(newModifiers);
+                                    SyntaxNode newNode = node.WithModifiers(newModifiers);
 
-                    return context.Document.ReplaceNodeAsync(node, newNode, context.CancellationToken);
-                },
-                CodeFixIdentifiers.ChangeAccessibility + EquivalenceKeySuffix);
+                                    return context.Document.ReplaceNodeAsync(node, newNode, context.CancellationToken);
+                                },
+                                GetEquivalenceKey(diagnostic));
 
-            context.RegisterCodeFix(codeAction, context.Diagnostics);
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                }
+            }
         }
     }
 }

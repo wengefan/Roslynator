@@ -67,7 +67,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                return context.Document.ReplaceNodeAsync(argument, newArgument, context.CancellationToken);
                            },
-                           CodeFixIdentifiers.AddOutModifierToArgument + EquivalenceKeySuffix);
+                           GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
 
@@ -89,7 +89,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                     return context.Document.ReplaceNodeAsync(argument, newArgument, context.CancellationToken);
                                 },
-                                CodeFixIdentifiers.RemoveRefModifier + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -121,7 +121,7 @@ namespace Roslynator.CSharp.CodeFixes
                                                 CodeAction codeAction = CodeAction.Create(
                                                     "Create singleton array",
                                                     cancellationToken => CreateSingletonArrayRefactoring.RefactorAsync(context.Document, expression, arrayType.ElementType, semanticModel, cancellationToken),
-                                                    CodeFixIdentifiers.CreateSingletonArray + EquivalenceKeySuffix);
+                                                    GetEquivalenceKey(diagnostic));
 
                                                 context.RegisterCodeFix(codeAction, diagnostic);
                                                 break;

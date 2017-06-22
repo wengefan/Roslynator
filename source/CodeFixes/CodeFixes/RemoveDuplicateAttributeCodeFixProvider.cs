@@ -64,7 +64,7 @@ namespace Roslynator.CSharp.CodeFixes
                                             return context.Document.RemoveNodeAsync(attribute, SyntaxRemoveOptions.KeepUnbalancedDirectives, cancellationToken);
                                         }
                                     },
-                                    CodeFixIdentifiers.RemoveDuplicateAttribute + EquivalenceKeySuffix);
+                                    GetEquivalenceKey(diagnostic));
 
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }

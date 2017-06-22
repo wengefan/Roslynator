@@ -81,7 +81,7 @@ namespace Roslynator.CSharp.CodeFixes
                             CodeAction codeAction = CodeAction.Create(
                                 title,
                                 cancellationToken => OverridingMemberCannotChangeAccessModifiersRefactoring.RefactorAsync(context.Document, memberDeclaration, overrideInfo, cancellationToken),
-                                CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -94,14 +94,14 @@ namespace Roslynator.CSharp.CodeFixes
                             CodeAction codeAction = CodeAction.Create(
                            "Add documentation comment",
                            cancellationToken => AddDocumentationCommentRefactoring.RefactorAsync(context.Document, memberDeclaration, false, cancellationToken),
-                           CodeFixIdentifiers.AddDocumentationComment + EquivalenceKeySuffix);
+                           GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
 
                             CodeAction codeAction2 = CodeAction.Create(
                                 "Add documentation comment (copy from base if available)",
                                 cancellationToken => AddDocumentationCommentRefactoring.RefactorAsync(context.Document, memberDeclaration, true, cancellationToken),
-                                CodeFixIdentifiers.AddDocumentationComment + "CopyFromBaseIfAvailable" + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic, "CopyFromBaseIfAvailable"));
 
                             context.RegisterCodeFix(codeAction2, diagnostic);
                             break;
@@ -124,7 +124,7 @@ namespace Roslynator.CSharp.CodeFixes
                                 CodeAction codeAction = CodeAction.Create(
                                     $"Change return type to '{SymbolDisplay.GetMinimalString(typeSymbol, semanticModel, memberDeclaration.SpanStart)}'",
                                     cancellationToken => MemberTypeMustMatchOverriddenMemberTypeRefactoring.RefactorAsync(context.Document, memberDeclaration, typeSymbol, semanticModel, cancellationToken),
-                                    CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType + EquivalenceKeySuffix);
+                                    GetEquivalenceKey(diagnostic));
 
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }
@@ -175,7 +175,7 @@ namespace Roslynator.CSharp.CodeFixes
                                 CodeAction codeAction = CodeAction.Create(
                                     title,
                                     cancellationToken => MemberTypeMustMatchOverriddenMemberTypeRefactoring.RefactorAsync(context.Document, memberDeclaration, typeSymbol, semanticModel, cancellationToken),
-                                    CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType + EquivalenceKeySuffix);
+                                    GetEquivalenceKey(diagnostic));
 
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }
@@ -202,7 +202,7 @@ namespace Roslynator.CSharp.CodeFixes
                             CodeAction codeAction = CodeAction.Create(
                                 "Add return statement that returns default value",
                                 cancellationToken => AddReturnStatementThatReturnsDefaultValueRefactoring.RefactorAsync(context.Document, methodDeclaration, cancellationToken),
-                                CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -239,7 +239,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                     return Task.FromResult(context.Document);
                                 },
-                                CodeFixIdentifiers.AddPartialModifier + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -265,7 +265,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                     return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, context.CancellationToken);
                                 },
-                                CodeFixIdentifiers.AddMethodBody + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
 
@@ -287,7 +287,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                     return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, cancellationToken);
                                 },
-                                CodeFixIdentifiers.AddStaticModifier + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -312,7 +312,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                     return context.Document.ReplaceNodeAsync(classDeclaration, newNode, cancellationToken);
                                 },
-                                CodeFixIdentifiers.MakeContainingClassAbstract + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;

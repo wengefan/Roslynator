@@ -96,7 +96,7 @@ namespace Roslynator.CSharp.CodeFixes
                                         CodeAction codeAction = CodeAction.Create(
                                             "Use yield return instead of return",
                                             cancellationToken => UseYieldReturnInsteadOfReturnRefactoring.RefactorAsync(context.Document, returnStatement, replacementKind, semanticModel, cancellationToken),
-                                            CodeFixIdentifiers.UseYieldReturnInsteadOfReturn + EquivalenceKeySuffix);
+                                            GetEquivalenceKey(diagnostic));
 
                                         context.RegisterCodeFix(codeAction, diagnostic);
                                     }

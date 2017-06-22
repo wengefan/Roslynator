@@ -68,7 +68,7 @@ namespace Roslynator.CSharp.CodeFixes
                                     CodeAction codeAction = CodeAction.Create(
                                         AddComparisonWithBooleanLiteralRefactoring.GetTitle(expression),
                                         cancellationToken => AddComparisonWithBooleanLiteralRefactoring.RefactorAsync(context.Document, expression, cancellationToken),
-                                        CodeFixIdentifiers.AddComparisonWithBooleanLiteral + EquivalenceKeySuffix);
+                                        GetEquivalenceKey(diagnostic));
 
                                     context.RegisterCodeFix(codeAction, diagnostic);
                                 }
@@ -86,7 +86,7 @@ namespace Roslynator.CSharp.CodeFixes
                                     CodeAction codeAction = CodeAction.Create(
                                         "Create singleton array",
                                         cancellationToken => CreateSingletonArrayRefactoring.RefactorAsync(context.Document, expression, arrayType.ElementType, semanticModel, cancellationToken),
-                                        CodeFixIdentifiers.CreateSingletonArray + EquivalenceKeySuffix);
+                                        GetEquivalenceKey(diagnostic));
 
                                     context.RegisterCodeFix(codeAction, diagnostic);
                                 }
@@ -109,7 +109,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                     return context.Document.ReplaceNodeAsync(expression, newNode, cancellationToken);
                                 },
-                                CodeFixIdentifiers.UseUncheckedExpression + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;

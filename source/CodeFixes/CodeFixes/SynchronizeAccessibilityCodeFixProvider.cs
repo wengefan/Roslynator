@@ -61,7 +61,7 @@ namespace Roslynator.CSharp.CodeFixes
                     CodeAction codeAction = CodeAction.Create(
                         $"Change accessibility to '{AccessibilityHelper.GetAccessibilityName(accessibility)}'",
                         cancellationToken => ChangeAccessibilityRefactoring.RefactorAsync(context.Solution(), memberDeclarations, accessibility, cancellationToken),
-                        $"{CodeFixIdentifiers.SynchronizeAccessibility}_{accessibility}_{EquivalenceKeySuffix}");
+                        GetEquivalenceKey(CompilerDiagnosticIdentifiers.PartialDeclarationsHaveConfictingAccessibilityModifiers, accessibility.ToString()));
 
                     context.RegisterCodeFix(codeAction, context.Diagnostics);
                 }
