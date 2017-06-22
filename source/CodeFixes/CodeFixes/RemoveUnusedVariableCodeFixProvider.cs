@@ -64,7 +64,7 @@ namespace Roslynator.CSharp.CodeFixes
                                                 CodeAction codeAction = CodeAction.Create(
                                                     "Remove unused variable",
                                                     cancellationToken => context.Document.RemoveNodeAsync(localDeclarationStatement, RemoveHelper.GetRemoveOptions(localDeclarationStatement)),
-                                                    CodeFixIdentifiers.RemoveUnusedVariable + EquivalenceKeySuffix);
+                                                    GetEquivalenceKey(diagnostic));
 
                                                 context.RegisterCodeFix(codeAction, diagnostic);
                                             }
@@ -74,7 +74,7 @@ namespace Roslynator.CSharp.CodeFixes
                                             CodeAction codeAction = CodeAction.Create(
                                                 "Remove unused variable",
                                                 cancellationToken => context.Document.RemoveNodeAsync(variableDeclarator, RemoveHelper.GetRemoveOptions(variableDeclarator)),
-                                                CodeFixIdentifiers.RemoveUnusedVariable + EquivalenceKeySuffix);
+                                                GetEquivalenceKey(diagnostic));
 
                                             context.RegisterCodeFix(codeAction, diagnostic);
                                         }
@@ -96,7 +96,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                                 return context.Document.ReplaceNodeAsync(catchDeclaration, newNode, context.CancellationToken);
                                             },
-                                            CodeFixIdentifiers.RemoveUnusedVariable + EquivalenceKeySuffix);
+                                            GetEquivalenceKey(diagnostic));
 
                                         context.RegisterCodeFix(codeAction, diagnostic);
                                         break;

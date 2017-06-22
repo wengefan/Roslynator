@@ -53,7 +53,7 @@ namespace Roslynator.CSharp.CodeFixes
                                 CodeAction codeAction = CodeAction.Create(
                                     "Remove assignment",
                                     cancellationToken => context.Document.RemoveStatementAsync(statement, cancellationToken),
-                                    CodeFixIdentifiers.RemoveRedundantAssignment + EquivalenceKeySuffix);
+                                    GetEquivalenceKey(diagnostic));
 
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }

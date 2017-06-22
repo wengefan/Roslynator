@@ -54,7 +54,7 @@ namespace Roslynator.CSharp.CodeFixes
             }
         }
 
-        private static bool RegisterCodeFix(
+        private bool RegisterCodeFix(
             CodeFixContext context,
             ExpressionSyntax expression,
             Diagnostic diagnostic,
@@ -66,7 +66,7 @@ namespace Roslynator.CSharp.CodeFixes
                 CodeAction codeAction = CodeAction.Create(
                     AddComparisonWithBooleanLiteralRefactoring.GetTitle(expression),
                     cancellationToken => AddComparisonWithBooleanLiteralRefactoring.RefactorAsync(context.Document, expression, cancellationToken),
-                    CodeFixIdentifiers.AddComparisonWithBooleanLiteral + EquivalenceKeySuffix);
+                    GetEquivalenceKey(diagnostic));
 
                 context.RegisterCodeFix(codeAction, diagnostic);
                 return true;

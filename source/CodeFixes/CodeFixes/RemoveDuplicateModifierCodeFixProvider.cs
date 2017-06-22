@@ -50,7 +50,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                     return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
                                 },
-                                CodeFixIdentifiers.RemoveDuplicateModifier + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;

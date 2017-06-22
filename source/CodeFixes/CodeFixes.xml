@@ -217,4 +217,9 @@
       <Id>CS0815</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0042" Identifier="MakeMemberNonStatic" Title="Make member non-static">
+    <FixableDiagnosticIds>
+      <Id>CS0120</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

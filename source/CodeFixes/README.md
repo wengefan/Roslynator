@@ -24,6 +24,7 @@ RCF0008|Extract declaration from using statement|[CS1674](http://docs.microsoft.
 RCF0038|Fix member access name|[CS1061](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1061)|x
 RCF0040|Initialize local variable with default value|[CS0165](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0165)|x
 RCF0034|Make containing class abstract|[CS0513](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0513)|x
+RCF0042|Make member non\-static|[CS0120](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0120)|x
 RCF0010|Mark operator as 'public' and 'static'|[CS0558](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0558)|x
 RCF0018|Member return type must match overridden member return type|[CS0508](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0508)|x
 RCF0019|Member type must match overridden member type|[CS1715](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1715)|x

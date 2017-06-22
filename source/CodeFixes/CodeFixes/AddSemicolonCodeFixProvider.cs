@@ -63,7 +63,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                     return context.Document.WithTextChangeAsync(textChange, cancellationToken);
                 },
-                CodeFixIdentifiers.AddSemicolon + EquivalenceKeySuffix);
+                GetEquivalenceKey(CompilerDiagnosticIdentifiers.SemicolonExpected));
 
             context.RegisterCodeFix(codeAction, context.Diagnostics);
         }

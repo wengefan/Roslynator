@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using System.Collections.Immutable;
 using System.Composition;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
@@ -89,7 +87,7 @@ namespace Roslynator.CSharp.CodeFixes
             }
         }
 
-        private static void ComputeCodeFix(
+        private void ComputeCodeFix(
             CodeFixContext context,
             Diagnostic diagnostic,
             VariableDeclaratorSyntax variableDeclarator,
@@ -113,7 +111,7 @@ namespace Roslynator.CSharp.CodeFixes
                         CodeAction codeAction = CodeAction.Create(
                             $"Change type to '{SymbolDisplay.GetMinimalString(typeSymbol, semanticModel, variableDeclarator.SpanStart)}'",
                             cancellationToken => RefactorAsync(context.Document, (VariableDeclarationSyntax)variableDeclarator.Parent, typeSymbol, semanticModel, cancellationToken),
-                            CodeFixIdentifiers.ChangeTypeOfLocalVariable + EquivalenceKeySuffix + SymbolDisplay.GetString(typeSymbol));
+                            GetEquivalenceKey(diagnostic, SymbolDisplay.GetString(typeSymbol)));
 
                         context.RegisterCodeFix(codeAction, diagnostic);
                     }

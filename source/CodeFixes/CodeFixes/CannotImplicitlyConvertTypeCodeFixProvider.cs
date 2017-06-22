@@ -54,9 +54,9 @@ namespace Roslynator.CSharp.CodeFixes
                                         CodeAction codeAction = CodeAction.Create(
                                             "Replace string literal with character literal",
                                             cancellationToken => ReplaceStringLiteralWithCharacterLiteralRefactoring.RefactorAsync(context.Document, literalExpression, cancellationToken),
-                                            CodeFixIdentifiers.ReplaceStringLiteralWithCharacterLiteral + EquivalenceKeySuffix);
+                                            GetEquivalenceKey(diagnostic));
 
-                                        context.RegisterCodeFix(codeAction, context.Diagnostics);
+                                        context.RegisterCodeFix(codeAction, diagnostic);
                                     }
                                 }
                             }
@@ -76,7 +76,7 @@ namespace Roslynator.CSharp.CodeFixes
                                     CodeAction codeAction = CodeAction.Create(
                                         "Use yield return instead of return",
                                         cancellationToken => UseYieldReturnInsteadOfReturnRefactoring.RefactorAsync(context.Document, returnStatement, SyntaxKind.YieldReturnStatement, semanticModel, cancellationToken),
-                                        CodeFixIdentifiers.UseYieldReturnInsteadOfReturn + EquivalenceKeySuffix);
+                                        GetEquivalenceKey(diagnostic));
 
                                     context.RegisterCodeFix(codeAction, diagnostic);
                                 }

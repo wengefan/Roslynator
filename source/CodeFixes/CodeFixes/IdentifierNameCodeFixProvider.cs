@@ -47,7 +47,7 @@ namespace Roslynator.CSharp.CodeFixes
                             CodeAction codeAction = CodeAction.Create(
                                 $"Initialize '{identifierName.Identifier.ValueText}' with default value",
                                 cancellationToken => RefactorAsync(context.Document, identifierName, cancellationToken),
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;

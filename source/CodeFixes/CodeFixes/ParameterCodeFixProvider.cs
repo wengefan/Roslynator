@@ -60,7 +60,7 @@ namespace Roslynator.CSharp.CodeFixes
                                     CodeAction codeAction = CodeAction.Create(
                                         $"Change parameter type to '{newType}'",
                                         cancellationToken => context.Document.ReplaceNodeAsync(type, newType.WithTriviaFrom(type), cancellationToken),
-                                        CodeFixIdentifiers.ChangeTypeOfParamsParameter + EquivalenceKeySuffix);
+                                        GetEquivalenceKey(diagnostic));
 
                                     context.RegisterCodeFix(codeAction, diagnostic);
                                 }

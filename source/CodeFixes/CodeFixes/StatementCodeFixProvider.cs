@@ -73,7 +73,7 @@ namespace Roslynator.CSharp.CodeFixes
                                                 return context.Document.RemoveNodesAsync(statements.Skip(index), removeOptions, context.CancellationToken);
                                             }
                                         },
-                                        CodeFixIdentifiers.RemoveUnreachableCode + EquivalenceKeySuffix);
+                                        GetEquivalenceKey(diagnostic));
 
                                     context.RegisterCodeFix(codeAction, diagnostic);
                                 }
