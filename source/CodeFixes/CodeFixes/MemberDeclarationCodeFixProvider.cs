@@ -280,11 +280,22 @@ namespace Roslynator.CSharp.CodeFixes
                             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier))
                                 break;
 
+                            if (memberDeclaration.IsKind(SyntaxKind.ConstructorDeclaration)
+                                && ((ConstructorDeclarationSyntax)memberDeclaration).ParameterList?.Parameters.Any() == true)
+                            {
+                                break;
+                            }
+
                             CodeAction codeAction = CodeAction.Create(
                                 "Add 'static' modifier",
                                 cancellationToken =>
                                 {
-                                    SyntaxTokenList newModifiers = memberDeclaration.GetModifiers().InsertModifier(SyntaxKind.StaticKeyword, ModifierComparer.Instance);
+                                    SyntaxTokenList modifiers = memberDeclaration.GetModifiers();
+
+                                    if (memberDeclaration.IsKind(SyntaxKind.ConstructorDeclaration))
+                                        modifiers = modifiers.RemoveAccessModifiers();
+
+                                    SyntaxTokenList newModifiers = modifiers.InsertModifier(SyntaxKind.StaticKeyword, ModifierComparer.Instance);
 
                                     MemberDeclarationSyntax newNode = memberDeclaration.WithModifiers(newModifiers);
 
