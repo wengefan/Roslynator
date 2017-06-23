@@ -9,6 +9,7 @@ namespace Roslynator.CSharp
         public const string OperatorCannotBeAppliedToOperandOfType = Prefix + "0023";
         public const string CannotImplicitlyConvertType = Prefix + "0029";
         public const string EventInInterfaceCannotHaveAddOrRemoveAccessors = Prefix + "0069";
+        public const string ConstraintsAreNotAllowedOnNonGenericDeclarations = Prefix + "0080";
         public const string MemberDoesNotHideAccessibleMember = Prefix + "0109";
         public const string MemberHidesInheritedMember = Prefix + "0114";
         public const string ObjectReferenceIsRequiredForNonStaticMember = Prefix + "0120";
