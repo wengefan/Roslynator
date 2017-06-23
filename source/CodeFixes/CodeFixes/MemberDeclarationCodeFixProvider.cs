@@ -333,7 +333,7 @@ namespace Roslynator.CSharp.CodeFixes
                                 break;
 
                             CodeAction codeAction = CodeAction.Create(
-                                $"Make {memberDeclaration.GetTitle()} non-static",
+                                $"Make containing {memberDeclaration.GetTitle()} non-static",
                                 cancellationToken =>
                                 {
                                     MemberDeclarationSyntax newNode = memberDeclaration.RemoveModifier(SyntaxKind.StaticKeyword);
