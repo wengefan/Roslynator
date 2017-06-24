@@ -3330,38 +3330,6 @@ namespace Roslynator.CSharp
             return SyntaxTriviaList.Empty;
         }
 
-        public static SyntaxTriviaList TrimTrivia(this SyntaxTriviaList triviaList)
-        {
-            int startIndex = 0;
-            for (int i = 0; i < triviaList.Count; i++)
-            {
-                if (!triviaList[i].IsWhitespaceOrEndOfLineTrivia())
-                {
-                    startIndex = i;
-                    break;
-                }
-            }
-
-            int endIndex = -1;
-            for (int i = triviaList.Count - 1; i > startIndex; i--)
-            {
-                if (!triviaList[i].IsWhitespaceOrEndOfLineTrivia())
-                {
-                    endIndex = i;
-                    break;
-                }
-            }
-
-            if (startIndex > 0 || endIndex >= 0)
-            {
-                return TriviaList(triviaList.Skip(startIndex).Take(endIndex + 1 - startIndex));
-            }
-            else
-            {
-                return triviaList;
-            }
-        }
-
         internal static bool IsEmptyOrWhitespace(this SyntaxTriviaList triviaList)
         {
             if (!triviaList.Any())
@@ -3374,6 +3342,11 @@ namespace Roslynator.CSharp
             }
 
             return true;
+        }
+
+        internal static SyntaxTriviaList EmptyIfWhitespace(this SyntaxTriviaList triviaList)
+        {
+            return (triviaList.IsEmptyOrWhitespace()) ? default(SyntaxTriviaList) : triviaList;
         }
 
         internal static bool IsSingleElasticMarker(this SyntaxTriviaList triviaList)

@@ -48,6 +48,7 @@
     <Compile Include="AddOverrideOrNewModifier.cs" />
     <Compile Include="AddPartialModifier.cs" />
     <Compile Include="AddReturnStatementThatReturnsDefaultValue.cs" />
+    <Compile Include="AddTypeArgument.cs" />
     <Compile Include="ChangeTypeOfLocalVariable.cs" />
     <Compile Include="ChangeTypeOfParamsParameter.cs" />
     <Compile Include="CreateSingletonArray.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="AddOutModifierToArgument.cs" />
     <Compile Include="ChangeAccessibility.cs" />
     <Compile Include="RemoveArgumentList.cs" />
+    <Compile Include="RemoveConstraintClause.cs" />
     <Compile Include="RemoveDuplicateAttribute.cs" />
     <Compile Include="RemoveImplementationFromAbstractMember.cs" />
     <Compile Include="RemoveNewModifier.cs" />

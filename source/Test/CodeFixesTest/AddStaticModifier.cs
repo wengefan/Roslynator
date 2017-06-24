@@ -15,31 +15,37 @@ namespace Roslynator.CSharp.CodeFixes.Test
             public void Bar2()
             {
             }
-        }
 
-        private string _fieldName;
+            private string _fieldName;
 
-        public void MethodName()
-        {
-        }
-
-        AddStaticModifier()
-        {
-        }
-
-        public string PropertyName { get; set; }
-
-        public event EventHandler EventName;
-
-        public event EventHandler EventName2
-        {
-            add { }
-            remove { }
-        }
-
-        private class ClassName
-        {
             public void MethodName()
+            {
+            }
+
+            public Foo()
+            {
+            }
+
+            public string PropertyName { get; set; }
+
+            public event EventHandler EventName;
+
+            public event EventHandler EventName2
+            {
+                add { }
+                remove { }
+            }
+        }
+
+        private static class Foo2
+        {
+            Foo2()
+            {
+            }
+
+            //n
+
+            Foo2(object parameter)
             {
             }
         }
