@@ -227,4 +227,9 @@
       <Id>CS0080</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0044" Identifier="AddTypeArgument" Title="Add type argument">
+    <FixableDiagnosticIds>
+      <Id>CS0305</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

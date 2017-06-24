@@ -49,6 +49,7 @@
     <Compile Include="CodeFixes\AddBreakStatementToSwitchSectionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AddOverrideOrNewModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AddSemicolonCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\BaseTypeCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AssignmentExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseListCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ChangeAccessibilityCodeFixProvider.cs" />
