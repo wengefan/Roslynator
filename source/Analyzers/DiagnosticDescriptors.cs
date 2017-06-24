@@ -309,8 +309,8 @@ namespace Roslynator.CSharp
 
         public static readonly DiagnosticDescriptor RemoveRedundantSealedModifier = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.RemoveRedundantSealedModifier,
-            title: "Remove redundant sealed modifier.",
-            messageFormat: "Remove redundant sealed modifier.",
+            title: "Remove redundant 'sealed' modifier.",
+            messageFormat: "Remove redundant 'sealed' modifier.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
@@ -397,8 +397,8 @@ namespace Roslynator.CSharp
 
         public static readonly DiagnosticDescriptor RemovePartialModifierFromTypeWithSinglePart = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.RemovePartialModifierFromTypeWithSinglePart,
-            title: "Remove partial modifier from type with a single part.",
-            messageFormat: "Remove partial modifier from type with a single part.",
+            title: "Remove 'partial' modifier from type with a single part.",
+            messageFormat: "Remove 'partial' modifier from type with a single part.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
@@ -939,10 +939,10 @@ namespace Roslynator.CSharp
             isEnabledByDefault: false
         );
 
-        public static readonly DiagnosticDescriptor MarkClassAsStatic = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.MarkClassAsStatic,
-            title: "Mark class as static.",
-            messageFormat: "Mark class as static.",
+        public static readonly DiagnosticDescriptor MakeClassStatic = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.MakeClassStatic,
+            title: "Make class static.",
+            messageFormat: "Make class static.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Warning,
             isEnabledByDefault: true
@@ -997,8 +997,8 @@ namespace Roslynator.CSharp
 
         public static readonly DiagnosticDescriptor AddStaticModifierToAllPartialClassDeclarations = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.AddStaticModifierToAllPartialClassDeclarations,
-            title: "Add static modifier to all partial class declarations.",
-            messageFormat: "Add static modifier to all partial class declarations.",
+            title: "Add 'static' modifier to all partial class declarations.",
+            messageFormat: "Add 'static' modifier to all partial class declarations.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true

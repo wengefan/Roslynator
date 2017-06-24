@@ -140,7 +140,7 @@ namespace Roslynator.VisualStudio
             ReplaceEqualsExpressionWithStringIsNullOrEmpty = true;
             ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace = true;
             ReplaceExpressionWithConstantValue = true;
-            ReplaceFieldWithConstant = true;
+            UseConstantInsteadOfField = true;
             ReplaceForEachWithFor = true;
             ReplaceForWithForEach = true;
             ReplaceForWithWhile = true;
@@ -322,7 +322,7 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty, ReplaceEqualsExpressionWithStringIsNullOrEmpty);
             SetIsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace, ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace);
             SetIsEnabled(RefactoringIdentifiers.ReplaceExpressionWithConstantValue, ReplaceExpressionWithConstantValue);
-            SetIsEnabled(RefactoringIdentifiers.ReplaceFieldWithConstant, ReplaceFieldWithConstant);
+            SetIsEnabled(RefactoringIdentifiers.UseConstantInsteadOfField, UseConstantInsteadOfField);
             SetIsEnabled(RefactoringIdentifiers.ReplaceForEachWithFor, ReplaceForEachWithFor);
             SetIsEnabled(RefactoringIdentifiers.ReplaceForWithForEach, ReplaceForWithForEach);
             SetIsEnabled(RefactoringIdentifiers.ReplaceForWithWhile, ReplaceForWithWhile);
@@ -1718,15 +1718,6 @@ namespace Roslynator.VisualStudio
         [Browsable(false)]
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool ReplaceFieldWithConstant
-        {
-            get;
-            set;
-        }
-
-        [Browsable(false)]
-        [Category(RefactoringCategory)]
-        [TypeConverter(typeof (EnabledDisabledConverter))]
         public bool ReplaceForEachWithFor
         {
             get;
@@ -2061,6 +2052,15 @@ namespace Roslynator.VisualStudio
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
         public bool UseConditionalExpressionInsteadOfIf
+        {
+            get;
+            set;
+        }
+
+        [Browsable(false)]
+        [Category(RefactoringCategory)]
+        [TypeConverter(typeof (EnabledDisabledConverter))]
+        public bool UseConstantInsteadOfField
         {
             get;
             set;
