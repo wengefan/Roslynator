@@ -82,7 +82,6 @@
     <Compile Include="CSharp\Refactorings\ExtractTypeDeclarationToNewDocumentRefactoring.cs" />
     <Compile Include="CSharp\Refactorings\IntroduceFieldToLockOnRefactoring.cs" />
     <Compile Include="CSharp\Refactorings\MarkContainingClassAsAbstractRefactoring.cs" />
-    <Compile Include="CSharp\Refactorings\MarkMemberAsStaticRefactoring.cs" />
     <Compile Include="CSharp\Refactorings\MergeInterpolationIntoInterpolatedStringRefactoring.cs" />
     <Compile Include="CSharp\Refactorings\UseBitwiseOperationInsteadOfCallingHasFlagRefactoring.cs" />
     <Compile Include="CSharp\Refactorings\CallConfigureAwaitRefactoring.cs" />

@@ -132,7 +132,6 @@
     <Compile Include="RemoveBracesRefactoring.cs" />
     <Compile Include="SimplifyLambdaExpressionRefactoring.cs" />
     <Compile Include="InsertInterpolationIntoInterpolatedStringRefactoring.cs" />
-    <Compile Include="MarkMemberAsStaticRefactoring.cs" />
     <Compile Include="GenerateSwitchSectionsRefactoring.cs" />
     <Compile Include="ExtractExpressionFromConditionRefactoring.cs" />
     <Compile Include="UseExpressionBodiedMemberRefactoring.cs" />

@@ -511,11 +511,6 @@
       <Syntax>event declaration</Syntax>
     </Syntaxes>
   </Refactoring>
-  <Refactoring Id="RR0072" Identifier="MarkMemberAsStatic" Title="Mark member as static">
-    <Syntaxes>
-      <Syntax>non-static field/method/property/event in static class</Syntax>
-    </Syntaxes>
-  </Refactoring>
   <Refactoring Id="RR0073" Identifier="MergeAssignmentExpressionWithReturnStatement" Title="Merge assignment expression with return statement">
     <Syntaxes>
       <Syntax>assignment expression followed with return statement</Syntax>
