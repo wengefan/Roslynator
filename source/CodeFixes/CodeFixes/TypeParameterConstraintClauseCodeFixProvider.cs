@@ -80,8 +80,8 @@ namespace Roslynator.CSharp.CodeFixes
                     {
                         var classDeclaration = (ClassDeclarationSyntax)node;
 
-                        SyntaxTriviaList trivia = token.TrailingTrivia.TrimTrivia()
-                            .AddRange(constraintClause.GetLeadingTrivia().TrimTrivia())
+                        SyntaxTriviaList trivia = token.TrailingTrivia.EmptyIfWhitespace()
+                            .AddRange(constraintClause.GetLeadingTrivia().EmptyIfWhitespace())
                             .AddRange(classDeclaration.ConstraintClauses.Last().GetTrailingTrivia());
 
                         return classDeclaration
@@ -92,8 +92,8 @@ namespace Roslynator.CSharp.CodeFixes
                     {
                         var interfaceDeclaration = (InterfaceDeclarationSyntax)node;
 
-                        SyntaxTriviaList trivia = token.TrailingTrivia.TrimTrivia()
-                            .AddRange(constraintClause.GetLeadingTrivia().TrimTrivia())
+                        SyntaxTriviaList trivia = token.TrailingTrivia.EmptyIfWhitespace()
+                            .AddRange(constraintClause.GetLeadingTrivia().EmptyIfWhitespace())
                             .AddRange(interfaceDeclaration.ConstraintClauses.Last().GetTrailingTrivia());
 
                         return interfaceDeclaration
@@ -104,8 +104,8 @@ namespace Roslynator.CSharp.CodeFixes
                     {
                         var structDeclaration = (StructDeclarationSyntax)node;
 
-                        SyntaxTriviaList trivia = token.TrailingTrivia.TrimTrivia()
-                            .AddRange(constraintClause.GetLeadingTrivia().TrimTrivia())
+                        SyntaxTriviaList trivia = token.TrailingTrivia.EmptyIfWhitespace()
+                            .AddRange(constraintClause.GetLeadingTrivia().EmptyIfWhitespace())
                             .AddRange(structDeclaration.ConstraintClauses.Last().GetTrailingTrivia());
 
                         return structDeclaration
@@ -116,8 +116,8 @@ namespace Roslynator.CSharp.CodeFixes
                     {
                         var delegateDeclaration = (DelegateDeclarationSyntax)node;
 
-                        SyntaxTriviaList trivia = token.TrailingTrivia.TrimTrivia()
-                            .AddRange(constraintClause.GetLeadingTrivia().TrimTrivia())
+                        SyntaxTriviaList trivia = token.TrailingTrivia.EmptyIfWhitespace()
+                            .AddRange(constraintClause.GetLeadingTrivia().EmptyIfWhitespace())
                             .AddRange(delegateDeclaration.ConstraintClauses.Last().GetTrailingTrivia());
 
                         return delegateDeclaration
@@ -128,8 +128,8 @@ namespace Roslynator.CSharp.CodeFixes
                     {
                         var methodDeclaration = (MethodDeclarationSyntax)node;
 
-                        SyntaxTriviaList trivia = token.TrailingTrivia.TrimTrivia()
-                            .AddRange(constraintClause.GetLeadingTrivia().TrimTrivia())
+                        SyntaxTriviaList trivia = token.TrailingTrivia.EmptyIfWhitespace()
+                            .AddRange(constraintClause.GetLeadingTrivia().EmptyIfWhitespace())
                             .AddRange(methodDeclaration.ConstraintClauses.Last().GetTrailingTrivia());
 
                         return methodDeclaration
@@ -140,8 +140,8 @@ namespace Roslynator.CSharp.CodeFixes
                     {
                         var localFunctionStatement = (LocalFunctionStatementSyntax)node;
 
-                        SyntaxTriviaList trivia = token.TrailingTrivia.TrimTrivia()
-                            .AddRange(constraintClause.GetLeadingTrivia().TrimTrivia())
+                        SyntaxTriviaList trivia = token.TrailingTrivia.EmptyIfWhitespace()
+                            .AddRange(constraintClause.GetLeadingTrivia().EmptyIfWhitespace())
                             .AddRange(localFunctionStatement.ConstraintClauses.Last().GetTrailingTrivia());
 
                         return localFunctionStatement
