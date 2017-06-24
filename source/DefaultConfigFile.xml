@@ -234,6 +234,8 @@
       <CodeFix Id="RCF0040" IsEnabled="true" /> <!-- InitializeLocalVariableWithDefaultValue (fixes CS0165) -->
       <CodeFix Id="RCF0041" IsEnabled="true" /> <!-- ChangeTypeOfLocalVariable (fixes CS0123, CS0407, CS0815) -->
       <CodeFix Id="RCF0042" IsEnabled="true" /> <!-- MakeMemberNonStatic (fixes CS0120) -->
+      <CodeFix Id="RCF0043" IsEnabled="true" /> <!-- RemoveConstraintClause (fixes CS0080) -->
+      <CodeFix Id="RCF0044" IsEnabled="true" /> <!-- AddTypeArgument (fixes CS0305) -->
     </CodeFixes>
   </Settings>
 </Roslynator>

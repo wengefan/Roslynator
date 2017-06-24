@@ -6,6 +6,7 @@ Diagnostic | Code Fixes
 [CS0023](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0023)|RCF0039
 [CS0029](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029)|RCF0021, RCF0022
 [CS0069](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0069)|RCF0032
+[CS0080](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080)|RCF0043
 [CS0109](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0109)|RCF0013
 [CS0114](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0114)|RCF0006, RCF0007
 [CS0120](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0120)|RCF0042
@@ -21,6 +22,7 @@ Diagnostic | Code Fixes
 [CS0225](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0225)|RCF0030
 [CS0260](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0260)|RCF0025
 [CS0266](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0266)|RCF0003, RCF0023, RCF0036
+[CS0305](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0305)|RCF0044
 [CS0407](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0407)|RCF0041
 [CS0428](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0428)|RCF0039
 [CS0500](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500)|RCF0032

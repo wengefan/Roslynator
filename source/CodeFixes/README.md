@@ -15,6 +15,7 @@ RCF0025|Add partial modifier|[CS0260](http://docs.microsoft.com/en-us/dotnet/csh
 RCF0020|Add return statement that returns default value|[CS0161](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0161)|x
 RCF0035|Add semicolon|[CS1002](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1002)|
 RCF0033|Add 'static' modifier|[CS0708](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0708), [CS0710](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0710)|x
+RCF0044|Add type argument|[CS0305](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0305)|x
 RCF0005|Base base class before any interface|[CS1722](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1722)|x
 RCF0029|Change accessibility|[CS0628](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628), [CS1057](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1057)|x
 RCF0041|Change type of local variable|[CS0123](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0123), [CS0407](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0407), [CS0815](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0815)|x
@@ -30,6 +31,7 @@ RCF0018|Member return type must match overridden member return type|[CS0508](htt
 RCF0019|Member type must match overridden member type|[CS1715](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1715)|x
 RCF0015|Overriding member cannot change access modifiers|[CS0507](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0507)|x
 RCF0037|Remove argument list|[CS1955](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1955)|x
+RCF0043|Remove constraint clause|[CS0080](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080)|x
 RCF0012|Remove duplicate attribute|[CS0579](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0579)|x
 RCF0011|Remove duplicate modifier|[CS1004](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1004)|x
 RCF0032|Remove implementation from abstract member|[CS0069](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0069), [CS0500](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500), [CS0531](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0531)|x
