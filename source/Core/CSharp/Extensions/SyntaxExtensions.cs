@@ -3262,7 +3262,7 @@ namespace Roslynator.CSharp
 
         public static bool IsWhitespaceOrEndOfLineTrivia(this SyntaxTrivia trivia)
         {
-            return trivia.IsWhitespaceTrivia() || trivia.IsEndOfLineTrivia();
+            return trivia.IsKind(SyntaxKind.WhitespaceTrivia, SyntaxKind.EndOfLineTrivia);
         }
 
         internal static bool IsElasticMarker(this SyntaxTrivia trivia)
