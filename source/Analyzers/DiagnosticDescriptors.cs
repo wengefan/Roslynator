@@ -1447,10 +1447,10 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor ValueTypeCheckedForNull = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.ValueTypeCheckedForNull,
-            title: "Value type checked for null.",
-            messageFormat: "Value type checked for null.",
+        public static readonly DiagnosticDescriptor ValueTypeObjectIsNeverEqualToNull = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.ValueTypeObjectIsNeverEqualToNull,
+            title: "Value type object is never equal to null.",
+            messageFormat: "Value type object is never equal to null.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
@@ -1727,7 +1727,7 @@ namespace Roslynator.CSharp
         public static readonly DiagnosticDescriptor OptimizeStringBuilderAppendCall = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.OptimizeStringBuilderAppendCall,
             title: "Optimize StringBuilder.Append/AppendLine call.",
-            messageFormat: "Optimize StringBuilder.Append/AppendLine call.",
+            messageFormat: "Optimize StringBuilder.{0} call.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
