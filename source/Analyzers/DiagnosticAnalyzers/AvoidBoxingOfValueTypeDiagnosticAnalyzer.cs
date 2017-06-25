@@ -5,16 +5,16 @@ using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
-using static Roslynator.CSharp.Refactorings.ValueTypeCheckedForNullRefactoring;
+using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.DiagnosticAnalyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class ValueTypeCheckedForNullDiagnosticAnalyzer : BaseDiagnosticAnalyzer
+    public class AvoidBoxingOfValueTypeDiagnosticAnalyzer : BaseDiagnosticAnalyzer
     {
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(DiagnosticDescriptors.ValueTypeCheckedForNull); }
+            get { return ImmutableArray.Create(DiagnosticDescriptors.AvoidBoxingOfValueType); }
         }
 
         public override void Initialize(AnalysisContext context)
@@ -25,8 +25,8 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
             base.Initialize(context);
             context.EnableConcurrentExecution();
 
-            context.RegisterSyntaxNodeAction(f => AnalyzeEqualsExpression(f), SyntaxKind.EqualsExpression);
-            context.RegisterSyntaxNodeAction(f => AnalyzeNotEqualsExpression(f), SyntaxKind.NotEqualsExpression);
+            context.RegisterSyntaxNodeAction(f => AvoidBoxingOfValueTypeRefactoring.AddExpression(f), SyntaxKind.AddExpression);
+            context.RegisterSyntaxNodeAction(f => AvoidBoxingOfValueTypeRefactoring.Interpolation(f), SyntaxKind.Interpolation);
         }
     }
 }

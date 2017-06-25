@@ -309,8 +309,8 @@ namespace Roslynator.CSharp
 
         public static readonly DiagnosticDescriptor RemoveRedundantSealedModifier = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.RemoveRedundantSealedModifier,
-            title: "Remove redundant sealed modifier.",
-            messageFormat: "Remove redundant sealed modifier.",
+            title: "Remove redundant 'sealed' modifier.",
+            messageFormat: "Remove redundant 'sealed' modifier.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
@@ -397,8 +397,8 @@ namespace Roslynator.CSharp
 
         public static readonly DiagnosticDescriptor RemovePartialModifierFromTypeWithSinglePart = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.RemovePartialModifierFromTypeWithSinglePart,
-            title: "Remove partial modifier from type with a single part.",
-            messageFormat: "Remove partial modifier from type with a single part.",
+            title: "Remove 'partial' modifier from type with a single part.",
+            messageFormat: "Remove 'partial' modifier from type with a single part.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
@@ -939,10 +939,10 @@ namespace Roslynator.CSharp
             isEnabledByDefault: false
         );
 
-        public static readonly DiagnosticDescriptor MarkClassAsStatic = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.MarkClassAsStatic,
-            title: "Mark class as static.",
-            messageFormat: "Mark class as static.",
+        public static readonly DiagnosticDescriptor MakeClassStatic = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.MakeClassStatic,
+            title: "Make class static.",
+            messageFormat: "Make class static.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Warning,
             isEnabledByDefault: true
@@ -997,8 +997,8 @@ namespace Roslynator.CSharp
 
         public static readonly DiagnosticDescriptor AddStaticModifierToAllPartialClassDeclarations = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.AddStaticModifierToAllPartialClassDeclarations,
-            title: "Add static modifier to all partial class declarations.",
-            messageFormat: "Add static modifier to all partial class declarations.",
+            title: "Add 'static' modifier to all partial class declarations.",
+            messageFormat: "Add 'static' modifier to all partial class declarations.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
@@ -1539,10 +1539,10 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor ValueTypeCheckedForNull = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.ValueTypeCheckedForNull,
-            title: "Value type checked for null.",
-            messageFormat: "Value type checked for null.",
+        public static readonly DiagnosticDescriptor ValueTypeObjectIsNeverEqualToNull = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.ValueTypeObjectIsNeverEqualToNull,
+            title: "Value type object is never equal to null.",
+            messageFormat: "Value type object is never equal to null.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
@@ -1822,6 +1822,24 @@ namespace Roslynator.CSharp
             messageFormat: "Call extension method as instance method.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor OptimizeStringBuilderAppendCall = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.OptimizeStringBuilderAppendCall,
+            title: "Optimize StringBuilder.Append/AppendLine call.",
+            messageFormat: "Optimize StringBuilder.{0} call.",
+            category: DiagnosticCategories.Performance,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor AvoidBoxingOfValueType = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.AvoidBoxingOfValueType,
+            title: "Avoid unnecessary boxing of value type.",
+            messageFormat: "Avoid unnecessary boxing of value type.",
+            category: DiagnosticCategories.Performance,
+            defaultSeverity: DiagnosticSeverity.Warning,
             isEnabledByDefault: true
         );
     }

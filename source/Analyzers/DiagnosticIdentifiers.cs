@@ -107,7 +107,7 @@ namespace Roslynator.CSharp
         public const string DefaultLabelShouldBeLastLabelInSwitchSection = Prefix + "1099";
         public const string FormatDocumentationSummaryOnSingleLine = Prefix + "1100";
         public const string FormatDocumentationSummaryOnMultipleLines = Prefix + "1101";
-        public const string MarkClassAsStatic = Prefix + "1102";
+        public const string MakeClassStatic = Prefix + "1102";
         public const string ReplaceIfStatementWithAssignment = Prefix + "1103";
         public const string SimplifyConditionalExpression = Prefix + "1104";
         public const string MergeInterpolationIntoInterpolatedString = Prefix + "1105";
@@ -171,7 +171,7 @@ namespace Roslynator.CSharp
         public const string UnusedParameter = Prefix + "1163";
         public const string UnusedTypeParameter = Prefix + "1164";
         public const string UnconstrainedTypeParameterCheckedForNull = Prefix + "1165";
-        public const string ValueTypeCheckedForNull = Prefix + "1166";
+        public const string ValueTypeObjectIsNeverEqualToNull = Prefix + "1166";
         public const string OverridingMemberCannotChangeAccessModifiers = Prefix + "1167";
         public const string ParameterNameDiffersFromBase = Prefix + "1168";
         public const string MarkFieldAsReadOnly = Prefix + "1169";
@@ -202,5 +202,7 @@ namespace Roslynator.CSharp
         public const string ImplementExceptionConstructors = Prefix + "1194";
         public const string UseExclusiveOrOperator = Prefix + "1195";
         public const string CallExtensionMethodAsInstanceMethod = Prefix + "1196";
+        public const string OptimizeStringBuilderAppendCall = Prefix + "1197";
+        public const string AvoidBoxingOfValueType = Prefix + "1198";
     }
 }
