@@ -13,7 +13,6 @@ namespace Roslynator.VisualStudio
     {
         public RefactoringsOptionsPage()
         {
-            AddBooleanComparison = true;
             AddBraces = true;
             AddBracesToIfElse = true;
             AddBracesToSwitchSection = true;
@@ -54,7 +53,6 @@ namespace Roslynator.VisualStudio
             ExpandLambdaExpressionBody = true;
             ExpandProperty = true;
             ExpandPropertyAndAddBackingField = true;
-            ExtractDeclarationFromUsingStatement = true;
             ExtractExpressionFromCondition = true;
             ExtractGenericType = true;
             ExtractStatement = true;
@@ -84,7 +82,6 @@ namespace Roslynator.VisualStudio
             MakeMemberAbstract = true;
             MakeMemberVirtual = true;
             MarkContainingClassAsAbstract = true;
-            MarkMemberAsStatic = true;
             MergeAssignmentExpressionWithReturnStatement = true;
             MergeAttributes = true;
             MergeIfStatements = true;
@@ -134,7 +131,6 @@ namespace Roslynator.VisualStudio
             ReplaceConditionalExpressionWithExpression = true;
             ReplaceConditionalExpressionWithIfElse = true;
             ReplaceConstantWithField = true;
-            ReplaceCountWithLengthOrLengthWithCount = true;
             ReplaceDoStatementWithWhileStatement = true;
             ReplaceEqualsExpressionWithStringEquals = true;
             ReplaceEqualsExpressionWithStringIsNullOrEmpty = true;
@@ -158,7 +154,6 @@ namespace Roslynator.VisualStudio
             ReplaceStatementWithIfStatement = true;
             ReplaceStringContainsWithStringIndexOf = true;
             ReplaceStringFormatWithInterpolatedString = true;
-            ReplaceStringLiteralWithCharacterLiteral = true;
             ReplaceSwitchWithIfElse = true;
             ReplaceVerbatimStringLiteralWithRegularStringLiteral = true;
             ReplaceVerbatimStringLiteralWithRegularStringLiterals = true;
@@ -195,7 +190,6 @@ namespace Roslynator.VisualStudio
 
         public void MigrateValuesFromIdentifierProperties()
         {
-            SetIsEnabled(RefactoringIdentifiers.AddBooleanComparison, AddBooleanComparison);
             SetIsEnabled(RefactoringIdentifiers.AddBraces, AddBraces);
             SetIsEnabled(RefactoringIdentifiers.AddBracesToIfElse, AddBracesToIfElse);
             SetIsEnabled(RefactoringIdentifiers.AddBracesToSwitchSection, AddBracesToSwitchSection);
@@ -236,7 +230,6 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.ExpandLambdaExpressionBody, ExpandLambdaExpressionBody);
             SetIsEnabled(RefactoringIdentifiers.ExpandProperty, ExpandProperty);
             SetIsEnabled(RefactoringIdentifiers.ExpandPropertyAndAddBackingField, ExpandPropertyAndAddBackingField);
-            SetIsEnabled(RefactoringIdentifiers.ExtractDeclarationFromUsingStatement, ExtractDeclarationFromUsingStatement);
             SetIsEnabled(RefactoringIdentifiers.ExtractExpressionFromCondition, ExtractExpressionFromCondition);
             SetIsEnabled(RefactoringIdentifiers.ExtractGenericType, ExtractGenericType);
             SetIsEnabled(RefactoringIdentifiers.ExtractStatement, ExtractStatement);
@@ -266,7 +259,6 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.MakeMemberAbstract, MakeMemberAbstract);
             SetIsEnabled(RefactoringIdentifiers.MakeMemberVirtual, MakeMemberVirtual);
             SetIsEnabled(RefactoringIdentifiers.MarkContainingClassAsAbstract, MarkContainingClassAsAbstract);
-            SetIsEnabled(RefactoringIdentifiers.MarkMemberAsStatic, MarkMemberAsStatic);
             SetIsEnabled(RefactoringIdentifiers.MergeAssignmentExpressionWithReturnStatement, MergeAssignmentExpressionWithReturnStatement);
             SetIsEnabled(RefactoringIdentifiers.MergeAttributes, MergeAttributes);
             SetIsEnabled(RefactoringIdentifiers.MergeIfStatements, MergeIfStatements);
@@ -316,7 +308,6 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.ReplaceConditionalExpressionWithExpression, ReplaceConditionalExpressionWithExpression);
             SetIsEnabled(RefactoringIdentifiers.ReplaceConditionalExpressionWithIfElse, ReplaceConditionalExpressionWithIfElse);
             SetIsEnabled(RefactoringIdentifiers.ReplaceConstantWithField, ReplaceConstantWithField);
-            SetIsEnabled(RefactoringIdentifiers.ReplaceCountWithLengthOrLengthWithCount, ReplaceCountWithLengthOrLengthWithCount);
             SetIsEnabled(RefactoringIdentifiers.ReplaceDoStatementWithWhileStatement, ReplaceDoStatementWithWhileStatement);
             SetIsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringEquals, ReplaceEqualsExpressionWithStringEquals);
             SetIsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty, ReplaceEqualsExpressionWithStringIsNullOrEmpty);
@@ -340,7 +331,6 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.ReplaceStatementWithIfStatement, ReplaceStatementWithIfStatement);
             SetIsEnabled(RefactoringIdentifiers.ReplaceStringContainsWithStringIndexOf, ReplaceStringContainsWithStringIndexOf);
             SetIsEnabled(RefactoringIdentifiers.ReplaceStringFormatWithInterpolatedString, ReplaceStringFormatWithInterpolatedString);
-            SetIsEnabled(RefactoringIdentifiers.ReplaceStringLiteralWithCharacterLiteral, ReplaceStringLiteralWithCharacterLiteral);
             SetIsEnabled(RefactoringIdentifiers.ReplaceSwitchWithIfElse, ReplaceSwitchWithIfElse);
             SetIsEnabled(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiteral, ReplaceVerbatimStringLiteralWithRegularStringLiteral);
             SetIsEnabled(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiterals, ReplaceVerbatimStringLiteralWithRegularStringLiterals);
@@ -385,7 +375,6 @@ namespace Roslynator.VisualStudio
         public void Fill(ICollection<BaseModel> refactorings)
         {
             refactorings.Clear();
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.AddBooleanComparison, "Add boolean comparison", IsEnabled(RefactoringIdentifiers.AddBooleanComparison)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.AddBraces, "Add braces", IsEnabled(RefactoringIdentifiers.AddBraces)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.AddBracesToIfElse, "Add braces to if-else", IsEnabled(RefactoringIdentifiers.AddBracesToIfElse)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.AddBracesToSwitchSection, "Add braces to switch section", IsEnabled(RefactoringIdentifiers.AddBracesToSwitchSection)));
@@ -426,7 +415,6 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExpandLambdaExpressionBody, "Expand lambda expression body", IsEnabled(RefactoringIdentifiers.ExpandLambdaExpressionBody)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExpandProperty, "Expand property", IsEnabled(RefactoringIdentifiers.ExpandProperty)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExpandPropertyAndAddBackingField, "Expand property and add backing field", IsEnabled(RefactoringIdentifiers.ExpandPropertyAndAddBackingField)));
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.ExtractDeclarationFromUsingStatement, "Extract declaration from using statement", IsEnabled(RefactoringIdentifiers.ExtractDeclarationFromUsingStatement)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExtractExpressionFromCondition, "Extract expression from condition", IsEnabled(RefactoringIdentifiers.ExtractExpressionFromCondition)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExtractGenericType, "Extract generic type", IsEnabled(RefactoringIdentifiers.ExtractGenericType)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ExtractStatement, "Extract statement(s)", IsEnabled(RefactoringIdentifiers.ExtractStatement)));
@@ -456,7 +444,6 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.MakeMemberAbstract, "Make member abstract", IsEnabled(RefactoringIdentifiers.MakeMemberAbstract)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.MakeMemberVirtual, "Make member virtual", IsEnabled(RefactoringIdentifiers.MakeMemberVirtual)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.MarkContainingClassAsAbstract, "Mark containing class as abstract", IsEnabled(RefactoringIdentifiers.MarkContainingClassAsAbstract)));
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.MarkMemberAsStatic, "Mark member as static", IsEnabled(RefactoringIdentifiers.MarkMemberAsStatic)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.MergeAssignmentExpressionWithReturnStatement, "Merge assignment expression with return statement", IsEnabled(RefactoringIdentifiers.MergeAssignmentExpressionWithReturnStatement)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.MergeAttributes, "Merge attributes", IsEnabled(RefactoringIdentifiers.MergeAttributes)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.MergeIfStatements, "Merge if statements", IsEnabled(RefactoringIdentifiers.MergeIfStatements)));
@@ -506,7 +493,6 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceConditionalExpressionWithExpression, "Replace conditional expression with expression", IsEnabled(RefactoringIdentifiers.ReplaceConditionalExpressionWithExpression)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceConditionalExpressionWithIfElse, "Replace conditional expression with if-else", IsEnabled(RefactoringIdentifiers.ReplaceConditionalExpressionWithIfElse)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceConstantWithField, "Replace constant with field", IsEnabled(RefactoringIdentifiers.ReplaceConstantWithField)));
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceCountWithLengthOrLengthWithCount, "Replace Count property with Length property (or Length with Count)", IsEnabled(RefactoringIdentifiers.ReplaceCountWithLengthOrLengthWithCount)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceDoStatementWithWhileStatement, "Replace do statement with while statement", IsEnabled(RefactoringIdentifiers.ReplaceDoStatementWithWhileStatement)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringEquals, "Replace equals expression with string.Equals", IsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringEquals)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty, "Replace equals expression with string.IsNullOrEmpty", IsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty)));
@@ -530,7 +516,6 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceStatementWithIfStatement, "Replace statement with if statement", IsEnabled(RefactoringIdentifiers.ReplaceStatementWithIfStatement)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceStringContainsWithStringIndexOf, "Replace string.Contains with string.IndexOf", IsEnabled(RefactoringIdentifiers.ReplaceStringContainsWithStringIndexOf)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceStringFormatWithInterpolatedString, "Replace string.Format with interpolated string", IsEnabled(RefactoringIdentifiers.ReplaceStringFormatWithInterpolatedString)));
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceStringLiteralWithCharacterLiteral, "Replace string literal with character literal", IsEnabled(RefactoringIdentifiers.ReplaceStringLiteralWithCharacterLiteral)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceSwitchWithIfElse, "Replace switch statement with if-else", IsEnabled(RefactoringIdentifiers.ReplaceSwitchWithIfElse)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiteral, "Replace verbatim string literal with regular string literal", IsEnabled(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiteral)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiterals, "Replace verbatim string literal with regular string literals", IsEnabled(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiterals)));
@@ -570,15 +555,6 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.UseListInsteadOfYield, "Use List<T> instead of yield", IsEnabled(RefactoringIdentifiers.UseListInsteadOfYield)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.SplitIfStatement, "Split if statement", IsEnabled(RefactoringIdentifiers.SplitIfStatement)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceObjectCreationWithDefaultValue, "Replace object creation with default value", IsEnabled(RefactoringIdentifiers.ReplaceObjectCreationWithDefaultValue)));
-        }
-
-        [Browsable(false)]
-        [Category(RefactoringCategory)]
-        [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool AddBooleanComparison
-        {
-            get;
-            set;
         }
 
         [Browsable(false)]
@@ -944,15 +920,6 @@ namespace Roslynator.VisualStudio
         [Browsable(false)]
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool ExtractDeclarationFromUsingStatement
-        {
-            get;
-            set;
-        }
-
-        [Browsable(false)]
-        [Category(RefactoringCategory)]
-        [TypeConverter(typeof (EnabledDisabledConverter))]
         public bool ExtractExpressionFromCondition
         {
             get;
@@ -1215,15 +1182,6 @@ namespace Roslynator.VisualStudio
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
         public bool MarkContainingClassAsAbstract
-        {
-            get;
-            set;
-        }
-
-        [Browsable(false)]
-        [Category(RefactoringCategory)]
-        [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool MarkMemberAsStatic
         {
             get;
             set;
@@ -1664,15 +1622,6 @@ namespace Roslynator.VisualStudio
         [Browsable(false)]
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool ReplaceCountWithLengthOrLengthWithCount
-        {
-            get;
-            set;
-        }
-
-        [Browsable(false)]
-        [Category(RefactoringCategory)]
-        [TypeConverter(typeof (EnabledDisabledConverter))]
         public bool ReplaceDoStatementWithWhileStatement
         {
             get;
@@ -1863,15 +1812,6 @@ namespace Roslynator.VisualStudio
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
         public bool ReplaceStringFormatWithInterpolatedString
-        {
-            get;
-            set;
-        }
-
-        [Browsable(false)]
-        [Category(RefactoringCategory)]
-        [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool ReplaceStringLiteralWithCharacterLiteral
         {
             get;
             set;
