@@ -67,6 +67,7 @@
     <Compile Include="AddOutModifierToArgument.cs" />
     <Compile Include="ChangeAccessibility.cs" />
     <Compile Include="RemoveArgumentList.cs" />
+    <Compile Include="RemoveAwaitKeyword.cs" />
     <Compile Include="RemoveConstModifier.cs" />
     <Compile Include="RemoveConstraintClause.cs" />
     <Compile Include="RemoveDuplicateAttribute.cs" />

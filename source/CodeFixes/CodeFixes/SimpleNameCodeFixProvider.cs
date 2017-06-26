@@ -3,7 +3,6 @@
 using System.Collections.Immutable;
 using System.Composition;
 using System.Diagnostics;
-using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -20,22 +19,13 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get
-            {
-                return ImmutableArray.Create(
-                    CompilerDiagnosticIdentifiers.TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound,
-                    CompilerDiagnosticIdentifiers.CannotConvertMethodGroupToNonDelegateType);
-            }
+            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.CannotConvertMethodGroupToNonDelegateType); }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            if (!Settings.IsAnyCodeFixEnabled(
-                CodeFixIdentifiers.FixMemberAccessName,
-                CodeFixIdentifiers.AddArgumentList))
-            {
+            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddArgumentList))
                 return;
-            }
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
@@ -52,44 +42,8 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 switch (diagnostic.Id)
                 {
-                    case CompilerDiagnosticIdentifiers.TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound:
-                        {
-                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.FixMemberAccessName))
-                                break;
-
-                            if (!simpleName.IsParentKind(SyntaxKind.SimpleMemberAccessExpression))
-                                break;
-
-                            var memberAccess = (MemberAccessExpressionSyntax)simpleName.Parent;
-
-                            if (memberAccess.IsParentKind(SyntaxKind.InvocationExpression))
-                                break;
-
-                            switch (simpleName.Identifier.ValueText)
-                            {
-                                case "Count":
-                                    {
-                                        SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
-
-                                        ComputeCodeFix(context, diagnostic, memberAccess, semanticModel, "Count", "Length");
-                                        break;
-                                    }
-                                case "Length":
-                                    {
-                                        SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
-
-                                        ComputeCodeFix(context, diagnostic, memberAccess, semanticModel, "Length", "Count");
-                                        break;
-                                    }
-                            }
-
-                            break;
-                        }
                     case CompilerDiagnosticIdentifiers.CannotConvertMethodGroupToNonDelegateType:
                         {
-                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddArgumentList))
-                                break;
-
                             if (!simpleName.IsParentKind(SyntaxKind.SimpleMemberAccessExpression))
                                 break;
 
@@ -112,71 +66,6 @@ namespace Roslynator.CSharp.CodeFixes
                         }
                 }
             }
-        }
-
-        private void ComputeCodeFix(
-            CodeFixContext context,
-            Diagnostic diagnostic,
-            MemberAccessExpressionSyntax memberAccess,
-            SemanticModel semanticModel,
-            string name,
-            string newName)
-        {
-            if (IsFixable(memberAccess, newName, semanticModel, context.CancellationToken))
-            {
-                CodeAction codeAction = CodeAction.Create(
-                    $"Use '{newName}' instead of '{name}'",
-                    cancellationToken => RefactorAsync(context.Document, memberAccess, newName, cancellationToken),
-                    GetEquivalenceKey(diagnostic));
-
-                context.RegisterCodeFix(codeAction, diagnostic);
-            }
-        }
-
-        private static bool IsFixable(
-            MemberAccessExpressionSyntax memberAccess,
-            string newName,
-            SemanticModel semanticModel,
-            CancellationToken cancellationToken)
-        {
-            ITypeSymbol typeSymbol = semanticModel.GetTypeSymbol(memberAccess.Expression, cancellationToken);
-
-            if (typeSymbol != null)
-            {
-                if (typeSymbol.IsArrayType())
-                    typeSymbol = ((IArrayTypeSymbol)typeSymbol).ElementType;
-
-                foreach (ISymbol symbol in typeSymbol.GetMembers(newName))
-                {
-                    if (!symbol.IsStatic
-                        && symbol.IsProperty())
-                    {
-                        var propertySymbol = (IPropertySymbol)symbol;
-
-                        if (!propertySymbol.IsIndexer
-                            && propertySymbol.IsReadOnly
-                            && semanticModel.IsAccessible(memberAccess.SpanStart, symbol))
-                        {
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            return false;
-        }
-
-        private static Task<Document> RefactorAsync(
-            Document document,
-            MemberAccessExpressionSyntax memberAccess,
-            string newName,
-            CancellationToken cancellationToken = default(CancellationToken))
-        {
-            MemberAccessExpressionSyntax newNode = memberAccess
-                .WithName(IdentifierName(newName))
-                .WithTriviaFrom(memberAccess.Name);
-
-            return document.ReplaceNodeAsync(memberAccess, newNode, cancellationToken);
         }
     }
 }
