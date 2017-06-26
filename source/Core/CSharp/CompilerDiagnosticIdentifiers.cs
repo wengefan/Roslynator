@@ -14,6 +14,7 @@ namespace Roslynator.CSharp
         public const string MemberHidesInheritedMember = Prefix + "0114";
         public const string ObjectReferenceIsRequiredForNonStaticMember = Prefix + "0120";
         public const string NoOverloadMatchesDelegate = Prefix + "0123";
+        public const string ExpressionBeingAssignedMustBeConstant = Prefix + "0133";
         public const string NotAllCodePathsReturnValue = Prefix + "0161";
         public const string UnreachableCodeDetected = Prefix + "0162";
         public const string ControlCannotFallThroughFromOneCaseLabelToAnother = Prefix + "0163";

@@ -61,6 +61,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.MakeMemberNonStatic, "Make member non-static (fixes CS0120)", IsEnabled(CodeFixIdentifiers.MakeMemberNonStatic)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveConstraintClause, "Remove constraint clause (fixes CS0080)", IsEnabled(CodeFixIdentifiers.RemoveConstraintClause)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddTypeArgument, "Add type argument (fixes CS0305)", IsEnabled(CodeFixIdentifiers.AddTypeArgument)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveConstModifier, "Remove 'const' modifier (fixes CS0133)", IsEnabled(CodeFixIdentifiers.RemoveConstModifier)));
         }
     }
 }

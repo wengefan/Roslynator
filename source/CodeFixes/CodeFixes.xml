@@ -232,4 +232,9 @@
       <Id>CS0305</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0045" Identifier="RemoveConstModifier" Title="Remove 'const' modifier">
+    <FixableDiagnosticIds>
+      <Id>CS0133</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

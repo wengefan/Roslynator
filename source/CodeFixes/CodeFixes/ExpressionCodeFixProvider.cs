@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Helpers;
 using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
@@ -23,7 +24,8 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 return ImmutableArray.Create(
                     CompilerDiagnosticIdentifiers.CannotImplicitlyConvertTypeExplicitConversionExists,
-                    CompilerDiagnosticIdentifiers.ConstantValueCannotBeConverted);
+                    CompilerDiagnosticIdentifiers.ConstantValueCannotBeConverted,
+                    CompilerDiagnosticIdentifiers.ExpressionBeingAssignedMustBeConstant);
             }
         }
 
@@ -32,7 +34,8 @@ namespace Roslynator.CSharp.CodeFixes
             if (!Settings.IsAnyCodeFixEnabled(
                 CodeFixIdentifiers.AddComparisonWithBooleanLiteral,
                 CodeFixIdentifiers.CreateSingletonArray,
-                CodeFixIdentifiers.UseUncheckedExpression))
+                CodeFixIdentifiers.UseUncheckedExpression,
+                CodeFixIdentifiers.RemoveConstModifier))
             {
                 return;
             }
@@ -114,8 +117,63 @@ namespace Roslynator.CSharp.CodeFixes
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
+                    case CompilerDiagnosticIdentifiers.ExpressionBeingAssignedMustBeConstant:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveConstModifier))
+                                break;
+
+                            LocalDeclarationStatementSyntax localDeclarationStatement = GetLocalDeclarationStatement(expression);
+
+                            if (localDeclarationStatement == null)
+                                break;
+
+                            SyntaxTokenList modifiers = localDeclarationStatement.Modifiers;
+
+                            if (!modifiers.Contains(SyntaxKind.ConstKeyword))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Remove 'const' modifier",
+                                cancellationToken =>
+                                {
+                                    LocalDeclarationStatementSyntax newNode = RemoveModifierHelper.RemoveModifier(localDeclarationStatement, SyntaxKind.ConstKeyword);
+
+                                    return context.Document.ReplaceNodeAsync(localDeclarationStatement, newNode, cancellationToken);
+                                },
+                                GetEquivalenceKey(diagnostic));
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
                 }
             }
+        }
+
+        private static LocalDeclarationStatementSyntax GetLocalDeclarationStatement(ExpressionSyntax expression)
+        {
+            SyntaxNode parent = expression.Parent;
+
+            if (parent?.IsKind(SyntaxKind.EqualsValueClause) == true)
+            {
+                parent = parent.Parent;
+
+                if (parent.IsKind(SyntaxKind.VariableDeclarator))
+                {
+                    parent = parent.Parent;
+
+                    if (parent?.IsKind(SyntaxKind.VariableDeclaration) == true)
+                    {
+                        parent = parent.Parent;
+
+                        if (parent?.IsKind(SyntaxKind.LocalDeclarationStatement) == true)
+                        {
+                            return (LocalDeclarationStatementSyntax)parent;
+                        }
+                    }
+                }
+            }
+
+            return null;
         }
     }
 }

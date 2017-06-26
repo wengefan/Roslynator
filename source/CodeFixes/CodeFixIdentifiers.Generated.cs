@@ -50,5 +50,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string MakeMemberNonStatic = Prefix + "0042";
         public const string RemoveConstraintClause = Prefix + "0043";
         public const string AddTypeArgument = Prefix + "0044";
+        public const string RemoveConstModifier = Prefix + "0045";
     }
 }

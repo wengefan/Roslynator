@@ -31,6 +31,7 @@ RCF0018|Member return type must match overridden member return type|[CS0508](htt
 RCF0019|Member type must match overridden member type|[CS1715](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1715)|x
 RCF0015|Overriding member cannot change access modifiers|[CS0507](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0507)|x
 RCF0037|Remove argument list|[CS1955](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1955)|x
+RCF0045|Remove 'const' modifier|[CS0133](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0133)|x
 RCF0043|Remove constraint clause|[CS0080](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080)|x
 RCF0012|Remove duplicate attribute|[CS0579](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0579)|x
 RCF0011|Remove duplicate modifier|[CS1004](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1004)|x
