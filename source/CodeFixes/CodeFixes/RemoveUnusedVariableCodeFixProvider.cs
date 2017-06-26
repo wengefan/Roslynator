@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -97,6 +97,18 @@ namespace Roslynator.CSharp.CodeFixes
                                                 return context.Document.ReplaceNodeAsync(catchDeclaration, newNode, context.CancellationToken);
                                             },
                                             GetEquivalenceKey(diagnostic));
+
+                                        context.RegisterCodeFix(codeAction, diagnostic);
+                                        break;
+                                    }
+                                case SyntaxKind.LocalFunctionStatement:
+                                    {
+                                        var localFunction = (LocalFunctionStatementSyntax)token.Parent;
+
+                                        CodeAction codeAction = CodeAction.Create(
+                                            "Remove unused local function",
+                                            cancellationToken => context.Document.RemoveStatementAsync(localFunction, context.CancellationToken),
+                                            GetEquivalenceKey(diagnostic, "LocalFunction"));
 
                                         context.RegisterCodeFix(codeAction, diagnostic);
                                         break;
