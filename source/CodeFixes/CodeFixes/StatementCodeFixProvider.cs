@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.CodeFixes
@@ -18,13 +19,22 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.UnreachableCodeDetected); }
+            get
+            {
+                return ImmutableArray.Create(
+                    CompilerDiagnosticIdentifiers.UnreachableCodeDetected,
+                    CompilerDiagnosticIdentifiers.EmptySwitchBlock);
+            }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveUnreachableCode))
+            if (!Settings.IsAnyCodeFixEnabled(
+                CodeFixIdentifiers.RemoveUnreachableCode,
+                CodeFixIdentifiers.RemoveEmptySwitchStatement))
+            {
                 return;
+            }
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
@@ -79,6 +89,24 @@ namespace Roslynator.CSharp.CodeFixes
                                 }
                             }
 
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.EmptySwitchBlock:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveEmptySwitchStatement))
+                                break;
+
+                            if (!statement.IsKind(SyntaxKind.SwitchStatement))
+                                break;
+
+                            var switchStatement = (SwitchStatementSyntax)statement;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Remove switch statement",
+                                cancellationToken => context.Document.RemoveStatementAsync(switchStatement, cancellationToken),
+                                GetEquivalenceKey(diagnostic));
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                 }

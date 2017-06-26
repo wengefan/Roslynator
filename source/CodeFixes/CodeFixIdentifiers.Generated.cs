@@ -51,5 +51,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveConstraintClause = Prefix + "0043";
         public const string AddTypeArgument = Prefix + "0044";
         public const string RemoveConstModifier = Prefix + "0045";
+        public const string RemoveEmptySwitchStatement = Prefix + "0046";
     }
 }

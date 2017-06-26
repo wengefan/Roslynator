@@ -35,6 +35,7 @@ RCF0045|Remove 'const' modifier|[CS0133](http://docs.microsoft.com/en-us/dotnet/
 RCF0043|Remove constraint clause|[CS0080](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080)|x
 RCF0012|Remove duplicate attribute|[CS0579](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0579)|x
 RCF0011|Remove duplicate modifier|[CS1004](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1004)|x
+RCF0046|Remove empty switch statement|[CS1522](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1522)|x
 RCF0032|Remove implementation from abstract member|[CS0069](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0069), [CS0500](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500), [CS0531](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0531)|x
 RCF0013|Remove new modifier|[CS0109](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0109)|x
 RCF0024|Remove property or field initializer|[CS0573](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0573)|x

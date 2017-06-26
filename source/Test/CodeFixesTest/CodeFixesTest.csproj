@@ -75,6 +75,7 @@
     <Compile Include="RemovePropertyOrFieldInitializer.cs" />
     <Compile Include="RemoveRedundantAssignment.cs" />
     <Compile Include="RemoveRefModifier.cs" />
+    <Compile Include="RemoveSwitchStatement.cs" />
     <Compile Include="RemoveUnreachableCode.cs" />
     <Compile Include="RemoveUnusedLabel.cs" />
     <Compile Include="RemoveUnusedVariable.cs" />

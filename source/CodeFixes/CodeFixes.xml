@@ -237,4 +237,9 @@
       <Id>CS0133</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0046" Identifier="RemoveEmptySwitchStatement" Title="Remove empty switch statement">
+    <FixableDiagnosticIds>
+      <Id>CS1522</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

@@ -49,6 +49,7 @@ namespace Roslynator.CSharp
         public const string StaticClassesCannotContainProtectedMembers = Prefix + "1057";
         public const string TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound = Prefix + "1061";
         public const string CannotConvertArgumentType = Prefix + "1503";
+        public const string EmptySwitchBlock = Prefix + "1522";
         public const string MissingXmlCommentForPubliclyVisibleTypeOrMember = Prefix + "1591";
         public const string ArgumentMayNotBePassedWithRefKeyword = Prefix + "1615";
         public const string ArgumentMustBePassedWithOutKeyword = Prefix + "1620";
