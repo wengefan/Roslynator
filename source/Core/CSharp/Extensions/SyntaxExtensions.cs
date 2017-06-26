@@ -2301,6 +2301,45 @@ namespace Roslynator.CSharp
                     }
             }
         }
+        #endregion SyntaxList<T>
+
+        #region SyntaxNode
+        public static bool SupportsModifiers(this SyntaxNode node)
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+            switch (node.Kind())
+            {
+                case SyntaxKind.ClassDeclaration:
+                case SyntaxKind.ConstructorDeclaration:
+                case SyntaxKind.ConversionOperatorDeclaration:
+                case SyntaxKind.DelegateDeclaration:
+                case SyntaxKind.DestructorDeclaration:
+                case SyntaxKind.EnumDeclaration:
+                case SyntaxKind.EventDeclaration:
+                case SyntaxKind.EventFieldDeclaration:
+                case SyntaxKind.FieldDeclaration:
+                case SyntaxKind.IndexerDeclaration:
+                case SyntaxKind.InterfaceDeclaration:
+                case SyntaxKind.MethodDeclaration:
+                case SyntaxKind.OperatorDeclaration:
+                case SyntaxKind.PropertyDeclaration:
+                case SyntaxKind.StructDeclaration:
+                case SyntaxKind.IncompleteMember:
+                case SyntaxKind.GetAccessorDeclaration:
+                case SyntaxKind.SetAccessorDeclaration:
+                case SyntaxKind.AddAccessorDeclaration:
+                case SyntaxKind.RemoveAccessorDeclaration:
+                case SyntaxKind.UnknownAccessorDeclaration:
+                case SyntaxKind.LocalDeclarationStatement:
+                case SyntaxKind.LocalFunctionStatement:
+                case SyntaxKind.Parameter:
+                    return true;
+            }
+
+            return false;
+        }
 
         internal static SyntaxNode WithModifiers(this SyntaxNode node, SyntaxTokenList modifiers)
         {

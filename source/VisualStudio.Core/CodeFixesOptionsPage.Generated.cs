@@ -66,6 +66,8 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.IntroduceLocalVariable, "Introduce local variable (fixes CS0201)", IsEnabled(CodeFixIdentifiers.IntroduceLocalVariable)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.UseExplicitTypeInsteadOfVar, "Use explicit type instead of 'var' (fixes CS0819, CS0822)", IsEnabled(CodeFixIdentifiers.UseExplicitTypeInsteadOfVar)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveAwaitKeyword, "Remove 'await' keyword (fixes CS1061)", IsEnabled(CodeFixIdentifiers.RemoveAwaitKeyword)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.WrapInUnsafeStatement, "Wrap in unsafe statement (fixes CS0214)", IsEnabled(CodeFixIdentifiers.WrapInUnsafeStatement)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddUnsafeModifier, "Add 'unsafe' modifier (fixes CS0214)", IsEnabled(CodeFixIdentifiers.AddUnsafeModifier)));
         }
     }
 }

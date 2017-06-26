@@ -258,4 +258,14 @@
       <Id>CS1061</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0050" Identifier="WrapInUnsafeStatement" Title="Wrap in unsafe statement">
+    <FixableDiagnosticIds>
+      <Id>CS0214</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCF0051" Identifier="AddUnsafeModifier" Title="Add 'unsafe' modifier">
+    <FixableDiagnosticIds>
+      <Id>CS0214</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

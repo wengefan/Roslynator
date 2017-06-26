@@ -55,5 +55,7 @@ namespace Roslynator.CSharp.CodeFixes
         public const string IntroduceLocalVariable = Prefix + "0047";
         public const string UseExplicitTypeInsteadOfVar = Prefix + "0048";
         public const string RemoveAwaitKeyword = Prefix + "0049";
+        public const string WrapInUnsafeStatement = Prefix + "0050";
+        public const string AddUnsafeModifier = Prefix + "0051";
     }
 }

@@ -16,6 +16,7 @@ RCF0020|Add return statement that returns default value|[CS0161](http://docs.mic
 RCF0035|Add semicolon|[CS1002](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1002)|
 RCF0033|Add 'static' modifier|[CS0708](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0708), [CS0710](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0710)|x
 RCF0044|Add type argument|[CS0305](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0305)|x
+RCF0051|Add 'unsafe' modifier|[CS0214](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0214)|x
 RCF0005|Base base class before any interface|[CS1722](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1722)|x
 RCF0029|Change accessibility|[CS0628](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628), [CS1057](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1057)|x
 RCF0041|Change type of local variable|[CS0123](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0123), [CS0407](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0407), [CS0815](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0815)|x
@@ -51,3 +52,4 @@ RCF0017|Unreachable code detected|[CS0162](http://docs.microsoft.com/en-us/dotne
 RCF0048|Use explicit type instead of 'var'|[CS0819](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0819), [CS0822](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0822)|x
 RCF0031|Use unchecked expression|[CS0221](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0221)|x
 RCF0021|Use yield return instead of return|[CS0029](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029), [CS1622](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1622)|x
+RCF0050|Wrap in unsafe statement|[CS0214](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0214)|x
