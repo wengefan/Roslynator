@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System.Diagnostics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeFixes;
 
@@ -24,14 +23,10 @@ namespace Roslynator.CSharp.CodeFixes
         {
             if (additionalKey != null)
             {
-                Debug.WriteLine($"{EquivalenceKeyPrefix}.{key}.{additionalKey}");
-
                 return $"{EquivalenceKeyPrefix}.{key}.{additionalKey}";
             }
             else
             {
-                Debug.WriteLine($"{EquivalenceKeyPrefix}.{key}");
-
                 return $"{EquivalenceKeyPrefix}.{key}";
             }
         }
