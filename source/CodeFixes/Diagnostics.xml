@@ -39,6 +39,8 @@
   <Diagnostic Id="CS0751" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0751" />
   <Diagnostic Id="CS0756" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0756" />
   <Diagnostic Id="CS0815" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0815" />
+  <Diagnostic Id="CS0819" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0819" />
+  <Diagnostic Id="CS0822" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0822" />
   <Diagnostic Id="CS1002" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1002" />
   <Diagnostic Id="CS1004" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1004" />
   <Diagnostic Id="CS1023" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1023" />

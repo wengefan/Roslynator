@@ -247,4 +247,10 @@
       <Id>CS0201</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0048" Identifier="UseExplicitTypeInsteadOfVar" Title="Use explicit type instead of 'var'">
+    <FixableDiagnosticIds>
+      <Id>CS0819</Id>
+      <Id>CS0822</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

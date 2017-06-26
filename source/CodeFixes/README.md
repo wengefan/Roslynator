@@ -47,5 +47,6 @@ RCF0001|Remove unused variable|[CS0168](http://docs.microsoft.com/en-us/dotnet/c
 RCF0022|Replace string literal with character literal|[CS0029](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029)|x
 RCF0036|SynchronizeAccessibility|[CS0266](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0266)|x
 RCF0017|Unreachable code detected|[CS0162](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0162)|x
+RCF0048|Use explicit type instead of 'var'|[CS0819](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0819), [CS0822](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0822)|x
 RCF0031|Use unchecked expression|[CS0221](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0221)|x
 RCF0021|Use yield return instead of return|[CS0029](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029), [CS1622](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1622)|x

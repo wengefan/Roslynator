@@ -41,6 +41,8 @@ Diagnostic | Code Fixes
 [CS0751](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0751)|RCF0025
 [CS0756](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0756)|RCF0026
 [CS0815](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0815)|RCF0041
+[CS0819](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0819)|RCF0048
+[CS0822](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0822)|RCF0048
 [CS1002](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1002)|RCF0035
 [CS1004](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1004)|RCF0011
 [CS1023](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1023)|RCF0009

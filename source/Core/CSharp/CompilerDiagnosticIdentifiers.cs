@@ -44,6 +44,8 @@ namespace Roslynator.CSharp
         public const string StaticClassesCannotHaveInstanceConstructors = Prefix + "0710";
         public const string PartialMethodMayNotHaveMultipleDefiningDeclarations = Prefix + "0756";
         public const string CannotAssignMethodGroupToImplicitlyTypedVariable = Prefix + "0815";
+        public const string ImplicitlyTypedVariablesCannotHaveMultipleDeclarators = Prefix + "0819";
+        public const string ImplicitlyTypedVariablesCannotBeConstant = Prefix + "0822";
         public const string SemicolonExpected = Prefix + "1002";
         public const string DuplicateModifier = Prefix + "1004";
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = Prefix + "1023";

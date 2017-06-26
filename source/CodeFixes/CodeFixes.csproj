@@ -78,6 +78,7 @@
     <Compile Include="CodeFixes\SynchronizeAccessibilityCodeFixProvider.cs" />
     <Compile Include="CodeFixes\TokenCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ChangeTypeOfLocalVariableCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\VariableDeclarationCodeFixProvider.cs" />
     <Compile Include="CodeFixIdentifiers.cs" />
     <Compile Include="CodeFixIdentifiers.Generated.cs" />
     <Compile Include="CodeFixIdentifierSet.cs" />

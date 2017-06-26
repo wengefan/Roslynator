@@ -498,7 +498,7 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty, "Replace equals expression with string.IsNullOrEmpty", IsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace, "Replace equals expression with string.IsNullOrWhiteSpace", IsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceExpressionWithConstantValue, "Replace expression with constant value", IsEnabled(RefactoringIdentifiers.ReplaceExpressionWithConstantValue)));
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceFieldWithConstant, "Replace field with constant", IsEnabled(RefactoringIdentifiers.ReplaceFieldWithConstant)));
+            refactorings.Add(new BaseModel(RefactoringIdentifiers.UseConstantInsteadOfField, "Use constant instead of field", IsEnabled(RefactoringIdentifiers.UseConstantInsteadOfField)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceForEachWithFor, "Replace foreach statement with for statement", IsEnabled(RefactoringIdentifiers.ReplaceForEachWithFor)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceForWithForEach, "Replace for statement with foreach statement", IsEnabled(RefactoringIdentifiers.ReplaceForWithForEach)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceForWithWhile, "Replace for statement with while statement", IsEnabled(RefactoringIdentifiers.ReplaceForWithWhile)));
