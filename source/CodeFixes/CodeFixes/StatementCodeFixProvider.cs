@@ -137,8 +137,8 @@ namespace Roslynator.CSharp.CodeFixes
 
                                     CodeAction codeAction = CodeAction.Create(
                                         IntroduceLocalVariableRefactoring.GetTitle(expression),
-                                        cancellationToken => IntroduceLocalVariableRefactoring.RefactorAsync(context.Document, expressionStatement, typeSymbol, addAwait, semanticModel, cancellationToken));
-                                        GetEquivalenceKey(diagnostic);
+                                        cancellationToken => IntroduceLocalVariableRefactoring.RefactorAsync(context.Document, expressionStatement, typeSymbol, addAwait, semanticModel, cancellationToken),
+                                        GetEquivalenceKey(diagnostic));
 
                                     context.RegisterCodeFix(codeAction, diagnostic);
                                 }
