@@ -10,6 +10,7 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -23,7 +24,8 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 return ImmutableArray.Create(
                     CompilerDiagnosticIdentifiers.UnreachableCodeDetected,
-                    CompilerDiagnosticIdentifiers.EmptySwitchBlock);
+                    CompilerDiagnosticIdentifiers.EmptySwitchBlock,
+                    CompilerDiagnosticIdentifiers.OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement);
             }
         }
 
@@ -31,7 +33,8 @@ namespace Roslynator.CSharp.CodeFixes
         {
             if (!Settings.IsAnyCodeFixEnabled(
                 CodeFixIdentifiers.RemoveUnreachableCode,
-                CodeFixIdentifiers.RemoveEmptySwitchStatement))
+                CodeFixIdentifiers.RemoveEmptySwitchStatement,
+                CodeFixIdentifiers.IntroduceLocalVariable))
             {
                 return;
             }
@@ -107,6 +110,40 @@ namespace Roslynator.CSharp.CodeFixes
                                 GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.IntroduceLocalVariable))
+                                break;
+
+                            if (!statement.IsKind(SyntaxKind.ExpressionStatement))
+                                break;
+
+                            var expressionStatement = (ExpressionStatementSyntax)statement;
+
+                            ExpressionSyntax expression = expressionStatement.Expression;
+
+                            SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
+
+                            if (semanticModel.GetSymbol(expression, context.CancellationToken)?.IsErrorType() == false)
+                            {
+                                ITypeSymbol typeSymbol = semanticModel.GetTypeSymbol(expression, context.CancellationToken);
+
+                                if (typeSymbol?.IsErrorType() == false)
+                                {
+                                    bool addAwait = typeSymbol.IsConstructedFromTaskOfT(semanticModel)
+                                        && semanticModel.GetEnclosingSymbol(expressionStatement.SpanStart, context.CancellationToken).IsAsyncMethod();
+
+                                    CodeAction codeAction = CodeAction.Create(
+                                        IntroduceLocalVariableRefactoring.GetTitle(expression),
+                                        cancellationToken => IntroduceLocalVariableRefactoring.RefactorAsync(context.Document, expressionStatement, typeSymbol, addAwait, semanticModel, cancellationToken));
+                                        GetEquivalenceKey(diagnostic);
+
+                                    context.RegisterCodeFix(codeAction, diagnostic);
+                                }
+                            }
+
                             break;
                         }
                 }

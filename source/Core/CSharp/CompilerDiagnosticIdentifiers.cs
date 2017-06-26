@@ -21,6 +21,7 @@ namespace Roslynator.CSharp
         public const string LabelHasNotBeenReferenced = Prefix + "0164";
         public const string UseOfUnassignedLocalVariable = Prefix + "0165";
         public const string VariableIsDeclaredButNeverUsed = Prefix + "0168";
+        public const string OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement = Prefix + "0201";
         public const string VariableIsAssignedButItsValueIsNeverUsed = Prefix + "0219";
         public const string ConstantValueCannotBeConverted = Prefix + "0221";
         public const string ParamsParameterMustBeSingleDimensionalArray = Prefix + "0225";

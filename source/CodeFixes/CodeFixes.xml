@@ -242,4 +242,9 @@
       <Id>CS1522</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0047" Identifier="IntroduceLocalVariable" Title="Introduce local variable">
+    <FixableDiagnosticIds>
+      <Id>CS0201</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

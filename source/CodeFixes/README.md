@@ -24,6 +24,7 @@ RCF0003|Create singleton array|[CS0266](http://docs.microsoft.com/en-us/dotnet/c
 RCF0008|Extract declaration from using statement|[CS1674](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1674)|x
 RCF0038|Fix member access name|[CS1061](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1061)|x
 RCF0040|Initialize local variable with default value|[CS0165](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0165)|x
+RCF0047|Introduce local variable|[CS0201](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0201)|x
 RCF0034|Make containing class abstract|[CS0513](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0513)|x
 RCF0042|Make member non\-static|[CS0120](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0120)|x
 RCF0010|Mark operator as 'public' and 'static'|[CS0558](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0558)|x

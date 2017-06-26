@@ -11,67 +11,19 @@ namespace Roslynator.CSharp.Refactorings
 {
     internal static class IntroduceLocalVariableRefactoring
     {
-        public static async Task ComputeRefactoringAsync(
-            RefactoringContext context,
-            ExpressionStatementSyntax expressionStatement,
-            ExpressionSyntax expression)
-        {
-            if (!(expression is AssignmentExpressionSyntax)
-                && !expression.IsIncrementOrDecrementExpression())
-            {
-                SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
-
-                if (semanticModel.GetSymbol(expression, context.CancellationToken)?.IsErrorType() == false)
-                {
-                    ITypeSymbol typeSymbol = semanticModel.GetTypeSymbol(expression, context.CancellationToken);
-
-                    if (typeSymbol?.IsErrorType() == false
-                        && !typeSymbol.Equals(semanticModel.GetTypeByMetadataName(MetadataNames.System_Threading_Tasks_Task))
-                        && !typeSymbol.IsVoid())
-                    {
-                        bool addAwait = false;
-
-                        if (typeSymbol.IsConstructedFromTaskOfT(semanticModel))
-                        {
-                            ISymbol enclosingSymbol = semanticModel.GetEnclosingSymbol(expressionStatement.SpanStart, context.CancellationToken);
-
-                            addAwait = enclosingSymbol.IsAsyncMethod();
-                        }
-
-                        context.RegisterRefactoring(
-                            GetTitle(expression),
-                            cancellationToken => RefactorAsync(context.Document, expressionStatement, typeSymbol, addAwait: addAwait, cancellationToken: cancellationToken));
-                    }
-                }
-            }
-        }
-
-        public static void ComputeRefactoring(RefactoringContext context, UsingStatementSyntax usingStatement)
-        {
-            ExpressionSyntax expression = usingStatement.Expression;
-
-            if (expression != null)
-            {
-                context.RegisterRefactoring(
-                    GetTitle(expression),
-                    cancellationToken => RefactorAsync(context.Document, usingStatement, expression, cancellationToken));
-            }
-        }
-
-        private static string GetTitle(ExpressionSyntax expression)
+        internal static string GetTitle(ExpressionSyntax expression)
         {
             return $"Introduce local for '{expression}'";
         }
 
-        private static async Task<Document> RefactorAsync(
+        internal static Task<Document> RefactorAsync(
             Document document,
             ExpressionStatementSyntax expressionStatement,
             ITypeSymbol typeSymbol,
             bool addAwait,
+            SemanticModel semanticModel,
             CancellationToken cancellationToken)
         {
-            SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
-
             if (addAwait)
                 typeSymbol = ((INamedTypeSymbol)typeSymbol).TypeArguments[0];
 
@@ -97,10 +49,10 @@ namespace Roslynator.CSharp.Refactorings
                 .WithTriviaFrom(expressionStatement)
                 .WithFormatterAnnotation();
 
-            return await document.ReplaceNodeAsync(expressionStatement, newNode, cancellationToken).ConfigureAwait(false);
+            return document.ReplaceNodeAsync(expressionStatement, newNode, cancellationToken);
         }
 
-        private static async Task<Document> RefactorAsync(
+        public static async Task<Document> RefactorAsync(
             Document document,
             UsingStatementSyntax usingStatement,
             ExpressionSyntax expression,
@@ -112,7 +64,7 @@ namespace Roslynator.CSharp.Refactorings
 
             VariableDeclarationSyntax declaration = VariableDeclaration(
                 VarType(),
-                name,
+                Identifier(name).WithRenameAnnotation(),
                 EqualsValueClause(expression.WithoutTrivia()));
 
             declaration = declaration

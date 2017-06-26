@@ -16,6 +16,7 @@
   <Diagnostic Id="CS0164" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0164" />
   <Diagnostic Id="CS0165" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0165" />
   <Diagnostic Id="CS0168" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0168" />
+  <Diagnostic Id="CS0201" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0201" />
   <Diagnostic Id="CS0219" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0219" />
   <Diagnostic Id="CS0221" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0221" />
   <Diagnostic Id="CS0225" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0225" />
