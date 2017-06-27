@@ -274,4 +274,9 @@
       <Id>CS1997</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0053" Identifier="RemoveParametersFromStaticConstructor" Title="Remove parameters from static constructor">
+    <FixableDiagnosticIds>
+      <Id>CS0132</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

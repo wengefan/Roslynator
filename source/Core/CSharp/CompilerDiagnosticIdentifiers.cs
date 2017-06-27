@@ -15,6 +15,7 @@ namespace Roslynator.CSharp
         public const string ObjectReferenceIsRequiredForNonStaticMember = Prefix + "0120";
         public const string NoOverloadMatchesDelegate = Prefix + "0123";
         public const string SinceMethodReturnsVoidReturnKeywordMustNotBeFollowedByObjectExpression = Prefix + "0127";
+        public const string StaticConstructorMustBeParameterless = Prefix + "0132";
         public const string ExpressionBeingAssignedMustBeConstant = Prefix + "0133";
         public const string NotAllCodePathsReturnValue = Prefix + "0161";
         public const string UnreachableCodeDetected = Prefix + "0162";

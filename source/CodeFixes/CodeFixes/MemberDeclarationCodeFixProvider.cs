@@ -10,7 +10,6 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Comparers;
-using Roslynator.CSharp.Helpers;
 using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
@@ -35,7 +34,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass,
                     CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors,
                     CompilerDiagnosticIdentifiers.MemberIsAbstractButItIsContainedInNonAbstractClass,
-                    CompilerDiagnosticIdentifiers.ObjectReferenceIsRequiredForNonStaticMember);
+                    CompilerDiagnosticIdentifiers.ObjectReferenceIsRequiredForNonStaticMember,
+                    CompilerDiagnosticIdentifiers.StaticConstructorMustBeParameterless);
             }
         }
 
@@ -50,7 +50,8 @@ namespace Roslynator.CSharp.CodeFixes
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddMethodBody)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeContainingClassAbstract)
-                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeMemberNonStatic))
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeMemberNonStatic)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveParametersFromStaticConstructor))
             {
                 return;
             }
@@ -350,6 +351,33 @@ namespace Roslynator.CSharp.CodeFixes
                                     MemberDeclarationSyntax newNode = memberDeclaration.RemoveModifier(SyntaxKind.StaticKeyword);
 
                                     return context.Document.ReplaceNodeAsync(memberDeclaration, newNode, cancellationToken);
+                                },
+                                GetEquivalenceKey(diagnostic));
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.StaticConstructorMustBeParameterless:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveParametersFromStaticConstructor))
+                                break;
+
+                            var constructorDeclaration = (ConstructorDeclarationSyntax)memberDeclaration;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Remove parameters",
+                                cancellationToken =>
+                                {
+                                    ParameterListSyntax parameterList = constructorDeclaration.ParameterList;
+
+                                    ParameterListSyntax newParameterList = parameterList
+                                        .WithParameters(default(SeparatedSyntaxList<ParameterSyntax>))
+                                        .WithOpenParenToken(parameterList.OpenParenToken.WithoutTrailingTrivia())
+                                        .WithCloseParenToken(parameterList.CloseParenToken.WithoutLeadingTrivia());
+
+                                    ConstructorDeclarationSyntax newNode = constructorDeclaration.WithParameterList(newParameterList);
+
+                                    return context.Document.ReplaceNodeAsync(constructorDeclaration, newNode, cancellationToken);
                                 },
                                 GetEquivalenceKey(diagnostic));
 

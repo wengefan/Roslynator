@@ -41,9 +41,11 @@ RCF0011|Remove duplicate modifier|[CS1004](http://docs.microsoft.com/en-us/dotne
 RCF0046|Remove empty switch statement|[CS1522](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1522)|x
 RCF0032|Remove implementation from abstract member|[CS0069](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0069), [CS0500](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500), [CS0531](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0531)|x
 RCF0013|Remove new modifier|[CS0109](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0109)|x
+RCF0053|Remove parameters from static constructor|[CS0132](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0132)|x
 RCF0024|Remove property or field initializer|[CS0573](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0573)|x
 RCF0028|Remove redundant assignment|[CS1717](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1717)|x
 RCF0027|Remove 'ref' modifier|[CS1615](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1615)|x
+RCF0052|Remove 'return' keyword|[CS0127](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0127), CS1997|x
 RCF0014|Remove unused label|[CS0164](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0164)|x
 RCF0001|Remove unused variable|[CS0168](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0168), [CS0219](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0219)|x
 RCF0022|Replace string literal with character literal|[CS0029](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029)|x

@@ -83,6 +83,7 @@
     <Compile Include="RemoveUnusedVariable.cs" />
     <Compile Include="RemoveReturnKeyword.cs" />
     <Compile Include="ReplaceStringLiteralWithCharacterLiteralRefactoring.cs" />
+    <Compile Include="StaticConstructorMustBeParameterless.cs" />
     <Compile Include="SynchronizeAccessibility.partial.cs" />
     <Compile Include="SynchronizeAccessibility.cs" />
     <Compile Include="Unsafe.cs" />
