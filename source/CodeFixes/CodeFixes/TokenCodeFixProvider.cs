@@ -9,6 +9,8 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Comparers;
+using Roslynator.CSharp.Helpers;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Roslynator.CSharp.CodeFixes
@@ -19,13 +21,22 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.OperatorCannotBeAppliedToOperandOfType); }
+            get
+            {
+                return ImmutableArray.Create(
+                    CompilerDiagnosticIdentifiers.OperatorCannotBeAppliedToOperandOfType,
+                    CompilerDiagnosticIdentifiers.PartialModifierCanOnlyAppearImmediatelyBeforeClassOrStructOrInterfaceOrVoid);
+            }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddArgumentList))
+            if (!Settings.IsAnyCodeFixEnabled(
+                CodeFixIdentifiers.AddArgumentList,
+                CodeFixIdentifiers.ReorderModifiers))
+            {
                 return;
+            }
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
@@ -44,6 +55,9 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case CompilerDiagnosticIdentifiers.OperatorCannotBeAppliedToOperandOfType:
                         {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddArgumentList))
+                                break;
+
                             if (kind != SyntaxKind.QuestionToken)
                                 break;
 
@@ -61,6 +75,28 @@ namespace Roslynator.CSharp.CodeFixes
                                         ArgumentList().WithTrailingTrivia(conditionalAccess.GetTrailingTrivia()));
 
                                     return context.Document.ReplaceNodeAsync(conditionalAccess, invocationExpression, cancellationToken);
+                                },
+                                GetEquivalenceKey(diagnostic));
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.PartialModifierCanOnlyAppearImmediatelyBeforeClassOrStructOrInterfaceOrVoid:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.ReorderModifiers))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Move 'partial' modifier",
+                                cancellationToken =>
+                                {
+                                    SyntaxNode node = token.Parent;
+
+                                    SyntaxNode newNode = RemoveModifierHelper.RemoveModifier(node, token);
+
+                                    newNode = InsertModifierHelper.InsertModifier(newNode, SyntaxKind.PartialKeyword, ModifierComparer.Instance);
+
+                                    return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
                                 },
                                 GetEquivalenceKey(diagnostic));
 

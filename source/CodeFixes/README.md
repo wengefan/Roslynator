@@ -48,6 +48,7 @@ RCF0027|Remove 'ref' modifier|[CS1615](http://docs.microsoft.com/en-us/dotnet/cs
 RCF0052|Remove 'return' keyword|[CS0127](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0127), CS1997|x
 RCF0014|Remove unused label|[CS0164](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0164)|x
 RCF0001|Remove unused variable|[CS0168](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0168), [CS0219](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0219)|x
+RCF0054|Reorder modifiers|[CS0267](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0267)|x
 RCF0022|Replace string literal with character literal|[CS0029](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029)|x
 RCF0036|SynchronizeAccessibility|[CS0266](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0266)|x
 RCF0017|Unreachable code detected|[CS0162](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0162)|x

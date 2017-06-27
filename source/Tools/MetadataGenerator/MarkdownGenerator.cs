@@ -218,7 +218,15 @@ namespace MetadataGenerator
                 {
                     CompilerDiagnosticDescriptor diagnostic = Array.Find(diagnostics, f => f.Id == grouping.Key);
 
-                    sw.Write((diagnostic != null) ? $"[{diagnostic.Id}]({diagnostic.HelpUrl})" : grouping.Key);
+                    if (!string.IsNullOrEmpty(diagnostic?.HelpUrl))
+                    {
+                        sw.Write($"[{diagnostic.Id}]({diagnostic.HelpUrl})");
+                    }
+                    else
+                    {
+                        sw.Write(grouping.Key);
+                    }
+
                     sw.Write('|');
                     sw.Write(string.Join(", ", grouping.Select(f => f.CodeFixDescriptor.Id)));
                     sw.WriteLine();

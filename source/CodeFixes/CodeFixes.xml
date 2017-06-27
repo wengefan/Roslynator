@@ -279,4 +279,9 @@
       <Id>CS0132</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0054" Identifier="ReorderModifiers" Title="Reorder modifiers">
+    <FixableDiagnosticIds>
+      <Id>CS0267</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

@@ -59,5 +59,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string AddUnsafeModifier = Prefix + "0051";
         public const string RemoveReturnKeyword = Prefix + "0052";
         public const string RemoveParametersFromStaticConstructor = Prefix + "0053";
+        public const string ReorderModifiers = Prefix + "0054";
     }
 }
