@@ -19,7 +19,13 @@ namespace Roslynator.CSharp.CodeFixes
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
-            get { return ImmutableArray.Create(CompilerDiagnosticIdentifiers.CannotReturnValueFromIterator); }
+            get
+            {
+                return ImmutableArray.Create(
+                    CompilerDiagnosticIdentifiers.CannotReturnValueFromIterator,
+                    CompilerDiagnosticIdentifiers.SinceMethodReturnsVoidReturnKeywordMustNotBeFollowedByObjectExpression,
+                    CompilerDiagnosticIdentifiers.SinceMethodIsAsyncMethodThatReturnsTaskReturnKeywordMustNotBeFollowedByObjectExpression);
+            }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
@@ -103,6 +109,34 @@ namespace Roslynator.CSharp.CodeFixes
                                 }
                             }
 
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.SinceMethodReturnsVoidReturnKeywordMustNotBeFollowedByObjectExpression:
+                    case CompilerDiagnosticIdentifiers.SinceMethodIsAsyncMethodThatReturnsTaskReturnKeywordMustNotBeFollowedByObjectExpression:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveReturnKeyword))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Remove 'return'",
+                                cancellationToken =>
+                                {
+                                    ExpressionSyntax expression = returnStatement.Expression;
+
+                                    SyntaxTriviaList leadingTrivia = returnStatement
+                                        .GetLeadingTrivia()
+                                        .AddRange(returnStatement.ReturnKeyword.TrailingTrivia.EmptyIfWhitespace())
+                                        .AddRange(expression.GetLeadingTrivia().EmptyIfWhitespace());
+
+                                    ExpressionStatementSyntax newNode = SyntaxFactory.ExpressionStatement(
+                                        expression.WithLeadingTrivia(leadingTrivia),
+                                        returnStatement.SemicolonToken);
+
+                                    return context.Document.ReplaceNodeAsync(returnStatement, newNode, cancellationToken);
+                                },
+                                GetEquivalenceKey(diagnostic));
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                 }

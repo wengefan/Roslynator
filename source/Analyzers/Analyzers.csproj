@@ -286,7 +286,6 @@
     <Compile Include="Refactorings\UseCoalesceExpressionInsteadOfConditionalExpressionRefactoring.cs" />
     <Compile Include="Refactorings\UseInsteadOfCountMethod\ReplaceCountMethodRefactoring.cs" />
     <Compile Include="Refactorings\UseAutoPropertyRefactoring.cs" />
-    <Compile Include="Refactorings\ReplaceReturnStatementWithExpressionStatementRefactoring.cs" />
     <Compile Include="Refactorings\CallCastInsteadOfSelectRefactoring.cs" />
     <Compile Include="Refactorings\CallOfTypeInsteadOfWhereAndCastRefactoring.cs" />
     <Compile Include="Refactorings\SimplifyLambdaExpressionParameterListRefactoring.cs" />
@@ -418,7 +417,6 @@
     <Compile Include="DiagnosticAnalyzers\EnumDeclarationDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\ImplicitArrayCreationExpressionDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\NamedTypeDiagnosticAnalyzer.cs" />
-    <Compile Include="DiagnosticAnalyzers\ReplaceReturnStatementWithExpressionStatementDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\SwitchSectionDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\RemoveRedundantParenthesesDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\QualifiedNameDiagnosticAnalyzer.cs" />

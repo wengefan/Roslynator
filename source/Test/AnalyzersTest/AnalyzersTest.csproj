@@ -159,7 +159,6 @@
     <Compile Include="ReplaceCountMethodWithAnyMethod.cs" />
     <Compile Include="ReplaceCountMethodWithCountOrLengthProperty.cs" />
     <Compile Include="ReplaceIfStatementWithReturnStatement.cs" />
-    <Compile Include="ReplaceReturnStatementWithExpressionStatement.cs" />
     <Compile Include="SortEnumMembers.cs" />
     <Compile Include="UnusedTypeParameter.cs" />
     <Compile Include="UseConditionalAccess.cs" />

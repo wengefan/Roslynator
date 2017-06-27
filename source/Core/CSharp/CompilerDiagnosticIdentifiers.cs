@@ -14,6 +14,7 @@ namespace Roslynator.CSharp
         public const string MemberHidesInheritedMember = Prefix + "0114";
         public const string ObjectReferenceIsRequiredForNonStaticMember = Prefix + "0120";
         public const string NoOverloadMatchesDelegate = Prefix + "0123";
+        public const string SinceMethodReturnsVoidReturnKeywordMustNotBeFollowedByObjectExpression = Prefix + "0127";
         public const string ExpressionBeingAssignedMustBeConstant = Prefix + "0133";
         public const string NotAllCodePathsReturnValue = Prefix + "0161";
         public const string UnreachableCodeDetected = Prefix + "0162";
@@ -43,6 +44,7 @@ namespace Roslynator.CSharp
         public const string NewProtectedMemberDeclaredInSealedClass = Prefix + "0628";
         public const string CannotDeclareInstanceMembersInStaticClass = Prefix + "0708";
         public const string StaticClassesCannotHaveInstanceConstructors = Prefix + "0710";
+        public const string PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct = Prefix + "0751";
         public const string PartialMethodMayNotHaveMultipleDefiningDeclarations = Prefix + "0756";
         public const string CannotAssignMethodGroupToImplicitlyTypedVariable = Prefix + "0815";
         public const string ImplicitlyTypedVariablesCannotHaveMultipleDeclarators = Prefix + "0819";
@@ -63,7 +65,7 @@ namespace Roslynator.CSharp
         public const string AssignmentMadeToSameVariable = Prefix + "1717";
         public const string BaseClassMustComeBeforeAnyInterface = Prefix + "1722";
         public const string NonInvocableMemberCannotBeUsedLikeMethod = Prefix + "1955";
+        public const string SinceMethodIsAsyncMethodThatReturnsTaskReturnKeywordMustNotBeFollowedByObjectExpression = Prefix + "1997";
         public const string ControlCannotFallOutOfSwitchFromFinalCaseLabel = Prefix + "8070";
-        public const string PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct = Prefix + "0751";
     }
 }

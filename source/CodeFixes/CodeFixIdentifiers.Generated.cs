@@ -57,5 +57,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveAwaitKeyword = Prefix + "0049";
         public const string WrapInUnsafeStatement = Prefix + "0050";
         public const string AddUnsafeModifier = Prefix + "0051";
+        public const string RemoveReturnKeyword = Prefix + "0052";
     }
 }
