@@ -70,6 +70,7 @@ namespace Roslynator.CSharp
         public const string ArgumentMayNotBePassedWithRefKeyword = Prefix + "1615";
         public const string ArgumentMustBePassedWithOutKeyword = Prefix + "1620";
         public const string CannotReturnValueFromIterator = Prefix + "1622";
+        public const string NotAllCodePathsReturnValueInAnonymousFunction = Prefix + "1643";
         public const string TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable = Prefix + "1674";
         public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "1715";
         public const string AssignmentMadeToSameVariable = Prefix + "1717";

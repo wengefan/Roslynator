@@ -100,6 +100,7 @@
   <CodeFix Id="RCF0020" Identifier="AddReturnStatementThatReturnsDefaultValue" Title="Add return statement that returns default value">
     <FixableDiagnosticIds>
       <Id>CS0161</Id>
+      <Id>CS1643</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0021" Identifier="UseYieldReturnInsteadOfReturn" Title="Use yield return instead of return">

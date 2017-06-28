@@ -27,7 +27,6 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.MissingXmlCommentForPubliclyVisibleTypeOrMember,
                     CompilerDiagnosticIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType,
                     CompilerDiagnosticIdentifiers.MemberTypeMustMatchOverriddenMemberType,
-                    CompilerDiagnosticIdentifiers.NotAllCodePathsReturnValue,
                     CompilerDiagnosticIdentifiers.MissingPartialModifier,
                     CompilerDiagnosticIdentifiers.PartialMethodMayNotHaveMultipleDefiningDeclarations,
                     CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct,
@@ -45,7 +44,6 @@ namespace Roslynator.CSharp.CodeFixes
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddDocumentationComment)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType)
-                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddMethodBody)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier)
@@ -184,31 +182,6 @@ namespace Roslynator.CSharp.CodeFixes
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }
 
-                            break;
-                        }
-                    case CompilerDiagnosticIdentifiers.NotAllCodePathsReturnValue:
-                        {
-                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddReturnStatementThatReturnsDefaultValue))
-                                break;
-
-                            Debug.Assert(memberDeclaration.IsKind(SyntaxKind.MethodDeclaration), memberDeclaration.Kind().ToString());
-
-                            if (!memberDeclaration.IsKind(SyntaxKind.MethodDeclaration))
-                                break;
-
-                            var methodDeclaration = (MethodDeclarationSyntax)memberDeclaration;
-
-                            SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
-
-                            if (!AddReturnStatementThatReturnsDefaultValueRefactoring.IsFixable(methodDeclaration, semanticModel, context.CancellationToken))
-                                break;
-
-                            CodeAction codeAction = CodeAction.Create(
-                                "Add return statement that returns default value",
-                                cancellationToken => AddReturnStatementThatReturnsDefaultValueRefactoring.RefactorAsync(context.Document, methodDeclaration, cancellationToken),
-                                GetEquivalenceKey(diagnostic));
-
-                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                     case CompilerDiagnosticIdentifiers.MissingPartialModifier:
