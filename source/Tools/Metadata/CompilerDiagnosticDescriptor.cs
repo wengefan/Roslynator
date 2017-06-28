@@ -9,9 +9,11 @@ namespace Roslynator.Metadata
     {
         public CompilerDiagnosticDescriptor(
             string id,
+            string identifier,
             string helpUrl)
         {
             Id = id;
+            Identifier = identifier;
             HelpUrl = helpUrl;
         }
 
@@ -23,11 +25,14 @@ namespace Roslynator.Metadata
             {
                 yield return new CompilerDiagnosticDescriptor(
                     element.Attribute("Id").Value,
+                    element.Attribute("Identifier").Value,
                     element.Attribute("HelpUrl").Value);
             }
         }
 
         public string Id { get; }
+
+        public string Identifier { get; }
 
         public string HelpUrl { get; }
     }

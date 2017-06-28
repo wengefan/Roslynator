@@ -9,6 +9,8 @@ namespace CodeGenerator
 {
     internal static class Program
     {
+        private static readonly StringComparer _invariantComparer = StringComparer.InvariantCulture;
+
         private static void Main(string[] args)
         {
             if (args == null || args.Length == 0)
@@ -55,6 +57,17 @@ namespace CodeGenerator
             writer.SaveCode(
                 Path.Combine(dirPath, @"VisualStudio.Core\CodeFixesOptionsPage.Generated.cs"),
                 codeFixesOptionsPageGenerator.Generate(codeFixes));
+
+            CompilerDiagnosticDescriptor[] compilerDiagnostics = CompilerDiagnosticDescriptor
+                .LoadFromFile(Path.Combine(dirPath, @"CodeFixes\Diagnostics.xml"))
+                .OrderBy(f => f.Id, _invariantComparer)
+                .ToArray();
+
+            var compilerDiagnosticIdentifiersGenerator = new CompilerDiagnosticIdentifiersGenerator();
+
+            writer.SaveCode(
+                Path.Combine(dirPath, @"Core\CSharp\CompilerDiagnosticIdentifiers.cs"),
+                compilerDiagnosticIdentifiersGenerator.Generate(compilerDiagnostics));
 
 #if DEBUG
             Console.WriteLine("DONE");
