@@ -49,6 +49,7 @@ namespace Roslynator.CSharp
         public const string UserDefinedOperatorMustBeDeclaredStaticAndPublic = "CS0558";
         public const string CannotHaveInstancePropertyOrFieldInitializersInStruct = "CS0573";
         public const string DuplicateAttribute = "CS0579";
+        public const string VirtualOrAbstractmembersCannotBePrivate  = "CS0621";
         public const string NewProtectedMemberDeclaredInSealedClass = "CS0628";
         public const string FieldCanNotBeBothVolatileAndReadOnly = "CS0678";
         public const string CannotDeclareInstanceMembersInStaticClass = "CS0708";

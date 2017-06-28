@@ -23,5 +23,29 @@ namespace Roslynator.CSharp.CodeFixes.Test
             {
             }
         }
+
+        private abstract class Foo
+        {
+            private abstract void FooMethod();
+
+            private abstract object FooProperty { get; set; }
+
+            private abstract object this[int index] { get; set; }
+        }
+
+        private class Foo2
+        {
+            private virtual void FooMethod()
+            {
+            }
+
+            private virtual object FooProperty { get; set; }
+
+            private virtual object this[int index]
+            {
+                get { return null; }
+                set { }
+            }
+        }
     }
 }

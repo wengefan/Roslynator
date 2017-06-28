@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -16,13 +17,21 @@ namespace Roslynator.CSharp.CodeFixes
     [Shared]
     public class ChangeAccessibilityCodeFixProvider : BaseCodeFixProvider
     {
+        private static readonly Accessibility[] _accessibilities = new Accessibility[]
+        {
+            Accessibility.Public,
+            Accessibility.Internal,
+            Accessibility.Protected
+        };
+
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
             get
             {
                 return ImmutableArray.Create(
                     CompilerDiagnosticIdentifiers.NewProtectedMemberDeclaredInSealedClass,
-                    CompilerDiagnosticIdentifiers.StaticClassesCannotContainProtectedMembers);
+                    CompilerDiagnosticIdentifiers.StaticClassesCannotContainProtectedMembers,
+                    CompilerDiagnosticIdentifiers.VirtualOrAbstractmembersCannotBePrivate);
             }
         }
 
@@ -66,6 +75,26 @@ namespace Roslynator.CSharp.CodeFixes
                                 GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.VirtualOrAbstractmembersCannotBePrivate:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.ChangeAccessibility))
+                                break;
+
+                            foreach (Accessibility accessibility in _accessibilities)
+                            {
+                                if (AccessibilityHelper.IsAllowedAccessibility(node, accessibility))
+                                {
+                                    CodeAction codeAction = CodeAction.Create(
+                                        $"Change accessibility to '{AccessibilityHelper.GetAccessibilityName(accessibility)}'",
+                                        cancellationToken => ChangeAccessibilityRefactoring.RefactorAsync(context.Document, node, accessibility, cancellationToken),
+                                        GetEquivalenceKey(CompilerDiagnosticIdentifiers.VirtualOrAbstractmembersCannotBePrivate, accessibility.ToString()));
+
+                                    context.RegisterCodeFix(codeAction, diagnostic);
+                                }
+                            }
+
                             break;
                         }
                 }
