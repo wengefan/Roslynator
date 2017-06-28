@@ -1289,16 +1289,6 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor RemoveInapplicableModifier = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.RemoveInapplicableModifier,
-            title: "Remove inapplicable modifier.",
-            messageFormat: "Remove inapplicable modifier.",
-            category: DiagnosticCategories.ErrorFix,
-            defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
-        );
-
         public static readonly DiagnosticDescriptor CallStringConcatInsteadOfStringJoin = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.CallStringConcatInsteadOfStringJoin,
             title: "Call string.Concat instead of string.Join.",

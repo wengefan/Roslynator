@@ -55,7 +55,6 @@
     <Compile Include="CodeFixProviders\ObjectCreationExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\ArgumentCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\ParameterCodeFixProvider.cs" />
-    <Compile Include="CodeFixProviders\RemoveInapplicableModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\RemoveRedundantAsyncAwaitCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\RemoveRedundantCastCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\TypeCodeFixProvider.cs" />
@@ -144,7 +143,6 @@
     <Compile Include="Refactorings\UnusedSyntax\SyntaxInfo.cs" />
     <Compile Include="DiagnosticAnalyzers\SimplifyCoalesceExpressionDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\RemoveRedundantCastDiagnosticAnalyzer.cs" />
-    <Compile Include="DiagnosticAnalyzers\RemoveInapplicableModifierDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\SortEnumMembersDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\UnusedTypeParameterDiagnosticAnalyzer.cs" />
     <Compile Include="Refactorings\EnumMemberShouldDeclareExplicitValueRefactoring.cs" />

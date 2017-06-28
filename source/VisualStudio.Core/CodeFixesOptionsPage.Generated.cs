@@ -71,6 +71,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveReturnKeyword, "Remove 'return' keyword (fixes CS0127, CS1997)", IsEnabled(CodeFixIdentifiers.RemoveReturnKeyword)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveParametersFromStaticConstructor, "Remove parameters from static constructor (fixes CS0132)", IsEnabled(CodeFixIdentifiers.RemoveParametersFromStaticConstructor)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.ReorderModifiers, "Reorder modifiers (fixes CS0267)", IsEnabled(CodeFixIdentifiers.ReorderModifiers)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveInvalidModifier, "Remove invalid modifier (fixes CS0107, CS0275, CS0441, CS0515, CS0678, CS0753, CS1609)", IsEnabled(CodeFixIdentifiers.RemoveInvalidModifier)));
         }
     }
 }

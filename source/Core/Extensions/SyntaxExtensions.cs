@@ -592,6 +592,11 @@ namespace Roslynator
 
             return true;
         }
+
+        public static bool Contains(this SyntaxTokenList tokens, SyntaxToken token)
+        {
+            return tokens.IndexOf(token) != -1;
+        }
         #endregion SyntaxTokenList
 
         #region SyntaxTrivia

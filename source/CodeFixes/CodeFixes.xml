@@ -284,4 +284,15 @@
       <Id>CS0267</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0055" Identifier="RemoveInvalidModifier" Title="Remove invalid modifier">
+    <FixableDiagnosticIds>
+      <Id>CS0107</Id>
+      <Id>CS0275</Id>
+      <Id>CS0441</Id>
+      <Id>CS0515</Id>
+      <Id>CS0678</Id>
+      <Id>CS0753</Id>
+      <Id>CS1609</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>
