@@ -64,6 +64,7 @@ Diagnostic | Code Fixes
 [CS1615](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1615)|RCF0027
 [CS1620](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1620)|RCF0004
 [CS1622](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1622)|RCF0021
+[CS1643](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1643)|RCF0020
 [CS1674](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1674)|RCF0008
 [CS1715](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1715)|RCF0019
 [CS1717](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1717)|RCF0028

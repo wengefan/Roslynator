@@ -12,7 +12,7 @@ RCF0007|Add 'new' modifier|[CS0114](http://docs.microsoft.com/en-us/dotnet/cshar
 RCF0004|Add 'out' modifier to argument|[CS1620](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1620)|x
 RCF0006|Add 'override' modifier|[CS0114](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0114)|x
 RCF0025|Add partial modifier|[CS0260](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0260), [CS0751](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0751)|x
-RCF0020|Add return statement that returns default value|[CS0161](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0161)|x
+RCF0020|Add return statement that returns default value|[CS0161](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0161), [CS1643](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1643)|x
 RCF0035|Add semicolon|[CS1002](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1002)|
 RCF0033|Add 'static' modifier|[CS0708](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0708), [CS0710](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0710)|x
 RCF0044|Add type argument|[CS0305](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0305)|x
