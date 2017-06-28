@@ -34,7 +34,7 @@
   <Diagnostic Id="CS0407" Identifier="MethodHasWrongReturnType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0407" />
   <Diagnostic Id="CS0428" Identifier="CannotConvertMethodGroupToNonDelegateType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0428" />
   <Diagnostic Id="CS0441" Identifier="ClassCannotBeBothStaticAndSealed" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0441" />
-  <Diagnostic Id="CS0500" Identifier="MemberCannotDeclareBodyBecauseItIsNotMarkedAbstract" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500" />
+  <Diagnostic Id="CS0500" Identifier="MemberCannotDeclareBodyBecauseItIsMarkedAbstract" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500" />
   <Diagnostic Id="CS0507" Identifier="CannotChangeAccessModifiersWhenOverridingInheritedMember" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0507" />
   <Diagnostic Id="CS0508" Identifier="MemberReturnTypeMustMatchOverriddenMemberReturnType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0508" />
   <Diagnostic Id="CS0513" Identifier="MemberIsAbstractButItIsContainedInNonAbstractClass" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0513" />
