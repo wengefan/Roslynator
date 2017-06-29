@@ -42,7 +42,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddComparisonWithBooleanLiteral, "Add comparison with boolean literal (fixes CS0019, CS0266)", IsEnabled(CodeFixIdentifiers.AddComparisonWithBooleanLiteral)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemovePropertyOrFieldInitializer, "Remove property or field initializer (fixes CS0573)", IsEnabled(CodeFixIdentifiers.RemovePropertyOrFieldInitializer)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddPartialModifier, "Add partial modifier (fixes CS0260, CS0751)", IsEnabled(CodeFixIdentifiers.AddPartialModifier)));
-            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddMethodBody, "Add method body (fixes CS0756)", IsEnabled(CodeFixIdentifiers.AddMethodBody)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddBody, "Add body (fixes CS0501, CS0756)", IsEnabled(CodeFixIdentifiers.AddBody)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveRefModifier, "Remove 'ref' modifier (fixes CS1615)", IsEnabled(CodeFixIdentifiers.RemoveRefModifier)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveRedundantAssignment, "Remove redundant assignment (fixes CS1717)", IsEnabled(CodeFixIdentifiers.RemoveRedundantAssignment)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.ChangeAccessibility, "Change accessibility (fixes CS0261, CS0628, CS1057)", IsEnabled(CodeFixIdentifiers.ChangeAccessibility)));

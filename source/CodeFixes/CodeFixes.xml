@@ -131,8 +131,9 @@
       <Id>CS0751</Id>
     </FixableDiagnosticIds>
   </CodeFix>
-  <CodeFix Id="RCF0026" Identifier="AddMethodBody" Title="Add method body">
+  <CodeFix Id="RCF0026" Identifier="AddBody" Title="Add body">
     <FixableDiagnosticIds>
+      <Id>CS0501</Id>
       <Id>CS0756</Id>
     </FixableDiagnosticIds>
   </CodeFix>

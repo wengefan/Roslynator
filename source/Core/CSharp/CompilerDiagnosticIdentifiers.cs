@@ -41,6 +41,7 @@ namespace Roslynator.CSharp
         public const string CannotConvertMethodGroupToNonDelegateType = "CS0428";
         public const string ClassCannotBeBothStaticAndSealed = "CS0441";
         public const string MemberCannotDeclareBodyBecauseItIsMarkedAbstract = "CS0500";
+        public const string MemberMustDeclareBodyBecauseItIsNotMarkedAbstractExternOrPartial = "CS0501";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = "CS0507";
         public const string MemberReturnTypeMustMatchOverriddenMemberReturnType = "CS0508";
         public const string MemberIsAbstractButItIsContainedInNonAbstractClass = "CS0513";

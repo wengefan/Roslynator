@@ -45,6 +45,7 @@
     <DelaySign>false</DelaySign>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="CodeFixes\AddBodyCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AddBracesToDeclarationOrLabeledStatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AddBreakStatementToSwitchSectionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AddOverrideOrNewModifierCodeFixProvider.cs" />
