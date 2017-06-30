@@ -10,14 +10,13 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Roslynator.CSharp.Helpers;
 using Roslynator.CSharp.Helpers.ModifierHelpers;
 
 namespace Roslynator.CSharp.CodeFixes
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(RemoveInvalidModifierCodeFixProvider))]
     [Shared]
-    public class RemoveInvalidModifierCodeFixProvider : BaseCodeFixProvider
+    public class RemoveInvalidModifierCodeFixProvider : ModifiersCodeFixProvider
     {
         public sealed override ImmutableArray<string> FixableDiagnosticIds
         {
@@ -134,7 +133,7 @@ namespace Roslynator.CSharp.CodeFixes
                     case CompilerDiagnosticIdentifiers.AccessibilityModifiersMayNotBeUsedOnAccessorsInInterface:
                     case CompilerDiagnosticIdentifiers.AccessModifiersAreNotAllowedOnStaticConstructors:
                         {
-                            RemoveAccessibilityModifiers(context, diagnostic, node);
+                            RemoveAccessModifiers(context, diagnostic, node);
                             break;
                         }
                     case CompilerDiagnosticIdentifiers.ModifiersCannotBePlacedOnEventAccessorDeclarations:
@@ -174,178 +173,6 @@ namespace Roslynator.CSharp.CodeFixes
                         }
                 }
             }
-        }
-
-        private static SyntaxToken GetSingleModifierToRemoveOrDefault(SyntaxTokenList modifiers)
-        {
-            var modifierToRemove = default(SyntaxToken);
-
-            foreach (SyntaxToken modifier in modifiers)
-            {
-                switch (modifier.Kind())
-                {
-                    case SyntaxKind.PublicKeyword:
-                    case SyntaxKind.ProtectedKeyword:
-                    case SyntaxKind.InternalKeyword:
-                    case SyntaxKind.PrivateKeyword:
-                    case SyntaxKind.StaticKeyword:
-                    case SyntaxKind.VirtualKeyword:
-                    case SyntaxKind.OverrideKeyword:
-                    case SyntaxKind.AbstractKeyword:
-                        {
-                            if (modifierToRemove.IsKind(SyntaxKind.None))
-                            {
-                                modifierToRemove = modifier;
-                            }
-                            else
-                            {
-                                return default(SyntaxToken);
-                            }
-
-                            break;
-                        }
-                }
-            }
-
-            return modifierToRemove;
-        }
-
-        private void RemoveModifier(CodeFixContext context, Diagnostic diagnostic, SyntaxNode node, SyntaxTokenList modifiers, SyntaxKind modifierKind)
-        {
-            int index = modifiers.IndexOf(modifierKind);
-
-            if (index == -1)
-                return;
-
-            SyntaxToken modifier = modifiers[index];
-
-            RemoveModifier(context, diagnostic, node, modifier, modifierKind.ToString());
-        }
-
-        private void RemoveModifier(CodeFixContext context, Diagnostic diagnostic, SyntaxNode node, SyntaxToken token, string additionalKey = null)
-        {
-            CodeAction codeAction = CodeAction.Create(
-                $"Remove '{token.ToString()}' modifier",
-                cancellationToken =>
-                {
-                    SyntaxNode newNode = node.RemoveModifier(token);
-
-                    return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
-                },
-                GetEquivalenceKey(diagnostic, additionalKey));
-
-            context.RegisterCodeFix(codeAction, diagnostic);
-        }
-
-        private void RemoveAccessibilityModifiers(CodeFixContext context, Diagnostic diagnostic, SyntaxNode node)
-        {
-            SyntaxTokenList modifiers = node.GetModifiers();
-
-            var accessModifier = default(SyntaxToken);
-
-            foreach (SyntaxToken modifier in modifiers)
-            {
-                if (modifier.IsAccessModifier())
-                {
-                    if (accessModifier.IsAccessModifier())
-                    {
-                        accessModifier = default(SyntaxToken);
-                        break;
-                    }
-                    else
-                    {
-                        accessModifier = modifier;
-                    }
-                }
-            }
-
-            if (accessModifier.IsAccessModifier())
-            {
-                RemoveModifier(context, diagnostic, node, accessModifier);
-            }
-            else
-            {
-                CodeAction codeAction = CodeAction.Create(
-                    "Remove accessibility modifiers",
-                    cancellationToken =>
-                    {
-                        SyntaxNode newNode = ModifierHelper.RemoveAccessModifiers(node);
-
-                        return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
-                    },
-                    GetEquivalenceKey(diagnostic));
-
-                context.RegisterCodeFix(codeAction, diagnostic);
-            }
-        }
-
-        private void RemoveModifiers(CodeFixContext context, Diagnostic diagnostic, SyntaxNode node)
-        {
-            SyntaxTokenList modifiers = node.GetModifiers();
-
-            if (modifiers.Count == 1)
-            {
-                RemoveModifier(context, diagnostic, node, modifiers[0]);
-            }
-            else
-            {
-                CodeAction codeAction = CodeAction.Create(
-                    "Remove modifiers",
-                    cancellationToken =>
-                    {
-                        SyntaxNode newNode = RemoveModifiers(node);
-
-                        return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
-                    },
-                    GetEquivalenceKey(diagnostic));
-
-                context.RegisterCodeFix(codeAction, diagnostic);
-            }
-        }
-
-        private static TNode RemoveModifiers<TNode>(TNode node) where TNode : SyntaxNode
-        {
-            SyntaxTokenList modifiers = node.GetModifiers();
-
-            if (!modifiers.Any())
-                return node;
-
-            SyntaxToken firstModifier = modifiers.First();
-
-            if (modifiers.Count == 1)
-                return node.RemoveModifier(firstModifier);
-
-            SyntaxToken nextToken = modifiers.Last().GetNextToken();
-
-            if (!nextToken.IsKind(SyntaxKind.None))
-            {
-                SyntaxTriviaList trivia = firstModifier.LeadingTrivia;
-
-                trivia = trivia.AddRange(firstModifier.TrailingTrivia.EmptyIfWhitespace());
-
-                for (int i = 1; i < modifiers.Count; i++)
-                    trivia = trivia.AddRange(modifiers[i].GetLeadingAndTrailingTrivia().EmptyIfWhitespace());
-
-                trivia = trivia.AddRange(nextToken.LeadingTrivia.EmptyIfWhitespace());
-
-                node = node.ReplaceToken(nextToken, nextToken.WithLeadingTrivia(trivia));
-            }
-            else
-            {
-                SyntaxToken previousToken = firstModifier.GetPreviousToken();
-
-                if (!previousToken.IsKind(SyntaxKind.None))
-                {
-                    SyntaxTriviaList trivia = firstModifier.GetLeadingAndTrailingTrivia();
-
-                    for (int i = 1; i < modifiers.Count; i++)
-                        trivia = trivia.AddRange(modifiers[i].GetLeadingAndTrailingTrivia().EmptyIfWhitespace());
-
-                    node = node.ReplaceToken(nextToken, nextToken.AppendToTrailingTrivia(trivia));
-                }
-            }
-
-            return (TNode)node.WithModifiers(default(SyntaxTokenList));
         }
 
         private static bool IsInterfaceMemberOrExplicitInterfaceImplementation(SyntaxNode node)

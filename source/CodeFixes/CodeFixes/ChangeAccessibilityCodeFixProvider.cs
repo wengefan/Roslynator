@@ -5,23 +5,27 @@ using System.Composition;
 using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ChangeAccessibilityCodeFixProvider))]
     [Shared]
-    public class ChangeAccessibilityCodeFixProvider : BaseCodeFixProvider
+    public class ChangeAccessibilityCodeFixProvider : ModifiersCodeFixProvider
     {
-        private static readonly Accessibility[] _accessibilities = new Accessibility[]
+        private static readonly Accessibility[] _publicOrInternalOrProtected = new Accessibility[]
         {
             Accessibility.Public,
             Accessibility.Internal,
             Accessibility.Protected
+        };
+
+        private static readonly Accessibility[] _publicOrInternalOrPrivate = new Accessibility[]
+        {
+            Accessibility.Public,
+            Accessibility.Internal,
+            Accessibility.Private
         };
 
         public sealed override ImmutableArray<string> FixableDiagnosticIds
@@ -31,7 +35,8 @@ namespace Roslynator.CSharp.CodeFixes
                 return ImmutableArray.Create(
                     CompilerDiagnosticIdentifiers.NewProtectedMemberDeclaredInSealedClass,
                     CompilerDiagnosticIdentifiers.StaticClassesCannotContainProtectedMembers,
-                    CompilerDiagnosticIdentifiers.VirtualOrAbstractmembersCannotBePrivate);
+                    CompilerDiagnosticIdentifiers.VirtualOrAbstractmembersCannotBePrivate,
+                    CompilerDiagnosticIdentifiers.AbstractPropertiesCannotHavePrivateAccessors);
             }
         }
 
@@ -58,43 +63,18 @@ namespace Roslynator.CSharp.CodeFixes
                     case CompilerDiagnosticIdentifiers.NewProtectedMemberDeclaredInSealedClass:
                     case CompilerDiagnosticIdentifiers.StaticClassesCannotContainProtectedMembers:
                         {
-                            CodeAction codeAction = CodeAction.Create(
-                                "Change accessibility to 'private'",
-                                cancellationToken =>
-                                {
-                                    SyntaxTokenList modifiers = node.GetModifiers();
-
-                                    SyntaxToken protectedKeyword = modifiers[modifiers.IndexOf(SyntaxKind.ProtectedKeyword)];
-
-                                    SyntaxTokenList newModifiers = modifiers.Replace(protectedKeyword, CSharpFactory.PrivateKeyword().WithTriviaFrom(protectedKeyword));
-
-                                    SyntaxNode newNode = node.WithModifiers(newModifiers);
-
-                                    return context.Document.ReplaceNodeAsync(node, newNode, context.CancellationToken);
-                                },
-                                GetEquivalenceKey(diagnostic));
-
-                            context.RegisterCodeFix(codeAction, diagnostic);
+                            ChangeAccessibility(context, diagnostic, node, _publicOrInternalOrPrivate);
                             break;
                         }
                     case CompilerDiagnosticIdentifiers.VirtualOrAbstractmembersCannotBePrivate:
                         {
-                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.ChangeAccessibility))
-                                break;
-
-                            foreach (Accessibility accessibility in _accessibilities)
-                            {
-                                if (AccessibilityHelper.IsAllowedAccessibility(node, accessibility))
-                                {
-                                    CodeAction codeAction = CodeAction.Create(
-                                        $"Change accessibility to '{AccessibilityHelper.GetAccessibilityName(accessibility)}'",
-                                        cancellationToken => ChangeAccessibilityRefactoring.RefactorAsync(context.Document, node, accessibility, cancellationToken),
-                                        GetEquivalenceKey(CompilerDiagnosticIdentifiers.VirtualOrAbstractmembersCannotBePrivate, accessibility.ToString()));
-
-                                    context.RegisterCodeFix(codeAction, diagnostic);
-                                }
-                            }
-
+                            ChangeAccessibility(context, diagnostic, node, _publicOrInternalOrProtected);
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.AbstractPropertiesCannotHavePrivateAccessors:
+                        {
+                            RemoveAccessModifiers(context, diagnostic, node);
+                            ChangeAccessibility(context, diagnostic, node, _publicOrInternalOrProtected);
                             break;
                         }
                 }

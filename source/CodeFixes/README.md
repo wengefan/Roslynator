@@ -18,7 +18,7 @@ RCF0033|Add 'static' modifier|[CS0708](http://docs.microsoft.com/en-us/dotnet/cs
 RCF0044|Add type argument|[CS0305](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0305)|x
 RCF0051|Add 'unsafe' modifier|[CS0214](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0214)|x
 RCF0005|Base base class before any interface|[CS1722](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1722)|x
-RCF0029|Change accessibility|[CS0628](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628), [CS1057](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1057)|x
+RCF0029|Change accessibility|[CS0442](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0442), [CS0628](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628), [CS1057](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1057)|x
 RCF0041|Change type of local variable|[CS0123](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0123), [CS0407](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0407), [CS0815](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0815)|x
 RCF0030|Change type of 'params' parameter|[CS0225](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0225)|x
 RCF0003|Create singleton array|[CS0266](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0266)|x

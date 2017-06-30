@@ -150,6 +150,7 @@
   <CodeFix Id="RCF0029" Identifier="ChangeAccessibility" Title="Change accessibility">
     <FixableDiagnosticIds>
       <Id>CS0261</Id>
+      <Id>CS0442</Id>
       <Id>CS0628</Id>
       <Id>CS1057</Id>
     </FixableDiagnosticIds>

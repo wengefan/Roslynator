@@ -28,9 +28,9 @@ namespace Roslynator.CSharp.CodeFixes.Test
         {
             private abstract void FooMethod();
 
-            private abstract object FooProperty { get; set; }
+            private abstract object FooProperty { get; private set; }
 
-            private abstract object this[int index] { get; set; }
+            private abstract object this[int index] { get; private set; }
         }
 
         private class Foo2

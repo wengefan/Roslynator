@@ -45,7 +45,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddBody, "Add body (fixes CS0501, CS0756)", IsEnabled(CodeFixIdentifiers.AddBody)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveRefModifier, "Remove 'ref' modifier (fixes CS1615)", IsEnabled(CodeFixIdentifiers.RemoveRefModifier)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveRedundantAssignment, "Remove redundant assignment (fixes CS1717)", IsEnabled(CodeFixIdentifiers.RemoveRedundantAssignment)));
-            codeFixes.Add(new BaseModel(CodeFixIdentifiers.ChangeAccessibility, "Change accessibility (fixes CS0261, CS0628, CS1057)", IsEnabled(CodeFixIdentifiers.ChangeAccessibility)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.ChangeAccessibility, "Change accessibility (fixes CS0261, CS0442, CS0628, CS1057)", IsEnabled(CodeFixIdentifiers.ChangeAccessibility)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.ChangeTypeOfParamsParameter, "Change type of 'params' parameter (fixes CS0225)", IsEnabled(CodeFixIdentifiers.ChangeTypeOfParamsParameter)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.UseUncheckedExpression, "Use unchecked expression (fixes CS0221)", IsEnabled(CodeFixIdentifiers.UseUncheckedExpression)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveImplementationFromAbstractMember, "Remove implementation from abstract member (fixes CS0069, CS0500, CS0531)", IsEnabled(CodeFixIdentifiers.RemoveImplementationFromAbstractMember)));

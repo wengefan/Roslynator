@@ -279,5 +279,58 @@ namespace Roslynator.CSharp.Helpers.ModifierHelpers
 
             return node;
         }
+
+        public static TNode RemoveModifiers<TNode>(TNode node) where TNode : SyntaxNode
+        {
+            switch (node.Kind())
+            {
+                case SyntaxKind.ClassDeclaration:
+                    return (TNode)(SyntaxNode)ClassDeclarationModifierHelper.Instance.RemoveModifiers((ClassDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.ConstructorDeclaration:
+                    return (TNode)(SyntaxNode)ConstructorDeclarationModifierHelper.Instance.RemoveModifiers((ConstructorDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.ConversionOperatorDeclaration:
+                    return (TNode)(SyntaxNode)ConversionOperatorDeclarationModifierHelper.Instance.RemoveModifiers((ConversionOperatorDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.DelegateDeclaration:
+                    return (TNode)(SyntaxNode)DelegateDeclarationModifierHelper.Instance.RemoveModifiers((DelegateDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.DestructorDeclaration:
+                    return (TNode)(SyntaxNode)DestructorDeclarationModifierHelper.Instance.RemoveModifiers((DestructorDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.EnumDeclaration:
+                    return (TNode)(SyntaxNode)EnumDeclarationModifierHelper.Instance.RemoveModifiers((EnumDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.EventDeclaration:
+                    return (TNode)(SyntaxNode)EventDeclarationModifierHelper.Instance.RemoveModifiers((EventDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.EventFieldDeclaration:
+                    return (TNode)(SyntaxNode)EventFieldDeclarationModifierHelper.Instance.RemoveModifiers((EventFieldDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.FieldDeclaration:
+                    return (TNode)(SyntaxNode)FieldDeclarationModifierHelper.Instance.RemoveModifiers((FieldDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.IndexerDeclaration:
+                    return (TNode)(SyntaxNode)IndexerDeclarationModifierHelper.Instance.RemoveModifiers((IndexerDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.InterfaceDeclaration:
+                    return (TNode)(SyntaxNode)InterfaceDeclarationModifierHelper.Instance.RemoveModifiers((InterfaceDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.MethodDeclaration:
+                    return (TNode)(SyntaxNode)MethodDeclarationModifierHelper.Instance.RemoveModifiers((MethodDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.OperatorDeclaration:
+                    return (TNode)(SyntaxNode)OperatorDeclarationModifierHelper.Instance.RemoveModifiers((OperatorDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.PropertyDeclaration:
+                    return (TNode)(SyntaxNode)PropertyDeclarationModifierHelper.Instance.RemoveModifiers((PropertyDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.StructDeclaration:
+                    return (TNode)(SyntaxNode)StructDeclarationModifierHelper.Instance.RemoveModifiers((StructDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.GetAccessorDeclaration:
+                case SyntaxKind.SetAccessorDeclaration:
+                case SyntaxKind.AddAccessorDeclaration:
+                case SyntaxKind.RemoveAccessorDeclaration:
+                case SyntaxKind.UnknownAccessorDeclaration:
+                    return (TNode)(SyntaxNode)AccessorDeclarationModifierHelper.Instance.RemoveModifiers((AccessorDeclarationSyntax)(SyntaxNode)node);
+                case SyntaxKind.LocalDeclarationStatement:
+                    return (TNode)(SyntaxNode)LocalDeclarationStatementModifierHelper.Instance.RemoveModifiers((LocalDeclarationStatementSyntax)(SyntaxNode)node);
+                case SyntaxKind.LocalFunctionStatement:
+                    return (TNode)(SyntaxNode)LocalFunctionStatementModifierHelper.Instance.RemoveModifiers((LocalFunctionStatementSyntax)(SyntaxNode)node);
+                case SyntaxKind.Parameter:
+                    return (TNode)(SyntaxNode)ParameterModifierHelper.Instance.RemoveModifiers((ParameterSyntax)(SyntaxNode)node);
+            }
+
+            Debug.Assert(node.IsKind(SyntaxKind.IncompleteMember), node.ToString());
+
+            return node;
+        }
     }
 }

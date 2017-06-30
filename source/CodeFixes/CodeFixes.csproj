@@ -55,6 +55,7 @@
     <Compile Include="CodeFixes\AssignmentExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BaseListCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ChangeAccessibilityCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\ModifiersCodeFixProvider.cs" />
     <Compile Include="CodeFixes\RemoveInvalidModifierCodeFixProvider.cs" />
     <Compile Include="CodeFixes\TypeDoesNotContainDefinitionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\TypeParameterConstraintClauseCodeFixProvider.cs" />
