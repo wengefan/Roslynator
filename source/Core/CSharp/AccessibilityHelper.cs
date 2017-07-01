@@ -124,6 +124,10 @@ namespace Roslynator.CSharp
 
                         return false;
                     }
+                case SyntaxKind.LocalFunctionStatement:
+                    {
+                        return false;
+                    }
                 default:
                     {
                         Debug.Fail(node.Kind().ToString());
