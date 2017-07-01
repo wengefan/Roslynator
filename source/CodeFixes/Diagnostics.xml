@@ -9,6 +9,7 @@
   <Diagnostic Id="CS0107" Identifier="MoreThanOneProtectionModifier" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0107" />
   <Diagnostic Id="CS0108" Identifier="MemberHidesInheritedMemberUseNewKeywordIfHidingWasIntended" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0108" />
   <Diagnostic Id="CS0109" Identifier="MemberDoesNotHideAccessibleMember" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0109" />
+  <Diagnostic Id="CS0112" Identifier="StaticMemberCannotBeMarkedOverrideVirtualOrAbstract" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0112" />
   <Diagnostic Id="CS0114" Identifier="MemberHidesInheritedMemberToMakeCurrentMethodOverrideThatImplementationAddOverrideKeyword" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0114" />
   <Diagnostic Id="CS0120" Identifier="ObjectReferenceIsRequiredForNonStaticMember" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0120" />
   <Diagnostic Id="CS0123" Identifier="NoOverloadMatchesDelegate" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0123" />

@@ -49,7 +49,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.NewProtectedMemberDeclaredInSealedClass,
                     CompilerDiagnosticIdentifiers.StaticClassesCannotContainProtectedMembers,
                     CompilerDiagnosticIdentifiers.VirtualOrAbstractmembersCannotBePrivate,
-                    CompilerDiagnosticIdentifiers.AbstractPropertiesCannotHavePrivateAccessors);
+                    CompilerDiagnosticIdentifiers.AbstractPropertiesCannotHavePrivateAccessors,
+                    CompilerDiagnosticIdentifiers.StaticMemberCannotBeMarkedOverrideVirtualOrAbstract);
             }
         }
 
@@ -227,6 +228,24 @@ namespace Roslynator.CSharp.CodeFixes
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.ChangeAccessibility))
                                 ChangeAccessibility(context, diagnostic, node, _publicOrInternalOrProtected);
 
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.StaticMemberCannotBeMarkedOverrideVirtualOrAbstract:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveInvalidModifier))
+                                break;
+
+                            SyntaxTokenList modifiers = node.GetModifiers();
+
+                            if (!node.IsParentKind(SyntaxKind.ClassDeclaration)
+                                || !((ClassDeclarationSyntax)node.Parent).Modifiers.Contains(SyntaxKind.StaticKeyword))
+                            {
+                                RemoveModifier(context, diagnostic, node, modifiers, SyntaxKind.StaticKeyword);
+                            }
+
+                            RemoveModifier(context, diagnostic, node, modifiers, SyntaxKind.OverrideKeyword);
+                            RemoveModifier(context, diagnostic, node, modifiers, SyntaxKind.VirtualKeyword);
+                            RemoveModifier(context, diagnostic, node, modifiers, SyntaxKind.AbstractKeyword);
                             break;
                         }
                 }

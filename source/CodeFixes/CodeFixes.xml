@@ -291,6 +291,7 @@
   <CodeFix Id="RCF0055" Identifier="RemoveInvalidModifier" Title="Remove invalid modifier">
     <FixableDiagnosticIds>
       <Id>CS0107</Id>
+      <Id>CS0112</Id>
       <Id>CS0275</Id>
       <Id>CS0441</Id>
       <Id>CS0515</Id>

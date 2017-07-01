@@ -89,6 +89,39 @@ namespace Roslynator.CSharp.CodeFixes.Test
             protected static void Bar2()
             {
             }
+
+            public static override string ToString()
+            {
+                return null;
+            }
+
+            public static virtual string FooVirtual()
+            {
+                return null;
+            }
+
+            public static abstract string FooAbstract()
+            {
+                return null;
+            }
+        }
+
+        private class NonStaticFoo
+        {
+            public static override string ToString()
+            {
+                return null;
+            }
+
+            public static virtual string FooVirtual()
+            {
+                return null;
+            }
+
+            public static abstract string FooAbstract()
+            {
+                return null;
+            }
         }
 
         private abstract class AbstractFoo

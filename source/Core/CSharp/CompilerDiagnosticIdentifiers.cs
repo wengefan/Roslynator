@@ -15,6 +15,7 @@ namespace Roslynator.CSharp
         public const string MoreThanOneProtectionModifier = "CS0107";
         public const string MemberHidesInheritedMemberUseNewKeywordIfHidingWasIntended = "CS0108";
         public const string MemberDoesNotHideAccessibleMember = "CS0109";
+        public const string StaticMemberCannotBeMarkedOverrideVirtualOrAbstract = "CS0112";
         public const string MemberHidesInheritedMemberToMakeCurrentMethodOverrideThatImplementationAddOverrideKeyword = "CS0114";
         public const string ObjectReferenceIsRequiredForNonStaticMember = "CS0120";
         public const string NoOverloadMatchesDelegate = "CS0123";
