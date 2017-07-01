@@ -45,7 +45,7 @@
     <Compile Include="AddDocumentationComment.cs" />
     <Compile Include="AddBody.cs" />
     <Compile Include="AddSemicolon.cs" />
-    <Compile Include="AddOverrideOrNewModifier.cs" />
+    <Compile Include="MemberHidesInheritedMember.cs" />
     <Compile Include="AddPartialModifier.cs" />
     <Compile Include="AddReturnStatementThatReturnsDefaultValue.cs" />
     <Compile Include="AddTypeArgument.cs" />

@@ -41,6 +41,7 @@ RCF0011|Remove duplicate modifier|[CS1004](http://docs.microsoft.com/en-us/dotne
 RCF0046|Remove empty switch statement|[CS1522](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1522)|x
 RCF0032|Remove implementation from abstract member|[CS0069](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0069), [CS0500](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500), [CS0531](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0531)|x
 RCF0055|Remove invalid modifier|[CS0107](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0107), [CS0275](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0275), [CS0441](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0441), [CS0515](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0515), [CS0678](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0678), [CS0753](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0753), [CS1609](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1609)|x
+RCF0056|Remove member declaration|[CS0114](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0114)|x
 RCF0013|Remove new modifier|[CS0109](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0109)|x
 RCF0053|Remove parameters from static constructor|[CS0132](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0132)|x
 RCF0024|Remove property or field initializer|[CS0573](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0573)|x

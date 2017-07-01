@@ -299,4 +299,9 @@
       <Id>CS1609</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0056" Identifier="RemoveMemberDeclaration" Title="Remove member declaration">
+    <FixableDiagnosticIds>
+      <Id>CS0114</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

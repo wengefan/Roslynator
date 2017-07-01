@@ -61,5 +61,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveParametersFromStaticConstructor = Prefix + "0053";
         public const string ReorderModifiers = Prefix + "0054";
         public const string RemoveInvalidModifier = Prefix + "0055";
+        public const string RemoveMemberDeclaration = Prefix + "0056";
     }
 }
