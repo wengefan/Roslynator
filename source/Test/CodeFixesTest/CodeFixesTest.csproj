@@ -85,6 +85,7 @@
     <Compile Include="RemoveReturnKeywordOrReturnExpression.cs" />
     <Compile Include="ReplaceNullLiteralExpressionWithDefaultExpression.cs" />
     <Compile Include="ReplaceStringLiteralWithCharacterLiteralRefactoring.cs" />
+    <Compile Include="ReplaceVariableDeclarationWithAssignment.cs" />
     <Compile Include="StaticConstructorMustBeParameterless.cs" />
     <Compile Include="SynchronizeAccessibility.partial.cs" />
     <Compile Include="SynchronizeAccessibility.cs" />

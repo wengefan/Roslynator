@@ -21,8 +21,10 @@ namespace Roslynator.CSharp
         public const string ObjectReferenceIsRequiredForNonStaticMember = "CS0120";
         public const string NoOverloadMatchesDelegate = "CS0123";
         public const string SinceMethodReturnsVoidReturnKeywordMustNotBeFollowedByObjectExpression = "CS0127";
+        public const string LocalVariableOrFunctionIsAlreadyDefinedInThisScope = "CS0128";
         public const string StaticConstructorMustBeParameterless = "CS0132";
         public const string ExpressionBeingAssignedMustBeConstant = "CS0133";
+        public const string LocalOrParameterCannotBeDeclaredInThisScopeBecauseThatNameIsUsedInEnclosingScopeToDefineLocalOrParameter = "CS0136";
         public const string NotAllCodePathsReturnValue = "CS0161";
         public const string UnreachableCodeDetected = "CS0162";
         public const string ControlCannotFallThroughFromOneCaseLabelToAnother = "CS0163";

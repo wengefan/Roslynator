@@ -15,8 +15,10 @@
   <Diagnostic Id="CS0120" Identifier="ObjectReferenceIsRequiredForNonStaticMember" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0120" />
   <Diagnostic Id="CS0123" Identifier="NoOverloadMatchesDelegate" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0123" />
   <Diagnostic Id="CS0127" Identifier="SinceMethodReturnsVoidReturnKeywordMustNotBeFollowedByObjectExpression" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0127" />
+  <Diagnostic Id="CS0128" Identifier="LocalVariableOrFunctionIsAlreadyDefinedInThisScope" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0128" />
   <Diagnostic Id="CS0132" Identifier="StaticConstructorMustBeParameterless" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0132" />
   <Diagnostic Id="CS0133" Identifier="ExpressionBeingAssignedMustBeConstant" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0133" />
+  <Diagnostic Id="CS0136" Identifier="LocalOrParameterCannotBeDeclaredInThisScopeBecauseThatNameIsUsedInEnclosingScopeToDefineLocalOrParameter" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0136" />
   <Diagnostic Id="CS0161" Identifier="NotAllCodePathsReturnValue" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0161" />
   <Diagnostic Id="CS0162" Identifier="UnreachableCodeDetected" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0162" />
   <Diagnostic Id="CS0163" Identifier="ControlCannotFallThroughFromOneCaseLabelToAnother" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0163" />

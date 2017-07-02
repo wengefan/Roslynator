@@ -54,6 +54,7 @@ RCF0001|Remove unused variable|[CS0168](http://docs.microsoft.com/en-us/dotnet/c
 RCF0054|Reorder modifiers|[CS0267](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0267)|x
 RCF0058|Replace 'null' with default value|[CS0037](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0037)|x
 RCF0022|Replace string literal with character literal|[CS0029](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029)|x
+RCF0059|Replace variable declaration with assignment|[CS0128](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0128), [CS0136](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0136)|x
 RCF0036|SynchronizeAccessibility|[CS0266](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0266)|x
 RCF0017|Unreachable code detected|[CS0162](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0162)|x
 RCF0048|Use explicit type instead of 'var'|[CS0819](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0819), [CS0822](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0822)|x
