@@ -9,6 +9,7 @@ namespace Roslynator.CSharp
         public const string OperatorCannotBeAppliedToOperands = "CS0019";
         public const string OperatorCannotBeAppliedToOperandOfType = "CS0023";
         public const string CannotImplicitlyConvertType = "CS0029";
+        public const string CannotConvertNullToTypeBecauseItIsNonNullableValueType = "CS0037";
         public const string EventInInterfaceCannotHaveAddOrRemoveAccessors = "CS0069";
         public const string ConstraintsAreNotAllowedOnNonGenericDeclarations = "CS0080";
         public const string ModifierIsNotValidForThisItem = "CS0106";

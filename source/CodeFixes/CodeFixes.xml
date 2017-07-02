@@ -311,4 +311,9 @@
       <Id>CS1997</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0058" Identifier="ReplaceNullLiteralExpressionWithDefaultValue" Title="Replace 'null' with default value">
+    <FixableDiagnosticIds>
+      <Id>CS0037</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

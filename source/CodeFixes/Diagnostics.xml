@@ -3,6 +3,7 @@
   <Diagnostic Id="CS0019" Identifier="OperatorCannotBeAppliedToOperands" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0019" />
   <Diagnostic Id="CS0023" Identifier="OperatorCannotBeAppliedToOperandOfType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0023" />
   <Diagnostic Id="CS0029" Identifier="CannotImplicitlyConvertType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029" />
+  <Diagnostic Id="CS0037" Identifier="CannotConvertNullToTypeBecauseItIsNonNullableValueType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0037" />
   <Diagnostic Id="CS0069" Identifier="EventInInterfaceCannotHaveAddOrRemoveAccessors" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0069" />
   <Diagnostic Id="CS0080" Identifier="ConstraintsAreNotAllowedOnNonGenericDeclarations" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080" />
   <Diagnostic Id="CS0106" Identifier="ModifierIsNotValidForThisItem" HelpUrl="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0106" />

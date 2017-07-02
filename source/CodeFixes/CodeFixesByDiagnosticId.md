@@ -5,6 +5,7 @@ Diagnostic | Code Fixes
 [CS0019](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0019)|RCF0023
 [CS0023](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0023)|RCF0039
 [CS0029](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029)|RCF0021, RCF0022
+[CS0037](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0037)|RCF0058
 [CS0069](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0069)|RCF0032
 [CS0080](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080)|RCF0043
 [CS0107](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0107)|RCF0055
