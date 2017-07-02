@@ -82,7 +82,7 @@
     <Compile Include="RemoveUnreachableCode.cs" />
     <Compile Include="RemoveUnusedLabel.cs" />
     <Compile Include="RemoveUnusedVariable.cs" />
-    <Compile Include="RemoveReturnKeyword.cs" />
+    <Compile Include="RemoveReturnKeywordOrReturnExpression.cs" />
     <Compile Include="ReplaceStringLiteralWithCharacterLiteralRefactoring.cs" />
     <Compile Include="StaticConstructorMustBeParameterless.cs" />
     <Compile Include="SynchronizeAccessibility.partial.cs" />
