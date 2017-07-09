@@ -53,6 +53,7 @@
   <Diagnostic Id="CS0621" Identifier="VirtualOrAbstractmembersCannotBePrivate " HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0621" />
   <Diagnostic Id="CS0628" Identifier="NewProtectedMemberDeclaredInSealedClass" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628" />
   <Diagnostic Id="CS0678" Identifier="FieldCanNotBeBothVolatileAndReadOnly" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0678" />
+  <Diagnostic Id="CS0693" Identifier="TypeParameterHasSameNameAsTypeParameterFromOuterType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0693" />
   <Diagnostic Id="CS0708" Identifier="CannotDeclareInstanceMembersInStaticClass" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0708" />
   <Diagnostic Id="CS0710" Identifier="StaticClassesCannotHaveInstanceConstructors" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0710" />
   <Diagnostic Id="CS0750" Identifier="PartialMethodCannotHaveAccessModifiersOrVirtualAbstractOverrideNewSealedOrExternModifiers" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0750" />
@@ -69,6 +70,7 @@
   <Diagnostic Id="CS1023" Identifier="EmbeddedStatementCannotBeDeclarationOrLabeledStatement" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1023" />
   <Diagnostic Id="CS1057" Identifier="StaticClassesCannotContainProtectedMembers" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1057" />
   <Diagnostic Id="CS1061" Identifier="TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1061" />
+  <Diagnostic Id="CS1100" Identifier="MethodHasParameterModifierThisWhichIsNotOnFirstParameter" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1100" />
   <Diagnostic Id="CS1105" Identifier="ExtensionMethodMustBeStatic" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1105" />
   <Diagnostic Id="CS1522" Identifier="EmptySwitchBlock" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1522" />
   <Diagnostic Id="CS1503" Identifier="CannotConvertArgumentType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1503" />

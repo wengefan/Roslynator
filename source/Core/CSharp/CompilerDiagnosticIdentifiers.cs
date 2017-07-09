@@ -59,6 +59,7 @@ namespace Roslynator.CSharp
         public const string VirtualOrAbstractmembersCannotBePrivate  = "CS0621";
         public const string NewProtectedMemberDeclaredInSealedClass = "CS0628";
         public const string FieldCanNotBeBothVolatileAndReadOnly = "CS0678";
+        public const string TypeParameterHasSameNameAsTypeParameterFromOuterType = "CS0693";
         public const string CannotDeclareInstanceMembersInStaticClass = "CS0708";
         public const string StaticClassesCannotHaveInstanceConstructors = "CS0710";
         public const string PartialMethodCannotHaveAccessModifiersOrVirtualAbstractOverrideNewSealedOrExternModifiers = "CS0750";
@@ -75,6 +76,7 @@ namespace Roslynator.CSharp
         public const string EmbeddedStatementCannotBeDeclarationOrLabeledStatement = "CS1023";
         public const string StaticClassesCannotContainProtectedMembers = "CS1057";
         public const string TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound = "CS1061";
+        public const string MethodHasParameterModifierThisWhichIsNotOnFirstParameter = "CS1100";
         public const string ExtensionMethodMustBeStatic = "CS1105";
         public const string CannotConvertArgumentType = "CS1503";
         public const string EmptySwitchBlock = "CS1522";

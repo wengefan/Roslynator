@@ -56,7 +56,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.AsyncModifierCanOnlyBeUsedInMethodsThatHaveBody,
                     CompilerDiagnosticIdentifiers.PartialMethodCannotHaveAccessModifiersOrVirtualAbstractOverrideNewSealedOrExternModifiers,
                     CompilerDiagnosticIdentifiers.ExtensionMethodMustBeStatic,
-                    CompilerDiagnosticIdentifiers.NoDefiningDeclarationFoundForImplementingDeclarationOfPartialMethod);
+                    CompilerDiagnosticIdentifiers.NoDefiningDeclarationFoundForImplementingDeclarationOfPartialMethod,
+                    CompilerDiagnosticIdentifiers.MethodHasParameterModifierThisWhichIsNotOnFirstParameter);
             }
         }
 
@@ -283,6 +284,13 @@ namespace Roslynator.CSharp.CodeFixes
 
                             break;
                         }
+                    case CompilerDiagnosticIdentifiers.MethodHasParameterModifierThisWhichIsNotOnFirstParameter:
+                        {
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveThisModifier))
+                                RemoveModifier(context, diagnostic, token.Parent, token);
+
+                            break;
+                        }
                 }
             }
         }
@@ -345,7 +353,7 @@ namespace Roslynator.CSharp.CodeFixes
 
             SyntaxToken modifier = modifiers[index];
 
-            RemoveModifier(context, diagnostic, parameter, modifier, SyntaxKind.ThisKeyword.ToString());
+            RemoveModifier(context, diagnostic, parameter, modifier);
         }
 
         private void RemoveAccessModifiers(CodeFixContext context, Diagnostic diagnostic, SyntaxNode node)

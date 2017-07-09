@@ -329,7 +329,13 @@
   </CodeFix>
   <CodeFix Id="RCF0060" Identifier="RemoveThisModifier" Title="Remove 'this' modifier">
     <FixableDiagnosticIds>
+      <Id>CS1100</Id>
       <Id>CS1105</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCF0061" Identifier="RemoveTypeParameter" Title="Remove type parameter">
+    <FixableDiagnosticIds>
+      <Id>CS0693</Id>
     </FixableDiagnosticIds>
   </CodeFix>
 </CodeFixes>

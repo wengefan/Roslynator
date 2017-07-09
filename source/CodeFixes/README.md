@@ -49,7 +49,8 @@ RCF0028|Remove redundant assignment|[CS1717](http://docs.microsoft.com/en-us/dot
 RCF0027|Remove 'ref' modifier|[CS1615](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1615)|x
 RCF0057|Remove return expression|[CS0127](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0127), CS1997|x
 RCF0052|Remove 'return' keyword|[CS0127](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0127), CS1997|x
-RCF0060|Remove 'this' modifier|[CS1105](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1105)|x
+RCF0060|Remove 'this' modifier|[CS1100](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1100), [CS1105](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1105)|x
+RCF0061|Remove type parameter|[CS0693](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0693)|x
 RCF0014|Remove unused label|[CS0164](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0164)|x
 RCF0001|Remove unused variable|[CS0168](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0168), [CS0219](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0219)|x
 RCF0054|Reorder modifiers|[CS0267](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0267)|x
