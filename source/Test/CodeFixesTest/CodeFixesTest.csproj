@@ -45,6 +45,12 @@
     <Compile Include="AddDocumentationComment.cs" />
     <Compile Include="AddBody.cs" />
     <Compile Include="AddSemicolon.cs" />
+    <Compile Include="CS0750_PartialMethodCannotHaveAccessModifiersOrVirtualAbstractOverrideNewSealedOrExternModifiers.cs" />
+    <Compile Include="CS0759_NoDefiningDeclarationFoundForImplementingDeclarationOfPartialMethod.cs" />
+    <Compile Include="CS0766_PartialMethodsMustHaveVoidReturnType.cs" />
+    <Compile Include="CS0766_PartialMethodsMustHaveVoidReturnType2.cs" />
+    <Compile Include="CS1105_ExtensionMethodMustBeStatic.cs" />
+    <Compile Include="CS1994_AsyncModifierCanOnlyBeUsedInMethodsThatHaveBody.cs" />
     <Compile Include="MemberHidesInheritedMember.cs" />
     <Compile Include="AddPartialModifier.cs" />
     <Compile Include="AddReturnStatementThatReturnsDefaultValue.cs" />

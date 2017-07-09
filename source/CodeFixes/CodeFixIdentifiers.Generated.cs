@@ -23,7 +23,7 @@ namespace Roslynator.CSharp.CodeFixes
         public const string OverridingMemberCannotChangeAccessModifiers = Prefix + "0015";
         public const string AddDocumentationComment = Prefix + "0016";
         public const string RemoveUnreachableCode = Prefix + "0017";
-        public const string MemberReturnTypeMustMatchOverriddenMemberReturnType = Prefix + "0018";
+        public const string ChangeMethodReturnType = Prefix + "0018";
         public const string MemberTypeMustMatchOverriddenMemberType = Prefix + "0019";
         public const string AddReturnStatementThatReturnsDefaultValue = Prefix + "0020";
         public const string UseYieldReturnInsteadOfReturn = Prefix + "0021";
@@ -65,5 +65,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveReturnExpression = Prefix + "0057";
         public const string ReplaceNullLiteralExpressionWithDefaultValue = Prefix + "0058";
         public const string ReplaceVariableDeclarationWithAssignment = Prefix + "0059";
+        public const string RemoveThisModifier = Prefix + "0060";
     }
 }

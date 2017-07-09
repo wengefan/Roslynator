@@ -26,7 +26,7 @@ namespace Roslynator.CSharp.CodeFixes
                 return ImmutableArray.Create(
                     CompilerDiagnosticIdentifiers.CannotChangeAccessModifiersWhenOverridingInheritedMember,
                     CompilerDiagnosticIdentifiers.MissingXmlCommentForPubliclyVisibleTypeOrMember,
-                    CompilerDiagnosticIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType,
+                    CompilerDiagnosticIdentifiers.MethodReturnTypeMustMatchOverriddenMethodReturnType,
                     CompilerDiagnosticIdentifiers.MemberTypeMustMatchOverriddenMemberType,
                     CompilerDiagnosticIdentifiers.MissingPartialModifier,
                     CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct,
@@ -34,7 +34,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors,
                     CompilerDiagnosticIdentifiers.MemberIsAbstractButItIsContainedInNonAbstractClass,
                     CompilerDiagnosticIdentifiers.ObjectReferenceIsRequiredForNonStaticMember,
-                    CompilerDiagnosticIdentifiers.StaticConstructorMustBeParameterless);
+                    CompilerDiagnosticIdentifiers.StaticConstructorMustBeParameterless,
+                    CompilerDiagnosticIdentifiers.PartialMethodsMustHaveVoidReturnType);
             }
         }
 
@@ -42,7 +43,7 @@ namespace Roslynator.CSharp.CodeFixes
         {
             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.OverridingMemberCannotChangeAccessModifiers)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddDocumentationComment)
-                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.ChangeMethodReturnType)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier)
@@ -109,9 +110,9 @@ namespace Roslynator.CSharp.CodeFixes
                             context.RegisterCodeFix(codeAction2, diagnostic);
                             break;
                         }
-                    case CompilerDiagnosticIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType:
+                    case CompilerDiagnosticIdentifiers.MethodReturnTypeMustMatchOverriddenMethodReturnType:
                         {
-                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberReturnTypeMustMatchOverriddenMemberReturnType))
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.ChangeMethodReturnType))
                                 break;
 
                             SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
@@ -132,6 +133,34 @@ namespace Roslynator.CSharp.CodeFixes
                                 context.RegisterCodeFix(codeAction, diagnostic);
                             }
 
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.PartialMethodsMustHaveVoidReturnType:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.ChangeMethodReturnType))
+                                break;
+
+                            SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
+
+                            var methodDeclaration = (MethodDeclarationSyntax)memberDeclaration;
+
+                            MethodDeclarationSyntax otherPart = semanticModel.GetOtherPart(methodDeclaration, context.CancellationToken);
+
+                            if (otherPart == null)
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                "Change return type to 'void'",
+                                cancellationToken =>
+                                {
+                                    return context.Document.Solution().ReplaceNodesAsync(
+                                        new MethodDeclarationSyntax[] { methodDeclaration, otherPart },
+                                        (node, rewrittenNode) => node.WithReturnType(CSharpFactory.VoidType().WithTriviaFrom(node.ReturnType)),
+                                        cancellationToken);
+                                },
+                                GetEquivalenceKey(diagnostic));
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                     case CompilerDiagnosticIdentifiers.MemberTypeMustMatchOverriddenMemberType:

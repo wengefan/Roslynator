@@ -45,7 +45,12 @@ namespace Roslynator.CSharp.CodeFixes
                         {
                             var methodDeclaration = (MethodDeclarationSyntax)ancestor;
 
-                            ComputeCodeFix(context, context.Diagnostics[0], methodDeclaration.Body, methodDeclaration.ReturnType, semanticModel);
+                            if (!methodDeclaration.Modifiers.Contains(SyntaxKind.PartialKeyword)
+                                || semanticModel.GetOtherPart(methodDeclaration, context.CancellationToken) == null)
+                            {
+                                ComputeCodeFix(context, context.Diagnostics[0], methodDeclaration.Body, methodDeclaration.ReturnType, semanticModel);
+                            }
+
                             return;
                         }
                     case SyntaxKind.OperatorDeclaration:

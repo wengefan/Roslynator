@@ -43,7 +43,7 @@
   <Diagnostic Id="CS0500" Identifier="MemberCannotDeclareBodyBecauseItIsMarkedAbstract" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500" />
   <Diagnostic Id="CS0501" Identifier="MemberMustDeclareBodyBecauseItIsNotMarkedAbstractExternOrPartial" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0501" />
   <Diagnostic Id="CS0507" Identifier="CannotChangeAccessModifiersWhenOverridingInheritedMember" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0507" />
-  <Diagnostic Id="CS0508" Identifier="MemberReturnTypeMustMatchOverriddenMemberReturnType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0508" />
+  <Diagnostic Id="CS0508" Identifier="MethodReturnTypeMustMatchOverriddenMethodReturnType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0508" />
   <Diagnostic Id="CS0513" Identifier="MemberIsAbstractButItIsContainedInNonAbstractClass" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0513" />
   <Diagnostic Id="CS0515" Identifier="AccessModifiersAreNotAllowedOnStaticConstructors" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0515" />
   <Diagnostic Id="CS0531" Identifier="InterfaceMembersCannotHaveDefinition" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0531" />
@@ -55,9 +55,12 @@
   <Diagnostic Id="CS0678" Identifier="FieldCanNotBeBothVolatileAndReadOnly" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0678" />
   <Diagnostic Id="CS0708" Identifier="CannotDeclareInstanceMembersInStaticClass" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0708" />
   <Diagnostic Id="CS0710" Identifier="StaticClassesCannotHaveInstanceConstructors" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0710" />
+  <Diagnostic Id="CS0750" Identifier="PartialMethodCannotHaveAccessModifiersOrVirtualAbstractOverrideNewSealedOrExternModifiers" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0750" />
   <Diagnostic Id="CS0751" Identifier="PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0751" />
   <Diagnostic Id="CS0753" Identifier="OnlyMethodsClassesStructsOrInterfacesMayBePartial" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0753" />
   <Diagnostic Id="CS0756" Identifier="PartialMethodMayNotHaveMultipleDefiningDeclarations" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0756" />
+  <Diagnostic Id="CS0759" Identifier="NoDefiningDeclarationFoundForImplementingDeclarationOfPartialMethod" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0759" />
+  <Diagnostic Id="CS0766" Identifier="PartialMethodsMustHaveVoidReturnType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0766" />
   <Diagnostic Id="CS0815" Identifier="CannotAssignMethodGroupToImplicitlyTypedVariable" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0815" />
   <Diagnostic Id="CS0819" Identifier="ImplicitlyTypedVariablesCannotHaveMultipleDeclarators" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0819" />
   <Diagnostic Id="CS0822" Identifier="ImplicitlyTypedVariablesCannotBeConstant" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0822" />
@@ -66,6 +69,7 @@
   <Diagnostic Id="CS1023" Identifier="EmbeddedStatementCannotBeDeclarationOrLabeledStatement" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1023" />
   <Diagnostic Id="CS1057" Identifier="StaticClassesCannotContainProtectedMembers" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1057" />
   <Diagnostic Id="CS1061" Identifier="TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1061" />
+  <Diagnostic Id="CS1105" Identifier="ExtensionMethodMustBeStatic" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1105" />
   <Diagnostic Id="CS1522" Identifier="EmptySwitchBlock" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1522" />
   <Diagnostic Id="CS1503" Identifier="CannotConvertArgumentType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1503" />
   <Diagnostic Id="CS1591" Identifier="MissingXmlCommentForPubliclyVisibleTypeOrMember" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1591" />
@@ -79,6 +83,7 @@
   <Diagnostic Id="CS1717" Identifier="AssignmentMadeToSameVariable" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1717" />
   <Diagnostic Id="CS1722" Identifier="BaseClassMustComeBeforeAnyInterface" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1722" />
   <Diagnostic Id="CS1955" Identifier="NonInvocableMemberCannotBeUsedLikeMethod" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1955" />
+  <Diagnostic Id="CS1994" Identifier="AsyncModifierCanOnlyBeUsedInMethodsThatHaveBody" HelpUrl="" />
   <Diagnostic Id="CS1997" Identifier="SinceMethodIsAsyncMethodThatReturnsTaskReturnKeywordMustNotBeFollowedByObjectExpression" HelpUrl="" />
   <Diagnostic Id="CS8070" Identifier="ControlCannotFallOutOfSwitchFromFinalCaseLabel" HelpUrl="" />
 </Diagnostics>

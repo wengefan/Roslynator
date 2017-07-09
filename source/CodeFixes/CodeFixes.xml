@@ -87,9 +87,10 @@
       <Id>CS0162</Id>
     </FixableDiagnosticIds>
   </CodeFix>
-  <CodeFix Id="RCF0018" Identifier="MemberReturnTypeMustMatchOverriddenMemberReturnType" Title="Member return type must match overridden member return type">
+  <CodeFix Id="RCF0018" Identifier="ChangeMethodReturnType" Title="Change method return type">
     <FixableDiagnosticIds>
       <Id>CS0508</Id>
+      <Id>CS0766</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0019" Identifier="MemberTypeMustMatchOverriddenMemberType" Title="Member type must match overridden member type">
@@ -176,6 +177,7 @@
     <FixableDiagnosticIds>
       <Id>CS0708</Id>
       <Id>CS0710</Id>
+      <Id>CS1105</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0034" Identifier="MakeContainingClassAbstract" Title="Make containing class abstract">
@@ -296,8 +298,11 @@
       <Id>CS0441</Id>
       <Id>CS0515</Id>
       <Id>CS0678</Id>
+      <Id>CS0750</Id>
       <Id>CS0753</Id>
+      <Id>CS0759</Id>
       <Id>CS1609</Id>
+      <Id>CS1994</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0056" Identifier="RemoveMemberDeclaration" Title="Remove member declaration">
@@ -320,6 +325,11 @@
     <FixableDiagnosticIds>
       <Id>CS0128</Id>
       <Id>CS0136</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCF0060" Identifier="RemoveThisModifier" Title="Remove 'this' modifier">
+    <FixableDiagnosticIds>
+      <Id>CS1105</Id>
     </FixableDiagnosticIds>
   </CodeFix>
 </CodeFixes>

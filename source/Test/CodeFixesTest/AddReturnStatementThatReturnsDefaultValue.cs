@@ -99,5 +99,14 @@ namespace Roslynator.CSharp.CodeFixes.Test
         }
 
         public static int MethodExpressionBody() => ;
+
+        private partial class FooPartial
+        {
+            partial object Method()
+            {
+            }
+
+            partial object Method();
+        }
     }
 }

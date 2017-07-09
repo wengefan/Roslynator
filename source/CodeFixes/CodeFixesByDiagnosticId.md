@@ -54,9 +54,12 @@ CS0261|RCF0029
 [CS0678](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0678)|RCF0055
 [CS0708](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0708)|RCF0033
 [CS0710](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0710)|RCF0033
+[CS0750](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0750)|RCF0055
 [CS0751](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0751)|RCF0025
 [CS0753](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0753)|RCF0055
 [CS0756](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0756)|RCF0026
+[CS0759](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0759)|RCF0055
+[CS0766](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0766)|RCF0018
 [CS0815](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0815)|RCF0041
 [CS0819](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0819)|RCF0048
 [CS0822](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0822)|RCF0048
@@ -65,6 +68,7 @@ CS0261|RCF0029
 [CS1023](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1023)|RCF0009
 [CS1057](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1057)|RCF0029
 [CS1061](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1061)|RCF0038, RCF0049
+[CS1105](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1105)|RCF0033, RCF0060
 [CS1522](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1522)|RCF0046
 [CS1591](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1591)|RCF0016
 [CS1609](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1609)|RCF0055
@@ -77,5 +81,6 @@ CS0261|RCF0029
 [CS1717](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1717)|RCF0028
 [CS1722](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1722)|RCF0005
 [CS1955](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1955)|RCF0037
+CS1994|RCF0055
 CS1997|RCF0052, RCF0057
 CS8070|RCF0002
