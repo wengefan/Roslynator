@@ -77,11 +77,13 @@ namespace Roslynator.CSharp.CodeFixes
 
                             OverrideInfo overrideInfo = OverridingMemberCannotChangeAccessModifiersRefactoring.GetOverrideInfo(memberDeclaration, semanticModel, context.CancellationToken);
 
-                            string title = $"Change accessibility to '{overrideInfo.DeclaredAccessibilityText}'";
+                            Accessibility newAccessibility = overrideInfo.OverriddenSymbol.DeclaredAccessibility;
+
+                            string title = $"Change accessibility to '{AccessibilityHelper.GetAccessibilityName(newAccessibility)}'";
 
                             CodeAction codeAction = CodeAction.Create(
                                 title,
-                                cancellationToken => OverridingMemberCannotChangeAccessModifiersRefactoring.RefactorAsync(context.Document, memberDeclaration, overrideInfo, cancellationToken),
+                                cancellationToken => OverridingMemberCannotChangeAccessModifiersRefactoring.RefactorAsync(context.Document, memberDeclaration, newAccessibility, cancellationToken),
                                 GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
