@@ -78,6 +78,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.ReplaceVariableDeclarationWithAssignment, "Replace variable declaration with assignment (fixes CS0128, CS0136)", IsEnabled(CodeFixIdentifiers.ReplaceVariableDeclarationWithAssignment)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveThisModifier, "Remove 'this' modifier (fixes CS1100, CS1105)", IsEnabled(CodeFixIdentifiers.RemoveThisModifier)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveTypeParameter, "Remove type parameter (fixes CS0693)", IsEnabled(CodeFixIdentifiers.RemoveTypeParameter)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.MakeContainingClassNonStatic, "Make containing class non-static (fixes CS0708, CS0710)", IsEnabled(CodeFixIdentifiers.MakeContainingClassNonStatic)));
         }
     }
 }

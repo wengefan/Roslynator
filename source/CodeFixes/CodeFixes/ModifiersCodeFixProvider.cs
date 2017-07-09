@@ -57,7 +57,9 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.PartialMethodCannotHaveAccessModifiersOrVirtualAbstractOverrideNewSealedOrExternModifiers,
                     CompilerDiagnosticIdentifiers.ExtensionMethodMustBeStatic,
                     CompilerDiagnosticIdentifiers.NoDefiningDeclarationFoundForImplementingDeclarationOfPartialMethod,
-                    CompilerDiagnosticIdentifiers.MethodHasParameterModifierThisWhichIsNotOnFirstParameter);
+                    CompilerDiagnosticIdentifiers.MethodHasParameterModifierThisWhichIsNotOnFirstParameter,
+                    CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass,
+                    CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors);
             }
         }
 
@@ -67,7 +69,8 @@ namespace Roslynator.CSharp.CodeFixes
                 CodeFixIdentifiers.RemoveInvalidModifier,
                 CodeFixIdentifiers.ChangeAccessibility,
                 CodeFixIdentifiers.AddStaticModifier,
-                CodeFixIdentifiers.RemoveThisModifier))
+                CodeFixIdentifiers.RemoveThisModifier,
+                CodeFixIdentifiers.MakeContainingClassNonStatic))
             {
                 return;
             }
@@ -270,10 +273,10 @@ namespace Roslynator.CSharp.CodeFixes
                     case CompilerDiagnosticIdentifiers.ExtensionMethodMustBeStatic:
                         {
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier))
-                                AddStaticModifier(context, diagnostic, node);
+                                AddStaticModifier(context, diagnostic, node, CodeFixIdentifiers.AddStaticModifier);
 
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveThisModifier))
-                                RemoveThisModifier(context, diagnostic, (MethodDeclarationSyntax)node);
+                                RemoveThisModifier(context, diagnostic, (MethodDeclarationSyntax)node, CodeFixIdentifiers.RemoveThisModifier);
 
                             break;
                         }
@@ -288,6 +291,23 @@ namespace Roslynator.CSharp.CodeFixes
                         {
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveThisModifier))
                                 RemoveModifier(context, diagnostic, token.Parent, token);
+
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass:
+                    case CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors:
+                        {
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier))
+                                AddStaticModifier(context, diagnostic, node, CodeFixIdentifiers.AddStaticModifier);
+
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeContainingClassNonStatic))
+                            {
+                                var classDeclaration = (ClassDeclarationSyntax)node.Parent;
+
+                                SyntaxToken staticModifier = classDeclaration.Modifiers.Find(SyntaxKind.StaticKeyword);
+
+                                RemoveModifier(context, diagnostic, classDeclaration, staticModifier, CodeFixIdentifiers.MakeContainingClassNonStatic, "Make containing class non-static");
+                            }
 
                             break;
                         }
@@ -328,10 +348,10 @@ namespace Roslynator.CSharp.CodeFixes
             RemoveModifier(context, diagnostic, node, modifier, modifierKind.ToString());
         }
 
-        private void RemoveModifier(CodeFixContext context, Diagnostic diagnostic, SyntaxNode node, SyntaxToken token, string additionalKey = null)
+        private void RemoveModifier(CodeFixContext context, Diagnostic diagnostic, SyntaxNode node, SyntaxToken token, string additionalKey = null, string message = null)
         {
             CodeAction codeAction = CodeAction.Create(
-                $"Remove '{token.ToString()}' modifier",
+                message ?? $"Remove '{token.ToString()}' modifier",
                 cancellationToken =>
                 {
                     SyntaxNode newNode = node.RemoveModifier(token);
@@ -343,7 +363,7 @@ namespace Roslynator.CSharp.CodeFixes
             context.RegisterCodeFix(codeAction, diagnostic);
         }
 
-        private void RemoveThisModifier(CodeFixContext context, Diagnostic diagnostic, MethodDeclarationSyntax methodDeclaration)
+        private void RemoveThisModifier(CodeFixContext context, Diagnostic diagnostic, MethodDeclarationSyntax methodDeclaration, string additionalKey = null)
         {
             ParameterSyntax parameter = methodDeclaration.ParameterList.Parameters.First();
 
@@ -353,7 +373,7 @@ namespace Roslynator.CSharp.CodeFixes
 
             SyntaxToken modifier = modifiers[index];
 
-            RemoveModifier(context, diagnostic, parameter, modifier);
+            RemoveModifier(context, diagnostic, parameter, modifier, additionalKey);
         }
 
         private void RemoveAccessModifiers(CodeFixContext context, Diagnostic diagnostic, SyntaxNode node)
@@ -463,7 +483,7 @@ namespace Roslynator.CSharp.CodeFixes
             }
         }
 
-        private void AddStaticModifier(CodeFixContext context, Diagnostic diagnostic, SyntaxNode node)
+        private void AddStaticModifier(CodeFixContext context, Diagnostic diagnostic, SyntaxNode node, string additionalKey = null)
         {
             if (node.IsKind(SyntaxKind.ConstructorDeclaration)
                 && ((ConstructorDeclarationSyntax)node).ParameterList?.Parameters.Any() == true)
@@ -480,9 +500,11 @@ namespace Roslynator.CSharp.CodeFixes
                     if (node.IsKind(SyntaxKind.ConstructorDeclaration))
                         newNode = ModifierHelper.RemoveAccessModifiers(newNode);
 
-                    return context.Document.InsertModifierAsync(newNode, SyntaxKind.StaticKeyword, ModifierComparer.Instance, cancellationToken);
+                    newNode = newNode.InsertModifier(SyntaxKind.StaticKeyword, ModifierComparer.Instance);
+
+                    return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
                 },
-                GetEquivalenceKey(diagnostic));
+                GetEquivalenceKey(diagnostic, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }

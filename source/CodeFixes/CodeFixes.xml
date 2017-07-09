@@ -338,4 +338,10 @@
       <Id>CS0693</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0062" Identifier="MakeContainingClassNonStatic" Title="Make containing class non-static">
+    <FixableDiagnosticIds>
+      <Id>CS0708</Id>
+      <Id>CS0710</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

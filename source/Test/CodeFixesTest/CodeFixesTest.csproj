@@ -46,6 +46,8 @@
     <Compile Include="AddBody.cs" />
     <Compile Include="AddSemicolon.cs" />
     <Compile Include="CS0693_TypeParameterHasSameNameAsTypeParameterFromOuterType.cs" />
+    <Compile Include="CS0708_CannotDeclareInstanceMembersInStaticClass.cs" />
+    <Compile Include="CS0710_StaticClassesCannotHaveInstanceConstructors.cs" />
     <Compile Include="CS0750_PartialMethodCannotHaveAccessModifiersOrVirtualAbstractOverrideNewSealedOrExternModifiers.cs" />
     <Compile Include="CS0759_NoDefiningDeclarationFoundForImplementingDeclarationOfPartialMethod.cs" />
     <Compile Include="CS0766_PartialMethodsMustHaveVoidReturnType.cs" />

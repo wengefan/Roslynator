@@ -30,8 +30,6 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.MemberTypeMustMatchOverriddenMemberType,
                     CompilerDiagnosticIdentifiers.MissingPartialModifier,
                     CompilerDiagnosticIdentifiers.PartialMethodMustBeDeclaredWithinPartialClassOrPartialStruct,
-                    CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass,
-                    CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors,
                     CompilerDiagnosticIdentifiers.MemberIsAbstractButItIsContainedInNonAbstractClass,
                     CompilerDiagnosticIdentifiers.ObjectReferenceIsRequiredForNonStaticMember,
                     CompilerDiagnosticIdentifiers.StaticConstructorMustBeParameterless,
@@ -46,7 +44,6 @@ namespace Roslynator.CSharp.CodeFixes
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.ChangeMethodReturnType)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MemberTypeMustMatchOverriddenMemberType)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier)
-                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeContainingClassAbstract)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeMemberNonStatic)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveParametersFromStaticConstructor))
@@ -235,34 +232,6 @@ namespace Roslynator.CSharp.CodeFixes
                                     }
 
                                     return Task.FromResult(context.Document);
-                                },
-                                GetEquivalenceKey(diagnostic));
-
-                            context.RegisterCodeFix(codeAction, diagnostic);
-                            break;
-                        }
-                    case CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass:
-                    case CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors:
-                        {
-                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier))
-                                break;
-
-                            if (memberDeclaration.IsKind(SyntaxKind.ConstructorDeclaration)
-                                && ((ConstructorDeclarationSyntax)memberDeclaration).ParameterList?.Parameters.Any() == true)
-                            {
-                                break;
-                            }
-
-                            CodeAction codeAction = CodeAction.Create(
-                                "Add 'static' modifier",
-                                cancellationToken =>
-                                {
-                                    MemberDeclarationSyntax newMemberDeclaration = memberDeclaration;
-
-                                    if (memberDeclaration.IsKind(SyntaxKind.ConstructorDeclaration))
-                                        newMemberDeclaration = ModifierHelper.RemoveAccessModifiers(newMemberDeclaration);
-
-                                    return context.Document.InsertModifierAsync(newMemberDeclaration, SyntaxKind.StaticKeyword, ModifierComparer.Instance, cancellationToken);
                                 },
                                 GetEquivalenceKey(diagnostic));
 

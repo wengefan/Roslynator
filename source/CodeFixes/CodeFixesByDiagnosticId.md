@@ -53,8 +53,8 @@ CS0261|RCF0029
 [CS0628](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628)|RCF0029
 [CS0678](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0678)|RCF0055
 [CS0693](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0693)|RCF0061
-[CS0708](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0708)|RCF0033
-[CS0710](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0710)|RCF0033
+[CS0708](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0708)|RCF0033, RCF0062
+[CS0710](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0710)|RCF0033, RCF0062
 [CS0750](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0750)|RCF0055
 [CS0751](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0751)|RCF0025
 [CS0753](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0753)|RCF0055

@@ -3194,6 +3194,17 @@ namespace Roslynator.CSharp
 
             return accessModifier;
         }
+
+        public static SyntaxToken Find(this SyntaxTokenList tokenList, SyntaxKind kind)
+        {
+            foreach (SyntaxToken token in tokenList)
+            {
+                if (token.IsKind(kind))
+                    return token;
+            }
+
+            return default(SyntaxToken);
+        }
         #endregion SyntaxTokenList
 
         #region SyntaxTrivia
