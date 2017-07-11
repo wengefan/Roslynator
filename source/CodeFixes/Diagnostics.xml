@@ -37,10 +37,16 @@
   <Diagnostic Id="CS0267" Identifier="PartialModifierCanOnlyAppearImmediatelyBeforeClassStructInterfaceOrVoid" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0267" />
   <Diagnostic Id="CS0275" Identifier="AccessibilityModifiersMayNotBeUsedOnAccessorsInInterface" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0275" />
   <Diagnostic Id="CS0305" Identifier="UsingGenericTypeRequiresTypeArguments" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0305" />
+  <Diagnostic Id="CS0401" Identifier="NewConstraintMustBeLastConstraintSpecified" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0401" />
+  <Diagnostic Id="CS0405" Identifier="DuplicateConstraintForTypeParameter" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0405" />
   <Diagnostic Id="CS0407" Identifier="MethodHasWrongReturnType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0407" />
+  <Diagnostic Id="CS0409" Identifier="ConstraintClauseHasAlreadyBeenSpecified" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0409" />
   <Diagnostic Id="CS0428" Identifier="CannotConvertMethodGroupToNonDelegateType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0428" />
   <Diagnostic Id="CS0441" Identifier="ClassCannotBeBothStaticAndSealed" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0441" />
   <Diagnostic Id="CS0442" Identifier="AbstractPropertiesCannotHavePrivateAccessors" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0442" />
+  <Diagnostic Id="CS0449" Identifier="ClassOrStructConstraintMustComeBeforeAnyOtherConstraints" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0449" />
+  <Diagnostic Id="CS0450" Identifier="CannotSpecifyBothConstraintClassAndClassOrStructConstraint" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0450" />
+  <Diagnostic Id="CS0451" Identifier="NewConstraintCannotBeUsedWithStructConstraint" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0451" />
   <Diagnostic Id="CS0500" Identifier="MemberCannotDeclareBodyBecauseItIsMarkedAbstract" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500" />
   <Diagnostic Id="CS0501" Identifier="MemberMustDeclareBodyBecauseItIsNotMarkedAbstractExternOrPartial" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0501" />
   <Diagnostic Id="CS0507" Identifier="CannotChangeAccessModifiersWhenOverridingInheritedMember" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0507" />

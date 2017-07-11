@@ -1995,6 +1995,16 @@ namespace Roslynator.CSharp
         {
             return list.IndexOf(node) != -1;
         }
+
+        public static TNode Find<TNode>(this SeparatedSyntaxList<TNode> list, SyntaxKind kind) where TNode : SyntaxNode
+        {
+            int index = list.IndexOf(kind);
+
+            if (index != -1)
+                return list[index];
+
+            return default(TNode);
+        }
         #endregion SeparatedSyntaxList<T>
 
         #region StatementSyntax
@@ -2197,6 +2207,16 @@ namespace Roslynator.CSharp
         public static bool Contains<TNode>(this SyntaxList<TNode> list, SyntaxKind kind) where TNode : SyntaxNode
         {
             return list.IndexOf(kind) != -1;
+        }
+
+        public static TNode Find<TNode>(this SyntaxList<TNode> list, SyntaxKind kind) where TNode : SyntaxNode
+        {
+            int index = list.IndexOf(kind);
+
+            if (index != -1)
+                return list[index];
+
+            return default(TNode);
         }
 
         public static SyntaxList<MemberDeclarationSyntax> InsertMember(this SyntaxList<MemberDeclarationSyntax> members, MemberDeclarationSyntax member, IMemberDeclarationComparer comparer)
@@ -3373,6 +3393,13 @@ namespace Roslynator.CSharp
                 && triviaList[0].IsElasticMarker();
         }
         #endregion SyntaxTriviaList
+
+        #region TypeParameterConstraintClauseSyntax
+        internal static string NameText(this TypeParameterConstraintClauseSyntax constraintClause)
+        {
+            return constraintClause.Name.Identifier.ValueText;
+        }
+        #endregion TypeParameterConstraintClauseSyntax
 
         #region TypeSyntax
         public static bool IsVoid(this TypeSyntax type)

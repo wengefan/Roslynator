@@ -46,6 +46,12 @@
     <Compile Include="AddBody.cs" />
     <Compile Include="AddSemicolon.cs" />
     <Compile Include="CS0173_TypeOfConditionalExpressionCannotBeDetermined.cs" />
+    <Compile Include="CS0401_NewConstraintMustBeLastConstraintSpecified.cs" />
+    <Compile Include="CS0405_DuplicateConstraintForTypeParameter.cs" />
+    <Compile Include="CS0409_ConstraintClauseHasAlreadyBeenSpecified.cs" />
+    <Compile Include="CS0449_ClassOrStructConstraintMustComeBeforeAnyOtherConstraints.cs" />
+    <Compile Include="CS0450_CannotSpecifyBothConstraintClassAndClassOrStructConstraint.cs" />
+    <Compile Include="CS0451_NewConstraintCannotBeUsedWithStructConstraint.cs" />
     <Compile Include="CS0693_TypeParameterHasSameNameAsTypeParameterFromOuterType.cs" />
     <Compile Include="CS0708_CannotDeclareInstanceMembersInStaticClass.cs" />
     <Compile Include="CS0710_StaticClassesCannotHaveInstanceConstructors.cs" />

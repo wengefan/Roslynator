@@ -43,10 +43,16 @@ namespace Roslynator.CSharp
         public const string PartialModifierCanOnlyAppearImmediatelyBeforeClassStructInterfaceOrVoid = "CS0267";
         public const string AccessibilityModifiersMayNotBeUsedOnAccessorsInInterface = "CS0275";
         public const string UsingGenericTypeRequiresTypeArguments = "CS0305";
+        public const string NewConstraintMustBeLastConstraintSpecified = "CS0401";
+        public const string DuplicateConstraintForTypeParameter = "CS0405";
         public const string MethodHasWrongReturnType = "CS0407";
+        public const string ConstraintClauseHasAlreadyBeenSpecified = "CS0409";
         public const string CannotConvertMethodGroupToNonDelegateType = "CS0428";
         public const string ClassCannotBeBothStaticAndSealed = "CS0441";
         public const string AbstractPropertiesCannotHavePrivateAccessors = "CS0442";
+        public const string ClassOrStructConstraintMustComeBeforeAnyOtherConstraints = "CS0449";
+        public const string CannotSpecifyBothConstraintClassAndClassOrStructConstraint = "CS0450";
+        public const string NewConstraintCannotBeUsedWithStructConstraint = "CS0451";
         public const string MemberCannotDeclareBodyBecauseItIsMarkedAbstract = "CS0500";
         public const string MemberMustDeclareBodyBecauseItIsNotMarkedAbstractExternOrPartial = "CS0501";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = "CS0507";

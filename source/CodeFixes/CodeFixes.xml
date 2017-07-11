@@ -229,7 +229,7 @@
       <Id>CS0120</Id>
     </FixableDiagnosticIds>
   </CodeFix>
-  <CodeFix Id="RCF0043" Identifier="RemoveConstraintClause" Title="Remove constraint clause">
+  <CodeFix Id="RCF0043" Identifier="RemoveConstraintClauses" Title="Remove constraint clauses">
     <FixableDiagnosticIds>
       <Id>CS0080</Id>
     </FixableDiagnosticIds>
@@ -348,6 +348,24 @@
   <CodeFix Id="RCF0063" Identifier="AddCastExpression" Title="Add cast expression">
     <FixableDiagnosticIds>
       <Id>CS0173</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCF0064" Identifier="MoveConstraint" Title="Move constraint">
+    <FixableDiagnosticIds>
+      <Id>CS0401</Id>
+      <Id>CS0449</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCF0065" Identifier="RemoveConstraint" Title="Remove constraint">
+    <FixableDiagnosticIds>
+      <Id>CS0405</Id>
+      <Id>CS0450</Id>
+      <Id>CS0451</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCF0066" Identifier="CombineConstraintClauses" Title="Combine constraint clauses">
+    <FixableDiagnosticIds>
+      <Id>CS0409</Id>
     </FixableDiagnosticIds>
   </CodeFix>
 </CodeFixes>

@@ -4,6 +4,34 @@ namespace Roslynator.CSharp.CodeFixes
 {
     public static partial class CodeFixIdentifiers
     {
+        //private class ClassName
+        //{
+        //    public void MethodName<T>() where T : ClassName where T : ClassName
+        //    {
+
+        //    }
+
+        //    public void MethodName2<T>() where T : class, struct, new(), ClassName
+        //    {
+
+        //    }
+
+        //    public void MethodName3<T>() where T : class, ClassName
+        //    {
+
+        //    }
+        //}
+
+        //private class Foo
+        //{
+
+        //}
+
+        //public interface IFoo
+        //{
+
+        //}
+
         public const string Prefix = "RCF";
     }
 }

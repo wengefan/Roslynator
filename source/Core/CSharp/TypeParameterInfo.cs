@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
-using System.Diagnostics;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -35,7 +34,7 @@ namespace Roslynator.CSharp
             {
                 foreach (TypeParameterConstraintClauseSyntax constraintClause in ConstraintClauses)
                 {
-                    if (string.Equals(Name, constraintClause.Name.Identifier.ValueText, StringComparison.Ordinal))
+                    if (string.Equals(Name, constraintClause.NameText(), StringComparison.Ordinal))
                         return constraintClause;
                 }
 
@@ -220,52 +219,6 @@ namespace Roslynator.CSharp
             }
 
             return null;
-        }
-
-        public static SyntaxNode WithConstraintClauses(SyntaxNode node, SyntaxList<TypeParameterConstraintClauseSyntax> constraintClauses)
-        {
-            switch (node.Kind())
-            {
-                case SyntaxKind.ClassDeclaration:
-                    return ((ClassDeclarationSyntax)node).WithConstraintClauses(constraintClauses);
-                case SyntaxKind.DelegateDeclaration:
-                    return ((DelegateDeclarationSyntax)node).WithConstraintClauses(constraintClauses);
-                case SyntaxKind.InterfaceDeclaration:
-                    return ((InterfaceDeclarationSyntax)node).WithConstraintClauses(constraintClauses);
-                case SyntaxKind.LocalFunctionStatement:
-                    return ((LocalFunctionStatementSyntax)node).WithConstraintClauses(constraintClauses);
-                case SyntaxKind.MethodDeclaration:
-                    return ((MethodDeclarationSyntax)node).WithConstraintClauses(constraintClauses);
-                case SyntaxKind.StructDeclaration:
-                    return ((StructDeclarationSyntax)node).WithConstraintClauses(constraintClauses);
-            }
-
-            Debug.Fail(node.Kind().ToString());
-
-            return node;
-        }
-
-        public static SyntaxNode WithTypeParameterList(SyntaxNode node, TypeParameterListSyntax typeParameterList)
-        {
-            switch (node.Kind())
-            {
-                case SyntaxKind.ClassDeclaration:
-                    return ((ClassDeclarationSyntax)node).WithTypeParameterList(typeParameterList);
-                case SyntaxKind.DelegateDeclaration:
-                    return ((DelegateDeclarationSyntax)node).WithTypeParameterList(typeParameterList);
-                case SyntaxKind.InterfaceDeclaration:
-                    return ((InterfaceDeclarationSyntax)node).WithTypeParameterList(typeParameterList);
-                case SyntaxKind.LocalFunctionStatement:
-                    return ((LocalFunctionStatementSyntax)node).WithTypeParameterList(typeParameterList);
-                case SyntaxKind.MethodDeclaration:
-                    return ((MethodDeclarationSyntax)node).WithTypeParameterList(typeParameterList);
-                case SyntaxKind.StructDeclaration:
-                    return ((StructDeclarationSyntax)node).WithTypeParameterList(typeParameterList);
-            }
-
-            Debug.Fail(node.Kind().ToString());
-
-            return node;
         }
     }
 }

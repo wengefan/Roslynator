@@ -23,6 +23,7 @@ RCF0029|Change accessibility|[CS0442](http://docs.microsoft.com/en-us/dotnet/csh
 RCF0018|Change method return type|[CS0508](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0508), [CS0766](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0766)|x
 RCF0041|Change type of local variable|[CS0123](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0123), [CS0407](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0407), [CS0815](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0815)|x
 RCF0030|Change type of 'params' parameter|[CS0225](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0225)|x
+RCF0066|Combine constraint clauses|[CS0409](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0409)|x
 RCF0003|Create singleton array|[CS0266](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0266)|x
 RCF0008|Extract declaration from using statement|[CS1674](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1674)|x
 RCF0038|Fix member access name|[CS1061](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1061)|x
@@ -33,11 +34,13 @@ RCF0062|Make containing class non\-static|[CS0708](http://docs.microsoft.com/en-
 RCF0042|Make member non\-static|[CS0120](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0120)|x
 RCF0010|Mark operator as 'public' and 'static'|[CS0558](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0558)|x
 RCF0019|Member type must match overridden member type|[CS1715](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1715)|x
+RCF0064|Move constraint|[CS0401](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0401), [CS0449](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0449)|x
 RCF0015|Overriding member cannot change access modifiers|[CS0507](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0507)|x
 RCF0037|Remove argument list|[CS1955](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1955)|x
 RCF0049|Remove 'await' keyword|[CS1061](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1061)|x
 RCF0045|Remove 'const' modifier|[CS0133](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0133)|x
-RCF0043|Remove constraint clause|[CS0080](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080)|x
+RCF0065|Remove constraint|[CS0405](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0405), [CS0450](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0450), [CS0451](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0451)|x
+RCF0043|Remove constraint clauses|[CS0080](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080)|x
 RCF0012|Remove duplicate attribute|[CS0579](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0579)|x
 RCF0011|Remove duplicate modifier|[CS1004](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1004)|x
 RCF0046|Remove empty switch statement|[CS1522](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1522)|x

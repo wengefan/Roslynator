@@ -59,7 +59,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.InitializeLocalVariableWithDefaultValue, "Initialize local variable with default value (fixes CS0165)", IsEnabled(CodeFixIdentifiers.InitializeLocalVariableWithDefaultValue)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.ChangeTypeOfLocalVariable, "Change type of local variable (fixes CS0123, CS0407, CS0815)", IsEnabled(CodeFixIdentifiers.ChangeTypeOfLocalVariable)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.MakeMemberNonStatic, "Make member non-static (fixes CS0120)", IsEnabled(CodeFixIdentifiers.MakeMemberNonStatic)));
-            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveConstraintClause, "Remove constraint clause (fixes CS0080)", IsEnabled(CodeFixIdentifiers.RemoveConstraintClause)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveConstraintClauses, "Remove constraint clauses (fixes CS0080)", IsEnabled(CodeFixIdentifiers.RemoveConstraintClauses)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddTypeArgument, "Add type argument (fixes CS0305)", IsEnabled(CodeFixIdentifiers.AddTypeArgument)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveConstModifier, "Remove 'const' modifier (fixes CS0133)", IsEnabled(CodeFixIdentifiers.RemoveConstModifier)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveEmptySwitchStatement, "Remove empty switch statement (fixes CS1522)", IsEnabled(CodeFixIdentifiers.RemoveEmptySwitchStatement)));
@@ -80,6 +80,9 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveTypeParameter, "Remove type parameter (fixes CS0693)", IsEnabled(CodeFixIdentifiers.RemoveTypeParameter)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.MakeContainingClassNonStatic, "Make containing class non-static (fixes CS0708, CS0710)", IsEnabled(CodeFixIdentifiers.MakeContainingClassNonStatic)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddCastExpression, "Add cast expression (fixes CS0173)", IsEnabled(CodeFixIdentifiers.AddCastExpression)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.MoveConstraint, "Move constraint (fixes CS0401, CS0449)", IsEnabled(CodeFixIdentifiers.MoveConstraint)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveConstraint, "Remove constraint (fixes CS0405, CS0450, CS0451)", IsEnabled(CodeFixIdentifiers.RemoveConstraint)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.CombineConstraintClauses, "Combine constraint clauses (fixes CS0409)", IsEnabled(CodeFixIdentifiers.CombineConstraintClauses)));
         }
     }
 }
