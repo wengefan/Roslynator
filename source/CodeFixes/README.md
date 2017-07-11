@@ -6,6 +6,7 @@ RCF0039|Add argument list|[CS0428](http://docs.microsoft.com/en-us/dotnet/csharp
 RCF0026|Add body|[CS0501](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0501), [CS0756](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0756)|x
 RCF0009|Add braces to declaration or labeled statement|[CS1023](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1023)|x
 RCF0002|Add break statement to switch section|[CS0163](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0163), CS8070|x
+RCF0063|Add cast expression|[CS0173](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0173)|x
 RCF0023|Add comparison with boolean literal|[CS0019](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0019), [CS0266](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0266)|x
 RCF0016|Add documentation comment|[CS1591](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1591)|x
 RCF0007|Add 'new' modifier|[CS0114](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0114)|x
@@ -18,7 +19,7 @@ RCF0033|Add 'static' modifier|[CS0708](http://docs.microsoft.com/en-us/dotnet/cs
 RCF0044|Add type argument|[CS0305](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0305)|x
 RCF0051|Add 'unsafe' modifier|[CS0214](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0214)|x
 RCF0005|Base base class before any interface|[CS1722](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1722)|x
-RCF0029|Change accessibility|[CS0442](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0442), [CS0628](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628), [CS1057](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1057)|x
+RCF0029|Change accessibility|[CS0442](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0442), [CS0628](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628), [CS1057](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1057), [CS1527](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1527)|x
 RCF0018|Change method return type|[CS0508](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0508), [CS0766](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0766)|x
 RCF0041|Change type of local variable|[CS0123](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0123), [CS0407](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0407), [CS0815](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0815)|x
 RCF0030|Change type of 'params' parameter|[CS0225](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0225)|x

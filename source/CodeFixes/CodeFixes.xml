@@ -154,6 +154,7 @@
       <Id>CS0442</Id>
       <Id>CS0628</Id>
       <Id>CS1057</Id>
+      <Id>CS1527</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0030" Identifier="ChangeTypeOfParamsParameter" Title="Change type of 'params' parameter">
@@ -342,6 +343,11 @@
     <FixableDiagnosticIds>
       <Id>CS0708</Id>
       <Id>CS0710</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCF0063" Identifier="AddCastExpression" Title="Add cast expression">
+    <FixableDiagnosticIds>
+      <Id>CS0173</Id>
     </FixableDiagnosticIds>
   </CodeFix>
 </CodeFixes>

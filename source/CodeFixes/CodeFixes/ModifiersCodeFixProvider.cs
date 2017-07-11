@@ -21,6 +21,12 @@ namespace Roslynator.CSharp.CodeFixes
     [Shared]
     public class ModifiersCodeFixProvider : BaseCodeFixProvider
     {
+        private static readonly Accessibility[] _publicOrInternal = new Accessibility[]
+        {
+            Accessibility.Public,
+            Accessibility.Internal,
+        };
+
         private static readonly Accessibility[] _publicOrInternalOrProtected = new Accessibility[]
         {
             Accessibility.Public,
@@ -59,7 +65,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.NoDefiningDeclarationFoundForImplementingDeclarationOfPartialMethod,
                     CompilerDiagnosticIdentifiers.MethodHasParameterModifierThisWhichIsNotOnFirstParameter,
                     CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass,
-                    CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors);
+                    CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors,
+                    CompilerDiagnosticIdentifiers.ElementsDefinedInNamespaceCannotBeExplicitlyDeclaredAsPrivateProtectedOrProtectedInternal);
             }
         }
 
@@ -308,6 +315,13 @@ namespace Roslynator.CSharp.CodeFixes
 
                                 RemoveModifier(context, diagnostic, classDeclaration, staticModifier, CodeFixIdentifiers.MakeContainingClassNonStatic, "Make containing class non-static");
                             }
+
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.ElementsDefinedInNamespaceCannotBeExplicitlyDeclaredAsPrivateProtectedOrProtectedInternal:
+                        {
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.ChangeAccessibility))
+                                ChangeAccessibility(context, diagnostic, node, _publicOrInternal);
 
                             break;
                         }

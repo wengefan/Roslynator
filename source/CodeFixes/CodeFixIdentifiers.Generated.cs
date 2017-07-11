@@ -68,5 +68,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveThisModifier = Prefix + "0060";
         public const string RemoveTypeParameter = Prefix + "0061";
         public const string MakeContainingClassNonStatic = Prefix + "0062";
+        public const string AddCastExpression = Prefix + "0063";
     }
 }

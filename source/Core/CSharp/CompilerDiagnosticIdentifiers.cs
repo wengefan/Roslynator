@@ -31,6 +31,7 @@ namespace Roslynator.CSharp
         public const string LabelHasNotBeenReferenced = "CS0164";
         public const string UseOfUnassignedLocalVariable = "CS0165";
         public const string VariableIsDeclaredButNeverUsed = "CS0168";
+        public const string TypeOfConditionalExpressionCannotBeDetermined = "CS0173";
         public const string OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement = "CS0201";
         public const string PointersAndFixedSizeBuffersMayOnlyBeUsedInUnsafeContext = "CS0214";
         public const string VariableIsAssignedButItsValueIsNeverUsed = "CS0219";
@@ -80,6 +81,7 @@ namespace Roslynator.CSharp
         public const string ExtensionMethodMustBeStatic = "CS1105";
         public const string CannotConvertArgumentType = "CS1503";
         public const string EmptySwitchBlock = "CS1522";
+        public const string ElementsDefinedInNamespaceCannotBeExplicitlyDeclaredAsPrivateProtectedOrProtectedInternal = "CS1527";
         public const string MissingXmlCommentForPubliclyVisibleTypeOrMember = "CS1591";
         public const string ModifiersCannotBePlacedOnEventAccessorDeclarations = "CS1609";
         public const string ArgumentMayNotBePassedWithRefKeyword = "CS1615";
