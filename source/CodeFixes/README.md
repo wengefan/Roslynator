@@ -18,6 +18,7 @@ RCF0035|Add semicolon|[CS1002](http://docs.microsoft.com/en-us/dotnet/csharp/mis
 RCF0033|Add 'static' modifier|[CS0708](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0708), [CS0710](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0710), [CS1105](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1105)|x
 RCF0044|Add type argument|[CS0305](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0305)|x
 RCF0051|Add 'unsafe' modifier|[CS0214](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0214)|x
+RCF0067|Assign default value to 'out' parameter|[CS0177](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0177)|x
 RCF0005|Base base class before any interface|[CS1722](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1722)|x
 RCF0029|Change accessibility|[CS0442](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0442), [CS0628](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628), [CS1057](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1057), [CS1527](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1527)|x
 RCF0018|Change method return type|[CS0508](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0508), [CS0766](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0766)|x

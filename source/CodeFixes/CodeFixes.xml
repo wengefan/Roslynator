@@ -368,4 +368,9 @@
       <Id>CS0409</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0067" Identifier="AssignDefaultValueToOutParameter" Title="Assign default value to 'out' parameter">
+    <FixableDiagnosticIds>
+      <Id>CS0177</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

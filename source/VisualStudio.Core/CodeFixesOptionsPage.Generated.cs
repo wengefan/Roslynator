@@ -83,6 +83,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.MoveConstraint, "Move constraint (fixes CS0401, CS0449)", IsEnabled(CodeFixIdentifiers.MoveConstraint)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveConstraint, "Remove constraint (fixes CS0405, CS0450, CS0451)", IsEnabled(CodeFixIdentifiers.RemoveConstraint)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.CombineConstraintClauses, "Combine constraint clauses (fixes CS0409)", IsEnabled(CodeFixIdentifiers.CombineConstraintClauses)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AssignDefaultValueToOutParameter, "Assign default value to 'out' parameter (fixes CS0177)", IsEnabled(CodeFixIdentifiers.AssignDefaultValueToOutParameter)));
         }
     }
 }

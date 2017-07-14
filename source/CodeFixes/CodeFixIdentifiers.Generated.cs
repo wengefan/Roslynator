@@ -72,5 +72,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string MoveConstraint = Prefix + "0064";
         public const string RemoveConstraint = Prefix + "0065";
         public const string CombineConstraintClauses = Prefix + "0066";
+        public const string AssignDefaultValueToOutParameter = Prefix + "0067";
     }
 }
