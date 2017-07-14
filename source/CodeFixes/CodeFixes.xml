@@ -373,4 +373,9 @@
       <Id>CS0177</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0068" Identifier="MakeClassNonStatic" Title="Make class non-static">
+    <FixableDiagnosticIds>
+      <Id>CS0718</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

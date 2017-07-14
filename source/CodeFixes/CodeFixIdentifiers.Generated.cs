@@ -73,5 +73,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveConstraint = Prefix + "0065";
         public const string CombineConstraintClauses = Prefix + "0066";
         public const string AssignDefaultValueToOutParameter = Prefix + "0067";
+        public const string MakeClassNonStatic = Prefix + "0068";
     }
 }
