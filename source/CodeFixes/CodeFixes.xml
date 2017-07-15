@@ -126,8 +126,10 @@
       <Id>CS0573</Id>
     </FixableDiagnosticIds>
   </CodeFix>
-  <CodeFix Id="RCF0025" Identifier="AddPartialModifier" Title="Add partial modifier">
+  <CodeFix Id="RCF0025" Identifier="AddPartialModifier" Title="Add 'partial' modifier">
     <FixableDiagnosticIds>
+      <Id>CS0101</Id>
+      <Id>CS0102</Id>
       <Id>CS0260</Id>
       <Id>CS0751</Id>
     </FixableDiagnosticIds>

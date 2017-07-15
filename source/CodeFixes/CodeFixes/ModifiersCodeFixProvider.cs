@@ -66,7 +66,9 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.MethodHasParameterModifierThisWhichIsNotOnFirstParameter,
                     CompilerDiagnosticIdentifiers.CannotDeclareInstanceMembersInStaticClass,
                     CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors,
-                    CompilerDiagnosticIdentifiers.ElementsDefinedInNamespaceCannotBeExplicitlyDeclaredAsPrivateProtectedOrProtectedInternal);
+                    CompilerDiagnosticIdentifiers.ElementsDefinedInNamespaceCannotBeExplicitlyDeclaredAsPrivateProtectedOrProtectedInternal,
+                    CompilerDiagnosticIdentifiers.NamespaceAlreadyContainsDefinition,
+                    CompilerDiagnosticIdentifiers.TypeAlreadyContainsDefinition);
             }
         }
 
@@ -77,7 +79,8 @@ namespace Roslynator.CSharp.CodeFixes
                 CodeFixIdentifiers.ChangeAccessibility,
                 CodeFixIdentifiers.AddStaticModifier,
                 CodeFixIdentifiers.RemoveThisModifier,
-                CodeFixIdentifiers.MakeContainingClassNonStatic))
+                CodeFixIdentifiers.MakeContainingClassNonStatic,
+                CodeFixIdentifiers.AddPartialModifier))
             {
                 return;
             }
@@ -325,6 +328,23 @@ namespace Roslynator.CSharp.CodeFixes
 
                             break;
                         }
+                    case CompilerDiagnosticIdentifiers.NamespaceAlreadyContainsDefinition:
+                    case CompilerDiagnosticIdentifiers.TypeAlreadyContainsDefinition:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier))
+                                break;
+
+                            SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
+
+                            ISymbol symbol = semanticModel.GetDeclaredSymbol(node, context.CancellationToken);
+
+                            ImmutableArray<SyntaxReference> syntaxReferences = symbol.DeclaringSyntaxReferences;
+
+                            if (syntaxReferences.Length > 1)
+                                AddPartialModifier(context, diagnostic, ImmutableArray.CreateRange(syntaxReferences, f => f.GetSyntax(context.CancellationToken)));
+
+                            break;
+                        }
                 }
             }
         }
@@ -519,6 +539,22 @@ namespace Roslynator.CSharp.CodeFixes
                     return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
                 },
                 GetEquivalenceKey(diagnostic, additionalKey));
+
+            context.RegisterCodeFix(codeAction, diagnostic);
+        }
+
+        private void AddPartialModifier(CodeFixContext context, Diagnostic diagnostic, ImmutableArray<SyntaxNode> nodes)
+        {
+            CodeAction codeAction = CodeAction.Create(
+                "Add 'partial' modifier",
+                cancellationToken =>
+                {
+                    return context.Solution().ReplaceNodesAsync(
+                        nodes,
+                        (f, g) => f.InsertModifier(SyntaxKind.PartialKeyword, ModifierComparer.Instance),
+                        cancellationToken);
+                },
+                GetEquivalenceKey(diagnostic));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }

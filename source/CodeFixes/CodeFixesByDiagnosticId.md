@@ -8,6 +8,8 @@ Diagnostic | Code Fixes
 [CS0037](http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0037)|RCF0058
 [CS0069](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0069)|RCF0032
 [CS0080](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080)|RCF0043
+[CS0101](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0101)|RCF0025
+[CS0102](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0102)|RCF0025
 [CS0107](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0107)|RCF0055
 [CS0109](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0109)|RCF0013
 [CS0112](http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0112)|RCF0055

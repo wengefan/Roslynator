@@ -45,6 +45,10 @@
     <Compile Include="AddDocumentationComment.cs" />
     <Compile Include="AddBody.cs" />
     <Compile Include="AddSemicolon.cs" />
+    <Compile Include="CS0101_NamespaceAlreadyContainsDefinition.cs" />
+    <Compile Include="CS0101_NamespaceAlreadyContainsDefinition2.cs" />
+    <Compile Include="CS0102_TypeAlreadyContainsDefinition.cs" />
+    <Compile Include="CS0102_TypeAlreadyContainsDefinition2.cs" />
     <Compile Include="CS0173_TypeOfConditionalExpressionCannotBeDetermined.cs" />
     <Compile Include="CS0177_OutParameterMustBeAssignedToBeforeControlLeavesCurrentMethod.cs" />
     <Compile Include="CS0401_NewConstraintMustBeLastConstraintSpecified.cs" />
