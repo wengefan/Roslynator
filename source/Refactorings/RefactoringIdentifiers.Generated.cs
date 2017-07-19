@@ -56,6 +56,7 @@ namespace Roslynator.CSharp.Refactorings
         public const string FormatArgumentList = Prefix + "0048";
         public const string FormatBinaryExpression = Prefix + "0049";
         public const string FormatConditionalExpression = Prefix + "0050";
+        public const string FormatConstraintClauses = Prefix + "0187";
         public const string FormatExpressionChain = Prefix + "0051";
         public const string FormatInitializer = Prefix + "0052";
         public const string FormatParameterList = Prefix + "0053";
@@ -133,6 +134,7 @@ namespace Roslynator.CSharp.Refactorings
         public const string ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace = Prefix + "0126";
         public const string ReplaceExpressionWithConstantValue = Prefix + "0127";
         public const string ReplaceForEachWithFor = Prefix + "0129";
+        public const string ReplaceForEachWithForAndReverseLoop = Prefix + "0187";
         public const string ReplaceForWithForEach = Prefix + "0130";
         public const string ReplaceForWithWhile = Prefix + "0131";
         public const string ReplaceHexadecimalLiteralWithDecimalLiteral = Prefix + "0132";

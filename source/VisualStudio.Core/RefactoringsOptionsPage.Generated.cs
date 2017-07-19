@@ -184,7 +184,7 @@ namespace Roslynator.VisualStudio
             WrapInRegion = true;
             WrapInTryCatch = true;
             WrapInUsingStatement = true;
-            DisabledRefactorings = $"{RefactoringIdentifiers.IntroduceConstructor},{RefactoringIdentifiers.RemoveAllDocumentationComments},{RefactoringIdentifiers.ReplaceMethodWithProperty},{RefactoringIdentifiers.UseStringEmptyInsteadOfEmptyStringLiteral}";
+            DisabledRefactorings = $"{RefactoringIdentifiers.IntroduceConstructor},{RefactoringIdentifiers.RemoveAllDocumentationComments},{RefactoringIdentifiers.ReplaceForEachWithForAndReverseLoop},{RefactoringIdentifiers.ReplaceMethodWithProperty},{RefactoringIdentifiers.UseStringEmptyInsteadOfEmptyStringLiteral}";
         }
 
         public void MigrateValuesFromIdentifierProperties()
@@ -366,6 +366,7 @@ namespace Roslynator.VisualStudio
         {
             settings.DisableRefactoring(RefactoringIdentifiers.IntroduceConstructor);
             settings.DisableRefactoring(RefactoringIdentifiers.RemoveAllDocumentationComments);
+            settings.DisableRefactoring(RefactoringIdentifiers.ReplaceForEachWithForAndReverseLoop);
             settings.DisableRefactoring(RefactoringIdentifiers.ReplaceMethodWithProperty);
             settings.DisableRefactoring(RefactoringIdentifiers.UseStringEmptyInsteadOfEmptyStringLiteral);
         }
@@ -553,6 +554,8 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.SplitIfStatement, "Split if statement", IsEnabled(RefactoringIdentifiers.SplitIfStatement)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceObjectCreationWithDefaultValue, "Replace object creation with default value", IsEnabled(RefactoringIdentifiers.ReplaceObjectCreationWithDefaultValue)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ChangeAccessibility, "Change accessibility", IsEnabled(RefactoringIdentifiers.ChangeAccessibility)));
+            refactorings.Add(new BaseModel(RefactoringIdentifiers.FormatConstraintClauses, "Format constraint clauses", IsEnabled(RefactoringIdentifiers.FormatConstraintClauses)));
+            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceForEachWithForAndReverseLoop, "Replace foreach with for and reverse loop", IsEnabled(RefactoringIdentifiers.ReplaceForEachWithForAndReverseLoop)));
         }
 
         [Browsable(false)]
