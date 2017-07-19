@@ -103,6 +103,24 @@ namespace Roslynator.CSharp
 
             return TextSpan.FromBounds(block.OpenBraceToken.SpanStart, block.CloseBraceToken.Span.End);
         }
+
+        internal static BlockSyntax InsertStatement(this BlockSyntax block, StatementSyntax statement)
+        {
+            SyntaxList<StatementSyntax> statements = block.Statements;
+
+            int insertIndex = statements.Count;
+
+            if (!statement.IsKind(SyntaxKind.LocalFunctionStatement))
+            {
+                for (int i = statements.Count - 1; i >= 0; i--)
+                {
+                    if (statements[i].IsKind(SyntaxKind.LocalFunctionStatement))
+                        insertIndex--;
+                }
+            }
+
+            return block.WithStatements(statements.Insert(insertIndex, statement));
+        }
         #endregion BlockSyntax
 
         #region CastExpressionSyntax
