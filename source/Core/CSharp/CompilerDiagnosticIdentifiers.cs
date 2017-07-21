@@ -20,6 +20,7 @@ namespace Roslynator.CSharp
         public const string MemberDoesNotHideAccessibleMember = "CS0109";
         public const string StaticMemberCannotBeMarkedOverrideVirtualOrAbstract = "CS0112";
         public const string MemberHidesInheritedMemberToMakeCurrentMethodOverrideThatImplementationAddOverrideKeyword = "CS0114";
+        public const string NoSuitableMethodFoundToOverride = "CS0115";
         public const string ObjectReferenceIsRequiredForNonStaticMember = "CS0120";
         public const string NoOverloadMatchesDelegate = "CS0123";
         public const string SinceMethodReturnsVoidReturnKeywordMustNotBeFollowedByObjectExpression = "CS0127";
@@ -96,6 +97,7 @@ namespace Roslynator.CSharp
         public const string ModifiersCannotBePlacedOnEventAccessorDeclarations = "CS1609";
         public const string ArgumentMayNotBePassedWithRefKeyword = "CS1615";
         public const string ArgumentMustBePassedWithOutKeyword = "CS1620";
+        public const string YieldStatementCannotBeUsedInsideAnonymousMethodOrLambdaExpression = "CS1621";
         public const string CannotReturnValueFromIterator = "CS1622";
         public const string NotAllCodePathsReturnValueInAnonymousFunction = "CS1643";
         public const string TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable = "CS1674";

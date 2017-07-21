@@ -14,6 +14,7 @@
   <Diagnostic Id="CS0109" Identifier="MemberDoesNotHideAccessibleMember" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0109" />
   <Diagnostic Id="CS0112" Identifier="StaticMemberCannotBeMarkedOverrideVirtualOrAbstract" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0112" />
   <Diagnostic Id="CS0114" Identifier="MemberHidesInheritedMemberToMakeCurrentMethodOverrideThatImplementationAddOverrideKeyword" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0114" />
+  <Diagnostic Id="CS0115" Identifier="NoSuitableMethodFoundToOverride" HelpUrl="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0115" />
   <Diagnostic Id="CS0120" Identifier="ObjectReferenceIsRequiredForNonStaticMember" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0120" />
   <Diagnostic Id="CS0123" Identifier="NoOverloadMatchesDelegate" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0123" />
   <Diagnostic Id="CS0127" Identifier="SinceMethodReturnsVoidReturnKeywordMustNotBeFollowedByObjectExpression" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0127" />
@@ -90,6 +91,7 @@
   <Diagnostic Id="CS1609" Identifier="ModifiersCannotBePlacedOnEventAccessorDeclarations" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1609" />
   <Diagnostic Id="CS1615" Identifier="ArgumentMayNotBePassedWithRefKeyword" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1615" />
   <Diagnostic Id="CS1620" Identifier="ArgumentMustBePassedWithOutKeyword" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1620" />
+  <Diagnostic Id="CS1621" Identifier="YieldStatementCannotBeUsedInsideAnonymousMethodOrLambdaExpression" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1621" />
   <Diagnostic Id="CS1622" Identifier="CannotReturnValueFromIterator" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1622" />
   <Diagnostic Id="CS1643" Identifier="NotAllCodePathsReturnValueInAnonymousFunction" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1643" />
   <Diagnostic Id="CS1674" Identifier="TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1674" />

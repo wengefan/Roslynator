@@ -96,11 +96,6 @@ namespace Roslynator.CSharp.CodeFixes
             }
         }
 
-        private static string GetTitle(ref ImmutableArray<ITypeParameterSymbol> typeParameters)
-        {
-            return (typeParameters.Length == 1) ? "Add type argument" : "Add type arguments";
-        }
-
         private static IEnumerable<TypeSyntax> CreateTypeArguments(
             ImmutableArray<ITypeParameterSymbol> typeParameters,
             int position,

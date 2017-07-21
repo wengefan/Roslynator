@@ -68,7 +68,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.StaticClassesCannotHaveInstanceConstructors,
                     CompilerDiagnosticIdentifiers.ElementsDefinedInNamespaceCannotBeExplicitlyDeclaredAsPrivateProtectedOrProtectedInternal,
                     CompilerDiagnosticIdentifiers.NamespaceAlreadyContainsDefinition,
-                    CompilerDiagnosticIdentifiers.TypeAlreadyContainsDefinition);
+                    CompilerDiagnosticIdentifiers.TypeAlreadyContainsDefinition,
+                    CompilerDiagnosticIdentifiers.NoSuitableMethodFoundToOverride);
             }
         }
 
@@ -342,6 +343,13 @@ namespace Roslynator.CSharp.CodeFixes
 
                             if (syntaxReferences.Length > 1)
                                 AddPartialModifier(context, diagnostic, ImmutableArray.CreateRange(syntaxReferences, f => f.GetSyntax(context.CancellationToken)));
+
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.NoSuitableMethodFoundToOverride:
+                        {
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveInvalidModifier))
+                                RemoveModifier(context, diagnostic, node, SyntaxKind.OverrideKeyword);
 
                             break;
                         }
