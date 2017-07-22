@@ -1053,6 +1053,15 @@ namespace Roslynator.CSharp
                 && string.Equals(literalExpression.Token.ValueText, "0", StringComparison.Ordinal);
         }
 
+        internal static bool IsOneNumericLiteral(this LiteralExpressionSyntax literalExpression)
+        {
+            if (literalExpression == null)
+                throw new ArgumentNullException(nameof(literalExpression));
+
+            return literalExpression.IsKind(SyntaxKind.NumericLiteralExpression)
+                && string.Equals(literalExpression.Token.ValueText, "1", StringComparison.Ordinal);
+        }
+
         internal static string GetStringLiteralInnerText(this LiteralExpressionSyntax literalExpression)
         {
             if (literalExpression == null)
@@ -2023,7 +2032,7 @@ namespace Roslynator.CSharp
 
             return default(TNode);
         }
-        
+        
         public static bool IsSingleLine<TNode>(
             this SeparatedSyntaxList<TNode> list,
             bool includeExteriorTrivia = true,
@@ -2658,6 +2667,15 @@ namespace Roslynator.CSharp
             }
 
             return false;
+        }
+
+        internal static bool IsNumericLiteralExpression(this SyntaxNode node, string valueText)
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+            return node.IsKind(SyntaxKind.NumericLiteralExpression)
+                && string.Equals(((LiteralExpressionSyntax)node).Token.ValueText, valueText, StringComparison.Ordinal);
         }
 
         public static bool IsKind(this SyntaxNode node, SyntaxKind kind1, SyntaxKind kind2)

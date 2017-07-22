@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis;
 
 namespace Roslynator
 {
-    internal static class SolutionExtensions
+    public static class SolutionExtensions
     {
         public static async Task<Solution> ReplaceNodesAsync<TNode>(
             this Solution solution,
@@ -17,6 +17,15 @@ namespace Roslynator
             Func<TNode, TNode, SyntaxNode> computeReplacementNodes,
             CancellationToken cancellationToken = default(CancellationToken)) where TNode : SyntaxNode
         {
+            if (solution == null)
+                throw new ArgumentNullException(nameof(solution));
+
+            if (nodes == null)
+                throw new ArgumentNullException(nameof(nodes));
+
+            if (computeReplacementNodes == null)
+                throw new ArgumentNullException(nameof(computeReplacementNodes));
+
             Solution newSolution = solution;
 
             foreach (IGrouping<SyntaxTree, TNode> grouping in nodes.GroupBy(f => f.SyntaxTree))
