@@ -84,6 +84,7 @@
   <Diagnostic Id="CS1061" Identifier="TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1061" />
   <Diagnostic Id="CS1100" Identifier="MethodHasParameterModifierThisWhichIsNotOnFirstParameter" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1100" />
   <Diagnostic Id="CS1105" Identifier="ExtensionMethodMustBeStatic" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1105" />
+  <Diagnostic Id="CS1106" Identifier="ExtensionMethodMustBeDefinedInNonGenericStaticClass" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1106" />
   <Diagnostic Id="CS1522" Identifier="EmptySwitchBlock" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1522" />
   <Diagnostic Id="CS1503" Identifier="CannotConvertArgumentType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1503" />
   <Diagnostic Id="CS1527" Identifier="ElementsDefinedInNamespaceCannotBeExplicitlyDeclaredAsPrivateProtectedOrProtectedInternal" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1527" />

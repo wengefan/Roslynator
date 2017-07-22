@@ -181,6 +181,7 @@
       <Id>CS0708</Id>
       <Id>CS0710</Id>
       <Id>CS1105</Id>
+      <Id>CS1106</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0034" Identifier="MakeContainingClassAbstract" Title="Make containing class abstract">
@@ -335,6 +336,7 @@
     <FixableDiagnosticIds>
       <Id>CS1100</Id>
       <Id>CS1105</Id>
+      <Id>CS1106</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0061" Identifier="RemoveTypeParameter" Title="Remove type parameter">

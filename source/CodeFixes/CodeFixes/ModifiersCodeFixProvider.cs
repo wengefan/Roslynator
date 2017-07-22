@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Composition;
 using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -69,7 +70,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.ElementsDefinedInNamespaceCannotBeExplicitlyDeclaredAsPrivateProtectedOrProtectedInternal,
                     CompilerDiagnosticIdentifiers.NamespaceAlreadyContainsDefinition,
                     CompilerDiagnosticIdentifiers.TypeAlreadyContainsDefinition,
-                    CompilerDiagnosticIdentifiers.NoSuitableMethodFoundToOverride);
+                    CompilerDiagnosticIdentifiers.NoSuitableMethodFoundToOverride,
+                    CompilerDiagnosticIdentifiers.ExtensionMethodMustBeDefinedInNonGenericStaticClass);
             }
         }
 
@@ -288,6 +290,43 @@ namespace Roslynator.CSharp.CodeFixes
 
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveThisModifier))
                                 RemoveThisModifier(context, diagnostic, (MethodDeclarationSyntax)node, CodeFixIdentifiers.RemoveThisModifier);
+
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.ExtensionMethodMustBeDefinedInNonGenericStaticClass:
+                        {
+                            if (!node.IsKind(SyntaxKind.ClassDeclaration))
+                                return;
+
+                            var classDeclaration = (ClassDeclarationSyntax)node;
+
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier)
+                                && !classDeclaration.IsStatic())
+                            {
+                                AddStaticModifier(context, diagnostic, node, CodeFixIdentifiers.AddStaticModifier);
+                            }
+
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveThisModifier))
+                            {
+                                CodeAction codeAction = CodeAction.Create(
+                                    "Remove 'this' modifier from extension methods",
+                                    cancellationToken =>
+                                    {
+                                        IEnumerable<ParameterSyntax> thisParameters = classDeclaration.Members
+                                            .Where(f => f.IsKind(SyntaxKind.MethodDeclaration))
+                                            .Cast<MethodDeclarationSyntax>()
+                                            .Select(f => f.ParameterList?.Parameters.FirstOrDefault())
+                                            .Where(f => f?.Modifiers.Contains(SyntaxKind.ThisKeyword) == true);
+
+                                        return context.Document.ReplaceNodesAsync(
+                                            thisParameters,
+                                            (f, g) => f.RemoveModifier(f.Modifiers.Find(SyntaxKind.ThisKeyword)),
+                                            cancellationToken);
+                                    },
+                                    GetEquivalenceKey(diagnostic, CodeFixIdentifiers.RemoveThisModifier));
+
+                                context.RegisterCodeFix(codeAction, diagnostic);
+                            }
 
                             break;
                         }

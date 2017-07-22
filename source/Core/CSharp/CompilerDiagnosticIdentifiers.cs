@@ -90,6 +90,7 @@ namespace Roslynator.CSharp
         public const string TypeDoesNotContainDefinitionAndNoExtensionMethodCouldBeFound = "CS1061";
         public const string MethodHasParameterModifierThisWhichIsNotOnFirstParameter = "CS1100";
         public const string ExtensionMethodMustBeStatic = "CS1105";
+        public const string ExtensionMethodMustBeDefinedInNonGenericStaticClass = "CS1106";
         public const string CannotConvertArgumentType = "CS1503";
         public const string EmptySwitchBlock = "CS1522";
         public const string ElementsDefinedInNamespaceCannotBeExplicitlyDeclaredAsPrivateProtectedOrProtectedInternal = "CS1527";
