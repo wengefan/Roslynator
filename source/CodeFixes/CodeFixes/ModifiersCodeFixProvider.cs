@@ -376,6 +376,15 @@ namespace Roslynator.CSharp.CodeFixes
                             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier))
                                 break;
 
+                            if (!node.IsKind(
+                                SyntaxKind.ClassDeclaration,
+                                SyntaxKind.StructDeclaration,
+                                SyntaxKind.InterfaceDeclaration,
+                                SyntaxKind.MethodDeclaration))
+                            {
+                                return;
+                            }
+
                             SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
                             ISymbol symbol = semanticModel.GetDeclaredSymbol(node, context.CancellationToken);
