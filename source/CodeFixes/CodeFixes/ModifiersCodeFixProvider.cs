@@ -71,19 +71,21 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.NamespaceAlreadyContainsDefinition,
                     CompilerDiagnosticIdentifiers.TypeAlreadyContainsDefinition,
                     CompilerDiagnosticIdentifiers.NoSuitableMethodFoundToOverride,
-                    CompilerDiagnosticIdentifiers.ExtensionMethodMustBeDefinedInNonGenericStaticClass);
+                    CompilerDiagnosticIdentifiers.ExtensionMethodMustBeDefinedInNonGenericStaticClass,
+                    CompilerDiagnosticIdentifiers.AsyncMethodsCannotHaveRefOrOutParameters);
             }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
-            if (!Settings.IsAnyCodeFixEnabled(
-                CodeFixIdentifiers.RemoveInvalidModifier,
-                CodeFixIdentifiers.ChangeAccessibility,
-                CodeFixIdentifiers.AddStaticModifier,
-                CodeFixIdentifiers.RemoveThisModifier,
-                CodeFixIdentifiers.MakeContainingClassNonStatic,
-                CodeFixIdentifiers.AddPartialModifier))
+            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveInvalidModifier)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.ChangeAccessibility)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveThisModifier)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeContainingClassNonStatic)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveOutModifier)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveRefModifier))
             {
                 return;
             }
@@ -389,6 +391,16 @@ namespace Roslynator.CSharp.CodeFixes
                         {
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveInvalidModifier))
                                 RemoveModifier(context, diagnostic, node, SyntaxKind.OverrideKeyword);
+
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.AsyncMethodsCannotHaveRefOrOutParameters:
+                        {
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveRefModifier))
+                                RemoveModifier(context, diagnostic, node, SyntaxKind.RefKeyword);
+
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveOutModifier))
+                                RemoveModifier(context, diagnostic, node, SyntaxKind.OutKeyword);
 
                             break;
                         }

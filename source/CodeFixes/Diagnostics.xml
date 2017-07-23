@@ -102,5 +102,6 @@
   <Diagnostic Id="CS1955" Identifier="NonInvocableMemberCannotBeUsedLikeMethod" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1955" />
   <Diagnostic Id="CS1994" Identifier="AsyncModifierCanOnlyBeUsedInMethodsThatHaveBody" HelpUrl="" />
   <Diagnostic Id="CS1997" Identifier="SinceMethodIsAsyncMethodThatReturnsTaskReturnKeywordMustNotBeFollowedByObjectExpression" HelpUrl="" />
+  <Diagnostic Id="CS1988" Identifier="AsyncMethodsCannotHaveRefOrOutParameters" HelpUrl="" />
   <Diagnostic Id="CS8070" Identifier="ControlCannotFallOutOfSwitchFromFinalCaseLabel" HelpUrl="" />
 </Diagnostics>

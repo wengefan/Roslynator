@@ -106,6 +106,7 @@ namespace Roslynator.CSharp
         public const string AssignmentMadeToSameVariable = "CS1717";
         public const string BaseClassMustComeBeforeAnyInterface = "CS1722";
         public const string NonInvocableMemberCannotBeUsedLikeMethod = "CS1955";
+        public const string AsyncMethodsCannotHaveRefOrOutParameters = "CS1988";
         public const string AsyncModifierCanOnlyBeUsedInMethodsThatHaveBody = "CS1994";
         public const string SinceMethodIsAsyncMethodThatReturnsTaskReturnKeywordMustNotBeFollowedByObjectExpression = "CS1997";
         public const string ControlCannotFallOutOfSwitchFromFinalCaseLabel = "CS8070";

@@ -1900,6 +1900,13 @@ namespace Roslynator.CSharp
         {
             return parameter?.Modifiers.Contains(SyntaxKind.ParamsKeyword) == true;
         }
+
+        internal static SeparatedSyntaxList<ParameterSyntax> GetContainingList(this ParameterSyntax parameter)
+        {
+            var parameterList = parameter?.Parent as ParameterListSyntax;
+
+            return parameterList?.Parameters ?? default(SeparatedSyntaxList<ParameterSyntax>);
+        }
         #endregion ParameterSyntax
 
         #region PropertyDeclarationSyntax
