@@ -104,7 +104,7 @@
     <Compile Include="Refactorings\OverridingMemberCannotChangeAccessModifiersRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceStringLiteralWithCharacterLiteralRefactoring.cs" />
     <Compile Include="Refactorings\UseYieldReturnInsteadOfReturnRefactoring.cs" />
-    <Compile Include="VariableDeclarationCodeFixProvider.cs" />
+    <Compile Include="CodeFixes\VariableDeclarationCodeFixProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
