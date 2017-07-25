@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Syntax
 {
-    internal struct SingleLocalDeclarationStatement : IEquatable<SingleLocalDeclarationStatement>
+    internal struct SingleLocalDeclarationStatement
     {
         public SingleLocalDeclarationStatement(VariableDeclarationSyntax declaration, VariableDeclaratorSyntax declarator)
         {
@@ -152,32 +152,6 @@ namespace Roslynator.CSharp.Syntax
         public override string ToString()
         {
             return Node?.ToString() ?? base.ToString();
-        }
-
-        public bool Equals(SingleLocalDeclarationStatement other)
-        {
-            return Node == other.Node;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is SingleLocalDeclarationStatement
-                && Equals((SingleLocalDeclarationStatement)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return Node?.GetHashCode() ?? 0;
-        }
-
-        public static bool operator ==(SingleLocalDeclarationStatement left, SingleLocalDeclarationStatement right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(SingleLocalDeclarationStatement left, SingleLocalDeclarationStatement right)
-        {
-            return !left.Equals(right);
         }
     }
 }

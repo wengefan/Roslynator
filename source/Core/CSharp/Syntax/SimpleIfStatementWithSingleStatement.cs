@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Syntax
 {
-    internal struct SimpleIfStatementWithSingleStatement : IEquatable<SimpleIfStatementWithSingleStatement>
+    internal struct SimpleIfStatementWithSingleStatement
     {
         public SimpleIfStatementWithSingleStatement(ExpressionSyntax condition, StatementSyntax statement, StatementSyntax singleStatement)
         {
@@ -111,32 +111,6 @@ namespace Roslynator.CSharp.Syntax
         public override string ToString()
         {
             return Node?.ToString() ?? base.ToString();
-        }
-
-        public bool Equals(SimpleIfStatementWithSingleStatement other)
-        {
-            return Node == other.Node;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is SimpleIfStatementWithSingleStatement
-                && Equals((SimpleIfStatementWithSingleStatement)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return Node?.GetHashCode() ?? 0;
-        }
-
-        public static bool operator ==(SimpleIfStatementWithSingleStatement left, SimpleIfStatementWithSingleStatement right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(SimpleIfStatementWithSingleStatement left, SimpleIfStatementWithSingleStatement right)
-        {
-            return !left.Equals(right);
         }
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Syntax
 {
-    internal struct LambdaExpressionWithSingleParameter : IEquatable<LambdaExpressionWithSingleParameter>
+    internal struct LambdaExpressionWithSingleParameter
     {
         internal LambdaExpressionWithSingleParameter(ParameterSyntax parameter, CSharpSyntaxNode body)
             : this()
@@ -132,32 +132,6 @@ namespace Roslynator.CSharp.Syntax
         public override string ToString()
         {
             return Node?.ToString() ?? base.ToString();
-        }
-
-        public bool Equals(LambdaExpressionWithSingleParameter other)
-        {
-            return Node == other.Node;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is LambdaExpressionWithSingleParameter
-                && Equals((LambdaExpressionWithSingleParameter)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return Node?.GetHashCode() ?? 0;
-        }
-
-        public static bool operator ==(LambdaExpressionWithSingleParameter left, LambdaExpressionWithSingleParameter right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(LambdaExpressionWithSingleParameter left, LambdaExpressionWithSingleParameter right)
-        {
-            return !left.Equals(right);
         }
     }
 }

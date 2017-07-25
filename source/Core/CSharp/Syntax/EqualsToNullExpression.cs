@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Syntax
 {
-    internal struct EqualsToNullExpression : IEquatable<EqualsToNullExpression>
+    internal struct EqualsToNullExpression
     {
         private EqualsToNullExpression(ExpressionSyntax left, ExpressionSyntax right)
         {
@@ -85,32 +85,6 @@ namespace Roslynator.CSharp.Syntax
         public override string ToString()
         {
             return Node?.ToString() ?? base.ToString();
-        }
-
-        public bool Equals(EqualsToNullExpression other)
-        {
-            return Node == other.Node;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is EqualsToNullExpression
-                && Equals((EqualsToNullExpression)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return Node?.GetHashCode() ?? 0;
-        }
-
-        public static bool operator ==(EqualsToNullExpression left, EqualsToNullExpression right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(EqualsToNullExpression left, EqualsToNullExpression right)
-        {
-            return !left.Equals(right);
         }
     }
 }

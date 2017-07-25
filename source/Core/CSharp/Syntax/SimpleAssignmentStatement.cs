@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Syntax
 {
-    internal struct SimpleAssignmentStatement : IEquatable<SimpleAssignmentStatement>
+    internal struct SimpleAssignmentStatement
     {
         public SimpleAssignmentStatement(
             AssignmentExpressionSyntax assignmentExpression,
@@ -88,32 +88,6 @@ namespace Roslynator.CSharp.Syntax
         public override string ToString()
         {
             return Node?.ToString() ?? base.ToString();
-        }
-
-        public bool Equals(SimpleAssignmentStatement other)
-        {
-            return Node == other.Node;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is SimpleAssignmentStatement
-                && Equals((SimpleAssignmentStatement)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return Node?.GetHashCode() ?? 0;
-        }
-
-        public static bool operator ==(SimpleAssignmentStatement left, SimpleAssignmentStatement right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(SimpleAssignmentStatement left, SimpleAssignmentStatement right)
-        {
-            return !left.Equals(right);
         }
     }
 }

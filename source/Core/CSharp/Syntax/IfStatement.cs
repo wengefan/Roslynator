@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Syntax
 {
-    internal struct IfStatement : IEquatable<IfStatement>
+    internal struct IfStatement
     {
         public ImmutableArray<IfStatementOrElseClause> Nodes { get; }
 
@@ -82,6 +82,11 @@ namespace Roslynator.CSharp.Syntax
             }
         }
 
+        private SyntaxNode Node
+        {
+            get { return (!Nodes.IsDefaultOrEmpty) ? Nodes[0].Node : null; }
+        }
+
         public static IfStatement Create(IfStatementSyntax ifStatement)
         {
             if (ifStatement == null)
@@ -92,41 +97,7 @@ namespace Roslynator.CSharp.Syntax
 
         public override string ToString()
         {
-            return (!Nodes.IsDefaultOrEmpty) ? Nodes[0].ToString() : base.ToString();
-        }
-
-        public bool Equals(IfStatement other)
-        {
-            if (IsDefault)
-            {
-                return other.IsDefault;
-            }
-            else
-            {
-                return !other.IsDefault
-                    && TopmostIf == other.TopmostIf;
-            }
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is IfStatement
-                && Equals((IfStatement)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return (IsDefault) ? 0 : TopmostIf.GetHashCode();
-        }
-
-        public static bool operator ==(IfStatement left, IfStatement right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(IfStatement left, IfStatement right)
-        {
-            return !left.Equals(right);
+            return Node?.ToString() ?? base.ToString();
         }
     }
 }

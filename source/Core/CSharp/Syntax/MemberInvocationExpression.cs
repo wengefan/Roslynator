@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Syntax
 {
-    internal struct MemberInvocationExpression : IEquatable<MemberInvocationExpression>
+    internal struct MemberInvocationExpression
     {
         public MemberInvocationExpression(ExpressionSyntax expression, SimpleNameSyntax name, ArgumentListSyntax argumentList)
         {
@@ -107,32 +107,6 @@ namespace Roslynator.CSharp.Syntax
         public override string ToString()
         {
             return Node?.ToString() ?? base.ToString();
-        }
-
-        public bool Equals(MemberInvocationExpression other)
-        {
-            return Node == other.Node;
-        }
-
-        public override bool Equals(object obj)
-        {
-            return obj is MemberInvocationExpression
-                && Equals((MemberInvocationExpression)obj);
-        }
-
-        public override int GetHashCode()
-        {
-            return Node?.GetHashCode() ?? 0;
-        }
-
-        public static bool operator ==(MemberInvocationExpression left, MemberInvocationExpression right)
-        {
-            return left.Equals(right);
-        }
-
-        public static bool operator !=(MemberInvocationExpression left, MemberInvocationExpression right)
-        {
-            return !left.Equals(right);
         }
     }
 }
