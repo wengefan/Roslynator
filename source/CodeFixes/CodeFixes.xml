@@ -394,4 +394,10 @@
       <Id>CS1988</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0071" Identifier="RemoveAttribute" Title="Remove attribute">
+    <FixableDiagnosticIds>
+      <Id>CS0592</Id>
+      <Id>CS1689</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

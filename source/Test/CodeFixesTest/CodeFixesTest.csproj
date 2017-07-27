@@ -58,6 +58,7 @@
     <Compile Include="CS0449_ClassOrStructConstraintMustComeBeforeAnyOtherConstraints.cs" />
     <Compile Include="CS0450_CannotSpecifyBothConstraintClassAndClassOrStructConstraint.cs" />
     <Compile Include="CS0451_NewConstraintCannotBeUsedWithStructConstraint.cs" />
+    <Compile Include="CS0592_AttributeIsNotValidOnThisDeclarationType.cs" />
     <Compile Include="CS0693_TypeParameterHasSameNameAsTypeParameterFromOuterType.cs" />
     <Compile Include="CS0708_CannotDeclareInstanceMembersInStaticClass.cs" />
     <Compile Include="CS0710_StaticClassesCannotHaveInstanceConstructors.cs" />
@@ -72,6 +73,7 @@
     <Compile Include="CS1106_ExtensionMethodMustBeDefinedInNonGenericStaticClass.cs" />
     <Compile Include="CS1527_ElementsDefinedInNamespaceCannotBeExplicitlyDeclaredAsPrivateProtectedOrProtectedInternal.cs" />
     <Compile Include="CS1621_YieldStatementCannotBeUsedInsideAnonymousMethodOrLambdaExpression.cs" />
+    <Compile Include="CS1689_AttributeIsNotValidOnThisDeclarationType.cs" />
     <Compile Include="CS1994_AsyncModifierCanOnlyBeUsedInMethodsThatHaveBody.cs" />
     <Compile Include="CS1998_AsyncMethodsCannotHaveRefOrOutParameters.cs" />
     <Compile Include="MemberHidesInheritedMember.cs" />
