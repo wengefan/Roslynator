@@ -2430,9 +2430,7 @@ namespace Roslynator.CSharp
                     }
             }
         }
-        #endregion SyntaxNode
 
-        #region SyntaxNode
         public static bool SupportsModifiers(this SyntaxNode node)
         {
             if (node == null)
