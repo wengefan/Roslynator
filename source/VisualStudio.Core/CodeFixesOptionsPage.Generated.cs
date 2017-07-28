@@ -20,7 +20,7 @@ namespace Roslynator.VisualStudio
             get;
         }
 
-        = CodeFixIdentifiers.RemoveAttribute;
+        = CodeFixIdentifiers.RemoveBreakOrContinueStatement;
         protected override void Fill(ICollection<BaseModel> codeFixes)
         {
             codeFixes.Clear();
@@ -95,6 +95,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveYieldKeyword, "Remove 'yield' keyword (fixes CS1621)", IsEnabled(CodeFixIdentifiers.RemoveYieldKeyword)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveOutModifier, "Remove 'out' modifier (fixes CS1988)", IsEnabled(CodeFixIdentifiers.RemoveOutModifier)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveAttribute, "Remove attribute (fixes CS0592, CS1689)", IsEnabled(CodeFixIdentifiers.RemoveAttribute)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveBreakOrContinueStatement, "Remove break/continue statement (fixes CS0139)", IsEnabled(CodeFixIdentifiers.RemoveBreakOrContinueStatement)));
         }
     }
 }

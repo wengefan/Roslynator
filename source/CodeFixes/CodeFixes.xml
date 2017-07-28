@@ -400,4 +400,9 @@
       <Id>CS1689</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0072" Identifier="RemoveBreakOrContinueStatement" Title="Remove break/continue statement">
+    <FixableDiagnosticIds>
+      <Id>CS0139</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>
