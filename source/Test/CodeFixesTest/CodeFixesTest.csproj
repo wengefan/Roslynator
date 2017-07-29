@@ -53,6 +53,7 @@
     <Compile Include="CS0139_NoEnclosingLoopOutOfWhichToBreakOrContinue.cs" />
     <Compile Include="CS0173_TypeOfConditionalExpressionCannotBeDetermined.cs" />
     <Compile Include="CS0177_OutParameterMustBeAssignedToBeforeControlLeavesCurrentMethod.cs" />
+    <Compile Include="CS0266_CannotImplicitlyConvertTypeExplicitConversionExists.cs" />
     <Compile Include="CS0401_NewConstraintMustBeLastConstraintSpecified.cs" />
     <Compile Include="CS0405_DuplicateConstraintForTypeParameter.cs" />
     <Compile Include="CS0409_ConstraintClauseHasAlreadyBeenSpecified.cs" />

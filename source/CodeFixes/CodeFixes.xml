@@ -197,7 +197,7 @@
   </CodeFix>
   <CodeFix Id="RCF0036" Identifier="SynchronizeAccessibility" Title="SynchronizeAccessibility">
     <FixableDiagnosticIds>
-      <Id>CS0266</Id>
+      <Id>CS0262</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0037" Identifier="RemoveArgumentList" Title="Remove argument list">
@@ -403,6 +403,11 @@
   <CodeFix Id="RCF0072" Identifier="RemoveBreakOrContinueStatement" Title="Remove break/continue statement">
     <FixableDiagnosticIds>
       <Id>CS0139</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
+  <CodeFix Id="RCF0073" Identifier="UseCoalesceExpression" Title="Use coalesce expression">
+    <FixableDiagnosticIds>
+      <Id>CS0266</Id>
     </FixableDiagnosticIds>
   </CodeFix>
 </CodeFixes>

@@ -78,5 +78,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveOutModifier = Prefix + "0070";
         public const string RemoveAttribute = Prefix + "0071";
         public const string RemoveBreakOrContinueStatement = Prefix + "0072";
+        public const string UseCoalesceExpression = Prefix + "0073";
     }
 }
