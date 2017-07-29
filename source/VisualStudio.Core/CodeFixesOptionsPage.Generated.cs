@@ -95,7 +95,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveYieldKeyword, "Remove 'yield' keyword (fixes CS1621)", IsEnabled(CodeFixIdentifiers.RemoveYieldKeyword)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveOutModifier, "Remove 'out' modifier (fixes CS1988)", IsEnabled(CodeFixIdentifiers.RemoveOutModifier)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveAttribute, "Remove attribute (fixes CS0592, CS1689)", IsEnabled(CodeFixIdentifiers.RemoveAttribute)));
-            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveBreakOrContinueStatement, "Remove break/continue statement (fixes CS0139)", IsEnabled(CodeFixIdentifiers.RemoveBreakOrContinueStatement)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveJumpStatement, "Remove jump statement (fixes CS0139)", IsEnabled(CodeFixIdentifiers.RemoveJumpStatement)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.UseCoalesceExpression, "Use coalesce expression (fixes CS0266)", IsEnabled(CodeFixIdentifiers.UseCoalesceExpression)));
         }
     }

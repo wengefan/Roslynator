@@ -36,7 +36,7 @@ namespace Roslynator.CSharp.CodeFixes
                 CodeFixIdentifiers.RemoveUnreachableCode,
                 CodeFixIdentifiers.RemoveEmptySwitchStatement,
                 CodeFixIdentifiers.IntroduceLocalVariable,
-                CodeFixIdentifiers.RemoveBreakOrContinueStatement))
+                CodeFixIdentifiers.RemoveJumpStatement))
             {
                 return;
             }
@@ -150,7 +150,7 @@ namespace Roslynator.CSharp.CodeFixes
                         }
                     case CompilerDiagnosticIdentifiers.NoEnclosingLoopOutOfWhichToBreakOrContinue:
                         {
-                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveBreakOrContinueStatement))
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveJumpStatement))
                                 break;
 
                             CodeAction codeAction = CodeAction.Create(
