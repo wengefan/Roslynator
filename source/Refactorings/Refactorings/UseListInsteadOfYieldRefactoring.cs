@@ -43,17 +43,16 @@ namespace Roslynator.CSharp.Refactorings
             {
                 switch (current.Kind())
                 {
-                    case SyntaxKind.LocalFunctionStatement:
-                        return ((LocalFunctionStatementSyntax)current).Body;
-                    case SyntaxKind.SimpleLambdaExpression:
-                    case SyntaxKind.ParenthesizedLambdaExpression:
-                        return ((LambdaExpressionSyntax)current).Body as BlockSyntax;
-                    case SyntaxKind.AnonymousMethodExpression:
-                        return ((AnonymousMethodExpressionSyntax)current).Body as BlockSyntax;
                     case SyntaxKind.MethodDeclaration:
                         return ((MethodDeclarationSyntax)current).Body;
                     case SyntaxKind.GetAccessorDeclaration:
                         return ((AccessorDeclarationSyntax)current).Body;
+                    case SyntaxKind.LocalFunctionStatement:
+                        return ((LocalFunctionStatementSyntax)current).Body;
+                    case SyntaxKind.SimpleLambdaExpression:
+                    case SyntaxKind.ParenthesizedLambdaExpression:
+                    case SyntaxKind.AnonymousMethodExpression:
+                        return null;
                 }
 
                 current = current.Parent;
@@ -170,9 +169,7 @@ namespace Roslynator.CSharp.Refactorings
 
                 if (kind == SyntaxKind.YieldReturnStatement)
                 {
-                    ParenthesizedExpressionSyntax parenthesizedExpression = expression
-                        .Parenthesize(moveTrivia: true)
-                        .WithSimplifierAnnotation();
+                    ParenthesizedExpressionSyntax parenthesizedExpression = expression.Parenthesize();
 
                     CastExpressionSyntax castExpression = CastExpression(
                         _typeSymbol.ToMinimalTypeSyntax(_semanticModel, node.SpanStart),

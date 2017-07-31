@@ -70,9 +70,9 @@ namespace Roslynator
             return ReturnType.IsIEnumerableOf(typeArgument);
         }
 
-        public bool ReturnsIEnumerableOf(SpecialType specialTypeArgument)
+        public bool ReturnsIEnumerableOf(Func<ITypeSymbol, bool> typeArgumentPredicate)
         {
-            return ReturnType.IsIEnumerableOf(specialTypeArgument);
+            return ReturnType.IsIEnumerableOf(typeArgumentPredicate);
         }
 
         internal bool IsName(string name)
@@ -106,11 +106,6 @@ namespace Roslynator
             return parameters.Length == 2
                 && parameters[0].Type.SpecialType == firstParameterType
                 && parameters[1].Type.SpecialType == secondParameterType;
-        }
-
-        public bool IsInstance
-        {
-            get { return !IsStatic; }
         }
 
         public bool IsPublic
@@ -156,7 +151,7 @@ namespace Roslynator
             return IsNullOrName(name)
                 && IsContainingType(SpecialType.System_String)
                 && IsPublic
-                && IsInstance
+                && !IsStatic
                 && IsGenericMethod == isGenericMethod;
         }
 

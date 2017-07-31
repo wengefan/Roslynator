@@ -96,8 +96,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                                                     ExpressionSyntax newNode = CoalesceExpression(expression.WithoutTrivia(), defaultValue)
                                                         .WithTriviaFrom(expression)
-                                                        .Parenthesize(moveTrivia: true)
-                                                        .WithSimplifierAnnotation()
+                                                        .Parenthesize()
                                                         .WithFormatterAnnotation();
 
                                                     return context.Document.ReplaceNodeAsync(expression, newNode, cancellationToken);
@@ -216,7 +215,7 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 parent = parent.Parent;
 
-                if (parent.IsKind(SyntaxKind.VariableDeclarator))
+                if (parent?.IsKind(SyntaxKind.VariableDeclarator) == true)
                 {
                     parent = parent.Parent;
 

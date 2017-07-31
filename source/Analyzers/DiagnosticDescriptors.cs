@@ -819,7 +819,7 @@ namespace Roslynator.CSharp
 
         public static readonly DiagnosticDescriptor UsePostfixUnaryOperatorInsteadOfAssignment = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.UsePostfixUnaryOperatorInsteadOfAssignment,
-            title: "Use postfix unary operator instead of assignment.",
+            title: "Use --/++ operator instead of assignment.",
             messageFormat: "Use {0} operator instead of assignment.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
@@ -1071,10 +1071,10 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor CallFindMethodInsteadOfFirstOrDefaultMethod = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.CallFindMethodInsteadOfFirstOrDefaultMethod,
-            title: "Call 'Find' method instead of 'FirstOrDefault' method.",
-            messageFormat: "Call 'Find' method instead of 'FirstOrDefault' method.",
+        public static readonly DiagnosticDescriptor CallFindInsteadOfFirstOrDefault = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.CallFindInsteadOfFirstOrDefault,
+            title: "Call 'Find' instead of 'FirstOrDefault'.",
+            messageFormat: "Call 'Find' instead of 'FirstOrDefault'.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true

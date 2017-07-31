@@ -663,20 +663,31 @@ namespace Roslynator.CSharp
         #endregion EventFieldDeclarationSyntax
 
         #region ExpressionSyntax
-        public static ParenthesizedExpressionSyntax Parenthesize(this ExpressionSyntax expression, bool moveTrivia = false)
+        public static ParenthesizedExpressionSyntax Parenthesize(
+            this ExpressionSyntax expression,
+            bool includeElasticTrivia = true,
+            bool simplifiable = true)
         {
-            if (expression == null)
-                throw new ArgumentNullException(nameof(expression));
+            ParenthesizedExpressionSyntax parenthesizedExpression = null;
 
-            if (moveTrivia)
+            if (includeElasticTrivia)
             {
-                return ParenthesizedExpression(expression.WithoutTrivia())
-                    .WithTriviaFrom(expression);
+                parenthesizedExpression = ParenthesizedExpression(expression.WithoutTrivia());
             }
             else
             {
-                return ParenthesizedExpression(expression);
+                parenthesizedExpression = ParenthesizedExpression(
+                    Token(SyntaxTriviaList.Empty, SyntaxKind.OpenParenToken, SyntaxTriviaList.Empty),
+                    expression.WithoutTrivia(),
+                    Token(SyntaxTriviaList.Empty, SyntaxKind.CloseParenToken, SyntaxTriviaList.Empty));
             }
+
+            parenthesizedExpression = parenthesizedExpression.WithTriviaFrom(expression);
+
+            if (simplifiable)
+                parenthesizedExpression = parenthesizedExpression.WithSimplifierAnnotation();
+
+            return parenthesizedExpression;
         }
 
         public static ExpressionSyntax WalkUpParentheses(this ExpressionSyntax expression)
@@ -1042,24 +1053,6 @@ namespace Roslynator.CSharp
 
             return literalExpression.IsKind(SyntaxKind.StringLiteralExpression)
                 && literalExpression.Token.Text.StartsWith("@", StringComparison.Ordinal);
-        }
-
-        public static bool IsZeroNumericLiteral(this LiteralExpressionSyntax literalExpression)
-        {
-            if (literalExpression == null)
-                throw new ArgumentNullException(nameof(literalExpression));
-
-            return literalExpression.IsKind(SyntaxKind.NumericLiteralExpression)
-                && string.Equals(literalExpression.Token.ValueText, "0", StringComparison.Ordinal);
-        }
-
-        internal static bool IsOneNumericLiteral(this LiteralExpressionSyntax literalExpression)
-        {
-            if (literalExpression == null)
-                throw new ArgumentNullException(nameof(literalExpression));
-
-            return literalExpression.IsKind(SyntaxKind.NumericLiteralExpression)
-                && string.Equals(literalExpression.Token.ValueText, "1", StringComparison.Ordinal);
         }
 
         internal static string GetStringLiteralInnerText(this LiteralExpressionSyntax literalExpression)
@@ -2039,7 +2032,7 @@ namespace Roslynator.CSharp
 
             return default(TNode);
         }
-        
+
         public static bool IsSingleLine<TNode>(
             this SeparatedSyntaxList<TNode> list,
             bool includeExteriorTrivia = true,
@@ -2662,7 +2655,7 @@ namespace Roslynator.CSharp
             return node?.IsKind(SyntaxKind.TrueLiteralExpression, SyntaxKind.FalseLiteralExpression) == true;
         }
 
-        public static bool IsNumericLiteralExpression(this SyntaxNode node, int value)
+        internal static bool IsNumericLiteralExpression(this SyntaxNode node, int value)
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
@@ -3573,9 +3566,6 @@ namespace Roslynator.CSharp
 
         internal static bool IsEmptyOrWhitespace(this SyntaxTriviaList triviaList)
         {
-            if (!triviaList.Any())
-                return true;
-
             foreach (SyntaxTrivia trivia in triviaList)
             {
                 if (!trivia.IsWhitespaceOrEndOfLineTrivia())
@@ -3602,7 +3592,7 @@ namespace Roslynator.CSharp
         {
             return constraintClause.Name.Identifier.ValueText;
         }
-        
+
         internal static SyntaxList<TypeParameterConstraintClauseSyntax> GetContainingList(this TypeParameterConstraintClauseSyntax constraintClause)
         {
             SyntaxNode parent = constraintClause.Parent;

@@ -66,6 +66,7 @@ namespace Roslynator.CSharp.Refactorings
                 case SyntaxKind.VariableDeclaration:
                 case SyntaxKind.AwaitExpression:
                 case SyntaxKind.Interpolation:
+                case SyntaxKind.ArrayInitializerExpression:
                 case SyntaxKind.CollectionInitializerExpression:
                 case SyntaxKind.ArrowExpressionClause:
                 case SyntaxKind.EqualsValueClause:
@@ -135,7 +136,7 @@ namespace Roslynator.CSharp.Refactorings
         {
             return root.ReplaceNode(
                 expression,
-                expression.Parenthesize(moveTrivia: true));
+                expression.Parenthesize(simplifiable: false));
         }
     }
 }
