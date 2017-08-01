@@ -10,11 +10,11 @@ using Roslynator.CSharp.Refactorings;
 namespace Roslynator.CSharp.DiagnosticAnalyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class RemoveRedundantContinueStatementDiagnosticAnalyzer : BaseDiagnosticAnalyzer
+    public class SimplifyBooleanExpressionDiagnosticAnalyzer : BaseDiagnosticAnalyzer
     {
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(DiagnosticDescriptors.RemoveRedundantContinueStatement); }
+            get { return ImmutableArray.Create(DiagnosticDescriptors.SimplifyBooleanExpression); }
         }
 
         public override void Initialize(AnalysisContext context)
@@ -25,8 +25,8 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
             base.Initialize(context);
 
             context.RegisterSyntaxNodeAction(
-                f => RemoveRedundantContinueStatementRefactoring.Analyze(f),
-                SyntaxKind.ContinueStatement);
+                f => SimplifyBooleanExpressionRefactoring.AnalyzeLogicalAndExpression(f),
+                SyntaxKind.LogicalAndExpression);
         }
     }
 }

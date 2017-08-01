@@ -26,7 +26,8 @@ namespace Roslynator.CSharp.CodeFixProviders
                     DiagnosticIdentifiers.UseCoalesceExpression,
                     DiagnosticIdentifiers.InlineLazyInitialization,
                     DiagnosticIdentifiers.RemoveRedundantDisposeOrCloseCall,
-                    DiagnosticIdentifiers.RemoveRedundantContinueStatement);
+                    DiagnosticIdentifiers.RemoveRedundantStatement,
+                    DiagnosticIdentifiers.UseMethodChaining);
             }
         }
 
@@ -109,11 +110,21 @@ namespace Roslynator.CSharp.CodeFixProviders
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
-                    case DiagnosticIdentifiers.RemoveRedundantContinueStatement:
+                    case DiagnosticIdentifiers.RemoveRedundantStatement:
                         {
                             CodeAction codeAction = CodeAction.Create(
-                                "Remove continue;",
-                                cancellationToken => RemoveRedundantContinueStatementRefactoring.RefactorAsync(context.Document, (ContinueStatementSyntax)statement, cancellationToken),
+                                $"Remove redundant {statement.GetTitle()}",
+                                cancellationToken => RemoveRedundantStatementRefactoring.RefactorAsync(context.Document, statement, cancellationToken),
+                                diagnostic.Id + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case DiagnosticIdentifiers.UseMethodChaining:
+                        {
+                            CodeAction codeAction = CodeAction.Create(
+                                "Use method chaining",
+                                cancellationToken => UseMethodChainingRefactoring.RefactorAsync(context.Document, (ExpressionStatementSyntax)statement, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);

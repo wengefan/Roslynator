@@ -46,6 +46,7 @@
     <Compile Include="AddBraces.cs" />
     <Compile Include="AddBracesToSwitchSectionWithMultipleStatements.cs" />
     <Compile Include="AvoidBoxingOfValueType.cs" />
+    <Compile Include="CallThenByInsteadOfOrderBy.cs" />
     <Compile Include="DeclareEnumValueAsCombinationOfNames.cs" />
     <Compile Include="CallExtensionMethodAsInstanceMethod.cs" />
     <Compile Include="MakeClassStatic2.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="FormatConditionalExpressionOperatorsOnNextLine.cs" />
     <Compile Include="ImplementExceptionConstructors.cs" />
     <Compile Include="AvoidSingleLineBlock.cs" />
+    <Compile Include="SimplifyBooleanExpression.cs" />
     <Compile Include="SimplifyLambdaExpressionRefactoring.cs" />
     <Compile Include="StaticMemberInGenericClassShouldUseTypeParameter.cs" />
     <Compile Include="AvoidChainOfAssignments.cs" />
@@ -93,10 +95,12 @@
     <Compile Include="UseAutoProperty.cs" />
     <Compile Include="UseAutoProperty3.cs" />
     <Compile Include="UseCoalesceExpressionInsteadOfConditionalExpression.cs" />
+    <Compile Include="UseConditionalAccessToAvoidNullReferenceException.cs" />
     <Compile Include="UseExclusiveOrOperator.cs" />
     <Compile Include="UseIsOperatorInsteadOfAsOperator.cs" />
     <Compile Include="UseCoalesceExpressionInsteadOfIf.cs" />
     <Compile Include="UseLambdaExpressionInsteadOfAnonymousMethod.cs" />
+    <Compile Include="UseMethodChaining.cs" />
     <Compile Include="UseReadOnlyAutoProperty.cs" />
     <Compile Include="UseRegexInstanceInsteadOfStaticMethod.cs" />
     <Compile Include="UseRegularStringLiteralInsteadOfVerbatimStringLiteral.cs" />
@@ -143,7 +147,7 @@
     <Compile Include="RemoveRedundantBraces.cs" />
     <Compile Include="RemoveRedundantCast.cs" />
     <Compile Include="RemoveRedundantConstructor.cs" />
-    <Compile Include="RemoveRedundantContinueStatement.cs" />
+    <Compile Include="RemoveRedundantStatement.cs" />
     <Compile Include="RemoveRedundantDelegateCreation.cs" />
     <Compile Include="RemoveRedundantDisposeOrCloseCall.cs" />
     <Compile Include="RemoveRedundantEmptyLine.cs" />
@@ -179,7 +183,7 @@
     <Compile Include="UseStringComparison.cs" />
     <Compile Include="UseStringIsNullOrEmptyMethod.cs" />
     <Compile Include="SimplifyLinqMethodChain.cs" />
-    <Compile Include="UseCastMethodInsteadOfSelectMethod.cs" />
+    <Compile Include="CallCastInsteadOfSelect.cs" />
     <Compile Include="ReplaceIfStatementWithAssignment.cs" />
     <Compile Include="UseBitwiseOperationInsteadOfHasFlag.cs" />
     <Compile Include="ReplacePropertyWithAutoProperty.cs" />

@@ -31,14 +31,18 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                     DiagnosticDescriptors.CallCastInsteadOfSelect,
                     DiagnosticDescriptors.CombineEnumerableWhereMethodChain,
                     DiagnosticDescriptors.CombineEnumerableWhereMethodChainFadeOut,
-                    DiagnosticDescriptors.CallFindMethodInsteadOfFirstOrDefaultMethod,
+                    DiagnosticDescriptors.CallFindInsteadOfFirstOrDefault,
                     DiagnosticDescriptors.UseElementAccessInsteadOfElementAt,
                     DiagnosticDescriptors.UseElementAccessInsteadOfFirst,
                     DiagnosticDescriptors.UseRegexInstanceInsteadOfStaticMethod,
                     DiagnosticDescriptors.CallExtensionMethodAsInstanceMethod,
                     DiagnosticDescriptors.OptimizeStringBuilderAppendCall,
-                    DiagnosticDescriptors.AvoidBoxingOfValueType);
-            }
+                    DiagnosticDescriptors.AvoidBoxingOfValueType,
+                    DiagnosticDescriptors.CallThenByInsteadOfOrderBy,
+                    DiagnosticDescriptors.UseMethodChaining,
+                    DiagnosticDescriptors.UseConditionalAccessToAvoidNullReferenceException);
+
+           }
         }
 
         public override void Initialize(AnalysisContext context)
@@ -109,12 +113,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                         {
                             case "FirstOrDefault":
                                 {
-                                    CallFindMethodInsteadOfFirstOrDefaultMethodRefactoring.Analyze(context, invocation, memberAccess);
-                                    break;
-                                }
-                            case "Select":
-                                {
-                                    CallCastInsteadOfSelectRefactoring.Analyze(context, invocation, memberAccess);
+                                    CallFindInsteadOfFirstOrDefaultRefactoring.Analyze(context, invocation, memberAccess);
                                     break;
                                 }
                             case "Where":
@@ -161,7 +160,11 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
 
                     string methodName = memberInvocation.NameText;
 
-                    switch (memberInvocation.ArgumentList.Arguments.Count)
+                    UseConditionalAccessToAvoidNullReferenceExceptionRefactoring.Analyze(context, memberInvocation);
+
+                    int argumentCount = memberInvocation.ArgumentList.Arguments.Count;
+
+                    switch (argumentCount)
                     {
                         case 0:
                             {
@@ -216,7 +219,31 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                                 OptimizeStringBuilderAppendCallRefactoring.Analyze(context, memberInvocation);
                                 break;
                             }
+                        case "Select":
+                            {
+                                if (argumentCount == 1
+                                    || argumentCount == 2)
+                                {
+                                    CallCastInsteadOfSelectRefactoring.Analyze(context, memberInvocation);
+                                }
+
+                                break;
+                            }
+                        case "OrderBy":
+                        case "OrderByDescending":
+                            {
+                                if (argumentCount == 1
+                                    || argumentCount == 2
+                                    || argumentCount == 3)
+                                {
+                                    CallThenByInsteadOfOrderByRefactoring.Analyze(context, memberInvocation);
+                                }
+
+                                break;
+                            }
                     }
+
+                    UseMethodChainingRefactoring.Analyze(context, memberInvocation);
                 }
             }
         }

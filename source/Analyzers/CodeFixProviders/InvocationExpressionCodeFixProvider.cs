@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System;
 using System.Collections.Immutable;
 using System.Composition;
 using System.Diagnostics;
@@ -10,6 +11,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Refactorings;
 using Roslynator.CSharp.Refactorings.UseInsteadOfCountMethod;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.CodeFixProviders
 {
@@ -30,12 +32,13 @@ namespace Roslynator.CSharp.CodeFixProviders
                     DiagnosticIdentifiers.RemoveRedundantStringToCharArrayCall,
                     DiagnosticIdentifiers.CallCastInsteadOfSelect,
                     DiagnosticIdentifiers.CombineEnumerableWhereMethodChain,
-                    DiagnosticIdentifiers.CallFindMethodInsteadOfFirstOrDefaultMethod,
+                    DiagnosticIdentifiers.CallFindInsteadOfFirstOrDefault,
                     DiagnosticIdentifiers.UseElementAccessInsteadOfElementAt,
                     DiagnosticIdentifiers.UseElementAccessInsteadOfFirst,
                     DiagnosticIdentifiers.CallStringConcatInsteadOfStringJoin,
                     DiagnosticIdentifiers.CallDebugFailInsteadOfDebugAssert,
-                    DiagnosticIdentifiers.CallExtensionMethodAsInstanceMethod);
+                    DiagnosticIdentifiers.CallExtensionMethodAsInstanceMethod,
+                    DiagnosticIdentifiers.CallThenByInsteadOfOrderBy);
             }
         }
 
@@ -167,11 +170,11 @@ namespace Roslynator.CSharp.CodeFixProviders
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
-                    case DiagnosticIdentifiers.CallFindMethodInsteadOfFirstOrDefaultMethod:
+                    case DiagnosticIdentifiers.CallFindInsteadOfFirstOrDefault:
                         {
                             CodeAction codeAction = CodeAction.Create(
                                 "Call 'Find' instead of 'FirstOrDefault'",
-                                cancellationToken => CallFindMethodInsteadOfFirstOrDefaultMethodRefactoring.RefactorAsync(context.Document, invocation, cancellationToken),
+                                cancellationToken => CallFindInsteadOfFirstOrDefaultRefactoring.RefactorAsync(context.Document, invocation, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);
@@ -222,6 +225,24 @@ namespace Roslynator.CSharp.CodeFixProviders
                             CodeAction codeAction = CodeAction.Create(
                                 "Call extension method as instance method",
                                 cancellationToken => CallExtensionMethodAsInstanceMethodRefactoring.RefactorAsync(context.Document, invocation, cancellationToken),
+                                diagnostic.Id + EquivalenceKeySuffix);
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case DiagnosticIdentifiers.CallThenByInsteadOfOrderBy:
+                        {
+                            MemberInvocationExpression memberInvocation = MemberInvocationExpression.Create(invocation);
+
+                            string oldName = memberInvocation.NameText;
+
+                            string newName = (string.Equals(oldName, "OrderBy", StringComparison.Ordinal))
+                                ? "ThenBy"
+                                : "ThenByDescending";
+
+                            CodeAction codeAction = CodeAction.Create(
+                                $"Call '{newName}' instead of '{oldName}'",
+                                cancellationToken => CallThenByInsteadOfOrderByRefactoring.RefactorAsync(context.Document, invocation, newName, cancellationToken),
                                 diagnostic.Id + EquivalenceKeySuffix);
 
                             context.RegisterCodeFix(codeAction, diagnostic);

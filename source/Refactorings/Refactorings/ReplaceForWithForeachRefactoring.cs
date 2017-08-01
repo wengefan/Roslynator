@@ -36,7 +36,7 @@ namespace Roslynator.CSharp.Refactorings
             ExpressionSyntax expression = memberAccessExpression.Expression;
 
             ISymbol symbol = semanticModel.GetDeclaredSymbol(forStatement.Declaration.Variables.First(), cancellationToken);
-            ImmutableArray<SyntaxNode> nodes = await document.FindNodesAsync(symbol, cancellationToken: cancellationToken).ConfigureAwait(false);
+            ImmutableArray<SyntaxNode> nodes = await SyntaxFinder.FindReferencesAsync(symbol, document, cancellationToken: cancellationToken).ConfigureAwait(false);
 
             StatementSyntax newStatement = statement.ReplaceNodes(
                 nodes.Select(f => f.Parent.Parent.Parent),
@@ -63,8 +63,7 @@ namespace Roslynator.CSharp.Refactorings
             {
                 ExpressionSyntax value = variableDeclarator.Initializer?.Value;
 
-                if (value?.IsKind(SyntaxKind.NumericLiteralExpression) == true
-                    && ((LiteralExpressionSyntax)value).IsZeroNumericLiteral())
+                if (value?.IsNumericLiteralExpression("0") == true)
                 {
                     ExpressionSyntax condition = forStatement.Condition;
 
@@ -115,7 +114,7 @@ namespace Roslynator.CSharp.Refactorings
             {
                 ISymbol variableSymbol = semanticModel.GetDeclaredSymbol(variableDeclarator, context.CancellationToken);
 
-                ImmutableArray<SyntaxNode> nodes = await context.Document.FindNodesAsync(variableSymbol, cancellationToken: context.CancellationToken).ConfigureAwait(false);
+                ImmutableArray<SyntaxNode> nodes = await SyntaxFinder.FindReferencesAsync(variableSymbol, context.Document, cancellationToken: context.CancellationToken).ConfigureAwait(false);
 
                 StatementSyntax statement = forStatement.Statement;
 

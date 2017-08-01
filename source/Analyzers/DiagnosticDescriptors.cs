@@ -819,7 +819,7 @@ namespace Roslynator.CSharp
 
         public static readonly DiagnosticDescriptor UsePostfixUnaryOperatorInsteadOfAssignment = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.UsePostfixUnaryOperatorInsteadOfAssignment,
-            title: "Use postfix unary operator instead of assignment.",
+            title: "Use --/++ operator instead of assignment.",
             messageFormat: "Use {0} operator instead of assignment.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
@@ -1071,10 +1071,10 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor CallFindMethodInsteadOfFirstOrDefaultMethod = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.CallFindMethodInsteadOfFirstOrDefaultMethod,
-            title: "Call 'Find' method instead of 'FirstOrDefault' method.",
-            messageFormat: "Call 'Find' method instead of 'FirstOrDefault' method.",
+        public static readonly DiagnosticDescriptor CallFindInsteadOfFirstOrDefault = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.CallFindInsteadOfFirstOrDefault,
+            title: "Call 'Find' instead of 'FirstOrDefault'.",
+            messageFormat: "Call 'Find' instead of 'FirstOrDefault'.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
@@ -1186,10 +1186,10 @@ namespace Roslynator.CSharp
             customTags: WellKnownDiagnosticTags.Unnecessary
         );
 
-        public static readonly DiagnosticDescriptor RemoveRedundantContinueStatement = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.RemoveRedundantContinueStatement,
-            title: "Remove redundant continue statement.",
-            messageFormat: "Remove redundant continue statement.",
+        public static readonly DiagnosticDescriptor RemoveRedundantStatement = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.RemoveRedundantStatement,
+            title: "Remove redundant statement.",
+            messageFormat: "Remove redundant statement.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
@@ -1720,6 +1720,42 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Warning,
             isEnabledByDefault: false
+        );
+
+        public static readonly DiagnosticDescriptor SimplifyBooleanExpression = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.SimplifyBooleanExpression,
+            title: "Simplify boolean expression.",
+            messageFormat: "Simplify boolean expression.",
+            category: DiagnosticCategories.Simplification,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor CallThenByInsteadOfOrderBy = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.CallThenByInsteadOfOrderBy,
+            title: "Call 'Enumerable.ThenBy' instead of 'Enumerable.OrderBy'.",
+            messageFormat: "Call 'Enumerable.ThenBy{0}' instead of 'Enumerable.OrderBy{0}'.",
+            category: DiagnosticCategories.Usage,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor UseMethodChaining = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseMethodChaining,
+            title: "Use method chaining.",
+            messageFormat: "Use method chaining.",
+            category: DiagnosticCategories.Simplification,
+            defaultSeverity: DiagnosticSeverity.Hidden,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor UseConditionalAccessToAvoidNullReferenceException = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseConditionalAccessToAvoidNullReferenceException,
+            title: "Use conditional access to avoid NullReferenceException.",
+            messageFormat: "Use conditional access to avoid NullReferenceException.",
+            category: DiagnosticCategories.Usage,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
         );
     }
 }

@@ -65,8 +65,10 @@ namespace Roslynator.CSharp.Refactorings
                 {
                     var block = (BlockSyntax)nestedIf.Statement;
 
-                    return block.OpenBraceToken.GetLeadingAndTrailingTrivia().All(f => f.IsWhitespaceOrEndOfLineTrivia())
-                        && block.CloseBraceToken.GetLeadingAndTrailingTrivia().All(f => f.IsWhitespaceOrEndOfLineTrivia());
+                    return block.OpenBraceToken.LeadingTrivia.IsEmptyOrWhitespace()
+                        && block.OpenBraceToken.TrailingTrivia.IsEmptyOrWhitespace()
+                        && block.CloseBraceToken.LeadingTrivia.IsEmptyOrWhitespace()
+                        && block.CloseBraceToken.TrailingTrivia.IsEmptyOrWhitespace();
                 }
 
                 return true;
@@ -109,11 +111,11 @@ namespace Roslynator.CSharp.Refactorings
         {
             IfStatementSyntax nestedIf = GetNestedIfStatement(ifStatement);
 
-            ExpressionSyntax left = ifStatement.Condition.Parenthesize().WithSimplifierAnnotation();
+            ExpressionSyntax left = ifStatement.Condition.Parenthesize();
             ExpressionSyntax right = nestedIf.Condition;
 
             if (!right.IsKind(SyntaxKind.LogicalAndExpression))
-                right = right.Parenthesize().WithSimplifierAnnotation();
+                right = right.Parenthesize();
 
             BinaryExpressionSyntax newCondition = CSharpFactory.LogicalAndExpression(left, right);
 

@@ -48,6 +48,9 @@
     <Compile Include="CSharp\Helpers\DetermineParameterTypeHelper.cs" />
     <Compile Include="CSharp\Syntax\NullCheckExpression.cs" />
     <Compile Include="CSharp\Syntax\NullCheckKind.cs" />
+    <Compile Include="DocumentReferenceInfo.cs" />
+    <Compile Include="SyntaxComparer.cs" />
+    <Compile Include="SyntaxFinder.cs" />
     <Compile Include="CSharp\TypeParameterInfo.cs" />
     <Compile Include="CSharp\InterpolatedStringContentConversion.cs" />
     <Compile Include="CSharp\OperatorPrecedence.cs" />
@@ -128,7 +131,6 @@
     <Compile Include="CSharp\CSharpFactory.cs" />
     <Compile Include="CSharp\Helpers\DetermineParameterHelper.cs" />
     <Compile Include="CSharp\Extensions\SyntaxExtensions.cs" />
-    <Compile Include="CSharp\AutoPropertyKind.cs" />
     <Compile Include="CSharp\Documentation\AddNewDocumentationCommentRewriter.cs" />
     <Compile Include="DefaultNames.cs" />
     <Compile Include="CSharp\Syntax\MemberInvocationExpression.cs" />
@@ -141,7 +143,7 @@
     <Compile Include="MethodInfo.cs" />
     <Compile Include="Utilities\SemanticUtilities.cs" />
     <Compile Include="Utilities\SymbolUtility.cs" />
-    <Compile Include="NodeWriter.cs" />
+    <Compile Include="Text\SyntaxNodeTextBuilder.cs" />
     <Compile Include="CSharp\SyntaxRewriters\CommentRemover.cs" />
     <Compile Include="CSharp\Analysis\TypeAnalysisFlags.cs" />
     <Compile Include="CSharp\RemoveHelper.cs" />
