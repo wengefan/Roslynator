@@ -176,6 +176,10 @@ namespace Roslynator.CSharp
             {
                 return ((LiteralExpressionSyntax)expression).Token.ValueText.Length == 0;
             }
+            else if (kind == SyntaxKind.InterpolatedStringExpression)
+            {
+                return !((InterpolatedStringExpressionSyntax)expression).Contents.Any();
+            }
             else if (kind == SyntaxKind.SimpleMemberAccessExpression)
             {
                 var memberAccess = (MemberAccessExpressionSyntax)expression;
