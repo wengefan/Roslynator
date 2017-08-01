@@ -1757,5 +1757,14 @@ namespace Roslynator.CSharp
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
         );
+
+        public static readonly DiagnosticDescriptor UseDefaultValueInsteadOfDefaultExpression = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseDefaultValueInsteadOfDefaultExpression,
+            title: "Use default value instead of default expression.",
+            messageFormat: "Use default value instead of default expression.",
+            category: DiagnosticCategories.Usage,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
     }
 }
