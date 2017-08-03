@@ -1757,5 +1757,14 @@ namespace Roslynator.CSharp
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
         );
+
+        public static readonly DiagnosticDescriptor SimplifyConditionalExpression2 = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.SimplifyConditionalExpression2,
+            title: "Simplify conditional expression 2.",
+            messageFormat: "Simplify conditional expression 2.",
+            category: DiagnosticCategories.Simplification,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
     }
 }

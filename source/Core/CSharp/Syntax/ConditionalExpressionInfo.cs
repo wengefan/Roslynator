@@ -40,17 +40,17 @@ namespace Roslynator.CSharp.Syntax
 
             ExpressionSyntax condition = conditionalExpression.Condition?.WalkDownParenthesesIf(walkDownParentheses);
 
-            if (CheckNode(allowNullOrMissing, condition))
+            if (!CheckNode(allowNullOrMissing, condition))
                 throw new ArgumentException("", nameof(conditionalExpression));
 
             ExpressionSyntax whenTrue = conditionalExpression.WhenTrue?.WalkDownParenthesesIf(walkDownParentheses);
 
-            if (CheckNode(allowNullOrMissing, whenTrue))
+            if (!CheckNode(allowNullOrMissing, whenTrue))
                 throw new ArgumentException("", nameof(conditionalExpression));
 
             ExpressionSyntax whenFalse = conditionalExpression.WhenFalse?.WalkDownParenthesesIf(walkDownParentheses);
 
-            if (CheckNode(allowNullOrMissing, whenFalse))
+            if (!CheckNode(allowNullOrMissing, whenFalse))
                 throw new ArgumentException("", nameof(conditionalExpression));
 
             return new ConditionalExpressionInfo(condition, whenTrue, whenFalse);

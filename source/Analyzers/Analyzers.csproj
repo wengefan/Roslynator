@@ -77,6 +77,7 @@
     <Compile Include="DiagnosticAnalyzers\FormatConditionalExpressionDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\AvoidSingleLineBlockDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\SimplifyBooleanExpressionDiagnosticAnalyzer.cs" />
+    <Compile Include="DiagnosticAnalyzers\SimplifyConditionalExpression2DiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\UseConstantInsteadOfFieldDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\MarkFieldAsReadOnlyDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\JoinStringExpressionsDiagnosticAnalyzer.cs" />
@@ -135,6 +136,7 @@
     <Compile Include="Refactorings\ReplaceCommentWithDocumentationCommentRefactoring.cs" />
     <Compile Include="Refactorings\RemoveRedundantBaseInterfaceRefactoring.cs" />
     <Compile Include="Refactorings\SimplifyBooleanExpressionRefactoring.cs" />
+    <Compile Include="Refactorings\SimplifyConditionalExpression2Refactoring.cs" />
     <Compile Include="Refactorings\SimplifyLazilyInitializedPropertyRefactoring.cs" />
     <Compile Include="Refactorings\UnusedSyntax\UnusedConstructorParameterRefactoring.cs" />
     <Compile Include="Refactorings\UnusedSyntax\UnusedIndexerParameterRefactoring.cs" />
