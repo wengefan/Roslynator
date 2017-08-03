@@ -1107,6 +1107,19 @@ namespace Roslynator.CSharp
         {
             return localFunctionStatement?.ReturnType?.IsVoid() == true;
         }
+
+        public static bool ContainsYield(this LocalFunctionStatementSyntax localFunctionStatement)
+        {
+            if (localFunctionStatement == null)
+                throw new ArgumentNullException(nameof(localFunctionStatement));
+
+            BlockSyntax body = localFunctionStatement.Body;
+
+            return body?.Statements.Any() == true
+                && body
+                    .DescendantNodes(node => !node.IsNestedMethod())
+                    .Any(f => f.IsKind(SyntaxKind.YieldReturnStatement, SyntaxKind.YieldBreakStatement));
+        }
         #endregion LocalFunctionStatementSyntax
 
         #region MemberDeclarationSyntax
@@ -1677,12 +1690,15 @@ namespace Roslynator.CSharp
             return member.WithLeadingTrivia(newLeadingTrivia);
         }
 
-        public static bool IsIterator(this MethodDeclarationSyntax methodDeclaration)
+        public static bool ContainsYield(this MethodDeclarationSyntax methodDeclaration)
         {
             if (methodDeclaration == null)
                 throw new ArgumentNullException(nameof(methodDeclaration));
 
-            return methodDeclaration
+            BlockSyntax body = methodDeclaration.Body;
+
+            return body?.Statements.Any() == true
+                && body
                     .DescendantNodes(node => !node.IsNestedMethod())
                     .Any(f => f.IsKind(SyntaxKind.YieldReturnStatement, SyntaxKind.YieldBreakStatement));
         }

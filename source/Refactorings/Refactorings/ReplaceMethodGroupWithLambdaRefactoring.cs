@@ -51,7 +51,7 @@ namespace Roslynator.CSharp.Refactorings
                         {
                             var methodDeclaration = (MethodDeclarationSyntax)node;
 
-                            if (!methodDeclaration.IsIterator())
+                            if (!methodDeclaration.ContainsYield())
                             {
                                 context.RegisterRefactoring(
                                $"Replace '{expression}' with lambda",
