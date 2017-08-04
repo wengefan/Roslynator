@@ -49,7 +49,6 @@
     <Compile Include="CSharp\Helpers\DetermineParameterTypeHelper.cs" />
     <Compile Include="CSharp\Syntax\NullCheckExpression.cs" />
     <Compile Include="CSharp\Syntax\NullCheckKind.cs" />
-    <Compile Include="Diagnostics\Assert.cs" />
     <Compile Include="DocumentReferenceInfo.cs" />
     <Compile Include="Diagnostics\Assert.cs" />
     <Compile Include="SyntaxComparer.cs" />
