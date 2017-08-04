@@ -272,5 +272,156 @@ namespace Roslynator.CSharp
 
             return false;
         }
+
+        public static bool IsImplicitNumericConversion(ITypeSymbol from, ITypeSymbol to)
+        {
+            if (from == null)
+                throw new ArgumentNullException(nameof(from));
+
+            if (to == null)
+                throw new ArgumentNullException(nameof(to));
+
+            return IsImplicitNumericConversion(from.SpecialType, to.SpecialType);
+        }
+
+        // http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/keywords/implicit-numeric-conversions-table
+        public static bool IsImplicitNumericConversion(SpecialType from, SpecialType to)
+        {
+            switch (from)
+            {
+                case SpecialType.System_Char:
+                    {
+                        switch (to)
+                        {
+                            case SpecialType.System_UInt16:
+                            case SpecialType.System_Int32:
+                            case SpecialType.System_UInt32:
+                            case SpecialType.System_Int64:
+                            case SpecialType.System_UInt64:
+                            case SpecialType.System_Single:
+                            case SpecialType.System_Double:
+                            case SpecialType.System_Decimal:
+                                return true;
+                        }
+
+                        break;
+                    }
+                case SpecialType.System_SByte:
+                    {
+                        switch (to)
+                        {
+                            case SpecialType.System_Int16:
+                            case SpecialType.System_Int32:
+                            case SpecialType.System_Int64:
+                            case SpecialType.System_Single:
+                            case SpecialType.System_Double:
+                            case SpecialType.System_Decimal:
+                                return true;
+                        }
+
+                        break;
+                    }
+                case SpecialType.System_Byte:
+                    {
+                        switch (to)
+                        {
+                            case SpecialType.System_Int16:
+                            case SpecialType.System_UInt16:
+                            case SpecialType.System_Int32:
+                            case SpecialType.System_UInt32:
+                            case SpecialType.System_Int64:
+                            case SpecialType.System_UInt64:
+                            case SpecialType.System_Single:
+                            case SpecialType.System_Double:
+                            case SpecialType.System_Decimal:
+                                return true;
+                        }
+
+                        break;
+                    }
+                case SpecialType.System_Int16:
+                    {
+                        switch (to)
+                        {
+                            case SpecialType.System_Int32:
+                            case SpecialType.System_Int64:
+                            case SpecialType.System_Single:
+                            case SpecialType.System_Double:
+                            case SpecialType.System_Decimal:
+                                return true;
+                        }
+
+                        break;
+                    }
+                case SpecialType.System_UInt16:
+                    {
+                        switch (to)
+                        {
+                            case SpecialType.System_Int32:
+                            case SpecialType.System_UInt32:
+                            case SpecialType.System_Int64:
+                            case SpecialType.System_UInt64:
+                            case SpecialType.System_Single:
+                            case SpecialType.System_Double:
+                            case SpecialType.System_Decimal:
+                                return true;
+                        }
+
+                        break;
+                    }
+                case SpecialType.System_Int32:
+                    {
+                        switch (to)
+                        {
+                            case SpecialType.System_Int64:
+                            case SpecialType.System_Single:
+                            case SpecialType.System_Double:
+                            case SpecialType.System_Decimal:
+                                return true;
+                        }
+
+                        break;
+                    }
+                case SpecialType.System_UInt32:
+                    {
+                        switch (to)
+                        {
+                            case SpecialType.System_Int64:
+                            case SpecialType.System_UInt64:
+                            case SpecialType.System_Single:
+                            case SpecialType.System_Double:
+                            case SpecialType.System_Decimal:
+                                return true;
+                        }
+
+                        break;
+                    }
+                case SpecialType.System_Int64:
+                case SpecialType.System_UInt64:
+                    {
+                        switch (to)
+                        {
+                            case SpecialType.System_Single:
+                            case SpecialType.System_Double:
+                            case SpecialType.System_Decimal:
+                                return true;
+                        }
+
+                        break;
+                    }
+                case SpecialType.System_Single:
+                    {
+                        switch (to)
+                        {
+                            case SpecialType.System_Double:
+                                return true;
+                        }
+
+                        break;
+                    }
+            }
+
+            return false;
+        }
     }
 }
