@@ -15,7 +15,7 @@ namespace Roslynator.CSharp
         #region Trivia
         public static SyntaxTrivia EmptyWhitespace()
         {
-            return SyntaxTrivia(SyntaxKind.WhitespaceTrivia, string.Empty);
+            return SyntaxTrivia(SyntaxKind.WhitespaceTrivia, "");
         }
 
         public static SyntaxTrivia NewLine()
