@@ -26,11 +26,11 @@ namespace Roslynator.CSharp.Refactorings
                 if (context.IsRefactoringEnabled(RefactoringIdentifiers.FormatInitializer)
                     && expressions.Any()
                     && !initializer.IsKind(SyntaxKind.ComplexElementInitializerExpression)
-                    && initializer.Parent?.IsKind(
+                    && initializer.IsParentKind(
                         SyntaxKind.ArrayCreationExpression,
                         SyntaxKind.ImplicitArrayCreationExpression,
                         SyntaxKind.ObjectCreationExpression,
-                        SyntaxKind.CollectionInitializerExpression) == true)
+                        SyntaxKind.CollectionInitializerExpression))
                 {
                     if (initializer.IsSingleLine(includeExteriorTrivia: false))
                     {
