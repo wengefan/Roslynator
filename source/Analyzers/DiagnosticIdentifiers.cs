@@ -129,7 +129,7 @@ namespace Roslynator.CSharp
         public const string BitwiseOperationOnEnumWithoutFlagsAttribute = Prefix + "1130";
         public const string RemoveRedundantOverridingMember = Prefix + "1132";
         public const string RemoveRedundantDisposeOrCloseCall = Prefix + "1133";
-        public const string RemoveRedundantContinueStatement = Prefix + "1134";
+        public const string RemoveRedundantStatement = Prefix + "1134";
         public const string DeclareEnumMemberWithZeroValue = Prefix + "1135";
         public const string MergeSwitchSectionsWithEquivalentContent = Prefix + "1136";
         public const string AddSummaryToDocumentationComment = Prefix + "1138";
@@ -187,5 +187,9 @@ namespace Roslynator.CSharp
         public const string CallExtensionMethodAsInstanceMethod = Prefix + "1196";
         public const string OptimizeStringBuilderAppendCall = Prefix + "1197";
         public const string AvoidBoxingOfValueType = Prefix + "1198";
+        public const string SimplifyBooleanExpression = Prefix + "1199";
+        public const string CallThenByInsteadOfOrderBy = Prefix + "1200";
+        public const string UseMethodChaining = Prefix + "1201";
+        public const string UseConditionalAccessToAvoidNullReferenceException = Prefix + "1202";
     }
 }
