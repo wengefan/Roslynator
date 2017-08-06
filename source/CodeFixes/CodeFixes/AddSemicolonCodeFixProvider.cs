@@ -32,10 +32,10 @@ namespace Roslynator.CSharp.CodeFixes
             if (!TryFindFirstAncestorOrSelf(root, context.Span, out SyntaxNode node, predicate: f => CanHaveSemicolon(f)))
                 return;
 
-            if (node.SpanStart == context.Span.Start)
+            if (node.SpanStart == context.Span.Start
+                && !TryFindFirstAncestorOrSelf(root, new TextSpan(node.FullSpan.Start - 1, 0), out node, predicate: f => CanHaveSemicolon(f)))
             {
-                if (!TryFindFirstAncestorOrSelf(root, new TextSpan(node.FullSpan.Start - 1, 0), out node, predicate: f => CanHaveSemicolon(f)));
-                    return;
+                return;
             }
 
             SyntaxToken semicolon = GetSemicolonToken(node);
