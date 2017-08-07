@@ -47,10 +47,12 @@
     <Compile Include="CSharp\CodeFixes\AbstractCodeFixProvider.cs" />
     <Compile Include="CSharp\GenericDeclarationHelper.cs" />
     <Compile Include="CSharp\Helpers\DetermineParameterTypeHelper.cs" />
+    <Compile Include="CSharp\Syntax\ConditionalExpressionInfo.cs" />
     <Compile Include="CSharp\Syntax\NullCheckExpression.cs" />
     <Compile Include="CSharp\Syntax\NullCheckKind.cs" />
     <Compile Include="DocumentReferenceInfo.cs" />
     <Compile Include="Diagnostics\Assert.cs" />
+    <Compile Include="Extensions\RefKindExtensions.cs" />
     <Compile Include="SyntaxComparer.cs" />
     <Compile Include="SyntaxFinder.cs" />
     <Compile Include="CSharp\TypeParameterInfo.cs" />
