@@ -123,6 +123,23 @@ namespace Roslynator.CSharp
         }
         #endregion BlockSyntax
 
+        #region BaseArgumentListSyntax
+        internal static BaseArgumentListSyntax WithArguments(this BaseArgumentListSyntax baseArgumentList, SeparatedSyntaxList<ArgumentSyntax> arguments)
+        {
+            switch (baseArgumentList.Kind())
+            {
+                case SyntaxKind.ArgumentList:
+                    return ((ArgumentListSyntax)baseArgumentList).WithArguments(arguments);
+                case SyntaxKind.BracketedArgumentList:
+                    return ((BracketedArgumentListSyntax)baseArgumentList).WithArguments(arguments);
+            }
+
+            Debug.Fail(baseArgumentList?.Kind().ToString());
+
+            return null;
+        }
+        #endregion BaseArgumentListSyntax
+
         #region CastExpressionSyntax
         public static TextSpan ParenthesesSpan(this CastExpressionSyntax castExpression)
         {
@@ -704,6 +721,11 @@ namespace Roslynator.CSharp
                 expression = ((ParenthesizedExpressionSyntax)expression).Expression;
 
             return expression;
+        }
+
+        internal static ExpressionSyntax WalkDownParenthesesIf(this ExpressionSyntax expression, bool condition)
+        {
+            return (condition) ? WalkDownParentheses(expression) : expression;
         }
 
         internal static bool IsIncrementOrDecrementExpression(this ExpressionSyntax expression)

@@ -58,6 +58,7 @@
     <Compile Include="RemoveRedundantAutoPropertyInitialization.cs" />
     <Compile Include="RemoveRedundantDefaultSwitchSection.cs" />
     <Compile Include="MarkFieldAsConst.cs" />
+    <Compile Include="ReorderNamedArguments.cs" />
     <Compile Include="ReplaceCommentWithDocumentationComment.cs" />
     <Compile Include="AddEmptyLineAfterClosingBrace.cs" />
     <Compile Include="AddEmptyLineAfterEmbeddedStatement.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="FormatConditionalExpressionOperatorsOnNextLine.cs" />
     <Compile Include="ImplementExceptionConstructors.cs" />
     <Compile Include="AvoidSingleLineBlock.cs" />
+    <Compile Include="ReplaceLambdaExpressionWithMethodGroup.cs" />
     <Compile Include="SimplifyBooleanExpression.cs" />
     <Compile Include="SimplifyLambdaExpressionRefactoring.cs" />
     <Compile Include="StaticMemberInGenericClassShouldUseTypeParameter.cs" />
@@ -92,10 +94,13 @@
     <Compile Include="UnusedParameter.cs" />
     <Compile Include="ParameterNameDiffersFromBase.cs" />
     <Compile Include="InlineLazyInitialization.cs" />
+    <Compile Include="UseAttributeUsageAttribute.cs" />
     <Compile Include="UseAutoProperty.cs" />
     <Compile Include="UseAutoProperty3.cs" />
     <Compile Include="UseCoalesceExpressionInsteadOfConditionalExpression.cs" />
-    <Compile Include="UseConditionalAccessToAvoidNullReferenceException.cs" />
+    <Compile Include="AvoidNullReferenceException.cs" />
+    <Compile Include="UseConditionalAccessInsteadOfConditionalExpression.cs" />
+    <Compile Include="UseEventArgsEmpty.cs" />
     <Compile Include="UseExclusiveOrOperator.cs" />
     <Compile Include="UseIsOperatorInsteadOfAsOperator.cs" />
     <Compile Include="UseCoalesceExpressionInsteadOfIf.cs" />

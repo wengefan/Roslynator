@@ -5,16 +5,16 @@ using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Roslynator.CSharp.Refactorings;
+using static Roslynator.CSharp.Refactorings.ReorderNamedArgumentsRefactoring;
 
 namespace Roslynator.CSharp.DiagnosticAnalyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AsExpressionDiagnosticAnalyzer : BaseDiagnosticAnalyzer
+    public class ReorderNamedArgumentsDiagnosticAnalyzer : BaseDiagnosticAnalyzer
     {
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(DiagnosticDescriptors.AvoidNullReferenceException); }
+            get { return ImmutableArray.Create(DiagnosticDescriptors.ReorderNamedArguments); }
         }
 
         public override void Initialize(AnalysisContext context)
@@ -23,10 +23,10 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                 throw new ArgumentNullException(nameof(context));
 
             base.Initialize(context);
+            context.EnableConcurrentExecution();
 
-            context.RegisterSyntaxNodeAction(
-                f => AvoidNullReferenceExceptionRefactoring.AnalyzeAsExpression(f),
-                SyntaxKind.AsExpression);
+            context.RegisterSyntaxNodeAction(f => AnalyzeBaseArgumentList(f), SyntaxKind.ArgumentList);
+            context.RegisterSyntaxNodeAction(f => AnalyzeBaseArgumentList(f), SyntaxKind.BracketedArgumentList);
         }
     }
 }

@@ -10,11 +10,11 @@ using Roslynator.CSharp.Refactorings;
 namespace Roslynator.CSharp.DiagnosticAnalyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class AsExpressionDiagnosticAnalyzer : BaseDiagnosticAnalyzer
+    public class UseEventArgsEmptyDiagnosticAnalyzer : BaseDiagnosticAnalyzer
     {
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(DiagnosticDescriptors.AvoidNullReferenceException); }
+            get { return ImmutableArray.Create(DiagnosticDescriptors.UseEventArgsEmpty); }
         }
 
         public override void Initialize(AnalysisContext context)
@@ -24,9 +24,17 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
 
             base.Initialize(context);
 
-            context.RegisterSyntaxNodeAction(
-                f => AvoidNullReferenceExceptionRefactoring.AnalyzeAsExpression(f),
-                SyntaxKind.AsExpression);
+            context.RegisterCompilationStartAction(startContext =>
+            {
+                INamedTypeSymbol eventArgsSymbol = startContext.Compilation.GetTypeByMetadataName(MetadataNames.System_EventArgs);
+
+                if (eventArgsSymbol != null)
+                {
+                    startContext.RegisterSyntaxNodeAction(
+                        nodeContext => UseEventArgsEmptyRefactoring.AnalyzeObjectCreationExpression(nodeContext, eventArgsSymbol),
+                        SyntaxKind.ObjectCreationExpression);
+                }
+            });
         }
     }
 }

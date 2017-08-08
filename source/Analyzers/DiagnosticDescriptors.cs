@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System;
 using Microsoft.CodeAnalysis;
 
 namespace Roslynator.CSharp
@@ -1749,13 +1750,60 @@ namespace Roslynator.CSharp
             isEnabledByDefault: true
         );
 
-        public static readonly DiagnosticDescriptor UseConditionalAccessToAvoidNullReferenceException = new DiagnosticDescriptor(
-            id: DiagnosticIdentifiers.UseConditionalAccessToAvoidNullReferenceException,
-            title: "Use conditional access to avoid NullReferenceException.",
-            messageFormat: "Use conditional access to avoid NullReferenceException.",
+        public static readonly DiagnosticDescriptor AvoidNullReferenceException = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.AvoidNullReferenceException,
+            title: "Avoid NullReferenceException.",
+            messageFormat: "Avoid NullReferenceException.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true
         );
+
+        public static readonly DiagnosticDescriptor UseAttributeUsageAttribute = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseAttributeUsageAttribute,
+            title: "Use AttributeUsageAttribute.",
+            messageFormat: "Use AttributeUsageAttribute.",
+            category: DiagnosticCategories.Design,
+            defaultSeverity: DiagnosticSeverity.Warning,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor UseEventArgsEmpty = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseEventArgsEmpty,
+            title: "Use EventArgs.Empty.",
+            messageFormat: "Use EventArgs.Empty.",
+            category: DiagnosticCategories.Usage,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor ReorderNamedArguments = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.ReorderNamedArguments,
+            title: "Reorder named arguments according to the order of parameters.",
+            messageFormat: "Reorder named arguments according to the order of parameters.",
+            category: DiagnosticCategories.Readability,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor UseConditionalAccessInsteadOfConditionalExpression = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseConditionalAccessInsteadOfConditionalExpression,
+            title: "Use conditional access instead of conditional expression.",
+            messageFormat: "Use conditional access instead of conditional expression.",
+            category: DiagnosticCategories.Usage,
+            defaultSeverity: DiagnosticSeverity.Info,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor UseMethodGroupInsteadOfAnonymousFunction = new DiagnosticDescriptor(
+            id: DiagnosticIdentifiers.UseMethodGroupInsteadOfAnonymousFunction,
+            title: "Use method group instead of anonymous function.",
+            messageFormat: "Use method group instead of anonymous function.",
+            category: DiagnosticCategories.Simplification,
+            defaultSeverity: DiagnosticSeverity.Hidden,
+            isEnabledByDefault: true
+        );
+
+        public static readonly DiagnosticDescriptor UseMethodGroupInsteadOfAnonymousFunctionFadeOut = UseMethodGroupInsteadOfAnonymousFunction.CreateFadeOut();
     }
 }
