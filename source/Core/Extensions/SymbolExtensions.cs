@@ -833,6 +833,16 @@ namespace Roslynator
             return false;
         }
 
+        public static bool IsRef(this IParameterSymbol parameterSymbol)
+        {
+            return parameterSymbol?.RefKind == RefKind.Ref;
+        }
+
+        public static bool IsOut(this IParameterSymbol parameterSymbol)
+        {
+            return parameterSymbol?.RefKind == RefKind.Out;
+        }
+
         public static bool IsRefOrOut(this IParameterSymbol parameterSymbol)
         {
             return parameterSymbol?.RefKind.IsRefOrOut() == true;
