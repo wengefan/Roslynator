@@ -242,6 +242,11 @@ namespace Roslynator.CSharp.Refactorings
                             SemicolonTokenRefactoring.ComputeRefactorings(this, token);
                             break;
                         }
+                    case SyntaxKind.PlusToken:
+                        {
+                            await PlusTokenRefactoring.ComputeRefactoringsAsync(this, token).ConfigureAwait(false);
+                            break;
+                        }
                     case SyntaxKind.PublicKeyword:
                     case SyntaxKind.InternalKeyword:
                     case SyntaxKind.ProtectedKeyword:
@@ -785,7 +790,7 @@ namespace Roslynator.CSharp.Refactorings
                         if (!fLocalFunctionStatement
                             && kind == SyntaxKind.LocalFunctionStatement)
                         {
-                            LocalFunctionStatementRefactoring.ComputeRefactorings(this, (LocalFunctionStatementSyntax)node);
+                            await LocalFunctionStatementRefactoring.ComputeRefactoringsAsync(this, (LocalFunctionStatementSyntax)node).ConfigureAwait(false);
                             fLocalFunctionStatement = true;
                         }
 

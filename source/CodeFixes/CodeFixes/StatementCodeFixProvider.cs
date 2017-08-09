@@ -2,8 +2,6 @@
 
 using System.Collections.Immutable;
 using System.Composition;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -23,7 +21,6 @@ namespace Roslynator.CSharp.CodeFixes
             get
             {
                 return ImmutableArray.Create(
-                    CompilerDiagnosticIdentifiers.UnreachableCodeDetected,
                     CompilerDiagnosticIdentifiers.EmptySwitchBlock,
                     CompilerDiagnosticIdentifiers.OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement,
                     CompilerDiagnosticIdentifiers.NoEnclosingLoopOutOfWhichToBreakOrContinue);
@@ -33,7 +30,6 @@ namespace Roslynator.CSharp.CodeFixes
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
             if (!Settings.IsAnyCodeFixEnabled(
-                CodeFixIdentifiers.RemoveUnreachableCode,
                 CodeFixIdentifiers.RemoveEmptySwitchStatement,
                 CodeFixIdentifiers.IntroduceLocalVariable,
                 CodeFixIdentifiers.RemoveJumpStatement))
@@ -43,59 +39,13 @@ namespace Roslynator.CSharp.CodeFixes
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
-            StatementSyntax statement = root
-                .FindNode(context.Span, getInnermostNodeForTie: true)?
-                .FirstAncestorOrSelf<StatementSyntax>();
-
-            Debug.Assert(statement != null, $"{nameof(statement)} is null");
-
-            if (statement == null)
+            if (!TryFindFirstAncestorOrSelf(root, context.Span, out StatementSyntax statement))
                 return;
 
             foreach (Diagnostic diagnostic in context.Diagnostics)
             {
                 switch (diagnostic.Id)
                 {
-                    case CompilerDiagnosticIdentifiers.UnreachableCodeDetected:
-                        {
-                            if (context.Span.Start == statement.SpanStart)
-                            {
-                                StatementContainer container;
-                                if (StatementContainer.TryCreate(statement, out container))
-                                {
-                                    CodeAction codeAction = CodeAction.Create(
-                                        "Remove unreachable code",
-                                        cancellationToken =>
-                                        {
-                                            SyntaxList<StatementSyntax> statements = container.Statements;
-
-                                            int index = statements.IndexOf(statement);
-
-                                            if (index == statements.Count - 1)
-                                            {
-                                                return context.Document.RemoveStatementAsync(statement, context.CancellationToken);
-                                            }
-                                            else
-                                            {
-                                                SyntaxRemoveOptions removeOptions = RemoveHelper.DefaultRemoveOptions;
-
-                                                if (statement.GetLeadingTrivia().IsEmptyOrWhitespace())
-                                                    removeOptions &= ~SyntaxRemoveOptions.KeepLeadingTrivia;
-
-                                                if (statements.Last().GetTrailingTrivia().IsEmptyOrWhitespace())
-                                                    removeOptions &= ~SyntaxRemoveOptions.KeepTrailingTrivia;
-
-                                                return context.Document.RemoveNodesAsync(statements.Skip(index), removeOptions, context.CancellationToken);
-                                            }
-                                        },
-                                        GetEquivalenceKey(diagnostic));
-
-                                    context.RegisterCodeFix(codeAction, diagnostic);
-                                }
-                            }
-
-                            break;
-                        }
                     case CompilerDiagnosticIdentifiers.EmptySwitchBlock:
                         {
                             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveEmptySwitchStatement))

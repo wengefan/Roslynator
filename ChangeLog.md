@@ -1,3 +1,36 @@
+### 1.4.54 (2017-08-08)
+
+#### Code Fixes
+
+  * Improve code fixes for CS0162, CS1061.
+
+#### Analyzers
+
+* Add code fix for analyzer ParameterNameDiffersFromBase (RCS1168)
+
+##### New Analyzers
+
+* UseAttributeUsageAttribute (RCS1203)
+* UseEventArgsEmpty (RCS1204)
+* ReorderNamedArguments (RCS1205)
+* UseConditionalAccessInsteadOfConditionalExpression (RCS1206)
+* UseMethodGroupInsteadOfAnonymousFunction (RCS1207)
+
+### 1.4.53 (2017-08-02)
+
+#### Code Fixes
+
+  * New code fixes for CS0139, CS0266, CS0592, CS1689.
+
+#### Analyzers
+
+##### New Analyzers
+
+* SimplifyBooleanExpression (RCS1199)
+* CallThenByInsteadOfOrderBy (RCS1200)
+* UseMethodChaining (RCS1201)
+* UseConditionalAccessToAvoidNullReferenceException (RCS1202)
+
 ### 1.4.52 (2017-07-24)
 
 #### Code Fixes

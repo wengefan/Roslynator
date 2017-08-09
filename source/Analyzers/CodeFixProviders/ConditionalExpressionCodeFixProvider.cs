@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Refactorings;
 
-namespace Roslynator.CSharp.CodeFixProviders
+namespace Roslynator.CSharp.CodeFixes
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(ConditionalExpressionCodeFixProvider))]
     [Shared]
@@ -23,7 +23,8 @@ namespace Roslynator.CSharp.CodeFixProviders
                     DiagnosticIdentifiers.ParenthesizeConditionInConditionalExpression,
                     DiagnosticIdentifiers.UseCoalesceExpressionInsteadOfConditionalExpression,
                     DiagnosticIdentifiers.SimplifyConditionalExpression,
-                    DiagnosticIdentifiers.FormatConditionalExpression);
+                    DiagnosticIdentifiers.FormatConditionalExpression,
+                    DiagnosticIdentifiers.UseConditionalAccessInsteadOfConditionalExpression);
             }
         }
 
@@ -31,9 +32,8 @@ namespace Roslynator.CSharp.CodeFixProviders
         {
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
-            ConditionalExpressionSyntax conditionalExpression = root
-                .FindNode(context.Span, getInnermostNodeForTie: true)?
-                .FirstAncestorOrSelf<ConditionalExpressionSyntax>();
+            if (!TryFindFirstAncestorOrSelf(root, context.Span, out ConditionalExpressionSyntax conditionalExpression))
+                return;
 
             foreach (Diagnostic diagnostic in context.Diagnostics)
             {
@@ -44,7 +44,7 @@ namespace Roslynator.CSharp.CodeFixProviders
                             CodeAction codeAction = CodeAction.Create(
                                 "Wrap condition in parentheses",
                                 cancellationToken => ParenthesizeConditionInConditionalExpressionRefactoring.RefactorAsync(context.Document, conditionalExpression, cancellationToken),
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -60,7 +60,7 @@ namespace Roslynator.CSharp.CodeFixProviders
                                         conditionalExpression,
                                         cancellationToken);
                                 },
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -76,7 +76,7 @@ namespace Roslynator.CSharp.CodeFixProviders
                                         conditionalExpression,
                                         cancellationToken);
                                 },
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -92,7 +92,23 @@ namespace Roslynator.CSharp.CodeFixProviders
                                         conditionalExpression,
                                         cancellationToken);
                                 },
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case DiagnosticIdentifiers.UseConditionalAccessInsteadOfConditionalExpression:
+                        {
+                            CodeAction codeAction = CodeAction.Create(
+                                "Use conditional access",
+                                cancellationToken =>
+                                {
+                                    return UseConditionalAccessRefactoring.RefactorAsync(
+                                        context.Document,
+                                        conditionalExpression,
+                                        cancellationToken);
+                                },
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
