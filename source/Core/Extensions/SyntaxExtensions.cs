@@ -332,8 +332,6 @@ namespace Roslynator
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
 
-            Assert.HasNotAnnotation(node, Formatter.Annotation);
-
             return node.WithAdditionalAnnotations(_formatterAnnotationArray);
         }
 
@@ -342,8 +340,6 @@ namespace Roslynator
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
 
-            Assert.HasNotAnnotation(node, Simplifier.Annotation);
-
             return node.WithAdditionalAnnotations(_simplifierAnnotationArray);
         }
 
@@ -351,9 +347,6 @@ namespace Roslynator
         {
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
-
-            Assert.HasNotAnnotation(node, Formatter.Annotation);
-            Assert.HasNotAnnotation(node, Simplifier.Annotation);
 
             return node.WithAdditionalAnnotations(_formatterAndSimplifierAnnotations);
         }
@@ -534,23 +527,16 @@ namespace Roslynator
 
         public static SyntaxToken WithFormatterAnnotation(this SyntaxToken token)
         {
-            Assert.HasNotAnnotation(token, Formatter.Annotation);
-
             return token.WithAdditionalAnnotations(_formatterAnnotationArray);
         }
 
         public static SyntaxToken WithSimplifierAnnotation(this SyntaxToken token)
         {
-            Assert.HasNotAnnotation(token, Simplifier.Annotation);
-
             return token.WithAdditionalAnnotations(_simplifierAnnotationArray);
         }
 
         internal static SyntaxToken WithFormatterAndSimplifierAnnotations(this SyntaxToken token)
         {
-            Assert.HasNotAnnotation(token, Formatter.Annotation);
-            Assert.HasNotAnnotation(token, Simplifier.Annotation);
-
             return token.WithAdditionalAnnotations(_formatterAndSimplifierAnnotations);
         }
 
