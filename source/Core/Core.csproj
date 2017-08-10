@@ -51,6 +51,7 @@
     <Compile Include="CSharp\Syntax\NullCheckExpression.cs" />
     <Compile Include="CSharp\Syntax\NullCheckKind.cs" />
     <Compile Include="CSharp\Syntax\SimpleIfElse.cs" />
+    <Compile Include="CSharp\Syntax\SyntaxHelper.cs" />
     <Compile Include="DocumentReferenceInfo.cs" />
     <Compile Include="Diagnostics\Assert.cs" />
     <Compile Include="Extensions\RefKindExtensions.cs" />
@@ -100,7 +101,6 @@
     <Compile Include="CSharp\Extensions\DocumentExtensions.cs" />
     <Compile Include="CSharp\SyntaxRewriters\WhitespaceOrEndOfLineTriviaRewriter.cs" />
     <Compile Include="CSharp\Refactorings\GenerateBaseConstructorsRefactoring.cs" />
-    <Compile Include="CSharp\Syntax\EqualsToNullExpression.cs" />
     <Compile Include="CSharp\StatementContainer.cs" />
     <Compile Include="CSharp\Syntax\SingleLocalDeclarationStatement.cs" />
     <Compile Include="DirectiveRemoveOptions.cs" />
@@ -125,7 +125,6 @@
     <Compile Include="CSharp\Syntax\SimpleAssignmentExpression.cs" />
     <Compile Include="CSharp\Syntax\MemberInvocationExpressionWithSingleParameter.cs" />
     <Compile Include="CSharp\Syntax\LambdaExpressionWithSingleParameter.cs" />
-    <Compile Include="CSharp\Syntax\NotEqualsToNullExpression.cs" />
     <Compile Include="CSharp\Helpers\RemoveCommentHelper.cs" />
     <Compile Include="CSharp\BinaryExpressionSelection.cs" />
     <Compile Include="CSharp\MemberDeclarationSelection.cs" />

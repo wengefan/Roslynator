@@ -54,6 +54,52 @@ namespace Roslynator.CSharp.Analyzers.Test
             }
         }
 
+        public class FooNullable
+        {
+            private int? _value;
+
+            public int? LazyMethod()
+            {
+                if (!_value.HasValue)
+                {
+                    _value = Initialize();
+                }
+
+                return _value;
+            }
+
+            public int? LazyProperty
+            {
+                get
+                {
+                    if (!_value.HasValue)
+                    {
+                        _value = Initialize();
+                    }
+
+                    return _value;
+                }
+            }
+
+            public int? this[int index]
+            {
+                get
+                {
+                    if (!_value.HasValue)
+                    {
+                        _value = Initialize();
+                    }
+
+                    return _value;
+                }
+            }
+
+            private int Initialize()
+            {
+                return 0;
+            }
+        }
+
         // n
 
         public class Foo2

@@ -121,7 +121,7 @@ namespace Roslynator.CSharp.Refactorings.If
                 if (options.UseCoalesceExpression)
                 {
                     NullCheckExpression nullCheck;
-                    if (NullCheckExpression.TryCreate(condition, semanticModel, out nullCheck, cancellationToken))
+                    if (NullCheckExpression.TryCreate(condition, semanticModel, out nullCheck, cancellationToken: cancellationToken))
                     {
                         IfRefactoring refactoring = CreateIfToReturnWithCoalesceExpression(
                             ifStatement,
@@ -229,7 +229,7 @@ namespace Roslynator.CSharp.Refactorings.If
                             if (options.UseCoalesceExpression)
                             {
                                 NullCheckExpression nullCheck;
-                                if (NullCheckExpression.TryCreate(condition, semanticModel, out nullCheck, cancellationToken))
+                                if (NullCheckExpression.TryCreate(condition, semanticModel, out nullCheck, cancellationToken: cancellationToken))
                                 {
                                     IfRefactoring refactoring = CreateIfToAssignmentWithWithCoalesceExpression(
                                         ifStatement,

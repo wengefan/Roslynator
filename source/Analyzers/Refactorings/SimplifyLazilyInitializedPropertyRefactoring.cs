@@ -62,16 +62,16 @@ namespace Roslynator.CSharp.Refactorings
             SimpleIfStatementWithSingleStatement simpleIf;
             if (SimpleIfStatementWithSingleStatement.TryCreate(ifStatement, out simpleIf))
             {
-                EqualsToNullExpression equalsToNull;
-                if (EqualsToNullExpression.TryCreate(simpleIf.Condition, out equalsToNull))
+                SemanticModel semanticModel = context.SemanticModel;
+                CancellationToken cancellationToken = context.CancellationToken;
+
+                NullCheckExpression nullCheck;
+                if (NullCheckExpression.TryCreate(simpleIf.Condition, semanticModel, out nullCheck, allowedKinds: NullCheckKind.IsNull, cancellationToken: cancellationToken))
                 {
-                    IdentifierNameSyntax identifierName = GetIdentifierName(equalsToNull.Left);
+                    IdentifierNameSyntax identifierName = GetIdentifierName(nullCheck.Expression);
 
                     if (identifierName != null)
                     {
-                        SemanticModel semanticModel = context.SemanticModel;
-                        CancellationToken cancellationToken = context.CancellationToken;
-
                         var fieldSymbol = semanticModel.GetSymbol(identifierName, cancellationToken) as IFieldSymbol;
 
                         if (fieldSymbol != null)

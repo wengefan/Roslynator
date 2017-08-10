@@ -8,9 +8,9 @@ namespace Roslynator.CSharp.Analyzers.Test
     public static class NullCheckOfUnconstrainedTypeParameter
     {
         private static void Foo<T1, T2, T3>()
+            where T1 : new()
             where T2 : class
             where T3 : T2
-            where T1 : new()
         {
             var x1 = default(T1);
             var x2 = default(T2);
@@ -19,6 +19,8 @@ namespace Roslynator.CSharp.Analyzers.Test
             if (x1 == null) { }
 
             if (x1 != null) { }
+
+            // n
 
             if (x2 == null) { }
 

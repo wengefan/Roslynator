@@ -4,6 +4,7 @@ using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Roslynator.CSharp.Syntax.SyntaxHelper;
 
 namespace Roslynator.CSharp.Syntax
 {
@@ -40,17 +41,17 @@ namespace Roslynator.CSharp.Syntax
 
             ExpressionSyntax condition = conditionalExpression.Condition?.WalkDownParenthesesIf(walkDownParentheses);
 
-            if (!CheckNode(allowNullOrMissing, condition))
+            if (!CheckNode(condition, allowNullOrMissing))
                 throw new ArgumentException("", nameof(conditionalExpression));
 
             ExpressionSyntax whenTrue = conditionalExpression.WhenTrue?.WalkDownParenthesesIf(walkDownParentheses);
 
-            if (!CheckNode(allowNullOrMissing, whenTrue))
+            if (!CheckNode(whenTrue, allowNullOrMissing))
                 throw new ArgumentException("", nameof(conditionalExpression));
 
             ExpressionSyntax whenFalse = conditionalExpression.WhenFalse?.WalkDownParenthesesIf(walkDownParentheses);
 
-            if (!CheckNode(allowNullOrMissing, whenFalse))
+            if (!CheckNode(whenFalse, allowNullOrMissing))
                 throw new ArgumentException("", nameof(conditionalExpression));
 
             return new ConditionalExpressionInfo(condition, whenTrue, whenFalse);
@@ -81,15 +82,15 @@ namespace Roslynator.CSharp.Syntax
             {
                 ExpressionSyntax condition = conditionalExpression.Condition?.WalkDownParenthesesIf(walkDownParentheses);
 
-                if (CheckNode(allowNullOrMissing, condition))
+                if (CheckNode(condition, allowNullOrMissing))
                 {
                     ExpressionSyntax whenTrue = conditionalExpression.WhenTrue?.WalkDownParenthesesIf(walkDownParentheses);
 
-                    if (CheckNode(allowNullOrMissing, whenTrue))
+                    if (CheckNode(whenTrue, allowNullOrMissing))
                     {
                         ExpressionSyntax whenFalse = conditionalExpression.WhenFalse?.WalkDownParenthesesIf(walkDownParentheses);
 
-                        if (CheckNode(allowNullOrMissing, whenFalse))
+                        if (CheckNode(whenFalse, allowNullOrMissing))
                         {
                             result = new ConditionalExpressionInfo(condition, whenTrue, whenFalse);
                             return true;
@@ -100,11 +101,6 @@ namespace Roslynator.CSharp.Syntax
 
             result = default(ConditionalExpressionInfo);
             return false;
-        }
-
-        private static bool CheckNode(bool allowNullOrMissing, ExpressionSyntax condition)
-        {
-            return allowNullOrMissing || condition?.IsMissing == false;
         }
 
         public override string ToString()

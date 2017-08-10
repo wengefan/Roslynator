@@ -27,12 +27,12 @@ namespace Roslynator.CSharp.Refactorings
             if (ifStatement.IsSimpleIf()
                 && !ifStatement.ContainsDiagnostics)
             {
-                NotEqualsToNullExpression notEqualsToNull;
-                if (NotEqualsToNullExpression.TryCreate(ifStatement.Condition, out notEqualsToNull))
+                NullCheckExpression nullCheck;
+                if (NullCheckExpression.TryCreate(ifStatement.Condition, out nullCheck, allowedKinds: NullCheckKind.NotEqualsToNull))
                 {
                     MemberInvocationStatement memberInvocation;
                     if (MemberInvocationStatement.TryCreate(ifStatement.GetSingleStatementOrDefault(), out memberInvocation)
-                        && notEqualsToNull.Left.IsEquivalentTo(memberInvocation.Expression, topLevel: false)
+                        && nullCheck.Expression.IsEquivalentTo(memberInvocation.Expression, topLevel: false)
                         && !ifStatement.IsInExpressionTree(expressionType, context.SemanticModel, context.CancellationToken)
                         && !ifStatement.SpanContainsDirectives())
                     {
@@ -85,7 +85,7 @@ namespace Roslynator.CSharp.Refactorings
                 CancellationToken cancellationToken = context.CancellationToken;
 
                 NullCheckExpression nullCheck;
-                if (NullCheckExpression.TryCreate(conditionalExpression.Condition, semanticModel, out nullCheck, cancellationToken))
+                if (NullCheckExpression.TryCreate(conditionalExpression.Condition, semanticModel, out nullCheck, cancellationToken: cancellationToken))
                 {
                     ExpressionSyntax whenNotNull = (nullCheck.IsCheckingNotNull)
                         ? conditionalExpression.WhenTrue
@@ -344,7 +344,7 @@ namespace Roslynator.CSharp.Refactorings
                 SemanticModel semanticModel = await document.GetSemanticModelAsync().ConfigureAwait(false);
 
                 NullCheckExpression nullCheck;
-                if (NullCheckExpression.TryCreate(conditionalExpression.Condition, semanticModel, out nullCheck, cancellationToken))
+                if (NullCheckExpression.TryCreate(conditionalExpression.Condition, semanticModel, out nullCheck, cancellationToken: cancellationToken))
                 {
                     ExpressionSyntax whenNotNull = (nullCheck.IsCheckingNotNull)
                         ? conditionalExpression.WhenTrue

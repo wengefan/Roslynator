@@ -29,12 +29,12 @@ namespace Roslynator.CSharp.Refactorings
                 if (ifStatement.TryGetContainingList(out statements)
                     && !IsPartOfLazyInitialization(ifStatement, statements))
                 {
-                    EqualsToNullExpression equalsToNull;
-                    if (EqualsToNullExpression.TryCreate(ifStatement.Condition, out equalsToNull))
+                    NullCheckExpression nullCheck;
+                    if (NullCheckExpression.TryCreate(ifStatement.Condition, context.SemanticModel, out nullCheck, cancellationToken: context.CancellationToken))
                     {
                         SimpleAssignmentStatement assignment;
                         if (SimpleAssignmentStatement.TryCreate(ifStatement.GetSingleStatementOrDefault(), out assignment)
-                            && assignment.Left.IsEquivalentTo(equalsToNull.Left, topLevel: false)
+                            && assignment.Left.IsEquivalentTo(nullCheck.Expression, topLevel: false)
                             && assignment.Right.IsSingleLine()
                             && !ifStatement.SpanContainsDirectives())
                         {
@@ -45,7 +45,7 @@ namespace Roslynator.CSharp.Refactorings
                                 StatementSyntax previousStatement = statements[index - 1];
 
                                 if (!previousStatement.ContainsDiagnostics
-                                    && CanRefactor(previousStatement, ifStatement, equalsToNull.Left, ifStatement.Parent))
+                                    && CanRefactor(previousStatement, ifStatement, nullCheck.Expression, ifStatement.Parent))
                                 {
                                     context.ReportDiagnostic(DiagnosticDescriptors.UseCoalesceExpression, previousStatement);
                                 }
@@ -59,7 +59,7 @@ namespace Roslynator.CSharp.Refactorings
                                 {
                                     MemberInvocationStatement memberInvocation;
                                     if (MemberInvocationStatement.TryCreate(nextStatement, out memberInvocation)
-                                        && equalsToNull.Left.IsEquivalentTo(memberInvocation.Expression, topLevel: false)
+                                        && nullCheck.Expression.IsEquivalentTo(memberInvocation.Expression, topLevel: false)
                                         && !ifStatement.Parent.ContainsDirectives(TextSpan.FromBounds(ifStatement.SpanStart, nextStatement.Span.End)))
                                     {
                                         context.ReportDiagnostic(DiagnosticDescriptors.InlineLazyInitialization, ifStatement);

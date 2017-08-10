@@ -3,6 +3,7 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Roslynator.CSharp.Syntax.SyntaxHelper;
 
 namespace Roslynator.CSharp.Syntax
 {
@@ -63,11 +64,6 @@ namespace Roslynator.CSharp.Syntax
 
             result = default(SimpleIfElse);
             return false;
-        }
-
-        private static bool CheckNode(SyntaxNode node, bool allowNullOrMissing)
-        {
-            return allowNullOrMissing || node?.IsMissing == false;
         }
 
         public override string ToString()
