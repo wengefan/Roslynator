@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Roslynator.CSharp.CSharpFactory;
 
@@ -17,7 +17,7 @@ namespace Roslynator.CSharp.Refactorings
 {
     internal static class OptimizeStringBuilderAppendCallRefactoring
     {
-        public static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpression memberInvocation)
+        public static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpressionInfo memberInvocation)
         {
             INamedTypeSymbol stringBuilderSymbol = context.GetTypeByMetadataName(MetadataNames.System_Text_StringBuilder);
 
@@ -97,8 +97,8 @@ namespace Roslynator.CSharp.Refactorings
 
         private static bool IsFixable(InvocationExpressionSyntax invocationExpression, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
-            MemberInvocationExpression memberInvocation;
-            if (MemberInvocationExpression.TryCreate(invocationExpression, out memberInvocation))
+            MemberInvocationExpressionInfo memberInvocation;
+            if (MemberInvocationExpressionInfo.TryCreate(invocationExpression, out memberInvocation))
             {
                 MethodInfo methodInfo;
                 if (semanticModel.TryGetMethodInfo(memberInvocation.InvocationExpression, out methodInfo, cancellationToken)
@@ -135,7 +135,7 @@ namespace Roslynator.CSharp.Refactorings
         public static Task<Document> RefactorAsync(
             Document document,
             ArgumentSyntax argument,
-            MemberInvocationExpression memberInvocation,
+            MemberInvocationExpressionInfo memberInvocation,
             CancellationToken cancellationToken)
         {
             InvocationExpressionSyntax invocation = memberInvocation.InvocationExpression;
@@ -196,7 +196,7 @@ namespace Roslynator.CSharp.Refactorings
 
         private static InvocationExpressionSyntax ConvertInterpolatedStringExpressionToInvocationExpression(
             InterpolatedStringExpressionSyntax interpolatedString,
-            MemberInvocationExpression memberInvocation)
+            MemberInvocationExpressionInfo memberInvocation)
         {
             bool isVerbatim = interpolatedString.IsVerbatim();
 
@@ -254,7 +254,7 @@ namespace Roslynator.CSharp.Refactorings
             InvocationExpressionSyntax innerInvocationExpression,
             InvocationExpressionSyntax outerInvocationExpression)
         {
-            MemberInvocationExpression memberInvocation = MemberInvocationExpression.Create(innerInvocationExpression);
+            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(innerInvocationExpression);
 
             switch (memberInvocation.NameText)
             {

@@ -13,7 +13,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using Roslynator.CSharp;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 using Roslynator.Utilities;
 
 namespace Roslynator.CSharp.Refactorings
@@ -27,11 +27,11 @@ namespace Roslynator.CSharp.Refactorings
             if (ifStatement.IsSimpleIf()
                 && !ifStatement.ContainsDiagnostics)
             {
-                NullCheckExpression nullCheck;
-                if (NullCheckExpression.TryCreate(ifStatement.Condition, out nullCheck, allowedKinds: NullCheckKind.NotEqualsToNull))
+                NullCheckExpressionInfo nullCheck;
+                if (NullCheckExpressionInfo.TryCreate(ifStatement.Condition, out nullCheck, allowedKinds: NullCheckKind.NotEqualsToNull))
                 {
-                    MemberInvocationStatement memberInvocation;
-                    if (MemberInvocationStatement.TryCreate(ifStatement.GetSingleStatementOrDefault(), out memberInvocation)
+                    MemberInvocationStatementInfo memberInvocation;
+                    if (MemberInvocationStatementInfo.TryCreate(ifStatement.GetSingleStatementOrDefault(), out memberInvocation)
                         && nullCheck.Expression.IsEquivalentTo(memberInvocation.Expression, topLevel: false)
                         && !ifStatement.IsInExpressionTree(expressionType, context.SemanticModel, context.CancellationToken)
                         && !ifStatement.SpanContainsDirectives())
@@ -84,8 +84,8 @@ namespace Roslynator.CSharp.Refactorings
                 SemanticModel semanticModel = context.SemanticModel;
                 CancellationToken cancellationToken = context.CancellationToken;
 
-                NullCheckExpression nullCheck;
-                if (NullCheckExpression.TryCreate(conditionalExpression.Condition, semanticModel, out nullCheck, cancellationToken: cancellationToken))
+                NullCheckExpressionInfo nullCheck;
+                if (NullCheckExpressionInfo.TryCreate(conditionalExpression.Condition, semanticModel, out nullCheck, cancellationToken: cancellationToken))
                 {
                     ExpressionSyntax whenNotNull = (nullCheck.IsCheckingNotNull)
                         ? conditionalExpression.WhenTrue
@@ -313,7 +313,7 @@ namespace Roslynator.CSharp.Refactorings
         {
             var statement = (ExpressionStatementSyntax)ifStatement.GetSingleStatementOrDefault();
 
-            MemberInvocationStatement memberInvocation = MemberInvocationStatement.Create(statement);
+            MemberInvocationStatementInfo memberInvocation = MemberInvocationStatementInfo.Create(statement);
 
             int insertIndex = memberInvocation.Expression.Span.End - statement.FullSpan.Start;
             StatementSyntax newStatement = SyntaxFactory.ParseStatement(statement.ToFullString().Insert(insertIndex, "?"));
@@ -343,8 +343,8 @@ namespace Roslynator.CSharp.Refactorings
             {
                 SemanticModel semanticModel = await document.GetSemanticModelAsync().ConfigureAwait(false);
 
-                NullCheckExpression nullCheck;
-                if (NullCheckExpression.TryCreate(conditionalExpression.Condition, semanticModel, out nullCheck, cancellationToken: cancellationToken))
+                NullCheckExpressionInfo nullCheck;
+                if (NullCheckExpressionInfo.TryCreate(conditionalExpression.Condition, semanticModel, out nullCheck, cancellationToken: cancellationToken))
                 {
                     ExpressionSyntax whenNotNull = (nullCheck.IsCheckingNotNull)
                         ? conditionalExpression.WhenTrue

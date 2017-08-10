@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.FindSymbols;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Roslynator.CSharp.Refactorings
@@ -185,8 +185,8 @@ namespace Roslynator.CSharp.Refactorings
 
         private static bool IsSymbolAssignedInStatement(ISymbol symbol, StatementSyntax statement, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
-            SimpleAssignmentStatement assignment;
-            if (SimpleAssignmentStatement.TryCreate(statement, out assignment))
+            SimpleAssignmentStatementInfo assignment;
+            if (SimpleAssignmentStatementInfo.TryCreate(statement, out assignment))
             {
                 return symbol.Equals(semanticModel.GetSymbol(assignment.Left, cancellationToken));
             }
@@ -249,9 +249,9 @@ namespace Roslynator.CSharp.Refactorings
                     {
                         var ifStatement = (IfStatementSyntax)statement;
 
-                        IfStatement chain = Syntax.IfStatement.Create(ifStatement);
+                        IfStatementInfo ifStatementInfo = SyntaxInfo.IfStatementInfo.Create(ifStatement);
 
-                        IEnumerable<ExpressionStatementSyntax> expressionStatements = chain
+                        IEnumerable<ExpressionStatementSyntax> expressionStatements = ifStatementInfo
                             .Nodes
                             .Select(ifOrElse => (ExpressionStatementSyntax)GetLastStatementOrDefault(ifOrElse.Statement));
 
@@ -270,10 +270,10 @@ namespace Roslynator.CSharp.Refactorings
                             ifStatement,
                             newIfStatement,
                             index,
-                            chain.Nodes.Length,
+                            ifStatementInfo.Nodes.Length,
                             semanticModel,
                             cancellationToken,
-                            chain.EndsWithElse).ConfigureAwait(false);
+                            ifStatementInfo.EndsWithElse).ConfigureAwait(false);
 
                         return await document.ReplaceNodeAsync(container.Node, newContainer.Node, cancellationToken).ConfigureAwait(false);
                     }

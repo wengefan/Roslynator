@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Roslynator.CSharp.Comparers;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Roslynator.CSharp.CSharpFactory;
 
@@ -17,7 +17,7 @@ namespace Roslynator.CSharp.Refactorings
 {
     internal static class UseRegexInstanceInsteadOfStaticMethodRefactoring
     {
-        internal static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpression memberInvocation)
+        internal static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpressionInfo memberInvocation)
         {
             switch (memberInvocation.NameText)
             {
@@ -61,7 +61,7 @@ namespace Roslynator.CSharp.Refactorings
 
                 if (typeDeclaration != null)
                 {
-                    MemberInvocationExpression memberInvocation = MemberInvocationExpression.Create(invocationExpression);
+                    MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(invocationExpression);
 
                     string fieldName = NameGenerator.Default.EnsureUniqueLocalName("_regex", semanticModel, invocationExpression.SpanStart, cancellationToken: cancellationToken);
 

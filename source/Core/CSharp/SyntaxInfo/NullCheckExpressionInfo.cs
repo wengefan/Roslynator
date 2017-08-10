@@ -7,11 +7,11 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.Utilities;
 
-namespace Roslynator.CSharp.Syntax
+namespace Roslynator.CSharp.SyntaxInfo
 {
-    internal struct NullCheckExpression
+    public struct NullCheckExpressionInfo
     {
-        public NullCheckExpression(
+        public NullCheckExpressionInfo(
             ExpressionSyntax node,
             ExpressionSyntax expression,
             NullCheckKind kind)
@@ -39,7 +39,7 @@ namespace Roslynator.CSharp.Syntax
 
         public static bool TryCreate(
             SyntaxNode node,
-            out NullCheckExpression result,
+            out NullCheckExpressionInfo info,
             bool walkDownParentheses = true,
             NullCheckKind allowedKinds = NullCheckKind.ComparisonToNull)
         {
@@ -48,20 +48,20 @@ namespace Roslynator.CSharp.Syntax
                 return TryCreate(
                     node,
                     default(SemanticModel),
-                    out result,
+                    out info,
                     walkDownParentheses,
                     allowedKinds,
                     default(CancellationToken));
             }
 
-            result = default(NullCheckExpression);
+            info = default(NullCheckExpressionInfo);
             return false;
         }
 
         public static bool TryCreate(
             SyntaxNode node,
             SemanticModel semanticModel,
-            out NullCheckExpression result,
+            out NullCheckExpressionInfo info,
             bool walkDownParentheses = true,
             NullCheckKind allowedKinds = NullCheckKind.All,
             CancellationToken cancellationToken = default(CancellationToken))
@@ -85,8 +85,8 @@ namespace Roslynator.CSharp.Syntax
 
                         if (right?.IsMissing == false)
                         {
-                            return TryCreate(binaryExpression, kind, left, right, semanticModel, cancellationToken, allowedKinds, out result)
-                                || TryCreate(binaryExpression, kind, right, left, semanticModel, cancellationToken, allowedKinds, out result);
+                            return TryCreate(binaryExpression, kind, left, right, semanticModel, cancellationToken, allowedKinds, out info)
+                                || TryCreate(binaryExpression, kind, right, left, semanticModel, cancellationToken, allowedKinds, out info);
                         }
                     }
                 }
@@ -98,7 +98,7 @@ namespace Roslynator.CSharp.Syntax
 
                         if (IsPropertyOfNullableOfT(memberAccessExpression.Name, "HasValue", semanticModel, cancellationToken))
                         {
-                            result = new NullCheckExpression(expression, memberAccessExpression.Expression, NullCheckKind.HasValue);
+                            info = new NullCheckExpressionInfo(expression, memberAccessExpression.Expression, NullCheckKind.HasValue);
                             return true;
                         }
                     }
@@ -117,7 +117,7 @@ namespace Roslynator.CSharp.Syntax
 
                             if (IsPropertyOfNullableOfT(memberAccessExpression.Name, "HasValue", semanticModel, cancellationToken))
                             {
-                                result = new NullCheckExpression(expression, memberAccessExpression.Expression, NullCheckKind.NotHasValue);
+                                info = new NullCheckExpressionInfo(expression, memberAccessExpression.Expression, NullCheckKind.NotHasValue);
                                 return true;
                             }
                         }
@@ -125,7 +125,7 @@ namespace Roslynator.CSharp.Syntax
                 }
             }
 
-            result = default(NullCheckExpression);
+            info = default(NullCheckExpressionInfo);
             return false;
         }
 
@@ -137,7 +137,7 @@ namespace Roslynator.CSharp.Syntax
             SemanticModel semanticModel,
             CancellationToken cancellationToken,
             NullCheckKind allowedKinds,
-            out NullCheckExpression result)
+            out NullCheckExpressionInfo info)
         {
             SyntaxKind kind = expression1.Kind();
 
@@ -148,7 +148,7 @@ namespace Roslynator.CSharp.Syntax
                     expression2,
                     (binaryExpressionKind == SyntaxKind.EqualsExpression) ? NullCheckKind.EqualsToNull : NullCheckKind.NotEqualsToNull,
                     allowedKinds,
-                    out result);
+                    out info);
             }
             else if (kind == SyntaxKind.TrueLiteralExpression)
             {
@@ -164,7 +164,7 @@ namespace Roslynator.CSharp.Syntax
                             memberAccessExpression.Expression,
                             (binaryExpressionKind == SyntaxKind.EqualsExpression) ? NullCheckKind.HasValue : NullCheckKind.NotHasValue,
                             allowedKinds,
-                            out result);
+                            out info);
                     }
                 }
             }
@@ -182,12 +182,12 @@ namespace Roslynator.CSharp.Syntax
                             memberAccessExpression.Expression,
                             (binaryExpressionKind == SyntaxKind.EqualsExpression) ? NullCheckKind.NotHasValue : NullCheckKind.HasValue,
                             allowedKinds,
-                            out result);
+                            out info);
                     }
                 }
             }
 
-            result = default(NullCheckExpression);
+            info = default(NullCheckExpressionInfo);
             return false;
         }
 
@@ -196,15 +196,15 @@ namespace Roslynator.CSharp.Syntax
             ExpressionSyntax expression,
             NullCheckKind kind,
             NullCheckKind allowedKinds,
-            out NullCheckExpression result)
+            out NullCheckExpressionInfo info)
         {
             if ((allowedKinds & kind) != 0)
             {
-                result = new NullCheckExpression(node, expression, kind);
+                info = new NullCheckExpressionInfo(node, expression, kind);
                 return true;
             }
 
-            result = default(NullCheckExpression);
+            info = default(NullCheckExpressionInfo);
             return false;
         }
 

@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Roslynator.CSharp;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -31,8 +31,8 @@ namespace Roslynator.CSharp.Refactorings
                 {
                     ExpressionSyntax expression = GetMethodExpression(methodDeclaration);
 
-                    MemberInvocationExpression memberInvocation;
-                    if (MemberInvocationExpression.TryCreate(expression, out memberInvocation)
+                    MemberInvocationExpressionInfo memberInvocation;
+                    if (MemberInvocationExpressionInfo.TryCreate(expression, out memberInvocation)
                         && memberInvocation.Expression.IsKind(SyntaxKind.BaseExpression))
                     {
                         IMethodSymbol methodSymbol = context.SemanticModel.GetDeclaredSymbol(methodDeclaration, context.CancellationToken);

@@ -3,7 +3,7 @@
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -11,8 +11,8 @@ namespace Roslynator.CSharp.Refactorings
     {
         public static async Task ComputeRefactoringsAsync(RefactoringContext context, InvocationExpressionSyntax invocation)
         {
-            MemberInvocationExpression memberInvocation;
-            if (MemberInvocationExpression.TryCreate(invocation, out memberInvocation)
+            MemberInvocationExpressionInfo memberInvocation;
+            if (MemberInvocationExpressionInfo.TryCreate(invocation, out memberInvocation)
                 && memberInvocation.ArgumentList != null)
             {
                 switch (memberInvocation.Name?.Identifier.ValueText)

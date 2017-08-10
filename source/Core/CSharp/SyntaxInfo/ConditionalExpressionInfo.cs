@@ -4,11 +4,11 @@ using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static Roslynator.CSharp.Syntax.SyntaxHelper;
+using static Roslynator.CSharp.SyntaxInfo.SyntaxInfoHelper;
 
-namespace Roslynator.CSharp.Syntax
+namespace Roslynator.CSharp.SyntaxInfo
 {
-    internal struct ConditionalExpressionInfo
+    public struct ConditionalExpressionInfo
     {
         public ConditionalExpressionInfo(
             ExpressionSyntax condition,
@@ -59,22 +59,22 @@ namespace Roslynator.CSharp.Syntax
 
         public static bool TryCreate(
             SyntaxNode node,
-            out ConditionalExpressionInfo result,
+            out ConditionalExpressionInfo info,
             bool allowNullOrMissing = false,
             bool walkDownParentheses = true)
         {
             ExpressionSyntax expression = (node as ExpressionSyntax)?.WalkDownParenthesesIf(walkDownParentheses);
 
             if (expression?.IsKind(SyntaxKind.ConditionalExpression) == true)
-                return TryCreate((ConditionalExpressionSyntax)expression, out result, allowNullOrMissing: allowNullOrMissing, walkDownParentheses: walkDownParentheses);
+                return TryCreate((ConditionalExpressionSyntax)expression, out info, allowNullOrMissing: allowNullOrMissing, walkDownParentheses: walkDownParentheses);
 
-            result = default(ConditionalExpressionInfo);
+            info = default(ConditionalExpressionInfo);
             return false;
         }
 
         public static bool TryCreate(
             ConditionalExpressionSyntax conditionalExpression,
-            out ConditionalExpressionInfo result,
+            out ConditionalExpressionInfo info,
             bool allowNullOrMissing = false,
             bool walkDownParentheses = true)
         {
@@ -92,14 +92,14 @@ namespace Roslynator.CSharp.Syntax
 
                         if (CheckNode(whenFalse, allowNullOrMissing))
                         {
-                            result = new ConditionalExpressionInfo(condition, whenTrue, whenFalse);
+                            info = new ConditionalExpressionInfo(condition, whenTrue, whenFalse);
                             return true;
                         }
                     }
                 }
             }
 
-            result = default(ConditionalExpressionInfo);
+            info = default(ConditionalExpressionInfo);
             return false;
         }
 

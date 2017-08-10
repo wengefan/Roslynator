@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using Roslynator.CSharp;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -25,8 +25,8 @@ namespace Roslynator.CSharp.Refactorings
             if (!localDeclarationStatement.ContainsDiagnostics
                 && !localDeclarationStatement.SpanOrTrailingTriviaContainsDirectives())
             {
-                SingleLocalDeclarationStatement localDeclaration;
-                if (SingleLocalDeclarationStatement.TryCreate(localDeclarationStatement, out localDeclaration))
+                SingleLocalDeclarationStatementInfo localDeclaration;
+                if (SingleLocalDeclarationStatementInfo.TryCreate(localDeclarationStatement, out localDeclaration))
                 {
                     ExpressionSyntax value = localDeclaration.Initializer?.Value;
 
@@ -105,7 +105,7 @@ namespace Roslynator.CSharp.Refactorings
         private static void Analyze(
             SyntaxNodeAnalysisContext context,
             SyntaxList<StatementSyntax> statements,
-            SingleLocalDeclarationStatement localDeclaration,
+            SingleLocalDeclarationStatementInfo localDeclaration,
             int index,
             ExpressionStatementSyntax expressionStatement)
         {
@@ -157,7 +157,7 @@ namespace Roslynator.CSharp.Refactorings
         private static void Analyze(
             SyntaxNodeAnalysisContext context,
             SyntaxList<StatementSyntax> statements,
-            SingleLocalDeclarationStatement localDeclaration,
+            SingleLocalDeclarationStatementInfo localDeclaration,
             int index,
             LocalDeclarationStatementSyntax localDeclaration2)
         {
@@ -196,7 +196,7 @@ namespace Roslynator.CSharp.Refactorings
         private static void Analyze(
             SyntaxNodeAnalysisContext context,
             SyntaxList<StatementSyntax> statements,
-            SingleLocalDeclarationStatement localDeclaration,
+            SingleLocalDeclarationStatementInfo localDeclaration,
             ExpressionSyntax expression)
         {
             if (expression?.IsKind(SyntaxKind.IdentifierName) == true)
@@ -222,7 +222,7 @@ namespace Roslynator.CSharp.Refactorings
 
         private static void ReportDiagnostic(
             SyntaxNodeAnalysisContext context,
-            SingleLocalDeclarationStatement localDeclaration,
+            SingleLocalDeclarationStatementInfo localDeclaration,
             ExpressionSyntax expression)
         {
             context.ReportDiagnostic(DiagnosticDescriptors.InlineLocalVariable, localDeclaration.Statement);

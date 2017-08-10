@@ -11,7 +11,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Roslynator.CSharp.Refactorings
@@ -29,11 +29,11 @@ namespace Roslynator.CSharp.Refactorings
                 if (ifStatement.TryGetContainingList(out statements)
                     && !IsPartOfLazyInitialization(ifStatement, statements))
                 {
-                    NullCheckExpression nullCheck;
-                    if (NullCheckExpression.TryCreate(ifStatement.Condition, context.SemanticModel, out nullCheck, cancellationToken: context.CancellationToken))
+                    NullCheckExpressionInfo nullCheck;
+                    if (NullCheckExpressionInfo.TryCreate(ifStatement.Condition, context.SemanticModel, out nullCheck, cancellationToken: context.CancellationToken))
                     {
-                        SimpleAssignmentStatement assignment;
-                        if (SimpleAssignmentStatement.TryCreate(ifStatement.GetSingleStatementOrDefault(), out assignment)
+                        SimpleAssignmentStatementInfo assignment;
+                        if (SimpleAssignmentStatementInfo.TryCreate(ifStatement.GetSingleStatementOrDefault(), out assignment)
                             && assignment.Left.IsEquivalentTo(nullCheck.Expression, topLevel: false)
                             && assignment.Right.IsSingleLine()
                             && !ifStatement.SpanContainsDirectives())
@@ -57,8 +57,8 @@ namespace Roslynator.CSharp.Refactorings
 
                                 if (!nextStatement.ContainsDiagnostics)
                                 {
-                                    MemberInvocationStatement memberInvocation;
-                                    if (MemberInvocationStatement.TryCreate(nextStatement, out memberInvocation)
+                                    MemberInvocationStatementInfo memberInvocation;
+                                    if (MemberInvocationStatementInfo.TryCreate(nextStatement, out memberInvocation)
                                         && nullCheck.Expression.IsEquivalentTo(memberInvocation.Expression, topLevel: false)
                                         && !ifStatement.Parent.ContainsDirectives(TextSpan.FromBounds(ifStatement.SpanStart, nextStatement.Span.End)))
                                     {
@@ -157,11 +157,11 @@ namespace Roslynator.CSharp.Refactorings
 
             StatementSyntax expressionStatement = (ExpressionStatementSyntax)statements[index + 1];
 
-            MemberInvocationStatement invocation = MemberInvocationStatement.Create((ExpressionStatementSyntax)expressionStatement);
+            MemberInvocationStatementInfo invocation = MemberInvocationStatementInfo.Create((ExpressionStatementSyntax)expressionStatement);
 
             ExpressionSyntax expression = invocation.Expression;
 
-            SimpleAssignmentStatement assignment = SimpleAssignmentStatement.Create((ExpressionStatementSyntax)ifStatement.GetSingleStatementOrDefault());
+            SimpleAssignmentStatementInfo assignment = SimpleAssignmentStatementInfo.Create((ExpressionStatementSyntax)ifStatement.GetSingleStatementOrDefault());
 
             BinaryExpressionSyntax coalesceExpression = CSharpFactory.CoalesceExpression(expression.WithoutTrivia(), ParenthesizedExpression(assignment.AssignmentExpression));
 

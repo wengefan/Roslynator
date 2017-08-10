@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Roslynator.CSharp.CSharpFactory;
 
@@ -15,7 +15,7 @@ namespace Roslynator.CSharp.Refactorings
 {
     internal static class UseElementAccessInsteadOfFirstRefactoring
     {
-        public static bool CanRefactor(MemberInvocationExpression memberInvocation, SemanticModel semanticModel, CancellationToken cancellationToken)
+        public static bool CanRefactor(MemberInvocationExpressionInfo memberInvocation, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
             if (memberInvocation.Expression?.IsMissing == false)
             {

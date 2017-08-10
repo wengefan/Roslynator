@@ -8,7 +8,7 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Refactorings;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -34,7 +34,7 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case DiagnosticIdentifiers.OptimizeStringBuilderAppendCall:
                         {
-                            MemberInvocationExpression memberInvocation = MemberInvocationExpression.Create((InvocationExpressionSyntax)argument.Parent.Parent);
+                            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create((InvocationExpressionSyntax)argument.Parent.Parent);
 
                             CodeAction codeAction = CodeAction.Create(
                                 $"Optimize '{memberInvocation.NameText}' call",

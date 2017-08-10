@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using Roslynator.CSharp;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -59,31 +59,36 @@ namespace Roslynator.CSharp.Refactorings
 
         private static bool CanRefactor(SyntaxNodeAnalysisContext context, IfStatementSyntax ifStatement, ReturnStatementSyntax returnStatement)
         {
-            SimpleIfStatementWithSingleStatement simpleIf;
-            if (SimpleIfStatementWithSingleStatement.TryCreate(ifStatement, out simpleIf))
+            SimpleIfStatementInfo simpleIf;
+            if (SimpleIfStatementInfo.TryCreate(ifStatement, out simpleIf))
             {
-                SemanticModel semanticModel = context.SemanticModel;
-                CancellationToken cancellationToken = context.CancellationToken;
+                StatementSyntax statement = simpleIf.Statement.SingleNonBlockStatementOrDefault();
 
-                NullCheckExpression nullCheck;
-                if (NullCheckExpression.TryCreate(simpleIf.Condition, semanticModel, out nullCheck, allowedKinds: NullCheckKind.IsNull, cancellationToken: cancellationToken))
+                if (statement != null)
                 {
-                    IdentifierNameSyntax identifierName = GetIdentifierName(nullCheck.Expression);
+                    SemanticModel semanticModel = context.SemanticModel;
+                    CancellationToken cancellationToken = context.CancellationToken;
 
-                    if (identifierName != null)
+                    NullCheckExpressionInfo nullCheck;
+                    if (NullCheckExpressionInfo.TryCreate(simpleIf.Condition, semanticModel, out nullCheck, allowedKinds: NullCheckKind.IsNull, cancellationToken: cancellationToken))
                     {
-                        var fieldSymbol = semanticModel.GetSymbol(identifierName, cancellationToken) as IFieldSymbol;
+                        IdentifierNameSyntax identifierName = GetIdentifierName(nullCheck.Expression);
 
-                        if (fieldSymbol != null)
+                        if (identifierName != null)
                         {
-                            SimpleAssignmentStatement assignment;
-                            if (SimpleAssignmentStatement.TryCreate(simpleIf.SingleStatement, out assignment))
-                            {
-                                string fieldName = identifierName.Identifier.ValueText;
+                            var fieldSymbol = semanticModel.GetSymbol(identifierName, cancellationToken) as IFieldSymbol;
 
-                                return assignment.Right.IsSingleLine()
-                                    && IsBackingField(GetIdentifierName(assignment.Left), fieldName, fieldSymbol, semanticModel, cancellationToken)
-                                    && IsBackingField(GetIdentifierName(returnStatement.Expression), fieldName, fieldSymbol, semanticModel, cancellationToken);
+                            if (fieldSymbol != null)
+                            {
+                                SimpleAssignmentStatementInfo assignment;
+                                if (SimpleAssignmentStatementInfo.TryCreate(statement, out assignment))
+                                {
+                                    string fieldName = identifierName.Identifier.ValueText;
+
+                                    return assignment.Right.IsSingleLine()
+                                        && IsBackingField(GetIdentifierName(assignment.Left), fieldName, fieldSymbol, semanticModel, cancellationToken)
+                                        && IsBackingField(GetIdentifierName(returnStatement.Expression), fieldName, fieldSymbol, semanticModel, cancellationToken);
+                                }
                             }
                         }
                     }

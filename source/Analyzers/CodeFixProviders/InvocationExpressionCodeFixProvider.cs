@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Refactorings;
 using Roslynator.CSharp.Refactorings.UseInsteadOfCountMethod;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -225,7 +225,7 @@ namespace Roslynator.CSharp.CodeFixes
                         }
                     case DiagnosticIdentifiers.CallThenByInsteadOfOrderBy:
                         {
-                            MemberInvocationExpression memberInvocation = MemberInvocationExpression.Create(invocation);
+                            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(invocation);
 
                             string oldName = memberInvocation.NameText;
 

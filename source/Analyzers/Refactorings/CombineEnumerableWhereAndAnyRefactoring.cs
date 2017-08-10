@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -20,37 +20,47 @@ namespace Roslynator.CSharp.Refactorings
             if (!invocationExpression.ContainsDiagnostics
                 && !invocationExpression.SpanContainsDirectives())
             {
-                MemberInvocationExpressionWithSingleParameter invocation;
-                if (MemberInvocationExpressionWithSingleParameter.TryCreate(invocationExpression, out invocation)
+                MemberInvocationExpressionInfo invocation;
+                if (MemberInvocationExpressionInfo.TryCreate(invocationExpression, out invocation)
                     && invocation.NameText == "Any")
                 {
-                    MemberInvocationExpressionWithSingleParameter invocation2;
-                    if (MemberInvocationExpressionWithSingleParameter.TryCreate(invocation.Expression, out invocation2)
-                        && invocation2.NameText == "Where")
-                    {
-                        SemanticModel semanticModel = context.SemanticModel;
-                        CancellationToken cancellationToken = context.CancellationToken;
+                    ArgumentSyntax argument1 = invocation.Arguments.SingleOrDefault(throwException: false);
 
-                        MethodInfo methodInfo;
-                        if (semanticModel.TryGetExtensionMethodInfo(invocationExpression, out methodInfo, ExtensionMethodKind.None, cancellationToken)
-                            && methodInfo.IsLinqExtensionOfIEnumerableOfTWithPredicate("Any"))
+                    if (argument1 != null)
+                    {
+                        MemberInvocationExpressionInfo invocation2;
+                        if (MemberInvocationExpressionInfo.TryCreate(invocation.Expression, out invocation2)
+                            && invocation2.NameText == "Where")
                         {
-                            MethodInfo methodInfo2;
-                            if (semanticModel.TryGetExtensionMethodInfo(invocation2.InvocationExpression, out methodInfo2, ExtensionMethodKind.None, cancellationToken)
-                                && methodInfo2.IsLinqWhere(allowImmutableArrayExtension: true))
+                            ArgumentSyntax argument2 = invocation2.Arguments.SingleOrDefault(throwException: false);
+
+                            if (argument2 != null)
                             {
-                                LambdaExpressionWithSingleParameter lambda;
-                                if (LambdaExpressionWithSingleParameter.TryCreate(invocation.Argument.Expression, out lambda)
-                                    && lambda.Body is ExpressionSyntax)
+                                SemanticModel semanticModel = context.SemanticModel;
+                                CancellationToken cancellationToken = context.CancellationToken;
+
+                                MethodInfo methodInfo;
+                                if (semanticModel.TryGetExtensionMethodInfo(invocationExpression, out methodInfo, ExtensionMethodKind.None, cancellationToken)
+                                    && methodInfo.IsLinqExtensionOfIEnumerableOfTWithPredicate("Any"))
                                 {
-                                    LambdaExpressionWithSingleParameter lambda2;
-                                    if (LambdaExpressionWithSingleParameter.TryCreate(invocation2.Argument.Expression, out lambda2)
-                                        && lambda2.Body is ExpressionSyntax
-                                        && lambda.ParameterName.Equals(lambda2.ParameterName, StringComparison.Ordinal))
+                                    MethodInfo methodInfo2;
+                                    if (semanticModel.TryGetExtensionMethodInfo(invocation2.InvocationExpression, out methodInfo2, ExtensionMethodKind.None, cancellationToken)
+                                        && methodInfo2.IsLinqWhere(allowImmutableArrayExtension: true))
                                     {
-                                        context.ReportDiagnostic(
-                                            DiagnosticDescriptors.SimplifyLinqMethodChain,
-                                            Location.Create(context.SyntaxTree(), TextSpan.FromBounds(invocation2.Name.SpanStart, invocationExpression.Span.End)));
+                                        SingleParameterLambdaExpressionInfo lambda;
+                                        if (SingleParameterLambdaExpressionInfo.TryCreate(argument1.Expression, out lambda)
+                                            && lambda.Body is ExpressionSyntax)
+                                        {
+                                            SingleParameterLambdaExpressionInfo lambda2;
+                                            if (SingleParameterLambdaExpressionInfo.TryCreate(argument2.Expression, out lambda2)
+                                                && lambda2.Body is ExpressionSyntax
+                                                && lambda.ParameterName.Equals(lambda2.ParameterName, StringComparison.Ordinal))
+                                            {
+                                                context.ReportDiagnostic(
+                                                    DiagnosticDescriptors.SimplifyLinqMethodChain,
+                                                    Location.Create(context.SyntaxTree(), TextSpan.FromBounds(invocation2.Name.SpanStart, invocationExpression.Span.End)));
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -65,11 +75,11 @@ namespace Roslynator.CSharp.Refactorings
             InvocationExpressionSyntax invocationExpression,
             CancellationToken cancellationToken)
         {
-            MemberInvocationExpressionWithSingleParameter invocation = MemberInvocationExpressionWithSingleParameter.Create(invocationExpression);
-            MemberInvocationExpressionWithSingleParameter invocation2 = MemberInvocationExpressionWithSingleParameter.Create((InvocationExpressionSyntax)invocation.Expression);
+            MemberInvocationExpressionInfo invocation = MemberInvocationExpressionInfo.Create(invocationExpression);
+            MemberInvocationExpressionInfo invocation2 = MemberInvocationExpressionInfo.Create((InvocationExpressionSyntax)invocation.Expression);
 
-            LambdaExpressionWithSingleParameter lambda = LambdaExpressionWithSingleParameter.Create((LambdaExpressionSyntax)invocation.Argument.Expression);
-            LambdaExpressionWithSingleParameter lambda2 = LambdaExpressionWithSingleParameter.Create((LambdaExpressionSyntax)invocation2.Argument.Expression);
+            SingleParameterLambdaExpressionInfo lambda = SingleParameterLambdaExpressionInfo.Create((LambdaExpressionSyntax)invocation.Arguments.First().Expression);
+            SingleParameterLambdaExpressionInfo lambda2 = SingleParameterLambdaExpressionInfo.Create((LambdaExpressionSyntax)invocation2.Arguments.First().Expression);
 
             BinaryExpressionSyntax logicalAnd = CSharpFactory.LogicalAndExpression(
                 ((ExpressionSyntax)lambda2.Body).Parenthesize(),

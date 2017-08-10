@@ -5,11 +5,11 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Roslynator.CSharp.Syntax
+namespace Roslynator.CSharp.SyntaxInfo
 {
-    internal struct MemberInvocationExpression
+    public struct MemberInvocationExpressionInfo
     {
-        public MemberInvocationExpression(ExpressionSyntax expression, SimpleNameSyntax name, ArgumentListSyntax argumentList)
+        public MemberInvocationExpressionInfo(ExpressionSyntax expression, SimpleNameSyntax name, ArgumentListSyntax argumentList)
         {
             Expression = expression;
             Name = name;
@@ -17,17 +17,24 @@ namespace Roslynator.CSharp.Syntax
         }
 
         public ExpressionSyntax Expression { get; }
+
         public SimpleNameSyntax Name { get; }
+
         public ArgumentListSyntax ArgumentList { get; }
 
         public InvocationExpressionSyntax InvocationExpression
         {
-            get { return (InvocationExpressionSyntax)Node; }
+            get { return (InvocationExpressionSyntax)ArgumentList?.Parent; }
         }
 
         public MemberAccessExpressionSyntax MemberAccessExpression
         {
             get { return (MemberAccessExpressionSyntax)Expression?.Parent; }
+        }
+
+        public SeparatedSyntaxList<ArgumentSyntax> Arguments
+        {
+            get { return ArgumentList?.Arguments ?? default(SeparatedSyntaxList<ArgumentSyntax>); }
         }
 
         public SyntaxToken OperatorToken
@@ -40,12 +47,7 @@ namespace Roslynator.CSharp.Syntax
             get { return Name?.Identifier.ValueText; }
         }
 
-        private SyntaxNode Node
-        {
-            get { return ArgumentList?.Parent; }
-        }
-
-        public static MemberInvocationExpression Create(InvocationExpressionSyntax invocationExpression)
+        public static MemberInvocationExpressionInfo Create(InvocationExpressionSyntax invocationExpression)
         {
             if (invocationExpression == null)
                 throw new ArgumentNullException(nameof(invocationExpression));
@@ -60,31 +62,31 @@ namespace Roslynator.CSharp.Syntax
 
             var memberAccessExpression = (MemberAccessExpressionSyntax)expression;
 
-            return new MemberInvocationExpression(
+            return new MemberInvocationExpressionInfo(
                 memberAccessExpression.Expression,
                 memberAccessExpression.Name,
                 invocationExpression.ArgumentList);
         }
 
-        public static bool TryCreate(SyntaxNode invocationExpression, out MemberInvocationExpression result)
+        public static bool TryCreate(SyntaxNode invocationExpression, out MemberInvocationExpressionInfo info)
         {
             if (invocationExpression?.IsKind(SyntaxKind.InvocationExpression) == true)
-                return TryCreateCore((InvocationExpressionSyntax)invocationExpression, out result);
+                return TryCreateCore((InvocationExpressionSyntax)invocationExpression, out info);
 
-            result = default(MemberInvocationExpression);
+            info = default(MemberInvocationExpressionInfo);
             return false;
         }
 
-        public static bool TryCreate(InvocationExpressionSyntax invocationExpression, out MemberInvocationExpression result)
+        public static bool TryCreate(InvocationExpressionSyntax invocationExpression, out MemberInvocationExpressionInfo info)
         {
             if (invocationExpression != null)
-                return TryCreateCore(invocationExpression, out result);
+                return TryCreateCore(invocationExpression, out info);
 
-            result = default(MemberInvocationExpression);
+            info = default(MemberInvocationExpressionInfo);
             return false;
         }
 
-        private static bool TryCreateCore(InvocationExpressionSyntax invocationExpression, out MemberInvocationExpression result)
+        private static bool TryCreateCore(InvocationExpressionSyntax invocationExpression, out MemberInvocationExpressionInfo info)
         {
             ExpressionSyntax expression = invocationExpression.Expression;
 
@@ -92,7 +94,7 @@ namespace Roslynator.CSharp.Syntax
             {
                 var memberAccess = (MemberAccessExpressionSyntax)expression;
 
-                result = new MemberInvocationExpression(
+                info = new MemberInvocationExpressionInfo(
                     memberAccess.Expression,
                     memberAccess.Name,
                     invocationExpression.ArgumentList);
@@ -100,13 +102,13 @@ namespace Roslynator.CSharp.Syntax
                 return true;
             }
 
-            result = default(MemberInvocationExpression);
+            info = default(MemberInvocationExpressionInfo);
             return false;
         }
 
         public override string ToString()
         {
-            return Node?.ToString() ?? base.ToString();
+            return InvocationExpression?.ToString() ?? base.ToString();
         }
     }
 }

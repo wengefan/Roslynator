@@ -3,13 +3,13 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static Roslynator.CSharp.Syntax.SyntaxHelper;
+using static Roslynator.CSharp.SyntaxInfo.SyntaxInfoHelper;
 
-namespace Roslynator.CSharp.Syntax
+namespace Roslynator.CSharp.SyntaxInfo
 {
-    internal struct SimpleIfElse
+    public struct SimpleIfElseInfo
     {
-        public SimpleIfElse(
+        public SimpleIfElseInfo(
             IfStatementSyntax ifStatement,
             ExpressionSyntax condition,
             StatementSyntax whenTrue,
@@ -31,7 +31,7 @@ namespace Roslynator.CSharp.Syntax
 
         public static bool TryCreate(
             IfStatementSyntax ifStatement,
-            out SimpleIfElse result,
+            out SimpleIfElseInfo info,
             bool allowNullOrMissing = false,
             bool walkDownParentheses = true)
         {
@@ -54,7 +54,7 @@ namespace Roslynator.CSharp.Syntax
 
                             if (CheckNode(condition, allowNullOrMissing))
                             {
-                                result = new SimpleIfElse(ifStatement, condition, whenTrue, whenFalse);
+                                info = new SimpleIfElseInfo(ifStatement, condition, whenTrue, whenFalse);
                                 return true;
                             }
                         }
@@ -62,7 +62,7 @@ namespace Roslynator.CSharp.Syntax
                 }
             }
 
-            result = default(SimpleIfElse);
+            info = default(SimpleIfElseInfo);
             return false;
         }
 

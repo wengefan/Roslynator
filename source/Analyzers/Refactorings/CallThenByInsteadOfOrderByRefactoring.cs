@@ -7,20 +7,20 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Roslynator.CSharp;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.Refactorings
 {
     internal static class CallThenByInsteadOfOrderByRefactoring
     {
-        public static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpression memberInvocation)
+        public static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpressionInfo memberInvocation)
         {
             ExpressionSyntax expression = memberInvocation.Expression;
 
             if (expression.IsKind(SyntaxKind.InvocationExpression))
             {
-                MemberInvocationExpression memberInvocation2;
-                if (MemberInvocationExpression.TryCreate((InvocationExpressionSyntax)expression, out memberInvocation2))
+                MemberInvocationExpressionInfo memberInvocation2;
+                if (MemberInvocationExpressionInfo.TryCreate((InvocationExpressionSyntax)expression, out memberInvocation2))
                 {
                     switch (memberInvocation2.NameText)
                     {

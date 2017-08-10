@@ -6,13 +6,13 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Roslynator.CSharp.Syntax
+namespace Roslynator.CSharp.SyntaxInfo
 {
-    internal struct IfStatement
+    public struct IfStatementInfo
     {
         public ImmutableArray<IfStatementOrElseClause> Nodes { get; }
 
-        private IfStatement(IfStatementSyntax ifStatement)
+        private IfStatementInfo(IfStatementSyntax ifStatement)
         {
             ImmutableArray<IfStatementOrElseClause>.Builder builder = ImmutableArray.CreateBuilder<IfStatementOrElseClause>();
 
@@ -87,12 +87,12 @@ namespace Roslynator.CSharp.Syntax
             get { return (!Nodes.IsDefaultOrEmpty) ? Nodes[0].Node : null; }
         }
 
-        public static IfStatement Create(IfStatementSyntax ifStatement)
+        public static IfStatementInfo Create(IfStatementSyntax ifStatement)
         {
             if (ifStatement == null)
                 throw new ArgumentNullException(nameof(ifStatement));
 
-            return new IfStatement(ifStatement);
+            return new IfStatementInfo(ifStatement);
         }
 
         public override string ToString()

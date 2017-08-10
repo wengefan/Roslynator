@@ -27,9 +27,7 @@ namespace Roslynator.CSharp.Analyzers.Test
                 get
                 {
                     if (_value == null)
-                    {
                         _value = Initialize();
-                    }
 
                     return _value;
                 }
@@ -73,9 +71,7 @@ namespace Roslynator.CSharp.Analyzers.Test
                 get
                 {
                     if (!_value.HasValue)
-                    {
                         _value = Initialize();
-                    }
 
                     return _value;
                 }

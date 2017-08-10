@@ -7,13 +7,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.Refactorings
 {
     internal static class RemoveRedundantToStringCallRefactoring
     {
-        public static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpression memberInvocation)
+        public static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpressionInfo memberInvocation)
         {
             if (IsFixable(memberInvocation, context.SemanticModel, context.CancellationToken))
             {
@@ -31,7 +31,7 @@ namespace Roslynator.CSharp.Refactorings
         }
 
         public static bool IsFixable(
-            MemberInvocationExpression memberInvocation,
+            MemberInvocationExpressionInfo memberInvocation,
             SemanticModel semanticModel,
             CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -87,7 +87,7 @@ namespace Roslynator.CSharp.Refactorings
         }
 
         private static bool IsFixable(
-            MemberInvocationExpression memberInvocation,
+            MemberInvocationExpressionInfo memberInvocation,
             BinaryExpressionSyntax addExpression,
             ExpressionSyntax left,
             ExpressionSyntax right,

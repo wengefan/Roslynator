@@ -9,13 +9,13 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.Refactorings
 {
     internal static class UseMethodChainingRefactoring
     {
-        public static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpression memberInvocation)
+        public static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpressionInfo memberInvocation)
         {
             InvocationExpressionSyntax invocationExpression = memberInvocation.InvocationExpression;
 
@@ -78,9 +78,9 @@ namespace Roslynator.CSharp.Refactorings
             {
                 var expressionStatement = (ExpressionStatementSyntax)statement;
 
-                MemberInvocationExpression memberInvocation;
+                MemberInvocationExpressionInfo memberInvocation;
 
-                return MemberInvocationExpression.TryCreate(expressionStatement.Expression, out memberInvocation)
+                return MemberInvocationExpressionInfo.TryCreate(expressionStatement.Expression, out memberInvocation)
                     && IsFixable(memberInvocation, stringBuilderSymbol, semanticModel, cancellationToken)
                     && SyntaxComparer.AreEquivalent(
                         expression,
@@ -92,7 +92,7 @@ namespace Roslynator.CSharp.Refactorings
         }
 
         private static bool IsFixable(
-            MemberInvocationExpression memberInvocation,
+            MemberInvocationExpressionInfo memberInvocation,
             INamedTypeSymbol stringBuilderSymbol,
             SemanticModel semanticModel,
             CancellationToken cancellationToken)
@@ -112,14 +112,14 @@ namespace Roslynator.CSharp.Refactorings
             return false;
         }
 
-        private static MemberInvocationExpression GetFirstInvocationInMethodChain(
-            MemberInvocationExpression memberInvocation,
+        private static MemberInvocationExpressionInfo GetFirstInvocationInMethodChain(
+            MemberInvocationExpressionInfo memberInvocation,
             INamedTypeSymbol stringBuilderSymbol,
             SemanticModel semanticModel,
             CancellationToken cancellationToken)
         {
-            MemberInvocationExpression memberInvocation2;
-            while (MemberInvocationExpression.TryCreate(memberInvocation.Expression, out memberInvocation2)
+            MemberInvocationExpressionInfo memberInvocation2;
+            while (MemberInvocationExpressionInfo.TryCreate(memberInvocation.Expression, out memberInvocation2)
                 && IsFixable(memberInvocation2, stringBuilderSymbol, semanticModel, cancellationToken))
             {
                 memberInvocation = memberInvocation2;
@@ -158,7 +158,7 @@ namespace Roslynator.CSharp.Refactorings
 
             var invocationExpression = (InvocationExpressionSyntax)expressionStatement.Expression;
 
-            MemberInvocationExpression memberInvocation = MemberInvocationExpression.Create(invocationExpression);
+            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(invocationExpression);
 
             ExpressionSyntax expression = GetFirstInvocationInMethodChain(memberInvocation, symbol, semanticModel, cancellationToken).Expression;
 
@@ -223,9 +223,9 @@ namespace Roslynator.CSharp.Refactorings
             SemanticModel semanticModel,
             CancellationToken cancellationToken)
         {
-            MemberInvocationExpression memberInvocation = MemberInvocationExpression.Create((InvocationExpressionSyntax)expressionStatement.Expression);
+            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create((InvocationExpressionSyntax)expressionStatement.Expression);
 
-            MemberInvocationExpression firstMemberInvocation = GetFirstInvocationInMethodChain(memberInvocation, stringBuilderSymbol, semanticModel, cancellationToken);
+            MemberInvocationExpressionInfo firstMemberInvocation = GetFirstInvocationInMethodChain(memberInvocation, stringBuilderSymbol, semanticModel, cancellationToken);
 
             InvocationExpressionSyntax invocationExpression = memberInvocation.InvocationExpression;
 

@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.Diagnostics;
 using Roslynator.CSharp;
 using Roslynator.CSharp.Refactorings;
 using Roslynator.CSharp.Refactorings.UseInsteadOfCountMethod;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.DiagnosticAnalyzers
 {
@@ -151,8 +151,8 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                     }
                 }
 
-                MemberInvocationExpression memberInvocation;
-                if (MemberInvocationExpression.TryCreate(invocation, out memberInvocation))
+                MemberInvocationExpressionInfo memberInvocation;
+                if (MemberInvocationExpressionInfo.TryCreate(invocation, out memberInvocation))
                 {
                     if (!invocation.SpanContainsDirectives())
                         UseRegexInstanceInsteadOfStaticMethodRefactoring.Analyze(context, memberInvocation);

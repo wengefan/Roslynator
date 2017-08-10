@@ -66,6 +66,11 @@ namespace Roslynator
 
             return true;
         }
+
+        internal static TNode SingleOrDefault<TNode>(this SeparatedSyntaxList<TNode> list, bool throwException) where TNode : SyntaxNode
+        {
+            return (throwException) ? list.SingleOrDefault() : ((list.Count == 1) ? list[0] : default(TNode));
+        }
         #endregion SeparatedSyntaxList<T>
 
         #region SyntaxList<T>
@@ -117,6 +122,11 @@ namespace Roslynator
         public static bool Contains<TNode>(this SyntaxList<TNode> list, TNode node) where TNode : SyntaxNode
         {
             return list.IndexOf(node) != -1;
+        }
+
+        internal static TNode SingleOrDefault<TNode>(this SyntaxList<TNode> list, bool throwException) where TNode : SyntaxNode
+        {
+            return (throwException) ? list.SingleOrDefault() : ((list.Count == 1) ? list[0] : default(TNode));
         }
         #endregion SyntaxList<T>
 

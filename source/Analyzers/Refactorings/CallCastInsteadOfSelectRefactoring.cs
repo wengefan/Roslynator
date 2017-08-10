@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using Roslynator.CSharp;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Roslynator.CSharp.CSharpFactory;
 
@@ -19,7 +19,7 @@ namespace Roslynator.CSharp.Refactorings
     {
         public static void Analyze(
             SyntaxNodeAnalysisContext context,
-            MemberInvocationExpression memberInvocation)
+            MemberInvocationExpressionInfo memberInvocation)
         {
             InvocationExpressionSyntax invocationExpression = memberInvocation.InvocationExpression;
 

@@ -2,9 +2,9 @@
 
 using Microsoft.CodeAnalysis;
 
-namespace Roslynator.CSharp.Syntax
+namespace Roslynator.CSharp.SyntaxInfo
 {
-    internal static class SyntaxHelper
+    internal static class SyntaxInfoHelper
     {
         public static bool CheckNode(SyntaxNode node, bool allowNullOrMissing)
         {

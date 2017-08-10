@@ -96,6 +96,43 @@ namespace Roslynator.CSharp
                 : null;
         }
 
+        internal static StatementSyntax SingleNonBlockStatementOrDefault(this BlockSyntax body, bool recursive = true)
+        {
+            if (body == null)
+                throw new ArgumentNullException(nameof(body));
+
+            if (recursive)
+            {
+                StatementSyntax statement = null;
+
+                do
+                {
+                    SyntaxList<StatementSyntax> statements = body.Statements;
+
+                    statement = (statements.Count == 1) ? statements[0] : null;
+
+                    body = statement as BlockSyntax;
+                }
+                while (body != null);
+
+                return statement;
+            }
+            else
+            {
+                SyntaxList<StatementSyntax> statements = body.Statements;
+
+                if (statements.Count == 1)
+                {
+                    StatementSyntax statement = statements[0];
+
+                    if (statement.Kind() != SyntaxKind.Block)
+                        return statement;
+                }
+
+                return null;
+            }
+        }
+
         public static TextSpan BracesSpan(this BlockSyntax block)
         {
             if (block == null)
@@ -2210,6 +2247,16 @@ namespace Roslynator.CSharp
                         return false;
                     }
             }
+        }
+
+        internal static StatementSyntax SingleNonBlockStatementOrDefault(this StatementSyntax statement, bool recursive = true)
+        {
+            if (statement == null)
+                throw new ArgumentNullException(nameof(statement));
+
+            return (statement.Kind() == SyntaxKind.Block)
+                ? SingleNonBlockStatementOrDefault((BlockSyntax)statement)
+                : statement;
         }
         #endregion StatementSyntax
 

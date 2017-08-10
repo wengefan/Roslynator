@@ -4,10 +4,10 @@ using System;
 
 #pragma warning disable RCS1130
 
-namespace Roslynator.CSharp.Syntax
+namespace Roslynator.CSharp.SyntaxInfo
 {
     [Flags]
-    internal enum NullCheckKind
+    public enum NullCheckKind
     {
         None = 0,
         EqualsToNull = 1,

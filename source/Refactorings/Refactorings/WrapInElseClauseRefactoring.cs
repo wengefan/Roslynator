@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Roslynator.CSharp.Syntax;
+using Roslynator.CSharp.SyntaxInfo;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -32,10 +32,10 @@ namespace Roslynator.CSharp.Refactorings
                     {
                         var ifStatement = (IfStatementSyntax)prevStatement;
 
-                        IfStatement ifElse = IfStatement.Create(ifStatement);
+                        IfStatementInfo ifStatementInfo = IfStatementInfo.Create(ifStatement);
 
-                        if (ifElse.EndsWithIf
-                            && ifElse
+                        if (ifStatementInfo.EndsWithIf
+                            && ifStatementInfo
                                 .Nodes
                                 .Where(f => f.IsIf)
                                 .All(f => IsLastStatementReturnStatement(f)))
@@ -83,7 +83,7 @@ namespace Roslynator.CSharp.Refactorings
             StatementContainerSelection selectedStatements,
             CancellationToken cancellationToken)
         {
-            IfStatement ifElse = IfStatement.Create(ifStatement);
+            IfStatementInfo ifElse = IfStatementInfo.Create(ifStatement);
 
             StatementSyntax newStatement = null;
 
