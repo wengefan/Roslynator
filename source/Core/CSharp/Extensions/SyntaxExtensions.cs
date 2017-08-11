@@ -121,6 +121,13 @@ namespace Roslynator.CSharp
 
             return block.WithStatements(statements.Insert(insertIndex, statement));
         }
+
+        internal static bool ContainsYield(this BlockSyntax block)
+        {
+            return block?
+                .DescendantNodes(block.Span, node => !node.IsNestedMethod())
+                .Any(f => f.IsKind(SyntaxKind.YieldReturnStatement, SyntaxKind.YieldBreakStatement)) == true;
+        }
         #endregion BlockSyntax
 
         #region BaseArgumentListSyntax
@@ -1135,12 +1142,7 @@ namespace Roslynator.CSharp
             if (localFunctionStatement == null)
                 throw new ArgumentNullException(nameof(localFunctionStatement));
 
-            BlockSyntax body = localFunctionStatement.Body;
-
-            return body?.Statements.Any() == true
-                && body
-                    .DescendantNodes(node => !node.IsNestedMethod())
-                    .Any(f => f.IsKind(SyntaxKind.YieldReturnStatement, SyntaxKind.YieldBreakStatement));
+            return localFunctionStatement.Body?.ContainsYield() == true;
         }
         #endregion LocalFunctionStatementSyntax
 
@@ -1717,12 +1719,7 @@ namespace Roslynator.CSharp
             if (methodDeclaration == null)
                 throw new ArgumentNullException(nameof(methodDeclaration));
 
-            BlockSyntax body = methodDeclaration.Body;
-
-            return body?.Statements.Any() == true
-                && body
-                    .DescendantNodes(node => !node.IsNestedMethod())
-                    .Any(f => f.IsKind(SyntaxKind.YieldReturnStatement, SyntaxKind.YieldBreakStatement));
+            return methodDeclaration.Body?.ContainsYield() == true;
         }
 
         private static MemberDeclarationSyntax RemoveSingleLineDocumentationComment(MemberDeclarationSyntax member)
