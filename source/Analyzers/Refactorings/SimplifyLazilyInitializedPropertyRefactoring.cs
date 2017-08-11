@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using Roslynator.CSharp;
-using Roslynator.CSharp.SyntaxInfo;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -59,8 +59,9 @@ namespace Roslynator.CSharp.Refactorings
 
         private static bool CanRefactor(SyntaxNodeAnalysisContext context, IfStatementSyntax ifStatement, ReturnStatementSyntax returnStatement)
         {
-            SimpleIfStatementInfo simpleIf;
-            if (SimpleIfStatementInfo.TryCreate(ifStatement, out simpleIf))
+            SimpleIfStatementInfo simpleIf = SyntaxInfo.SimpleIfStatementInfo(ifStatement);
+
+            if (simpleIf.Success)
             {
                 StatementSyntax statement = simpleIf.Statement.SingleNonBlockStatementOrDefault();
 
@@ -69,8 +70,8 @@ namespace Roslynator.CSharp.Refactorings
                     SemanticModel semanticModel = context.SemanticModel;
                     CancellationToken cancellationToken = context.CancellationToken;
 
-                    NullCheckExpressionInfo nullCheck;
-                    if (NullCheckExpressionInfo.TryCreate(simpleIf.Condition, semanticModel, out nullCheck, allowedKinds: NullCheckKind.IsNull, cancellationToken: cancellationToken))
+                    NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(simpleIf.Condition, semanticModel, allowedKinds: NullCheckKind.IsNull, cancellationToken: cancellationToken);
+                    if (nullCheck.Success)
                     {
                         IdentifierNameSyntax identifierName = GetIdentifierName(nullCheck.Expression);
 
@@ -80,8 +81,8 @@ namespace Roslynator.CSharp.Refactorings
 
                             if (fieldSymbol != null)
                             {
-                                SimpleAssignmentStatementInfo assignment;
-                                if (SimpleAssignmentStatementInfo.TryCreate(statement, out assignment))
+                                SimpleAssignmentStatementInfo assignment = SyntaxInfo.SimpleAssignmentStatementInfo(statement);
+                                if (assignment.Success)
                                 {
                                     string fieldName = identifierName.Identifier.ValueText;
 

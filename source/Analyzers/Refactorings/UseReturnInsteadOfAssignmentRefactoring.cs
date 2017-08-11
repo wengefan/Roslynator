@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.FindSymbols;
-using Roslynator.CSharp.SyntaxInfo;
+using Roslynator.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Roslynator.CSharp.Refactorings
@@ -185,13 +185,10 @@ namespace Roslynator.CSharp.Refactorings
 
         private static bool IsSymbolAssignedInStatement(ISymbol symbol, StatementSyntax statement, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
-            SimpleAssignmentStatementInfo assignment;
-            if (SimpleAssignmentStatementInfo.TryCreate(statement, out assignment))
-            {
-                return symbol.Equals(semanticModel.GetSymbol(assignment.Left, cancellationToken));
-            }
+            SimpleAssignmentStatementInfo assignment = SyntaxInfo.SimpleAssignmentStatementInfo(statement);
 
-            return false;
+            return assignment.Success
+                && symbol.Equals(semanticModel.GetSymbol(assignment.Left, cancellationToken));
         }
 
         private static StatementSyntax GetLastStatementOrDefault(StatementSyntax statement)
@@ -249,7 +246,7 @@ namespace Roslynator.CSharp.Refactorings
                     {
                         var ifStatement = (IfStatementSyntax)statement;
 
-                        IfStatementInfo ifStatementInfo = SyntaxInfo.IfStatementInfo.Create(ifStatement);
+                        IfStatementInfo ifStatementInfo = SyntaxInfo.IfStatementInfo(ifStatement);
 
                         IEnumerable<ExpressionStatementSyntax> expressionStatements = ifStatementInfo
                             .Nodes

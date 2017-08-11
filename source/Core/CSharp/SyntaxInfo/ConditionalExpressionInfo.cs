@@ -1,15 +1,14 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static Roslynator.CSharp.SyntaxInfo.SyntaxInfoHelper;
 
-namespace Roslynator.CSharp.SyntaxInfo
+namespace Roslynator.CSharp.Syntax
 {
     public struct ConditionalExpressionInfo
     {
+        private static ConditionalExpressionInfo Default { get; } = new ConditionalExpressionInfo();
+
         public ConditionalExpressionInfo(
             ExpressionSyntax condition,
             ExpressionSyntax whenTrue,
@@ -20,92 +19,61 @@ namespace Roslynator.CSharp.SyntaxInfo
             WhenFalse = whenFalse;
         }
 
+        public ConditionalExpressionSyntax ConditionalExpression
+        {
+            get { return Condition.FirstAncestor<ConditionalExpressionSyntax>(); }
+        }
+
         public ExpressionSyntax Condition { get; }
 
         public ExpressionSyntax WhenTrue { get; }
 
         public ExpressionSyntax WhenFalse { get; }
 
-        public ConditionalExpressionSyntax Node
+        public bool Success
         {
-            get { return Condition.FirstAncestor<ConditionalExpressionSyntax>(); }
+            get { return Condition != null; }
         }
 
-        public static ConditionalExpressionInfo Create(
-            ConditionalExpressionSyntax conditionalExpression,
-            bool allowNullOrMissing = false,
-            bool walkDownParentheses = true)
+        internal static ConditionalExpressionInfo Create(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
         {
+            return Create(
+                (node as ExpressionSyntax)?.WalkDownParenthesesIf((options ?? SyntaxInfoOptions.Default).WalkDownParentheses) as ConditionalExpressionSyntax,
+                options);
+        }
+
+        internal static ConditionalExpressionInfo Create(
+            ConditionalExpressionSyntax conditionalExpression,
+            SyntaxInfoOptions options = null)
+        {
+            options = options ?? SyntaxInfoOptions.Default;
+
             if (conditionalExpression == null)
-                throw new ArgumentNullException(nameof(conditionalExpression));
+                return Default;
 
-            ExpressionSyntax condition = conditionalExpression.Condition?.WalkDownParenthesesIf(walkDownParentheses);
+            ExpressionSyntax condition = conditionalExpression.Condition?.WalkDownParenthesesIf(options.WalkDownParentheses);
 
-            if (!CheckNode(condition, allowNullOrMissing))
-                throw new ArgumentException("", nameof(conditionalExpression));
+            if (!options.CheckNode(condition))
+                return Default;
 
-            ExpressionSyntax whenTrue = conditionalExpression.WhenTrue?.WalkDownParenthesesIf(walkDownParentheses);
+            ExpressionSyntax whenTrue = conditionalExpression.WhenTrue?.WalkDownParenthesesIf(options.WalkDownParentheses);
 
-            if (!CheckNode(whenTrue, allowNullOrMissing))
-                throw new ArgumentException("", nameof(conditionalExpression));
+            if (!options.CheckNode(whenTrue))
+                return Default;
 
-            ExpressionSyntax whenFalse = conditionalExpression.WhenFalse?.WalkDownParenthesesIf(walkDownParentheses);
+            ExpressionSyntax whenFalse = conditionalExpression.WhenFalse?.WalkDownParenthesesIf(options.WalkDownParentheses);
 
-            if (!CheckNode(whenFalse, allowNullOrMissing))
-                throw new ArgumentException("", nameof(conditionalExpression));
+            if (!options.CheckNode(whenFalse))
+                return Default;
 
             return new ConditionalExpressionInfo(condition, whenTrue, whenFalse);
         }
 
-        public static bool TryCreate(
-            SyntaxNode node,
-            out ConditionalExpressionInfo info,
-            bool allowNullOrMissing = false,
-            bool walkDownParentheses = true)
-        {
-            ExpressionSyntax expression = (node as ExpressionSyntax)?.WalkDownParenthesesIf(walkDownParentheses);
-
-            if (expression?.IsKind(SyntaxKind.ConditionalExpression) == true)
-                return TryCreate((ConditionalExpressionSyntax)expression, out info, allowNullOrMissing: allowNullOrMissing, walkDownParentheses: walkDownParentheses);
-
-            info = default(ConditionalExpressionInfo);
-            return false;
-        }
-
-        public static bool TryCreate(
-            ConditionalExpressionSyntax conditionalExpression,
-            out ConditionalExpressionInfo info,
-            bool allowNullOrMissing = false,
-            bool walkDownParentheses = true)
-        {
-            if (conditionalExpression != null)
-            {
-                ExpressionSyntax condition = conditionalExpression.Condition?.WalkDownParenthesesIf(walkDownParentheses);
-
-                if (CheckNode(condition, allowNullOrMissing))
-                {
-                    ExpressionSyntax whenTrue = conditionalExpression.WhenTrue?.WalkDownParenthesesIf(walkDownParentheses);
-
-                    if (CheckNode(whenTrue, allowNullOrMissing))
-                    {
-                        ExpressionSyntax whenFalse = conditionalExpression.WhenFalse?.WalkDownParenthesesIf(walkDownParentheses);
-
-                        if (CheckNode(whenFalse, allowNullOrMissing))
-                        {
-                            info = new ConditionalExpressionInfo(condition, whenTrue, whenFalse);
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            info = default(ConditionalExpressionInfo);
-            return false;
-        }
-
         public override string ToString()
         {
-            return Node?.ToString() ?? base.ToString();
+            return ConditionalExpression?.ToString() ?? base.ToString();
         }
     }
 }

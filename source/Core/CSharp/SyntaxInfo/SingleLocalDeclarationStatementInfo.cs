@@ -5,10 +5,12 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Roslynator.CSharp.SyntaxInfo
+namespace Roslynator.CSharp.Syntax
 {
     public struct SingleLocalDeclarationStatementInfo
     {
+        private static SingleLocalDeclarationStatementInfo Default { get; } = new SingleLocalDeclarationStatementInfo();
+
         public SingleLocalDeclarationStatementInfo(
             VariableDeclarationSyntax declaration,
             VariableDeclaratorSyntax declarator)
@@ -61,73 +63,54 @@ namespace Roslynator.CSharp.SyntaxInfo
             get { return Statement?.SemicolonToken ?? default(SyntaxToken); }
         }
 
-        public static SingleLocalDeclarationStatementInfo Create(LocalDeclarationStatementSyntax localDeclarationStatement)
+        public bool Success
         {
-            if (localDeclarationStatement == null)
-                throw new ArgumentNullException(nameof(localDeclarationStatement));
+            get { return Declaration != null; }
+        }
 
-            VariableDeclarationSyntax variableDeclaration = localDeclarationStatement.Declaration;
+        internal static SingleLocalDeclarationStatementInfo Create(
+            LocalDeclarationStatementSyntax localDeclarationStatement,
+            SyntaxInfoOptions options = null)
+        {
+            options = options ?? SyntaxInfoOptions.Default;
+
+            VariableDeclarationSyntax variableDeclaration = localDeclarationStatement?.Declaration;
 
             if (variableDeclaration == null)
-                throw new ArgumentNullException(nameof(localDeclarationStatement));
+                return Default;
 
-            SeparatedSyntaxList<VariableDeclaratorSyntax> variables = variableDeclaration.Variables;
+            VariableDeclaratorSyntax variable = variableDeclaration.Variables.SingleOrDefault(throwException: false);
 
-            if (variables.Count != 1)
-                throw new ArgumentNullException(nameof(localDeclarationStatement));
+            if (variable == null)
+                return Default;
 
-            return new SingleLocalDeclarationStatementInfo(variableDeclaration, variables[0]);
+            return new SingleLocalDeclarationStatementInfo(variableDeclaration, variable);
         }
 
-        public static bool TryCreate(
-            SyntaxNode node,
-            out SingleLocalDeclarationStatementInfo info)
-        {
-            return TryCreate(node as LocalDeclarationStatementSyntax, out info);
-        }
-
-        public static bool TryCreate(
-            LocalDeclarationStatementSyntax localDeclarationStatement,
-            out SingleLocalDeclarationStatementInfo info)
-        {
-            VariableDeclarationSyntax variableDeclaration = localDeclarationStatement.Declaration;
-
-            if (variableDeclaration != null)
-            {
-                SeparatedSyntaxList<VariableDeclaratorSyntax> variables = variableDeclaration.Variables;
-
-                if (variables.Count == 1)
-                {
-                    info = new SingleLocalDeclarationStatementInfo(variableDeclaration, variables[0]);
-                    return true;
-                }
-            }
-
-            info = default(SingleLocalDeclarationStatementInfo);
-            return false;
-        }
-
-        internal static bool TryCreateFromValue(
+        internal static SingleLocalDeclarationStatementInfo Create(
             ExpressionSyntax expression,
-            out SingleLocalDeclarationStatementInfo info)
+            SyntaxInfoOptions options = null)
         {
-            SyntaxNode parent = expression?.WalkUpParentheses().Parent;
+            options = options ?? SyntaxInfoOptions.Default;
 
-            if (parent?.Kind() == SyntaxKind.EqualsValueClause
-                && (parent.Parent is VariableDeclaratorSyntax declarator))
-            {
-                var declaration = declarator.Parent as VariableDeclarationSyntax;
+            SyntaxNode node = expression?.WalkUpParentheses().Parent;
 
-                if (declaration?.IsParentKind(SyntaxKind.LocalDeclarationStatement) == true
-                    && declaration.Variables.Count == 1)
-                {
-                    info = new SingleLocalDeclarationStatementInfo(declaration, declarator);
-                    return true;
-                }
-            }
+            if (node?.Kind() != SyntaxKind.EqualsValueClause)
+                return Default;
 
-            info = default(SingleLocalDeclarationStatementInfo);
-            return false;
+            if (!(node.Parent is VariableDeclaratorSyntax declarator))
+                return Default;
+
+            if (!(declarator.Parent is VariableDeclarationSyntax declaration))
+                return Default;
+
+            if (!declaration.IsParentKind(SyntaxKind.LocalDeclarationStatement))
+                return Default;
+
+            if (declaration.Variables.Count != 1)
+                return Default;
+
+            return new SingleLocalDeclarationStatementInfo(declaration, declarator);
         }
 
         public override string ToString()

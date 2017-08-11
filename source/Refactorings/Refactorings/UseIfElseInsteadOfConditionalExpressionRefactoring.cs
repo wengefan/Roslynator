@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Roslynator.CSharp.SyntaxInfo;
+using Roslynator.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Roslynator.CSharp.CSharpFactory;
 
@@ -45,8 +45,9 @@ namespace Roslynator.CSharp.Refactorings
                 }
                 else
                 {
-                    SingleLocalDeclarationStatementInfo localDeclaration;
-                    if (SingleLocalDeclarationStatementInfo.TryCreateFromValue(expression, out localDeclaration))
+                    SingleLocalDeclarationStatementInfo localDeclaration = SyntaxInfo.SingleLocalDeclarationStatementInfo(expression);
+
+                    if (localDeclaration.Success)
                     {
                         TypeSyntax type = localDeclaration.Type;
 

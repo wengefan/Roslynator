@@ -10,7 +10,7 @@ using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Refactorings;
 using Roslynator.CSharp.Refactorings.UseInsteadOfCountMethod;
-using Roslynator.CSharp.SyntaxInfo;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.CodeFixes
 {

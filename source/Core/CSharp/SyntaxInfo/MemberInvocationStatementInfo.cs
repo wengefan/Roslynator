@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static Roslynator.CSharp.SyntaxInfo.SyntaxInfoHelper;
 
-namespace Roslynator.CSharp.SyntaxInfo
+namespace Roslynator.CSharp.Syntax
 {
     public struct MemberInvocationStatementInfo
     {
+        private static MemberInvocationStatementInfo Default { get; } = new MemberInvocationStatementInfo();
+
         public MemberInvocationStatementInfo(
             InvocationExpressionSyntax invocationExpression,
             ExpressionSyntax expression,
@@ -45,101 +45,51 @@ namespace Roslynator.CSharp.SyntaxInfo
             get { return Name?.Identifier.ValueText; }
         }
 
-        public static MemberInvocationStatementInfo Create(
-            ExpressionStatementSyntax expressionStatement,
-            bool allowNullOrMissing = false)
+        public bool Success
         {
-            if (expressionStatement == null)
-                throw new ArgumentNullException(nameof(expressionStatement));
+            get { return InvocationExpression != null; }
+        }
 
-            var invocationExpression = expressionStatement.Expression as InvocationExpressionSyntax;
+        internal static MemberInvocationStatementInfo Create(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Create(node as ExpressionStatementSyntax, options);
+        }
 
-            if (invocationExpression == null)
-                throw new ArgumentException("", nameof(expressionStatement));
+        internal static MemberInvocationStatementInfo Create(
+            ExpressionStatementSyntax expressionStatement,
+            SyntaxInfoOptions options = null)
+        {
+            if (!(expressionStatement?.Expression is InvocationExpressionSyntax invocationExpression))
+                return Default;
 
-            ExpressionSyntax expression = invocationExpression.Expression;
+            if (!(invocationExpression.Expression is MemberAccessExpressionSyntax memberAccessExpression))
+                return Default;
 
-            if (expression?.IsKind(SyntaxKind.SimpleMemberAccessExpression) != true)
-                throw new ArgumentException("", nameof(expressionStatement));
+            if (memberAccessExpression.Kind() != SyntaxKind.SimpleMemberAccessExpression)
+                return Default;
 
-            var memberAccessExpression = (MemberAccessExpressionSyntax)expression;
+            ExpressionSyntax expression = memberAccessExpression.Expression;
 
-            ExpressionSyntax expression2 = memberAccessExpression.Expression;
-
-            if (!CheckNode(expression2, allowNullOrMissing))
-                throw new ArgumentException("", nameof(expressionStatement));
+            if (!options.CheckNode(expression))
+                return Default;
 
             SimpleNameSyntax name = memberAccessExpression.Name;
 
-            if (!CheckNode(name, allowNullOrMissing))
-                throw new ArgumentException("", nameof(expressionStatement));
+            if (!options.CheckNode(name))
+                return Default;
+
+            ArgumentListSyntax argumentList = invocationExpression.ArgumentList;
+
+            if (argumentList == null)
+                return Default;
 
             return new MemberInvocationStatementInfo(
                 invocationExpression,
-                expression2,
+                expression,
                 name,
-                invocationExpression.ArgumentList);
-        }
-
-        public static bool TryCreate(
-            SyntaxNode invocationStatement,
-            out MemberInvocationStatementInfo info,
-            bool allowNullOrMissing = false)
-        {
-            if (invocationStatement?.IsKind(SyntaxKind.ExpressionStatement) == true)
-                return TryCreateCore((ExpressionStatementSyntax)invocationStatement, out info, allowNullOrMissing: allowNullOrMissing);
-
-            info = default(MemberInvocationStatementInfo);
-            return false;
-        }
-
-        public static bool TryCreate(
-            ExpressionStatementSyntax invocationStatement,
-            out MemberInvocationStatementInfo info,
-            bool allowNullOrMissing = false)
-        {
-            if (invocationStatement != null)
-                return TryCreateCore(invocationStatement, out info, allowNullOrMissing: allowNullOrMissing);
-
-            info = default(MemberInvocationStatementInfo);
-            return false;
-        }
-
-        private static bool TryCreateCore(
-            ExpressionStatementSyntax expressionStatement,
-            out MemberInvocationStatementInfo info,
-            bool allowNullOrMissing = false)
-        {
-            if (expressionStatement.Expression is InvocationExpressionSyntax invocationExpression)
-            {
-                ExpressionSyntax expression = invocationExpression.Expression;
-
-                if (expression?.IsKind(SyntaxKind.SimpleMemberAccessExpression) == true)
-                {
-                    var memberAccessExpression = (MemberAccessExpressionSyntax)expression;
-
-                    ExpressionSyntax expression2 = memberAccessExpression.Expression;
-
-                    if (CheckNode(expression2, allowNullOrMissing))
-                    {
-                        SimpleNameSyntax name = memberAccessExpression.Name;
-
-                        if (CheckNode(name, allowNullOrMissing))
-                        {
-                            info = new MemberInvocationStatementInfo(
-                                invocationExpression,
-                                expression2,
-                                name,
-                                invocationExpression.ArgumentList);
-
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            info = default(MemberInvocationStatementInfo);
-            return false;
+                argumentList);
         }
 
         public override string ToString()

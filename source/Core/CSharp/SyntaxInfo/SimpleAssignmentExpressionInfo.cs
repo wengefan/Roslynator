@@ -1,15 +1,15 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static Roslynator.CSharp.SyntaxInfo.SyntaxInfoHelper;
 
-namespace Roslynator.CSharp.SyntaxInfo
+namespace Roslynator.CSharp.Syntax
 {
     public struct SimpleAssignmentExpressionInfo
     {
+        private static SimpleAssignmentExpressionInfo Default { get; } = new SimpleAssignmentExpressionInfo();
+
         private SimpleAssignmentExpressionInfo(
             AssignmentExpressionSyntax assignmentExpression,
             ExpressionSyntax left,
@@ -26,67 +26,40 @@ namespace Roslynator.CSharp.SyntaxInfo
 
         public ExpressionSyntax Right { get; }
 
-        public static SimpleAssignmentExpressionInfo Create(
-            AssignmentExpressionSyntax assignmentExpression,
-            bool allowNullOrMissing = false,
-            bool walkDownParentheses = true)
+        public bool Success
         {
-            if (assignmentExpression == null)
-                throw new ArgumentNullException(nameof(assignmentExpression));
-
-            if (assignmentExpression.Kind() != SyntaxKind.SimpleAssignmentExpression)
-                throw new ArgumentException("", nameof(assignmentExpression));
-
-            ExpressionSyntax left = assignmentExpression.Left?.WalkDownParenthesesIf(walkDownParentheses);
-
-            if (!CheckNode(left, allowNullOrMissing))
-                throw new ArgumentException("", nameof(assignmentExpression));
-
-            ExpressionSyntax right = assignmentExpression.Right?.WalkDownParenthesesIf(walkDownParentheses);
-
-            if (!CheckNode(right, allowNullOrMissing))
-                throw new ArgumentException("", nameof(assignmentExpression));
-
-            return new SimpleAssignmentExpressionInfo(assignmentExpression, assignmentExpression.Left, assignmentExpression.Right);
+            get { return AssignmentExpression != null; }
         }
 
-        public static bool TryCreate(
+        internal static SimpleAssignmentExpressionInfo Create(
             SyntaxNode node,
-            out SimpleAssignmentExpressionInfo info,
-            bool allowNullOrMissing = false,
-            bool walkDownParentheses = true)
+            SyntaxInfoOptions options = null)
         {
-            return TryCreate(
-                (node as ExpressionSyntax)?.WalkDownParenthesesIf(walkDownParentheses) as AssignmentExpressionSyntax,
-                out info,
-                allowNullOrMissing,
-                walkDownParentheses);
+            return Create(
+                (node as ExpressionSyntax)?.WalkDownParenthesesIf((options ?? SyntaxInfoOptions.Default).WalkDownParentheses) as AssignmentExpressionSyntax,
+                options);
         }
 
-        public static bool TryCreate(
+        internal static SimpleAssignmentExpressionInfo Create(
             AssignmentExpressionSyntax assignmentExpression,
-            out SimpleAssignmentExpressionInfo info,
-            bool allowNullOrMissing = false,
-            bool walkDownParentheses = true)
+            SyntaxInfoOptions options = null)
         {
-            if (assignmentExpression?.Kind() == SyntaxKind.SimpleAssignmentExpression)
-            {
-                ExpressionSyntax left = assignmentExpression.Left?.WalkDownParenthesesIf(walkDownParentheses);
+            options = options ?? SyntaxInfoOptions.Default;
 
-                if (CheckNode(left, allowNullOrMissing))
-                {
-                    ExpressionSyntax right = assignmentExpression.Right?.WalkDownParenthesesIf(walkDownParentheses);
+            if (assignmentExpression?.Kind() != SyntaxKind.SimpleAssignmentExpression)
+                return Default;
 
-                    if (CheckNode(right, allowNullOrMissing))
-                    {
-                        info = new SimpleAssignmentExpressionInfo(assignmentExpression, left, right);
-                        return true;
-                    }
-                }
-            }
+            ExpressionSyntax left = assignmentExpression.Left?.WalkDownParenthesesIf(options.WalkDownParentheses);
 
-            info = default(SimpleAssignmentExpressionInfo);
-            return false;
+            if (!options.CheckNode(left))
+                return Default;
+
+            ExpressionSyntax right = assignmentExpression.Right?.WalkDownParenthesesIf(options.WalkDownParentheses);
+
+            if (!options.CheckNode(right))
+                return Default;
+
+            return new SimpleAssignmentExpressionInfo(assignmentExpression, left, right);
         }
 
         public override string ToString()

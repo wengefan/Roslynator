@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
-using Roslynator.CSharp.SyntaxInfo;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -47,12 +47,12 @@ namespace Roslynator.CSharp.Refactorings
                                     if (semanticModel.TryGetExtensionMethodInfo(invocation2.InvocationExpression, out methodInfo2, ExtensionMethodKind.None, cancellationToken)
                                         && methodInfo2.IsLinqWhere(allowImmutableArrayExtension: true))
                                     {
-                                        SingleParameterLambdaExpressionInfo lambda;
-                                        if (SingleParameterLambdaExpressionInfo.TryCreate(argument1.Expression, out lambda)
+                                        SingleParameterLambdaExpressionInfo lambda = SyntaxInfo.SingleParameterLambdaExpressionInfo(argument1.Expression);
+                                        if (lambda.Success
                                             && lambda.Body is ExpressionSyntax)
                                         {
-                                            SingleParameterLambdaExpressionInfo lambda2;
-                                            if (SingleParameterLambdaExpressionInfo.TryCreate(argument2.Expression, out lambda2)
+                                            SingleParameterLambdaExpressionInfo lambda2 = SyntaxInfo.SingleParameterLambdaExpressionInfo(argument2.Expression);
+                                            if (lambda2.Success
                                                 && lambda2.Body is ExpressionSyntax
                                                 && lambda.ParameterName.Equals(lambda2.ParameterName, StringComparison.Ordinal))
                                             {

@@ -1,16 +1,21 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using System.Collections.Immutable;
+using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
-namespace Roslynator.CSharp.SyntaxInfo
+namespace Roslynator.CSharp.Syntax
 {
     public struct IfStatementInfo
     {
-        public ImmutableArray<IfStatementOrElseClause> Nodes { get; }
+        private ImmutableArray<IfStatementOrElseClause> _nodes;
+
+        public ImmutableArray<IfStatementOrElseClause> Nodes
+        {
+            get { return (!_nodes.IsDefault) ? _nodes : ImmutableArray<IfStatementOrElseClause>.Empty; }
+        }
 
         private IfStatementInfo(IfStatementSyntax ifStatement)
         {
@@ -44,27 +49,27 @@ namespace Roslynator.CSharp.SyntaxInfo
                 }
             }
 
-            Nodes = builder.ToImmutableArray();
+            _nodes = builder.ToImmutableArray();
         }
 
-        private bool IsDefault
+        public bool Success
         {
-            get { return Nodes.IsDefault; }
+            get { return Nodes.Any(); }
         }
 
         public IfStatementSyntax TopmostIf
         {
-            get { return Nodes[0].AsIf(); }
+            get { return Nodes.FirstOrDefault().AsIf(); }
         }
 
         public bool EndsWithIf
         {
-            get { return Nodes[Nodes.Length - 1].IsIf; }
+            get { return Nodes.LastOrDefault().IsIf; }
         }
 
         public bool EndsWithElse
         {
-            get { return Nodes[Nodes.Length - 1].IsElse; }
+            get { return Nodes.LastOrDefault().IsElse; }
         }
 
         public bool IsSimpleIf
@@ -82,22 +87,17 @@ namespace Roslynator.CSharp.SyntaxInfo
             }
         }
 
-        private SyntaxNode Node
-        {
-            get { return (!Nodes.IsDefaultOrEmpty) ? Nodes[0].Node : null; }
-        }
-
-        public static IfStatementInfo Create(IfStatementSyntax ifStatement)
+        internal static IfStatementInfo Create(IfStatementSyntax ifStatement)
         {
             if (ifStatement == null)
-                throw new ArgumentNullException(nameof(ifStatement));
+                return default(IfStatementInfo);
 
             return new IfStatementInfo(ifStatement);
         }
 
         public override string ToString()
         {
-            return Node?.ToString() ?? base.ToString();
+            return Nodes.FirstOrDefault().Node?.ToString() ?? base.ToString();
         }
     }
 }

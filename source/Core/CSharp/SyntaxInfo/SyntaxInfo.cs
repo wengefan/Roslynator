@@ -1,0 +1,155 @@
+﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
+
+using System.Threading;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+
+namespace Roslynator.CSharp.Syntax
+{
+    public static class SyntaxInfo
+    {
+        public static ConditionalExpressionInfo ConditionalExpressionInfo(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.ConditionalExpressionInfo.Create(
+                node,
+                options);
+        }
+
+        public static ConditionalExpressionInfo ConditionalExpressionInfo(
+            ConditionalExpressionSyntax conditionalExpression,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.ConditionalExpressionInfo.Create(
+                conditionalExpression,
+                options);
+        }
+
+        public static IfStatementInfo IfStatementInfo(IfStatementSyntax ifStatement)
+        {
+            return Syntax.IfStatementInfo.Create(ifStatement);
+        }
+
+        public static MemberInvocationStatementInfo MemberInvocationStatementInfo(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.MemberInvocationStatementInfo.Create(
+                node,
+                options);
+        }
+
+        public static MemberInvocationStatementInfo MemberInvocationStatementInfo(
+            ExpressionStatementSyntax expressionStatement,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.MemberInvocationStatementInfo.Create(
+                expressionStatement,
+                options);
+        }
+
+        public static NullCheckExpressionInfo NullCheckExpressionInfo(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null,
+            NullCheckKind allowedKinds = NullCheckKind.ComparisonToNull)
+        {
+            return Syntax.NullCheckExpressionInfo.Create(
+                node,
+                options,
+                allowedKinds);
+        }
+
+        public static NullCheckExpressionInfo NullCheckExpressionInfo(
+            SyntaxNode node,
+            SemanticModel semanticModel,
+            SyntaxInfoOptions options = null,
+            NullCheckKind allowedKinds = NullCheckKind.All,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return Syntax.NullCheckExpressionInfo.Create(
+                node,
+                semanticModel,
+                options,
+                allowedKinds,
+                cancellationToken);
+        }
+
+        public static SimpleAssignmentExpressionInfo SimpleAssignmentExpressionInfo(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SimpleAssignmentExpressionInfo.Create(node, options);
+        }
+
+        public static SimpleAssignmentExpressionInfo SimpleAssignmentExpressionInfo(
+            AssignmentExpressionSyntax assignmentExpression,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SimpleAssignmentExpressionInfo.Create(assignmentExpression, options);
+        }
+
+        public static SimpleAssignmentStatementInfo SimpleAssignmentStatementInfo(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SimpleAssignmentStatementInfo.Create(node, options);
+        }
+
+        public static SimpleAssignmentStatementInfo SimpleAssignmentStatementInfo(
+            ExpressionStatementSyntax expressionStatement,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SimpleAssignmentStatementInfo.Create(expressionStatement, options);
+        }
+
+        public static SimpleIfElseInfo SimpleIfElseInfo(
+            IfStatementSyntax ifStatement,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SimpleIfElseInfo.Create(ifStatement, options);
+        }
+
+        public static SimpleIfStatementInfo SimpleIfStatementInfo(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SimpleIfStatementInfo.Create(node, options);
+        }
+
+        public static SimpleIfStatementInfo SimpleIfStatementInfo(
+            IfStatementSyntax ifStatement,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SimpleIfStatementInfo.Create(ifStatement, options);
+        }
+
+        public static SingleLocalDeclarationStatementInfo SingleLocalDeclarationStatementInfo(
+            LocalDeclarationStatementSyntax localDeclarationStatement,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SingleLocalDeclarationStatementInfo.Create(localDeclarationStatement, options);
+        }
+
+        public static SingleLocalDeclarationStatementInfo SingleLocalDeclarationStatementInfo(
+            ExpressionSyntax expression,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SingleLocalDeclarationStatementInfo.Create(expression, options);
+        }
+
+        public static SingleParameterLambdaExpressionInfo SingleParameterLambdaExpressionInfo(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SingleParameterLambdaExpressionInfo.Create(node, options);
+        }
+
+        public static SingleParameterLambdaExpressionInfo SingleParameterLambdaExpressionInfo(
+            LambdaExpressionSyntax lambdaExpression,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.SingleParameterLambdaExpressionInfo.Create(lambdaExpression, options);
+        }
+    }
+}

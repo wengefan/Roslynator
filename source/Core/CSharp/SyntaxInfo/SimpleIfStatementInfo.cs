@@ -1,14 +1,14 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static Roslynator.CSharp.SyntaxInfo.SyntaxInfoHelper;
 
-namespace Roslynator.CSharp.SyntaxInfo
+namespace Roslynator.CSharp.Syntax
 {
     public struct SimpleIfStatementInfo
     {
+        private static SimpleIfStatementInfo Default { get; } = new SimpleIfStatementInfo();
+
         public SimpleIfStatementInfo(
             IfStatementSyntax ifStatement,
             ExpressionSyntax condition,
@@ -25,67 +25,40 @@ namespace Roslynator.CSharp.SyntaxInfo
 
         public StatementSyntax Statement { get; }
 
-        public static SimpleIfStatementInfo Create(
-            IfStatementSyntax ifStatement,
-            bool allowNullOrMissing = false,
-            bool walkDownParentheses = true)
+        public bool Success
         {
-            if (ifStatement == null)
-                throw new ArgumentNullException(nameof(ifStatement));
+            get { return IfStatement != null; }
+        }
 
-            if (!ifStatement.IsSimpleIf())
-                throw new ArgumentException("", nameof(ifStatement));
+        internal static SimpleIfStatementInfo Create(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Create(
+                node as IfStatementSyntax,
+                options);
+        }
 
-            ExpressionSyntax condition = ifStatement.Condition?.WalkDownParenthesesIf(walkDownParentheses);
+        internal static SimpleIfStatementInfo Create(
+            IfStatementSyntax ifStatement,
+            SyntaxInfoOptions options = null)
+        {
+            options = options ?? SyntaxInfoOptions.Default;
 
-            if (!CheckNode(condition, allowNullOrMissing))
-                throw new ArgumentException("", nameof(ifStatement));
+            if (ifStatement?.IsSimpleIf() != true)
+                return Default;
+
+            ExpressionSyntax condition = ifStatement.Condition?.WalkDownParenthesesIf(options.WalkDownParentheses);
+
+            if (!options.CheckNode(condition))
+                return Default;
 
             StatementSyntax statement = ifStatement.Statement;
 
-            if (CheckNode(statement, allowNullOrMissing))
-                throw new ArgumentException("", nameof(ifStatement));
+            if (!options.CheckNode(statement))
+                return Default;
 
-            return new SimpleIfStatementInfo(ifStatement, ifStatement.Condition, statement);
-        }
-
-        public static bool TryCreate(
-            SyntaxNode node,
-            out SimpleIfStatementInfo info,
-            bool allowNullOrMissing = false,
-            bool walkDownParentheses = true)
-        {
-            return TryCreate(
-                node as IfStatementSyntax,
-                out info,
-                allowNullOrMissing: allowNullOrMissing,
-                walkDownParentheses: walkDownParentheses);
-        }
-
-        public static bool TryCreate(
-            IfStatementSyntax ifStatement,
-            out SimpleIfStatementInfo info,
-            bool allowNullOrMissing = false,
-            bool walkDownParentheses = true)
-        {
-            if (ifStatement?.IsSimpleIf() == true)
-            {
-                ExpressionSyntax condition = ifStatement.Condition?.WalkDownParenthesesIf(walkDownParentheses);
-
-                if (CheckNode(condition, allowNullOrMissing))
-                {
-                    StatementSyntax statement = ifStatement.Statement;
-
-                    if (CheckNode(statement, allowNullOrMissing))
-                    {
-                        info = new SimpleIfStatementInfo(ifStatement, condition, statement);
-                        return true;
-                    }
-                }
-            }
-
-            info = default(SimpleIfStatementInfo);
-            return false;
+            return new SimpleIfStatementInfo(ifStatement, condition, statement);
         }
 
         public override string ToString()

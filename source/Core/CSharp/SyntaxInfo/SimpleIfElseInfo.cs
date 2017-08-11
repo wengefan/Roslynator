@@ -3,12 +3,13 @@
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static Roslynator.CSharp.SyntaxInfo.SyntaxInfoHelper;
 
-namespace Roslynator.CSharp.SyntaxInfo
+namespace Roslynator.CSharp.Syntax
 {
     public struct SimpleIfElseInfo
     {
+        private static SimpleIfElseInfo Default { get; } = new SimpleIfElseInfo();
+
         public SimpleIfElseInfo(
             IfStatementSyntax ifStatement,
             ExpressionSyntax condition,
@@ -29,41 +30,32 @@ namespace Roslynator.CSharp.SyntaxInfo
 
         public StatementSyntax WhenFalse { get; }
 
-        public static bool TryCreate(
+        internal static SimpleIfElseInfo Create(
             IfStatementSyntax ifStatement,
-            out SimpleIfElseInfo info,
-            bool allowNullOrMissing = false,
-            bool walkDownParentheses = true)
+            SyntaxInfoOptions options = null)
         {
-            if (ifStatement?.IsParentKind(SyntaxKind.ElseClause) == false)
-            {
-                ElseClauseSyntax elseClause = ifStatement.Else;
+            if (ifStatement?.IsParentKind(SyntaxKind.ElseClause) != false)
+                return Default;
 
-                if (elseClause != null)
-                {
-                    StatementSyntax whenFalse = elseClause.Statement;
+            StatementSyntax whenFalse = ifStatement.Else?.Statement;
 
-                    if (CheckNode(whenFalse, allowNullOrMissing)
-                        && whenFalse?.IsKind(SyntaxKind.IfStatement) == false)
-                    {
-                        StatementSyntax whenTrue = ifStatement.Statement;
+            if (!options.CheckNode(whenFalse))
+                return Default;
 
-                        if (CheckNode(whenTrue, allowNullOrMissing))
-                        {
-                            ExpressionSyntax condition = ifStatement.Condition?.WalkDownParenthesesIf(walkDownParentheses);
+            if (whenFalse.IsKind(SyntaxKind.IfStatement))
+                return Default;
 
-                            if (CheckNode(condition, allowNullOrMissing))
-                            {
-                                info = new SimpleIfElseInfo(ifStatement, condition, whenTrue, whenFalse);
-                                return true;
-                            }
-                        }
-                    }
-                }
-            }
+            StatementSyntax whenTrue = ifStatement.Statement;
 
-            info = default(SimpleIfElseInfo);
-            return false;
+            if (!options.CheckNode(whenTrue))
+                return Default;
+
+            ExpressionSyntax condition = ifStatement.Condition?.WalkDownParenthesesIf(options.WalkDownParentheses);
+
+            if (!options.CheckNode(condition))
+                return Default;
+
+            return new SimpleIfElseInfo(ifStatement, condition, whenTrue, whenFalse);
         }
 
         public override string ToString()

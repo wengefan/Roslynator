@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using Roslynator.CSharp.SyntaxInfo;
+using Roslynator.CSharp.Syntax;
 using Roslynator.Utilities;
 using static Roslynator.CSharp.Refactorings.If.IfRefactoringHelper;
 
@@ -120,8 +120,8 @@ namespace Roslynator.CSharp.Refactorings.If
             {
                 if (options.UseCoalesceExpression)
                 {
-                    NullCheckExpressionInfo nullCheck;
-                    if (NullCheckExpressionInfo.TryCreate(condition, semanticModel, out nullCheck, cancellationToken: cancellationToken))
+                    NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(condition, semanticModel, cancellationToken: cancellationToken);
+                    if (nullCheck.Success)
                     {
                         IfRefactoring refactoring = CreateIfToReturnWithCoalesceExpression(
                             ifStatement,
@@ -228,8 +228,8 @@ namespace Roslynator.CSharp.Refactorings.If
                         {
                             if (options.UseCoalesceExpression)
                             {
-                                NullCheckExpressionInfo nullCheck;
-                                if (NullCheckExpressionInfo.TryCreate(condition, semanticModel, out nullCheck, cancellationToken: cancellationToken))
+                                NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(condition, semanticModel, cancellationToken: cancellationToken);
+                                if (nullCheck.Success)
                                 {
                                     IfRefactoring refactoring = CreateIfToAssignmentWithWithCoalesceExpression(
                                         ifStatement,
@@ -352,11 +352,11 @@ namespace Roslynator.CSharp.Refactorings.If
 
                 if (elseClause?.Statement?.IsKind(SyntaxKind.IfStatement) == false)
                 {
-                    SimpleAssignmentStatementInfo assignment1;
-                    if (SimpleAssignmentStatementInfo.TryCreate(ifStatement.GetSingleStatementOrDefault(), out assignment1))
+                    SimpleAssignmentStatementInfo assignment1 = SyntaxInfo.SimpleAssignmentStatementInfo(ifStatement.GetSingleStatementOrDefault());
+                    if (assignment1.Success)
                     {
-                        SimpleAssignmentStatementInfo assignment2;
-                        if (SimpleAssignmentStatementInfo.TryCreate(elseClause.GetSingleStatementOrDefault(), out assignment2)
+                        SimpleAssignmentStatementInfo assignment2 = SyntaxInfo.SimpleAssignmentStatementInfo(elseClause.GetSingleStatementOrDefault());
+                        if (assignment2.Success
                             && assignment1.Left.IsKind(SyntaxKind.IdentifierName)
                             && assignment2.Left.IsKind(SyntaxKind.IdentifierName))
                         {
@@ -382,18 +382,18 @@ namespace Roslynator.CSharp.Refactorings.If
             IfStatementSyntax ifStatement,
             IfAnalysisOptions options)
         {
-            SimpleAssignmentStatementInfo assignment;
-            if (SimpleAssignmentStatementInfo.TryCreate(expressionStatement, out assignment))
+            SimpleAssignmentStatementInfo assignment = SyntaxInfo.SimpleAssignmentStatementInfo(expressionStatement);
+            if (assignment.Success)
             {
                 ElseClauseSyntax elseClause = ifStatement.Else;
 
                 if (elseClause?.Statement?.IsKind(SyntaxKind.IfStatement) == false)
                 {
-                    SimpleAssignmentStatementInfo assignment1;
-                    if (SimpleAssignmentStatementInfo.TryCreate(ifStatement.GetSingleStatementOrDefault(), out assignment1))
+                    SimpleAssignmentStatementInfo assignment1 = SyntaxInfo.SimpleAssignmentStatementInfo(ifStatement.GetSingleStatementOrDefault());
+                    if (assignment1.Success)
                     {
-                        SimpleAssignmentStatementInfo assignment2;
-                        if (SimpleAssignmentStatementInfo.TryCreate(elseClause.GetSingleStatementOrDefault(), out assignment2)
+                        SimpleAssignmentStatementInfo assignment2 = SyntaxInfo.SimpleAssignmentStatementInfo(elseClause.GetSingleStatementOrDefault());
+                        if (assignment2.Success
                             && assignment1.Left.IsEquivalentTo(assignment2.Left, topLevel: false)
                             && assignment1.Left.IsEquivalentTo(assignment.Left, topLevel: false)
                             && options.CheckSpanDirectives(ifStatement.Parent, TextSpan.FromBounds(expressionStatement.SpanStart, ifStatement.Span.End)))

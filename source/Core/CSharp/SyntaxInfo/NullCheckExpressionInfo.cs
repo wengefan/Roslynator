@@ -7,10 +7,12 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.Utilities;
 
-namespace Roslynator.CSharp.SyntaxInfo
+namespace Roslynator.CSharp.Syntax
 {
     public struct NullCheckExpressionInfo
     {
+        private static NullCheckExpressionInfo Default { get; } = new NullCheckExpressionInfo();
+
         public NullCheckExpressionInfo(
             ExpressionSyntax node,
             ExpressionSyntax expression,
@@ -21,6 +23,7 @@ namespace Roslynator.CSharp.SyntaxInfo
             Kind = kind;
         }
 
+        //TODO: 
         public ExpressionSyntax Node { get; }
 
         public ExpressionSyntax Expression { get; }
@@ -37,175 +40,188 @@ namespace Roslynator.CSharp.SyntaxInfo
             get { return (Kind & NullCheckKind.IsNotNull) != 0; }
         }
 
-        public static bool TryCreate(
-            SyntaxNode node,
-            out NullCheckExpressionInfo info,
-            bool walkDownParentheses = true,
-            NullCheckKind allowedKinds = NullCheckKind.ComparisonToNull)
+        public bool Success
         {
-            if ((allowedKinds & NullCheckKind.HasValueProperty) == 0)
-            {
-                return TryCreate(
-                    node,
-                    default(SemanticModel),
-                    out info,
-                    walkDownParentheses,
-                    allowedKinds,
-                    default(CancellationToken));
-            }
-
-            info = default(NullCheckExpressionInfo);
-            return false;
+            get { return Kind != NullCheckKind.None; }
         }
 
-        public static bool TryCreate(
+        internal static NullCheckExpressionInfo Create(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null,
+            NullCheckKind allowedKinds = NullCheckKind.ComparisonToNull)
+        {
+            if ((allowedKinds & NullCheckKind.HasValueProperty) != 0)
+                return Default;
+
+            return Create(
+                node,
+                default(SemanticModel),
+                options,
+                allowedKinds,
+                default(CancellationToken));
+        }
+
+        internal static NullCheckExpressionInfo Create(
             SyntaxNode node,
             SemanticModel semanticModel,
-            out NullCheckExpressionInfo info,
-            bool walkDownParentheses = true,
+            SyntaxInfoOptions options = null,
             NullCheckKind allowedKinds = NullCheckKind.All,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            ExpressionSyntax expression = (node as ExpressionSyntax)?.WalkDownParenthesesIf(walkDownParentheses);
+            options = options ?? SyntaxInfoOptions.Default;
 
-            if (expression != null)
+            ExpressionSyntax expression = (node as ExpressionSyntax)?.WalkDownParenthesesIf(options.WalkDownParentheses);
+
+            if (expression == null)
+                return Default;
+
+            SyntaxKind kind = expression.Kind();
+
+            switch (kind)
             {
-                SyntaxKind kind = expression.Kind();
-
-                if (kind == SyntaxKind.EqualsExpression
-                    || kind == SyntaxKind.NotEqualsExpression)
-                {
-                    var binaryExpression = (BinaryExpressionSyntax)expression;
-
-                    ExpressionSyntax left = binaryExpression.Left?.WalkDownParenthesesIf(walkDownParentheses);
-
-                    if (left?.IsMissing == false)
+                case SyntaxKind.EqualsExpression:
+                case SyntaxKind.NotEqualsExpression:
                     {
-                        ExpressionSyntax right = binaryExpression.Right?.WalkDownParenthesesIf(walkDownParentheses);
+                        var binaryExpression = (BinaryExpressionSyntax)expression;
 
-                        if (right?.IsMissing == false)
-                        {
-                            return TryCreate(binaryExpression, kind, left, right, semanticModel, cancellationToken, allowedKinds, out info)
-                                || TryCreate(binaryExpression, kind, right, left, semanticModel, cancellationToken, allowedKinds, out info);
-                        }
+                        ExpressionSyntax left = binaryExpression.Left?.WalkDownParenthesesIf(options.WalkDownParentheses);
+
+                        if (!options.CheckNode(left))
+                            break;
+
+                        ExpressionSyntax right = binaryExpression.Right?.WalkDownParenthesesIf(options.WalkDownParentheses);
+
+                        if (!options.CheckNode(right))
+                            break;
+
+                        NullCheckExpressionInfo info = Create(binaryExpression, kind, left, right, options, allowedKinds, semanticModel, cancellationToken);
+
+                        return (info.Success)
+                            ? info
+                            : Create(binaryExpression, kind, right, left, options, allowedKinds, semanticModel, cancellationToken);
                     }
-                }
-                else if (kind == SyntaxKind.SimpleMemberAccessExpression)
-                {
-                    if ((allowedKinds & NullCheckKind.HasValue) != 0)
+                case SyntaxKind.SimpleMemberAccessExpression:
                     {
+                        if ((allowedKinds & NullCheckKind.HasValue) == 0)
+                            break;
+
                         var memberAccessExpression = (MemberAccessExpressionSyntax)expression;
 
-                        if (IsPropertyOfNullableOfT(memberAccessExpression.Name, "HasValue", semanticModel, cancellationToken))
-                        {
-                            info = new NullCheckExpressionInfo(expression, memberAccessExpression.Expression, NullCheckKind.HasValue);
-                            return true;
-                        }
+                        if (!IsPropertyOfNullableOfT(memberAccessExpression.Name, "HasValue", semanticModel, cancellationToken))
+                            break;
+
+                        return new NullCheckExpressionInfo(expression, memberAccessExpression.Expression, NullCheckKind.HasValue);
                     }
-                }
-                else if (kind == SyntaxKind.LogicalNotExpression)
-                {
-                    if ((allowedKinds & NullCheckKind.NotHasValue) != 0)
+                case SyntaxKind.LogicalNotExpression:
                     {
+                        if ((allowedKinds & NullCheckKind.NotHasValue) == 0)
+                            break;
+
                         var logicalNotExpression = (PrefixUnaryExpressionSyntax)expression;
 
-                        ExpressionSyntax operand = logicalNotExpression.Operand?.WalkDownParenthesesIf(walkDownParentheses);
+                        ExpressionSyntax operand = logicalNotExpression.Operand?.WalkDownParenthesesIf(options.WalkDownParentheses);
 
-                        if (operand?.IsKind(SyntaxKind.SimpleMemberAccessExpression) == true)
-                        {
-                            var memberAccessExpression = (MemberAccessExpressionSyntax)operand;
+                        if (!(operand is MemberAccessExpressionSyntax memberAccessExpression))
+                            break;
 
-                            if (IsPropertyOfNullableOfT(memberAccessExpression.Name, "HasValue", semanticModel, cancellationToken))
-                            {
-                                info = new NullCheckExpressionInfo(expression, memberAccessExpression.Expression, NullCheckKind.NotHasValue);
-                                return true;
-                            }
-                        }
+                        if (memberAccessExpression.Kind() != SyntaxKind.SimpleMemberAccessExpression)
+                            break;
+
+                        if (!IsPropertyOfNullableOfT(memberAccessExpression.Name, "HasValue", semanticModel, cancellationToken))
+                            break;
+
+                        return new NullCheckExpressionInfo(expression, memberAccessExpression.Expression, NullCheckKind.NotHasValue);
                     }
-                }
             }
 
-            info = default(NullCheckExpressionInfo);
-            return false;
+            return Default;
         }
 
-        private static bool TryCreate(
+        private static NullCheckExpressionInfo Create(
             BinaryExpressionSyntax binaryExpression,
             SyntaxKind binaryExpressionKind,
             ExpressionSyntax expression1,
             ExpressionSyntax expression2,
-            SemanticModel semanticModel,
-            CancellationToken cancellationToken,
+            SyntaxInfoOptions options,
             NullCheckKind allowedKinds,
-            out NullCheckExpressionInfo info)
+            SemanticModel semanticModel,
+            CancellationToken cancellationToken)
         {
-            SyntaxKind kind = expression1.Kind();
-
-            if (kind == SyntaxKind.NullLiteralExpression)
+            switch (expression1.Kind())
             {
-                return CreateIfAllowed(
-                    binaryExpression,
-                    expression2,
-                    (binaryExpressionKind == SyntaxKind.EqualsExpression) ? NullCheckKind.EqualsToNull : NullCheckKind.NotEqualsToNull,
-                    allowedKinds,
-                    out info);
-            }
-            else if (kind == SyntaxKind.TrueLiteralExpression)
-            {
-                if ((allowedKinds & (NullCheckKind.HasValueProperty)) != 0
-                    && expression2?.IsKind(SyntaxKind.SimpleMemberAccessExpression) == true)
-                {
-                    var memberAccessExpression = (MemberAccessExpressionSyntax)expression2;
-
-                    if (IsPropertyOfNullableOfT(memberAccessExpression.Name, "HasValue", semanticModel, cancellationToken))
+                case SyntaxKind.NullLiteralExpression:
                     {
-                        return CreateIfAllowed(
-                            binaryExpression,
-                            memberAccessExpression.Expression,
-                            (binaryExpressionKind == SyntaxKind.EqualsExpression) ? NullCheckKind.HasValue : NullCheckKind.NotHasValue,
-                            allowedKinds,
-                            out info);
-                    }
-                }
-            }
-            else if (kind == SyntaxKind.FalseLiteralExpression)
-            {
-                if ((allowedKinds & NullCheckKind.HasValueProperty) != 0
-                    && expression2?.IsKind(SyntaxKind.SimpleMemberAccessExpression) == true)
-                {
-                    var memberAccessExpression = (MemberAccessExpressionSyntax)expression2;
+                        NullCheckKind kind = (binaryExpressionKind == SyntaxKind.EqualsExpression) ? NullCheckKind.EqualsToNull : NullCheckKind.NotEqualsToNull;
 
-                    if (IsPropertyOfNullableOfT(memberAccessExpression.Name, "HasValue", semanticModel, cancellationToken))
+                        if ((allowedKinds & kind) == 0)
+                            break;
+
+                        return new NullCheckExpressionInfo(
+                            binaryExpression,
+                            expression2,
+                            kind);
+                    }
+                case SyntaxKind.TrueLiteralExpression:
                     {
-                        return CreateIfAllowed(
+                        NullCheckKind kind = (binaryExpressionKind == SyntaxKind.EqualsExpression) ? NullCheckKind.HasValue : NullCheckKind.NotHasValue;
+
+                        return Create(
                             binaryExpression,
-                            memberAccessExpression.Expression,
-                            (binaryExpressionKind == SyntaxKind.EqualsExpression) ? NullCheckKind.NotHasValue : NullCheckKind.HasValue,
+                            expression2,
+                            kind,
+                            options,
                             allowedKinds,
-                            out info);
+                            semanticModel,
+                            cancellationToken);
                     }
-                }
+                case SyntaxKind.FalseLiteralExpression:
+                    {
+                        NullCheckKind kind = (binaryExpressionKind == SyntaxKind.EqualsExpression) ? NullCheckKind.NotHasValue : NullCheckKind.HasValue;
+
+                        return Create(
+                            binaryExpression,
+                            expression2,
+                            kind,
+                            options,
+                            allowedKinds,
+                            semanticModel,
+                            cancellationToken);
+                    }
             }
 
-            info = default(NullCheckExpressionInfo);
-            return false;
+            return Default;
         }
 
-        private static bool CreateIfAllowed(
-            ExpressionSyntax node,
+        private static NullCheckExpressionInfo Create(
+            BinaryExpressionSyntax binaryExpression,
             ExpressionSyntax expression,
             NullCheckKind kind,
+            SyntaxInfoOptions options,
             NullCheckKind allowedKinds,
-            out NullCheckExpressionInfo info)
+            SemanticModel semanticModel,
+            CancellationToken cancellationToken)
         {
-            if ((allowedKinds & kind) != 0)
-            {
-                info = new NullCheckExpressionInfo(node, expression, kind);
-                return true;
-            }
+            if ((allowedKinds & (NullCheckKind.HasValueProperty)) == 0)
+                return Default;
 
-            info = default(NullCheckExpressionInfo);
-            return false;
+            if (!(expression is MemberAccessExpressionSyntax memberAccessExpression))
+                return Default;
+
+            if (memberAccessExpression.Kind() != SyntaxKind.SimpleMemberAccessExpression)
+                return Default;
+
+            if (!IsPropertyOfNullableOfT(memberAccessExpression.Name, "HasValue", semanticModel, cancellationToken))
+                return Default;
+
+            if ((allowedKinds & kind) == 0)
+                return Default;
+
+            ExpressionSyntax expression2 = memberAccessExpression.Expression;
+
+            if (!options.CheckNode(expression2))
+                return Default;
+
+            return new NullCheckExpressionInfo(binaryExpression, expression2, kind);
         }
 
         private static bool IsPropertyOfNullableOfT(

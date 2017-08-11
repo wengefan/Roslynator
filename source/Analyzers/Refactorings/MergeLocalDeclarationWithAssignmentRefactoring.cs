@@ -9,7 +9,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Roslynator.CSharp;
-using Roslynator.CSharp.SyntaxInfo;
+using Roslynator.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace Roslynator.CSharp.Refactorings
@@ -37,8 +37,8 @@ namespace Roslynator.CSharp.Refactorings
                         if (nextStatement?.ContainsDiagnostics == false
                             && nextStatement?.SpanOrLeadingTriviaContainsDirectives() == false)
                         {
-                            SimpleAssignmentStatementInfo assignment;
-                            if (SimpleAssignmentStatementInfo.TryCreate(nextStatement, out assignment)
+                            SimpleAssignmentStatementInfo assignment = SyntaxInfo.SimpleAssignmentStatementInfo(nextStatement);
+                            if (assignment.Success
                                 && assignment.Left.IsKind(SyntaxKind.IdentifierName))
                             {
                                 SemanticModel semanticModel = context.SemanticModel;

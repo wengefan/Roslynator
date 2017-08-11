@@ -4,7 +4,7 @@ using System;
 
 #pragma warning disable RCS1130
 
-namespace Roslynator.CSharp.SyntaxInfo
+namespace Roslynator.CSharp.Syntax
 {
     [Flags]
     public enum NullCheckKind

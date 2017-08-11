@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Roslynator.CSharp;
-using Roslynator.CSharp.SyntaxInfo;
+using Roslynator.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Roslynator.CSharp.CSharpFactory;
 
@@ -33,8 +33,8 @@ namespace Roslynator.CSharp.Refactorings
 
         private static void Analyze(SyntaxNodeAnalysisContext context, BinaryExpressionSyntax binaryExpression, NullCheckKind allowedKinds)
         {
-            NullCheckExpressionInfo nullCheck;
-            if (NullCheckExpressionInfo.TryCreate(binaryExpression, out nullCheck, allowedKinds: allowedKinds)
+            NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(binaryExpression, allowedKinds: allowedKinds);
+            if (nullCheck.Success
                 && IsUnconstrainedTypeParameter(context.SemanticModel.GetTypeSymbol(nullCheck.Expression, context.CancellationToken))
                 && !binaryExpression.SpanContainsDirectives())
             {

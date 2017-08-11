@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Microsoft.CodeAnalysis.Text;
 using Roslynator.CSharp;
-using Roslynator.CSharp.SyntaxInfo;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -25,8 +25,8 @@ namespace Roslynator.CSharp.Refactorings
             if (!localDeclarationStatement.ContainsDiagnostics
                 && !localDeclarationStatement.SpanOrTrailingTriviaContainsDirectives())
             {
-                SingleLocalDeclarationStatementInfo localDeclaration;
-                if (SingleLocalDeclarationStatementInfo.TryCreate(localDeclarationStatement, out localDeclaration))
+                SingleLocalDeclarationStatementInfo localDeclaration = SyntaxInfo.SingleLocalDeclarationStatementInfo(localDeclarationStatement);
+                if (localDeclaration.Success)
                 {
                     ExpressionSyntax value = localDeclaration.Initializer?.Value;
 
