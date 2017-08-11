@@ -2,13 +2,15 @@
 
 namespace Roslynator.CSharp.CodeFixes.Test
 {
-    internal static class AddArgumentList
+    internal static class CS0023_OperatorCannotBeAppliedToOperandOfType
     {
         private static void Foo()
         {
-            string s = null;
+            int i = 0;
 
-            s = s.ToString;
+            if (i?.ToString() == "0")
+            {
+            }
         }
     }
 }
