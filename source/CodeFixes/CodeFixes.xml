@@ -144,6 +144,7 @@
     <FixableDiagnosticIds>
       <Id>CS1615</Id>
       <Id>CS1988</Id>
+      <Id>CS1623</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0028" Identifier="RemoveRedundantAssignment" Title="Remove redundant assignment">
@@ -392,6 +393,7 @@
   <CodeFix Id="RCF0070" Identifier="RemoveOutModifier" Title="Remove 'out' modifier">
     <FixableDiagnosticIds>
       <Id>CS1988</Id>
+      <Id>CS1623</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0071" Identifier="RemoveAttribute" Title="Remove attribute">

@@ -96,6 +96,7 @@
   <Diagnostic Id="CS1620" Identifier="ArgumentMustBePassedWithOutKeyword" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1620" />
   <Diagnostic Id="CS1621" Identifier="YieldStatementCannotBeUsedInsideAnonymousMethodOrLambdaExpression" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1621" />
   <Diagnostic Id="CS1622" Identifier="CannotReturnValueFromIterator" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1622" />
+  <Diagnostic Id="CS1623" Identifier="IteratorsCannotHaveRefOrOutParameters" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1623" />
   <Diagnostic Id="CS1643" Identifier="NotAllCodePathsReturnValueInAnonymousFunction" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1643" />
   <Diagnostic Id="CS1674" Identifier="TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1674" />
   <Diagnostic Id="CS1689" Identifier="AttributeIsOnlyValidOnMethodsOrAttributeClasses" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1689" />
