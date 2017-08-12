@@ -2143,7 +2143,7 @@ namespace Roslynator.CSharp
             }
         }
 
-        public static StatementSyntax PreviousStatement(this StatementSyntax statement)
+        public static StatementSyntax PreviousStatementOrDefault(this StatementSyntax statement)
         {
             if (statement == null)
                 throw new ArgumentNullException(nameof(statement));
@@ -2154,19 +2154,13 @@ namespace Roslynator.CSharp
                 int index = statements.IndexOf(statement);
 
                 if (index > 0)
-                {
                     return statements[index - 1];
-                }
-                else
-                {
-                    return null;
-                }
             }
 
             return null;
         }
 
-        public static StatementSyntax NextStatement(this StatementSyntax statement)
+        public static StatementSyntax NextStatementOrDefault(this StatementSyntax statement)
         {
             if (statement == null)
                 throw new ArgumentNullException(nameof(statement));
@@ -2177,13 +2171,7 @@ namespace Roslynator.CSharp
                 int index = statements.IndexOf(statement);
 
                 if (index < statements.Count - 1)
-                {
                     return statements[index + 1];
-                }
-                else
-                {
-                    return null;
-                }
             }
 
             return null;
