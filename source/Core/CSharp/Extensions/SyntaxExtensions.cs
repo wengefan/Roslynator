@@ -14,6 +14,7 @@ using Roslynator.CSharp.Documentation;
 using Roslynator.CSharp.Helpers.ModifierHelpers;
 using Roslynator.CSharp.SyntaxRewriters;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using static Roslynator.CSharp.CSharpFactory;
 
 namespace Roslynator.CSharp
 {
@@ -706,12 +707,9 @@ namespace Roslynator.CSharp
                     Token(SyntaxTriviaList.Empty, SyntaxKind.CloseParenToken, SyntaxTriviaList.Empty));
             }
 
-            parenthesizedExpression = parenthesizedExpression.WithTriviaFrom(expression);
-
-            if (simplifiable)
-                parenthesizedExpression = parenthesizedExpression.WithSimplifierAnnotation();
-
-            return parenthesizedExpression;
+            return parenthesizedExpression
+                .WithTriviaFrom(expression)
+                .WithSimplifierAnnotationIf(simplifiable);
         }
 
         public static ExpressionSyntax WalkUpParentheses(this ExpressionSyntax expression)
@@ -2124,6 +2122,13 @@ namespace Roslynator.CSharp
             return tree.IsMultiLineSpan(span, cancellationToken);
         }
         #endregion SeparatedSyntaxList<T>
+
+        #region SimpleNameSyntax
+        public static MemberAccessExpressionSyntax QualifyWithThis(this SimpleNameSyntax simpleName, bool simplifiable = true)
+        {
+            return SimpleMemberAccessExpression(ThisExpression(), simpleName).WithSimplifierAnnotationIf(simplifiable);
+        }
+        #endregion SimpleNameSyntax
 
         #region StatementSyntax
         private static StatementSyntax GetSingleStatementOrDefault(StatementSyntax statement)

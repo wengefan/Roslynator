@@ -343,6 +343,11 @@ namespace Roslynator
             return node.WithAdditionalAnnotations(_simplifierAnnotationArray);
         }
 
+        internal static TNode WithSimplifierAnnotationIf<TNode>(this TNode node, bool condition) where TNode : SyntaxNode
+        {
+            return (condition) ? node.WithAdditionalAnnotations(_simplifierAnnotationArray) : node;
+        }
+
         internal static TNode WithFormatterAndSimplifierAnnotations<TNode>(this TNode node) where TNode : SyntaxNode
         {
             if (node == null)
