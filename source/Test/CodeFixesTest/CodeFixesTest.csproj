@@ -110,7 +110,7 @@
     <Compile Include="Modifiers.cs" />
     <Compile Include="RemoveNewModifier.cs" />
     <Compile Include="RemoveDuplicateModifier.cs" />
-    <Compile Include="RemovePropertyOrFieldInitializer.cs" />
+    <Compile Include="CS0573_CannotHaveInstancePropertyOrFieldInitializersInStruct.cs" />
     <Compile Include="RemoveRedundantAssignment.cs" />
     <Compile Include="RemoveRefModifier.cs" />
     <Compile Include="RemoveSwitchStatement.cs" />

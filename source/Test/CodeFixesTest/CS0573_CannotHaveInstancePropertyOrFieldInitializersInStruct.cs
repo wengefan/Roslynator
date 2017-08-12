@@ -2,7 +2,7 @@
 
 namespace Roslynator.CSharp.CodeFixes.Test
 {
-    internal static class RemovePropertyOrFieldInitializer
+    internal static class CS0573_CannotHaveInstancePropertyOrFieldInitializersInStruct
     {
         private struct Foo
         {
