@@ -83,7 +83,7 @@ namespace Roslynator.CSharp.Refactorings
             SemanticModel semanticModel = context.SemanticModel;
             CancellationToken cancellationToken = context.CancellationToken;
 
-            NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(conditionalExpressionInfo.Condition, semanticModel, cancellationToken: cancellationToken);
+            NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(conditionalExpressionInfo.Condition, semanticModel: semanticModel, cancellationToken: cancellationToken);
             if (nullCheck.Success)
             {
                 ExpressionSyntax whenNotNull = (nullCheck.IsCheckingNotNull)
@@ -340,7 +340,7 @@ namespace Roslynator.CSharp.Refactorings
 
             SemanticModel semanticModel = await document.GetSemanticModelAsync().ConfigureAwait(false);
 
-            NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(info.Condition, semanticModel, cancellationToken: cancellationToken);
+            NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(info.Condition, semanticModel: semanticModel, cancellationToken: cancellationToken);
 
             ExpressionSyntax whenNotNull = (nullCheck.IsCheckingNotNull)
                 ? info.WhenTrue

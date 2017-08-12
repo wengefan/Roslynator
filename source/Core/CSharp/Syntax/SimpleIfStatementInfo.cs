@@ -9,7 +9,7 @@ namespace Roslynator.CSharp.Syntax
     {
         private static SimpleIfStatementInfo Default { get; } = new SimpleIfStatementInfo();
 
-        public SimpleIfStatementInfo(
+        private SimpleIfStatementInfo(
             IfStatementSyntax ifStatement,
             ExpressionSyntax condition,
             StatementSyntax statement)
@@ -34,9 +34,7 @@ namespace Roslynator.CSharp.Syntax
             SyntaxNode node,
             SyntaxInfoOptions options = null)
         {
-            return Create(
-                node as IfStatementSyntax,
-                options);
+            return Create(node as IfStatementSyntax, options);
         }
 
         internal static SimpleIfStatementInfo Create(
@@ -48,14 +46,14 @@ namespace Roslynator.CSharp.Syntax
             if (ifStatement?.IsSimpleIf() != true)
                 return Default;
 
-            ExpressionSyntax condition = ifStatement.Condition?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax condition = options.WalkAndCheck(ifStatement.Condition);
 
-            if (!options.CheckNode(condition))
+            if (condition == null)
                 return Default;
 
             StatementSyntax statement = ifStatement.Statement;
 
-            if (!options.CheckNode(statement))
+            if (!options.Check(statement))
                 return Default;
 
             return new SimpleIfStatementInfo(ifStatement, condition, statement);

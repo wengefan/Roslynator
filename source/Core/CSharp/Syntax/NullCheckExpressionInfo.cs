@@ -13,7 +13,7 @@ namespace Roslynator.CSharp.Syntax
     {
         private static NullCheckExpressionInfo Default { get; } = new NullCheckExpressionInfo();
 
-        public NullCheckExpressionInfo(
+        private NullCheckExpressionInfo(
             ExpressionSyntax node,
             ExpressionSyntax expression,
             NullCheckKind kind)
@@ -48,29 +48,19 @@ namespace Roslynator.CSharp.Syntax
         internal static NullCheckExpressionInfo Create(
             SyntaxNode node,
             SyntaxInfoOptions options = null,
-            NullCheckKind allowedKinds = NullCheckKind.ComparisonToNull)
-        {
-            if ((allowedKinds & NullCheckKind.HasValueProperty) != 0)
-                return Default;
-
-            return Create(
-                node,
-                default(SemanticModel),
-                options,
-                allowedKinds,
-                default(CancellationToken));
-        }
-
-        internal static NullCheckExpressionInfo Create(
-            SyntaxNode node,
-            SemanticModel semanticModel,
-            SyntaxInfoOptions options = null,
             NullCheckKind allowedKinds = NullCheckKind.All,
+            SemanticModel semanticModel = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
+            if (semanticModel == null
+                && (allowedKinds & NullCheckKind.HasValueProperty) != 0)
+            {
+                return Default;
+            }
+
             options = options ?? SyntaxInfoOptions.Default;
 
-            ExpressionSyntax expression = (node as ExpressionSyntax)?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax expression = options.WalkAndCheck(node);
 
             if (expression == null)
                 return Default;
@@ -84,21 +74,26 @@ namespace Roslynator.CSharp.Syntax
                     {
                         var binaryExpression = (BinaryExpressionSyntax)expression;
 
-                        ExpressionSyntax left = binaryExpression.Left?.WalkDownParenthesesIf(options.WalkDownParentheses);
+                        ExpressionSyntax left = options.WalkAndCheck(binaryExpression.Left);
 
-                        if (!options.CheckNode(left))
+                        if (left == null)
                             break;
 
-                        ExpressionSyntax right = binaryExpression.Right?.WalkDownParenthesesIf(options.WalkDownParentheses);
+                        ExpressionSyntax right = options.WalkAndCheck(binaryExpression.Right);
 
-                        if (!options.CheckNode(right))
+                        if (right == null)
                             break;
 
                         NullCheckExpressionInfo info = Create(binaryExpression, kind, left, right, options, allowedKinds, semanticModel, cancellationToken);
 
-                        return (info.Success)
-                            ? info
-                            : Create(binaryExpression, kind, right, left, options, allowedKinds, semanticModel, cancellationToken);
+                        if (info.Success)
+                        {
+                            return info;
+                        }
+                        else
+                        {
+                            return Create(binaryExpression, kind, right, left, options, allowedKinds, semanticModel, cancellationToken);
+                        }
                     }
                 case SyntaxKind.SimpleMemberAccessExpression:
                     {
@@ -119,7 +114,7 @@ namespace Roslynator.CSharp.Syntax
 
                         var logicalNotExpression = (PrefixUnaryExpressionSyntax)expression;
 
-                        ExpressionSyntax operand = logicalNotExpression.Operand?.WalkDownParenthesesIf(options.WalkDownParentheses);
+                        ExpressionSyntax operand = options.WalkAndCheck(logicalNotExpression.Operand);
 
                         if (!(operand is MemberAccessExpressionSyntax memberAccessExpression))
                             break;
@@ -218,7 +213,7 @@ namespace Roslynator.CSharp.Syntax
 
             ExpressionSyntax expression2 = memberAccessExpression.Expression;
 
-            if (!options.CheckNode(expression2))
+            if (!options.Check(expression2))
                 return Default;
 
             return new NullCheckExpressionInfo(binaryExpression, expression2, kind);

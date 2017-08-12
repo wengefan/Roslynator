@@ -70,7 +70,7 @@ namespace Roslynator.CSharp.Refactorings
                     SemanticModel semanticModel = context.SemanticModel;
                     CancellationToken cancellationToken = context.CancellationToken;
 
-                    NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(simpleIf.Condition, semanticModel, allowedKinds: NullCheckKind.IsNull, cancellationToken: cancellationToken);
+                    NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(simpleIf.Condition, allowedKinds: NullCheckKind.IsNull, semanticModel: semanticModel, cancellationToken: cancellationToken);
                     if (nullCheck.Success)
                     {
                         IdentifierNameSyntax identifierName = GetIdentifierName(nullCheck.Expression);

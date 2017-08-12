@@ -61,7 +61,7 @@ namespace Roslynator.CSharp.Refactorings
 
                 if (typeDeclaration != null)
                 {
-                    MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(invocationExpression);
+                    MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(invocationExpression);
 
                     string fieldName = NameGenerator.Default.EnsureUniqueLocalName("_regex", semanticModel, invocationExpression.SpanStart, cancellationToken: cancellationToken);
 

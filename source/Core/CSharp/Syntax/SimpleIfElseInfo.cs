@@ -10,7 +10,7 @@ namespace Roslynator.CSharp.Syntax
     {
         private static SimpleIfElseInfo Default { get; } = new SimpleIfElseInfo();
 
-        public SimpleIfElseInfo(
+        private SimpleIfElseInfo(
             IfStatementSyntax ifStatement,
             ExpressionSyntax condition,
             StatementSyntax whenTrue,
@@ -34,12 +34,14 @@ namespace Roslynator.CSharp.Syntax
             IfStatementSyntax ifStatement,
             SyntaxInfoOptions options = null)
         {
+            options = options ?? SyntaxInfoOptions.Default;
+
             if (ifStatement?.IsParentKind(SyntaxKind.ElseClause) != false)
                 return Default;
 
             StatementSyntax whenFalse = ifStatement.Else?.Statement;
 
-            if (!options.CheckNode(whenFalse))
+            if (!options.Check(whenFalse))
                 return Default;
 
             if (whenFalse.IsKind(SyntaxKind.IfStatement))
@@ -47,12 +49,12 @@ namespace Roslynator.CSharp.Syntax
 
             StatementSyntax whenTrue = ifStatement.Statement;
 
-            if (!options.CheckNode(whenTrue))
+            if (!options.Check(whenTrue))
                 return Default;
 
-            ExpressionSyntax condition = ifStatement.Condition?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax condition = options.WalkAndCheck(ifStatement.Condition);
 
-            if (!options.CheckNode(condition))
+            if (condition == null)
                 return Default;
 
             return new SimpleIfElseInfo(ifStatement, condition, whenTrue, whenFalse);

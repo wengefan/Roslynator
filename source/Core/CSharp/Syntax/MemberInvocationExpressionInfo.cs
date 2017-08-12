@@ -6,23 +6,19 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Syntax
 {
-    public struct MemberInvocationStatementInfo
+    public struct MemberInvocationExpressionInfo
     {
-        private static MemberInvocationStatementInfo Default { get; } = new MemberInvocationStatementInfo();
+        private static MemberInvocationExpressionInfo Default { get; } = new MemberInvocationExpressionInfo();
 
-        public MemberInvocationStatementInfo(
-            InvocationExpressionSyntax invocationExpression,
+        private MemberInvocationExpressionInfo(
             ExpressionSyntax expression,
             SimpleNameSyntax name,
             ArgumentListSyntax argumentList)
         {
-            InvocationExpression = invocationExpression;
             Expression = expression;
             Name = name;
             ArgumentList = argumentList;
         }
-
-        public InvocationExpressionSyntax InvocationExpression { get; }
 
         public ExpressionSyntax Expression { get; }
 
@@ -30,14 +26,24 @@ namespace Roslynator.CSharp.Syntax
 
         public ArgumentListSyntax ArgumentList { get; }
 
-        public ExpressionStatementSyntax ExpressionStatement
+        public InvocationExpressionSyntax InvocationExpression
         {
-            get { return (ExpressionStatementSyntax)InvocationExpression?.Parent; }
+            get { return (InvocationExpressionSyntax)ArgumentList?.Parent; }
         }
 
         public MemberAccessExpressionSyntax MemberAccessExpression
         {
             get { return (MemberAccessExpressionSyntax)Expression?.Parent; }
+        }
+
+        public SeparatedSyntaxList<ArgumentSyntax> Arguments
+        {
+            get { return ArgumentList?.Arguments ?? default(SeparatedSyntaxList<ArgumentSyntax>); }
+        }
+
+        public SyntaxToken OperatorToken
+        {
+            get { return MemberAccessExpression?.OperatorToken ?? default(SyntaxToken); }
         }
 
         public string NameText
@@ -47,24 +53,32 @@ namespace Roslynator.CSharp.Syntax
 
         public bool Success
         {
-            get { return InvocationExpression != null; }
+            get { return Expression != null; }
         }
 
-        internal static MemberInvocationStatementInfo Create(
+        internal static MemberInvocationExpressionInfo Create(
             SyntaxNode node,
             SyntaxInfoOptions options = null)
         {
-            return Create(node as ExpressionStatementSyntax, options);
+            options = options ?? SyntaxInfoOptions.Default;
+
+            return CreateCore(
+                options.Walk(node) as InvocationExpressionSyntax,
+                options);
         }
 
-        internal static MemberInvocationStatementInfo Create(
-            ExpressionStatementSyntax expressionStatement,
+        internal static MemberInvocationExpressionInfo Create(
+            InvocationExpressionSyntax invocationExpression,
             SyntaxInfoOptions options = null)
         {
-            if (!(expressionStatement?.Expression is InvocationExpressionSyntax invocationExpression))
-                return Default;
+            return CreateCore(invocationExpression, options ?? SyntaxInfoOptions.Default);
+        }
 
-            if (!(invocationExpression.Expression is MemberAccessExpressionSyntax memberAccessExpression))
+        internal static MemberInvocationExpressionInfo CreateCore(
+            InvocationExpressionSyntax invocationExpression,
+            SyntaxInfoOptions options)
+        {
+            if (!(invocationExpression?.Expression is MemberAccessExpressionSyntax memberAccessExpression))
                 return Default;
 
             if (memberAccessExpression.Kind() != SyntaxKind.SimpleMemberAccessExpression)
@@ -72,12 +86,12 @@ namespace Roslynator.CSharp.Syntax
 
             ExpressionSyntax expression = memberAccessExpression.Expression;
 
-            if (!options.CheckNode(expression))
+            if (!options.Check(expression))
                 return Default;
 
             SimpleNameSyntax name = memberAccessExpression.Name;
 
-            if (!options.CheckNode(name))
+            if (!options.Check(name))
                 return Default;
 
             ArgumentListSyntax argumentList = invocationExpression.ArgumentList;
@@ -85,8 +99,7 @@ namespace Roslynator.CSharp.Syntax
             if (argumentList == null)
                 return Default;
 
-            return new MemberInvocationStatementInfo(
-                invocationExpression,
+            return new MemberInvocationExpressionInfo(
                 expression,
                 name,
                 argumentList);
@@ -94,7 +107,7 @@ namespace Roslynator.CSharp.Syntax
 
         public override string ToString()
         {
-            return ExpressionStatement?.ToString() ?? base.ToString();
+            return InvocationExpression?.ToString() ?? base.ToString();
         }
     }
 }

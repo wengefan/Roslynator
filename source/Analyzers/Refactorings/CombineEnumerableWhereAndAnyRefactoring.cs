@@ -20,16 +20,16 @@ namespace Roslynator.CSharp.Refactorings
             if (!invocationExpression.ContainsDiagnostics
                 && !invocationExpression.SpanContainsDirectives())
             {
-                MemberInvocationExpressionInfo invocation;
-                if (MemberInvocationExpressionInfo.TryCreate(invocationExpression, out invocation)
+                MemberInvocationExpressionInfo invocation = SyntaxInfo.MemberInvocationExpressionInfo(invocationExpression);
+                if (invocation.Success
                     && invocation.NameText == "Any")
                 {
                     ArgumentSyntax argument1 = invocation.Arguments.SingleOrDefault(throwException: false);
 
                     if (argument1 != null)
                     {
-                        MemberInvocationExpressionInfo invocation2;
-                        if (MemberInvocationExpressionInfo.TryCreate(invocation.Expression, out invocation2)
+                        MemberInvocationExpressionInfo invocation2 = SyntaxInfo.MemberInvocationExpressionInfo(invocation.Expression);
+                        if (invocation2.Success
                             && invocation2.NameText == "Where")
                         {
                             ArgumentSyntax argument2 = invocation2.Arguments.SingleOrDefault(throwException: false);
@@ -75,11 +75,11 @@ namespace Roslynator.CSharp.Refactorings
             InvocationExpressionSyntax invocationExpression,
             CancellationToken cancellationToken)
         {
-            MemberInvocationExpressionInfo invocation = MemberInvocationExpressionInfo.Create(invocationExpression);
-            MemberInvocationExpressionInfo invocation2 = MemberInvocationExpressionInfo.Create((InvocationExpressionSyntax)invocation.Expression);
+            MemberInvocationExpressionInfo invocation = SyntaxInfo.MemberInvocationExpressionInfo(invocationExpression);
+            MemberInvocationExpressionInfo invocation2 = SyntaxInfo.MemberInvocationExpressionInfo(invocation.Expression);
 
-            SingleParameterLambdaExpressionInfo lambda = SingleParameterLambdaExpressionInfo.Create((LambdaExpressionSyntax)invocation.Arguments.First().Expression);
-            SingleParameterLambdaExpressionInfo lambda2 = SingleParameterLambdaExpressionInfo.Create((LambdaExpressionSyntax)invocation2.Arguments.First().Expression);
+            SingleParameterLambdaExpressionInfo lambda = SyntaxInfo.SingleParameterLambdaExpressionInfo((LambdaExpressionSyntax)invocation.Arguments.First().Expression);
+            SingleParameterLambdaExpressionInfo lambda2 = SyntaxInfo.SingleParameterLambdaExpressionInfo((LambdaExpressionSyntax)invocation2.Arguments.First().Expression);
 
             BinaryExpressionSyntax logicalAnd = CSharpFactory.LogicalAndExpression(
                 ((ExpressionSyntax)lambda2.Body).Parenthesize(),

@@ -9,7 +9,7 @@ namespace Roslynator.CSharp.Syntax
     {
         private static ConditionalExpressionInfo Default { get; } = new ConditionalExpressionInfo();
 
-        public ConditionalExpressionInfo(
+        private ConditionalExpressionInfo(
             ExpressionSyntax condition,
             ExpressionSyntax whenTrue,
             ExpressionSyntax whenFalse)
@@ -39,8 +39,10 @@ namespace Roslynator.CSharp.Syntax
             SyntaxNode node,
             SyntaxInfoOptions options = null)
         {
-            return Create(
-                (node as ExpressionSyntax)?.WalkDownParenthesesIf((options ?? SyntaxInfoOptions.Default).WalkDownParentheses) as ConditionalExpressionSyntax,
+            options = options ?? SyntaxInfoOptions.Default;
+
+            return CreateCore(
+                options.Walk(node) as ConditionalExpressionSyntax,
                 options);
         }
 
@@ -48,24 +50,29 @@ namespace Roslynator.CSharp.Syntax
             ConditionalExpressionSyntax conditionalExpression,
             SyntaxInfoOptions options = null)
         {
-            options = options ?? SyntaxInfoOptions.Default;
+            return CreateCore(conditionalExpression, options ?? SyntaxInfoOptions.Default);
+        }
 
+        internal static ConditionalExpressionInfo CreateCore(
+            ConditionalExpressionSyntax conditionalExpression,
+            SyntaxInfoOptions options)
+        {
             if (conditionalExpression == null)
                 return Default;
 
-            ExpressionSyntax condition = conditionalExpression.Condition?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax condition = options.WalkAndCheck(conditionalExpression.Condition);
 
-            if (!options.CheckNode(condition))
+            if (condition == null)
                 return Default;
 
-            ExpressionSyntax whenTrue = conditionalExpression.WhenTrue?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax whenTrue = options.WalkAndCheck(conditionalExpression.WhenTrue);
 
-            if (!options.CheckNode(whenTrue))
+            if (whenTrue == null)
                 return Default;
 
-            ExpressionSyntax whenFalse = conditionalExpression.WhenFalse?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax whenFalse = options.WalkAndCheck(conditionalExpression.WhenFalse);
 
-            if (!options.CheckNode(whenFalse))
+            if (whenFalse == null)
                 return Default;
 
             return new ConditionalExpressionInfo(condition, whenTrue, whenFalse);

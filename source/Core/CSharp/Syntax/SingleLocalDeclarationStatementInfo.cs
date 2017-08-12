@@ -11,7 +11,7 @@ namespace Roslynator.CSharp.Syntax
     {
         private static SingleLocalDeclarationStatementInfo Default { get; } = new SingleLocalDeclarationStatementInfo();
 
-        public SingleLocalDeclarationStatementInfo(
+        private SingleLocalDeclarationStatementInfo(
             VariableDeclarationSyntax declaration,
             VariableDeclaratorSyntax declarator)
         {

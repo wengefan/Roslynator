@@ -31,8 +31,9 @@ namespace Roslynator.CSharp.Refactorings
                 {
                     ExpressionSyntax expression = GetMethodExpression(methodDeclaration);
 
-                    MemberInvocationExpressionInfo memberInvocation;
-                    if (MemberInvocationExpressionInfo.TryCreate(expression, out memberInvocation)
+                    MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(expression);
+
+                    if (memberInvocation.Success
                         && memberInvocation.Expression.IsKind(SyntaxKind.BaseExpression))
                     {
                         IMethodSymbol methodSymbol = context.SemanticModel.GetDeclaredSymbol(methodDeclaration, context.CancellationToken);

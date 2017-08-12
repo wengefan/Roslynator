@@ -225,7 +225,7 @@ namespace Roslynator.CSharp.CodeFixes
                         }
                     case DiagnosticIdentifiers.CallThenByInsteadOfOrderBy:
                         {
-                            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(invocation);
+                            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(invocation);
 
                             string oldName = memberInvocation.NameText;
 

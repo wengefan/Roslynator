@@ -55,15 +55,22 @@ namespace Roslynator.CSharp.Syntax
             SyntaxNode node,
             SyntaxInfoOptions options = null)
         {
-            return Create(node as LambdaExpressionSyntax, options);
+            options = options ?? SyntaxInfoOptions.Default;
+
+            return CreateCore(options.Walk(node) as LambdaExpressionSyntax, options);
         }
 
         internal static SingleParameterLambdaExpressionInfo Create(
             LambdaExpressionSyntax lambdaExpression,
             SyntaxInfoOptions options = null)
         {
-            options = options ?? SyntaxInfoOptions.Default;
+            return CreateCore(lambdaExpression, options ?? SyntaxInfoOptions.Default);
+        }
 
+        internal static SingleParameterLambdaExpressionInfo CreateCore(
+            LambdaExpressionSyntax lambdaExpression,
+            SyntaxInfoOptions options = null)
+        {
             switch (lambdaExpression?.Kind())
             {
                 case SyntaxKind.SimpleLambdaExpression:
@@ -72,12 +79,12 @@ namespace Roslynator.CSharp.Syntax
 
                         ParameterSyntax parameter = simpleLambda.Parameter;
 
-                        if (!options.CheckNode(parameter))
+                        if (!options.Check(parameter))
                             break;
 
                         CSharpSyntaxNode body = simpleLambda.Body;
 
-                        if (!options.CheckNode(body))
+                        if (!options.Check(body))
                             break;
 
                         return new SingleParameterLambdaExpressionInfo(simpleLambda, parameter, body);
@@ -91,12 +98,12 @@ namespace Roslynator.CSharp.Syntax
                             .Parameters
                             .SingleOrDefault(throwException: false);
 
-                        if (!options.CheckNode(parameter))
+                        if (!options.Check(parameter))
                             break;
 
                         CSharpSyntaxNode body = parenthesizedLambda.Body;
 
-                        if (!options.CheckNode(body))
+                        if (!options.Check(body))
                             break;
 
                         return new SingleParameterLambdaExpressionInfo(parenthesizedLambda, parameter, body);

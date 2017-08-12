@@ -97,8 +97,8 @@ namespace Roslynator.CSharp.Refactorings
 
         private static bool IsFixable(InvocationExpressionSyntax invocationExpression, SemanticModel semanticModel, CancellationToken cancellationToken)
         {
-            MemberInvocationExpressionInfo memberInvocation;
-            if (MemberInvocationExpressionInfo.TryCreate(invocationExpression, out memberInvocation))
+            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(invocationExpression);
+            if (memberInvocation.Success)
             {
                 MethodInfo methodInfo;
                 if (semanticModel.TryGetMethodInfo(memberInvocation.InvocationExpression, out methodInfo, cancellationToken)
@@ -254,7 +254,7 @@ namespace Roslynator.CSharp.Refactorings
             InvocationExpressionSyntax innerInvocationExpression,
             InvocationExpressionSyntax outerInvocationExpression)
         {
-            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(innerInvocationExpression);
+            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(innerInvocationExpression);
 
             switch (memberInvocation.NameText)
             {

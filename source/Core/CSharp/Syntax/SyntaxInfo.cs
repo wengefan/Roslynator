@@ -31,6 +31,24 @@ namespace Roslynator.CSharp.Syntax
             return Syntax.IfStatementInfo.Create(ifStatement);
         }
 
+        public static MemberInvocationExpressionInfo MemberInvocationExpressionInfo(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.MemberInvocationExpressionInfo.Create(
+                node,
+                options);
+        }
+
+        public static MemberInvocationExpressionInfo MemberInvocationExpressionInfo(
+            InvocationExpressionSyntax invocationExpression,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.MemberInvocationExpressionInfo.Create(
+                invocationExpression,
+                options);
+        }
+
         public static MemberInvocationStatementInfo MemberInvocationStatementInfo(
             SyntaxNode node,
             SyntaxInfoOptions options = null)
@@ -52,26 +70,15 @@ namespace Roslynator.CSharp.Syntax
         public static NullCheckExpressionInfo NullCheckExpressionInfo(
             SyntaxNode node,
             SyntaxInfoOptions options = null,
-            NullCheckKind allowedKinds = NullCheckKind.ComparisonToNull)
-        {
-            return Syntax.NullCheckExpressionInfo.Create(
-                node,
-                options,
-                allowedKinds);
-        }
-
-        public static NullCheckExpressionInfo NullCheckExpressionInfo(
-            SyntaxNode node,
-            SemanticModel semanticModel,
-            SyntaxInfoOptions options = null,
             NullCheckKind allowedKinds = NullCheckKind.All,
+            SemanticModel semanticModel = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             return Syntax.NullCheckExpressionInfo.Create(
                 node,
-                semanticModel,
                 options,
                 allowedKinds,
+                semanticModel,
                 cancellationToken);
         }
 

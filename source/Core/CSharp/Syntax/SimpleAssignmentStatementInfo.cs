@@ -1,10 +1,8 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using static Roslynator.CSharp.Syntax.SyntaxHelper;
 
 namespace Roslynator.CSharp.Syntax
 {
@@ -12,7 +10,7 @@ namespace Roslynator.CSharp.Syntax
     {
         private static SimpleAssignmentStatementInfo Default { get; } = new SimpleAssignmentStatementInfo();
 
-        public SimpleAssignmentStatementInfo(
+        private SimpleAssignmentStatementInfo(
             AssignmentExpressionSyntax assignmentExpression,
             ExpressionSyntax left,
             ExpressionSyntax right)
@@ -42,9 +40,7 @@ namespace Roslynator.CSharp.Syntax
             SyntaxNode node,
             SyntaxInfoOptions options)
         {
-            return Create(
-                node as ExpressionStatementSyntax,
-                options);
+            return Create(node as ExpressionStatementSyntax, options);
         }
 
         internal static SimpleAssignmentStatementInfo Create(
@@ -53,21 +49,21 @@ namespace Roslynator.CSharp.Syntax
         {
             options = options ?? SyntaxInfoOptions.Default;
 
-            ExpressionSyntax expression = expressionStatement?.Expression?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax expression = options.WalkAndCheck(expressionStatement?.Expression);
 
             if (expression?.Kind() != SyntaxKind.SimpleAssignmentExpression)
                 return Default;
 
             var assignmentExpression = (AssignmentExpressionSyntax)expression;
 
-            ExpressionSyntax left = assignmentExpression.Left?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax left = options.WalkAndCheck(assignmentExpression.Left);
 
-            if (!options.CheckNode(left))
+            if (left == null)
                 return Default;
 
-            ExpressionSyntax right = assignmentExpression.Right?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax right = options.WalkAndCheck(assignmentExpression.Right);
 
-            if (!options.CheckNode(right))
+            if (right == null)
                 return Default;
 
             return new SimpleAssignmentStatementInfo(assignmentExpression, left, right);

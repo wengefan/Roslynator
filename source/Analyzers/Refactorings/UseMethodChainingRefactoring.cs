@@ -78,9 +78,9 @@ namespace Roslynator.CSharp.Refactorings
             {
                 var expressionStatement = (ExpressionStatementSyntax)statement;
 
-                MemberInvocationExpressionInfo memberInvocation;
+                MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(expressionStatement.Expression);
 
-                return MemberInvocationExpressionInfo.TryCreate(expressionStatement.Expression, out memberInvocation)
+                return memberInvocation.Success
                     && IsFixable(memberInvocation, stringBuilderSymbol, semanticModel, cancellationToken)
                     && SyntaxComparer.AreEquivalent(
                         expression,
@@ -119,10 +119,20 @@ namespace Roslynator.CSharp.Refactorings
             CancellationToken cancellationToken)
         {
             MemberInvocationExpressionInfo memberInvocation2;
-            while (MemberInvocationExpressionInfo.TryCreate(memberInvocation.Expression, out memberInvocation2)
-                && IsFixable(memberInvocation2, stringBuilderSymbol, semanticModel, cancellationToken))
+
+            while (true)
             {
-                memberInvocation = memberInvocation2;
+                memberInvocation2 = SyntaxInfo.MemberInvocationExpressionInfo(memberInvocation.Expression);
+
+                if (memberInvocation2.Success
+                    && IsFixable(memberInvocation2, stringBuilderSymbol, semanticModel, cancellationToken))
+                {
+                    memberInvocation = memberInvocation2;
+                }
+                else
+                {
+                    break;
+                }
             }
 
             return memberInvocation;
@@ -158,7 +168,7 @@ namespace Roslynator.CSharp.Refactorings
 
             var invocationExpression = (InvocationExpressionSyntax)expressionStatement.Expression;
 
-            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(invocationExpression);
+            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(invocationExpression);
 
             ExpressionSyntax expression = GetFirstInvocationInMethodChain(memberInvocation, symbol, semanticModel, cancellationToken).Expression;
 
@@ -223,7 +233,7 @@ namespace Roslynator.CSharp.Refactorings
             SemanticModel semanticModel,
             CancellationToken cancellationToken)
         {
-            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create((InvocationExpressionSyntax)expressionStatement.Expression);
+            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo((InvocationExpressionSyntax)expressionStatement.Expression);
 
             MemberInvocationExpressionInfo firstMemberInvocation = GetFirstInvocationInMethodChain(memberInvocation, stringBuilderSymbol, semanticModel, cancellationToken);
 

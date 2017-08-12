@@ -29,7 +29,7 @@ namespace Roslynator.CSharp.Refactorings
                 if (ifStatement.TryGetContainingList(out statements)
                     && !IsPartOfLazyInitialization(ifStatement, statements))
                 {
-                    NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(ifStatement.Condition, context.SemanticModel, cancellationToken: context.CancellationToken);
+                    NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(ifStatement.Condition, semanticModel: context.SemanticModel, cancellationToken: context.CancellationToken);
                     if (nullCheck.Success)
                     {
                         SimpleAssignmentStatementInfo assignment = SyntaxInfo.SimpleAssignmentStatementInfo(ifStatement.GetSingleStatementOrDefault());

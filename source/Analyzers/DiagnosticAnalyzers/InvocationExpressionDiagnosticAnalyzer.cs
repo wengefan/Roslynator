@@ -151,8 +151,9 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                     }
                 }
 
-                MemberInvocationExpressionInfo memberInvocation;
-                if (MemberInvocationExpressionInfo.TryCreate(invocation, out memberInvocation))
+                MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(invocation);
+
+                if (memberInvocation.Success)
                 {
                     if (!invocation.SpanContainsDirectives())
                         UseRegexInstanceInsteadOfStaticMethodRefactoring.Analyze(context, memberInvocation);

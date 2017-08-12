@@ -11,8 +11,9 @@ namespace Roslynator.CSharp.Refactorings
     {
         public static async Task ComputeRefactoringsAsync(RefactoringContext context, InvocationExpressionSyntax invocation)
         {
-            MemberInvocationExpressionInfo memberInvocation;
-            if (MemberInvocationExpressionInfo.TryCreate(invocation, out memberInvocation)
+            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(invocation);
+
+            if (memberInvocation.Success
                 && memberInvocation.ArgumentList != null)
             {
                 switch (memberInvocation.Name?.Identifier.ValueText)

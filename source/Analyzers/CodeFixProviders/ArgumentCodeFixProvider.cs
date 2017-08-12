@@ -34,7 +34,7 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case DiagnosticIdentifiers.OptimizeStringBuilderAppendCall:
                         {
-                            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create((InvocationExpressionSyntax)argument.Parent.Parent);
+                            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo((InvocationExpressionSyntax)argument.Parent.Parent);
 
                             CodeAction codeAction = CodeAction.Create(
                                 $"Optimize '{memberInvocation.NameText}' call",

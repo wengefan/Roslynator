@@ -35,28 +35,33 @@ namespace Roslynator.CSharp.Syntax
             SyntaxNode node,
             SyntaxInfoOptions options = null)
         {
-            return Create(
-                (node as ExpressionSyntax)?.WalkDownParenthesesIf((options ?? SyntaxInfoOptions.Default).WalkDownParentheses) as AssignmentExpressionSyntax,
-                options);
+            options = options ?? SyntaxInfoOptions.Default;
+
+            return CreateCore(options.Walk(node) as AssignmentExpressionSyntax, options);
         }
 
         internal static SimpleAssignmentExpressionInfo Create(
             AssignmentExpressionSyntax assignmentExpression,
             SyntaxInfoOptions options = null)
         {
-            options = options ?? SyntaxInfoOptions.Default;
+            return CreateCore(assignmentExpression, options ?? SyntaxInfoOptions.Default);
+        }
 
+        internal static SimpleAssignmentExpressionInfo CreateCore(
+            AssignmentExpressionSyntax assignmentExpression,
+            SyntaxInfoOptions options = null)
+        {
             if (assignmentExpression?.Kind() != SyntaxKind.SimpleAssignmentExpression)
                 return Default;
 
-            ExpressionSyntax left = assignmentExpression.Left?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax left = options.WalkAndCheck(assignmentExpression.Left);
 
-            if (!options.CheckNode(left))
+            if (left == null)
                 return Default;
 
-            ExpressionSyntax right = assignmentExpression.Right?.WalkDownParenthesesIf(options.WalkDownParentheses);
+            ExpressionSyntax right = options.WalkAndCheck(assignmentExpression.Right);
 
-            if (!options.CheckNode(right))
+            if (right == null)
                 return Default;
 
             return new SimpleAssignmentExpressionInfo(assignmentExpression, left, right);

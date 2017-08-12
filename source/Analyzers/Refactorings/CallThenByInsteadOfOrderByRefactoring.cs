@@ -19,8 +19,9 @@ namespace Roslynator.CSharp.Refactorings
 
             if (expression.IsKind(SyntaxKind.InvocationExpression))
             {
-                MemberInvocationExpressionInfo memberInvocation2;
-                if (MemberInvocationExpressionInfo.TryCreate((InvocationExpressionSyntax)expression, out memberInvocation2))
+                MemberInvocationExpressionInfo memberInvocation2 = SyntaxInfo.MemberInvocationExpressionInfo((InvocationExpressionSyntax)expression);
+
+                if (memberInvocation2.Success)
                 {
                     switch (memberInvocation2.NameText)
                     {
