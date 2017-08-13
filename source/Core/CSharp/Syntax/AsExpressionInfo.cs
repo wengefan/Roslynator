@@ -72,7 +72,7 @@ namespace Roslynator.CSharp.Syntax
 
         public override string ToString()
         {
-            return AsExpression.ToString() ?? base.ToString();
+            return AsExpression?.ToString() ?? base.ToString();
         }
     }
 }

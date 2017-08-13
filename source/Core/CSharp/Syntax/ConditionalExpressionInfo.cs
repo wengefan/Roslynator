@@ -21,7 +21,7 @@ namespace Roslynator.CSharp.Syntax
 
         public ConditionalExpressionSyntax ConditionalExpression
         {
-            get { return Condition.FirstAncestor<ConditionalExpressionSyntax>(); }
+            get { return Condition?.FirstAncestor<ConditionalExpressionSyntax>(); }
         }
 
         public ExpressionSyntax Condition { get; }
