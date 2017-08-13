@@ -46,6 +46,7 @@
     <Compile Include="AddBody.cs" />
     <Compile Include="AddSemicolon.cs" />
     <Compile Include="CS0023_OperatorCannotBeAppliedToOperandOfType.cs" />
+    <Compile Include="CS0077_AsOperatorMustBeUsedWithReferenceTypeOrNullableType.cs" />
     <Compile Include="CS0101_NamespaceAlreadyContainsDefinition.cs" />
     <Compile Include="CS0101_NamespaceAlreadyContainsDefinition2.cs" />
     <Compile Include="CS0102_TypeAlreadyContainsDefinition.cs" />

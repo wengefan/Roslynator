@@ -412,4 +412,9 @@
       <Id>CS0266</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0074" Identifier="ReplaceAsExpressionWithCastExpression" Title="Replace as expression with cast expression">
+    <FixableDiagnosticIds>
+      <Id>CS0077</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

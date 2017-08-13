@@ -20,7 +20,7 @@ namespace Roslynator.VisualStudio
             get;
         }
 
-        = CodeFixIdentifiers.UseCoalesceExpression;
+        = CodeFixIdentifiers.ReplaceAsExpressionWithCastExpression;
         protected override void Fill(ICollection<BaseModel> codeFixes)
         {
             codeFixes.Clear();
@@ -97,6 +97,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveAttribute, "Remove attribute (fixes CS0592, CS1689)", IsEnabled(CodeFixIdentifiers.RemoveAttribute)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveJumpStatement, "Remove jump statement (fixes CS0139)", IsEnabled(CodeFixIdentifiers.RemoveJumpStatement)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.UseCoalesceExpression, "Use coalesce expression (fixes CS0266)", IsEnabled(CodeFixIdentifiers.UseCoalesceExpression)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.ReplaceAsExpressionWithCastExpression, "Replace as expression with cast expression (fixes CS0077)", IsEnabled(CodeFixIdentifiers.ReplaceAsExpressionWithCastExpression)));
         }
     }
 }

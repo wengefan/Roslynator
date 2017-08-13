@@ -11,6 +11,7 @@ namespace Roslynator.CSharp
         public const string CannotImplicitlyConvertType = "CS0029";
         public const string CannotConvertNullToTypeBecauseItIsNonNullableValueType = "CS0037";
         public const string EventInInterfaceCannotHaveAddOrRemoveAccessors = "CS0069";
+        public const string AsOperatorMustBeUsedWithReferenceTypeOrNullableType = "CS0077";
         public const string ConstraintsAreNotAllowedOnNonGenericDeclarations = "CS0080";
         public const string NamespaceAlreadyContainsDefinition = "CS0101";
         public const string TypeAlreadyContainsDefinition = "CS0102";
