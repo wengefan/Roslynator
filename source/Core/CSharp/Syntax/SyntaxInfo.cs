@@ -8,6 +8,24 @@ namespace Roslynator.CSharp.Syntax
 {
     public static class SyntaxInfo
     {
+        public static AsExpressionInfo AsExpressionInfo(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.AsExpressionInfo.Create(
+                node,
+                options);
+        }
+
+        public static AsExpressionInfo AsExpressionInfo(
+            BinaryExpressionSyntax binaryExpression,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.AsExpressionInfo.Create(
+                binaryExpression,
+                options);
+        }
+
         public static ConditionalExpressionInfo ConditionalExpressionInfo(
             SyntaxNode node,
             SyntaxInfoOptions options = null)
