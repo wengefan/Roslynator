@@ -1787,6 +1787,12 @@ namespace Roslynator
             return IsIEnumerable(typeSymbol)
                 || IsConstructedFromIEnumerableOfT(typeSymbol);
         }
+
+        public static bool IsReferenceTypeOrNullableType(this ITypeSymbol typeSymbol)
+        {
+            return typeSymbol?.IsReferenceType == true
+                || IsConstructedFrom(typeSymbol, SpecialType.System_Nullable_T);
+        }
         #endregion ITypeSymbol
     }
 }

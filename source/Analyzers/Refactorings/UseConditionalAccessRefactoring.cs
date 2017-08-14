@@ -96,7 +96,7 @@ namespace Roslynator.CSharp.Refactorings
                             SyntaxKind.ElementAccessExpression,
                             SyntaxKind.ConditionalAccessExpression,
                             SyntaxKind.InvocationExpression)
-                        && semanticModel.GetTypeSymbol(nullCheck.Expression, cancellationToken)?.IsReferenceType == true
+                        && semanticModel.GetTypeSymbol(nullCheck.Expression, cancellationToken)?.IsReferenceTypeOrNullableType() == true
                         && !ContainsOutArgumentWithLocal(whenNotNull, semanticModel, cancellationToken))
                     {
                         ExpressionSyntax expression = FindExpressionThatCanBeConditionallyAccessed(nullCheck.Expression, whenNotNull);
