@@ -59,6 +59,7 @@ namespace Roslynator.CSharp
         public const string ClassOrStructConstraintMustComeBeforeAnyOtherConstraints = "CS0449";
         public const string CannotSpecifyBothConstraintClassAndClassOrStructConstraint = "CS0450";
         public const string NewConstraintCannotBeUsedWithStructConstraint = "CS0451";
+        public const string ResultOfExpressionIsAlwaysConstantSinceValueIsNeverEqualToNull = "CS0472";
         public const string MemberCannotDeclareBodyBecauseItIsMarkedAbstract = "CS0500";
         public const string MemberMustDeclareBodyBecauseItIsNotMarkedAbstractExternOrPartial = "CS0501";
         public const string CannotChangeAccessModifiersWhenOverridingInheritedMember = "CS0507";

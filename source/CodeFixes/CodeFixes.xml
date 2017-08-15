@@ -417,4 +417,9 @@
       <Id>CS0077</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0075" Identifier="RemoveConditionThatIsAlwaysEqualToTrueOrFalse" Title="Remove condition that is always equal to true/false">
+    <FixableDiagnosticIds>
+      <Id>CS0472</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

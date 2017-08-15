@@ -62,6 +62,7 @@
     <Compile Include="CS0449_ClassOrStructConstraintMustComeBeforeAnyOtherConstraints.cs" />
     <Compile Include="CS0450_CannotSpecifyBothConstraintClassAndClassOrStructConstraint.cs" />
     <Compile Include="CS0451_NewConstraintCannotBeUsedWithStructConstraint.cs" />
+    <Compile Include="CS0472_ResultOfExpressionIsAlwaysConstantSinceValueIsNeverEqualToNull.cs" />
     <Compile Include="CS0592_AttributeIsNotValidOnThisDeclarationType.cs" />
     <Compile Include="CS0693_TypeParameterHasSameNameAsTypeParameterFromOuterType.cs" />
     <Compile Include="CS0708_CannotDeclareInstanceMembersInStaticClass.cs" />
