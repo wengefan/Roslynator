@@ -1,6 +1,5 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -76,7 +75,7 @@ namespace Roslynator.CSharp.Syntax
 
             VariableDeclarationSyntax variableDeclaration = localDeclarationStatement?.Declaration;
 
-            if (variableDeclaration == null)
+            if (!options.Check(variableDeclaration))
                 return Default;
 
             VariableDeclaratorSyntax variable = variableDeclaration.Variables.SingleOrDefault(throwException: false);
@@ -88,12 +87,12 @@ namespace Roslynator.CSharp.Syntax
         }
 
         internal static SingleLocalDeclarationStatementInfo Create(
-            ExpressionSyntax expression,
+            ExpressionSyntax value,
             SyntaxInfoOptions options = null)
         {
             options = options ?? SyntaxInfoOptions.Default;
 
-            SyntaxNode node = expression?.WalkUpParentheses().Parent;
+            SyntaxNode node = value?.WalkUpParentheses().Parent;
 
             if (node?.Kind() != SyntaxKind.EqualsValueClause)
                 return Default;
