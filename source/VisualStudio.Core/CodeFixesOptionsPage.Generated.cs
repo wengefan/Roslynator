@@ -20,7 +20,7 @@ namespace Roslynator.VisualStudio
             get;
         }
 
-        = CodeFixIdentifiers.RemoveConditionThatIsAlwaysEqualToTrueOrFalse;
+        = CodeFixIdentifiers.IntroduceField;
         protected override void Fill(ICollection<BaseModel> codeFixes)
         {
             codeFixes.Clear();
@@ -99,6 +99,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.UseCoalesceExpression, "Use coalesce expression (fixes CS0266)", IsEnabled(CodeFixIdentifiers.UseCoalesceExpression)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.ReplaceAsExpressionWithCastExpression, "Replace as expression with cast expression (fixes CS0077)", IsEnabled(CodeFixIdentifiers.ReplaceAsExpressionWithCastExpression)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveConditionThatIsAlwaysEqualToTrueOrFalse, "Remove condition that is always equal to true/false (fixes CS0472)", IsEnabled(CodeFixIdentifiers.RemoveConditionThatIsAlwaysEqualToTrueOrFalse)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.IntroduceField, "Introduce field (fixes CS0201)", IsEnabled(CodeFixIdentifiers.IntroduceField)));
         }
     }
 }

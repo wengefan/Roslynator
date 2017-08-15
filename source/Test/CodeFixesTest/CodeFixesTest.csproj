@@ -93,7 +93,7 @@
     <Compile Include="AddStaticModifier.cs" />
     <Compile Include="FixMemberAccessName.cs" />
     <Compile Include="InitializeLocalVariableWithDefaultValue.cs" />
-    <Compile Include="IntroduceLocalVariable.cs" />
+    <Compile Include="CS0201_OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement.cs" />
     <Compile Include="MakeContainingClassAbstract.cs" />
     <Compile Include="MakeMemberNonStatic.cs" />
     <Compile Include="MarkOperatorAsPublicAndStatic.cs" />
