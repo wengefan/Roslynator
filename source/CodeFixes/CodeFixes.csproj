@@ -53,7 +53,6 @@
     <Compile Include="CodeFixes\BaseCodeFixProvider.cs" />
     <Compile Include="CodeFixes\BinaryExpressionCodeFixProvider.cs" />
     <Compile Include="CodeFixes\ConditionalExpressionClauseCodeFixProvider.cs" />
-    <Compile Include="CodeFixes\LocalDeclarationStatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\MemberHidesInheritedMemberCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AddReturnStatementCodeFixProvider.cs" />
     <Compile Include="CodeFixes\AddSemicolonCodeFixProvider.cs" />
