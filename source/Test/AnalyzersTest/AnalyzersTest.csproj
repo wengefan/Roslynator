@@ -54,6 +54,7 @@
     <Compile Include="MergeStringExpressions.cs" />
     <Compile Include="OverridingMemberCannotChangeParamsModifier.cs" />
     <Compile Include="OptimizeStringBuilderAppendCall.cs" />
+    <Compile Include="ReduceIfNesting.cs" />
     <Compile Include="RemoveEmptyInitializer.cs" />
     <Compile Include="RemoveRedundantAutoPropertyInitialization.cs" />
     <Compile Include="RemoveRedundantDefaultSwitchSection.cs" />
@@ -111,7 +112,7 @@
     <Compile Include="UseRegularStringLiteralInsteadOfVerbatimStringLiteral.cs" />
     <Compile Include="UseReturnInsteadOfAssignment.cs" />
     <Compile Include="ValueTypeCheckedForNull.cs" />
-    <Compile Include="NullCheckOfUnconstrainedTypeParameter.cs" />
+    <Compile Include="UnconstrainedTypeParameterCheckedForNull.cs" />
     <Compile Include="SimplifyCoalesceExpression.cs" />
     <Compile Include="CombineEnumerableWhereMethodChain.cs" />
     <Compile Include="CompositeEnumValueContainsUndefinedFlag.cs" />

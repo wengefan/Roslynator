@@ -1,3 +1,39 @@
+### 1.4.55 (2017-08-16)
+
+#### Code Fixes
+
+  * Add code fixes for CS0077, CS0201, CS0472, CS1623.
+
+#### Analyzers
+
+##### New Analyzers
+
+  * ReduceIfNesting (RCS1208)
+
+#### Refactorings
+
+##### New Refactorings
+
+  * ReduceIfNesting (RR0189)
+
+### 1.4.54 (2017-08-08)
+
+#### Code Fixes
+
+  * Improve code fixes for CS0162, CS1061.
+
+#### Analyzers
+
+* Add code fix for analyzer ParameterNameDiffersFromBase (RCS1168)
+
+##### New Analyzers
+
+* UseAttributeUsageAttribute (RCS1203)
+* UseEventArgsEmpty (RCS1204)
+* ReorderNamedArguments (RCS1205)
+* UseConditionalAccessInsteadOfConditionalExpression (RCS1206)
+* UseMethodGroupInsteadOfAnonymousFunction (RCS1207)
+
 ### 1.4.53 (2017-08-02)
 
 #### Code Fixes

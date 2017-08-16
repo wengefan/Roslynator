@@ -19,6 +19,7 @@ namespace Roslynator.CSharp.Analyzers.Test
                 var x = new Foo();
                 var x2 = new Foo();
 
+                string s = null;
                 int i = 0;
                 int? ni = null;
                 int? ni2 = null;
@@ -41,6 +42,12 @@ namespace Roslynator.CSharp.Analyzers.Test
                 i = (ni.HasValue) ? ni.Value : 0;
                 i = (!ni.HasValue) ? 0 : ni.Value;
 
+                s = (x != null) ? x.ToString() : null;
+                s = (x == null) ? null : x.ToString();
+
+                s = (x != null) ? x.ToString() : default(string);
+                s = (x == null) ? default(string) : x.ToString();
+
                 //n
 
                 i = (x != null) ? x2.Value : default(int);
@@ -60,6 +67,9 @@ namespace Roslynator.CSharp.Analyzers.Test
 
                 i = (ni.HasValue) ? ni.Value : 1;
                 i = (!ni.HasValue) ? 1 : ni.Value;
+
+                s = (i != null) ? i.ToString() : null;
+                s = (i == null) ? null : i.ToString();
             }
         }
     }

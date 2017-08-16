@@ -53,7 +53,7 @@ namespace Roslynator.CSharp.Refactorings
                 if (expression != null
                     && context.SemanticModel
                         .GetTypeSymbol(expression, context.CancellationToken)?
-                        .IsConstructedFrom(SpecialType.System_Nullable_T) == false)
+                        .IsReferenceType == true)
                 {
                     ExpressionSyntax right = logicalAndExpression.Right;
 
@@ -96,6 +96,7 @@ namespace Roslynator.CSharp.Refactorings
                             SyntaxKind.ElementAccessExpression,
                             SyntaxKind.ConditionalAccessExpression,
                             SyntaxKind.InvocationExpression)
+                        && semanticModel.GetTypeSymbol(nullCheck.Expression, cancellationToken)?.IsReferenceTypeOrNullableType() == true
                         && !ContainsOutArgumentWithLocal(whenNotNull, semanticModel, cancellationToken))
                     {
                         ExpressionSyntax expression = FindExpressionThatCanBeConditionallyAccessed(nullCheck.Expression, whenNotNull);
@@ -369,7 +370,10 @@ namespace Roslynator.CSharp.Refactorings
                         newNode = SyntaxFactory.ParseExpression(whenNotNull.ToString().Insert(expression.Span.End - whenNotNull.SpanStart, "?"));
                     }
 
-                    newNode = CSharpFactory.CoalesceExpression(newNode.Parenthesize(), whenNull.Parenthesize())
+                    if (!semanticModel.GetTypeSymbol(whenNotNull, cancellationToken).IsReferenceType)
+                        newNode = CSharpFactory.CoalesceExpression(newNode.Parenthesize(), whenNull.Parenthesize());
+
+                    newNode = newNode
                         .WithTriviaFrom(conditionalExpressionSyntax)
                         .Parenthesize();
 
