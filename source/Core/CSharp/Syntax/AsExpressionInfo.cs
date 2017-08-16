@@ -11,17 +11,16 @@ namespace Roslynator.CSharp.Syntax
         private static AsExpressionInfo Default { get; } = new AsExpressionInfo();
 
         private AsExpressionInfo(
+            BinaryExpressionSyntax asExpression,
             ExpressionSyntax expression,
             TypeSyntax type)
         {
+            AsExpression = asExpression;
             Expression = expression;
             Type = type;
         }
 
-        public BinaryExpressionSyntax AsExpression
-        {
-            get { return Expression?.FirstAncestor<BinaryExpressionSyntax>(); }
-        }
+        public BinaryExpressionSyntax AsExpression { get; }
 
         public ExpressionSyntax Expression { get; }
 
@@ -67,7 +66,7 @@ namespace Roslynator.CSharp.Syntax
             if (!options.Check(type))
                 return Default;
 
-            return new AsExpressionInfo(expression, type);
+            return new AsExpressionInfo(binaryExpression, expression, type);
         }
 
         public override string ToString()

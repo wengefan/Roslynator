@@ -26,6 +26,24 @@ namespace Roslynator.CSharp.Syntax
                 options);
         }
 
+        public static BinaryExpressionInfo BinaryExpressionInfo(
+            SyntaxNode node,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.BinaryExpressionInfo.Create(
+                node,
+                options);
+        }
+
+        public static BinaryExpressionInfo BinaryExpressionInfo(
+            BinaryExpressionSyntax binaryExpression,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.BinaryExpressionInfo.Create(
+                binaryExpression,
+                options);
+        }
+
         public static ConditionalExpressionInfo ConditionalExpressionInfo(
             SyntaxNode node,
             SyntaxInfoOptions options = null)
