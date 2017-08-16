@@ -22,7 +22,7 @@ namespace Roslynator.VisualStudio
             get;
         }
 
-        = RefactoringIdentifiers.ReplaceForEachWithForAndReverseLoop;
+        = RefactoringIdentifiers.ReduceIfNesting;
         public RefactoringsOptionsPage()
         {
             AddBraces = true;
@@ -373,7 +373,7 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.WrapInUsingStatement, WrapInUsingStatement);
         }
 
-        public static void SetRefactoringsDisabledByDefault(RefactoringSettings settings)
+        internal static void SetRefactoringsDisabledByDefault(RefactoringSettings settings)
         {
             settings.DisableRefactoring(RefactoringIdentifiers.IntroduceConstructor);
             settings.DisableRefactoring(RefactoringIdentifiers.RemoveAllDocumentationComments);
@@ -567,6 +567,7 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ChangeAccessibility, "Change accessibility", IsEnabled(RefactoringIdentifiers.ChangeAccessibility)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.FormatConstraintClauses, "Format constraint clauses", IsEnabled(RefactoringIdentifiers.FormatConstraintClauses)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceForEachWithForAndReverseLoop, "Replace foreach with for and reverse loop", IsEnabled(RefactoringIdentifiers.ReplaceForEachWithForAndReverseLoop)));
+            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReduceIfNesting, "Reduce if nesting", IsEnabled(RefactoringIdentifiers.ReduceIfNesting)));
         }
 
         [Browsable(false)]
