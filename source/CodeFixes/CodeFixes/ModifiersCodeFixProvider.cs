@@ -25,7 +25,7 @@ namespace Roslynator.CSharp.CodeFixes
         private static readonly Accessibility[] _publicOrInternal = new Accessibility[]
         {
             Accessibility.Public,
-            Accessibility.Internal,
+            Accessibility.Internal
         };
 
         private static readonly Accessibility[] _publicOrInternalOrProtected = new Accessibility[]
@@ -72,7 +72,9 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.TypeAlreadyContainsDefinition,
                     CompilerDiagnosticIdentifiers.NoSuitableMethodFoundToOverride,
                     CompilerDiagnosticIdentifiers.ExtensionMethodMustBeDefinedInNonGenericStaticClass,
-                    CompilerDiagnosticIdentifiers.AsyncMethodsCannotHaveRefOrOutParameters);
+                    CompilerDiagnosticIdentifiers.AsyncMethodsCannotHaveRefOrOutParameters,
+                    CompilerDiagnosticIdentifiers.IteratorsCannotHaveRefOrOutParameters,
+                    CompilerDiagnosticIdentifiers.CannotHaveInstancePropertyOrFieldInitializersInStruct);
             }
         }
 
@@ -92,9 +94,7 @@ namespace Roslynator.CSharp.CodeFixes
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
-            SyntaxToken token = root.FindToken(context.Span.Start);
-
-            if (token.IsKind(SyntaxKind.None))
+            if (!TryFindToken(root, context.Span.Start, out SyntaxToken token))
                 return;
 
             SyntaxNode node = token.Parent;
@@ -404,12 +404,20 @@ namespace Roslynator.CSharp.CodeFixes
                             break;
                         }
                     case CompilerDiagnosticIdentifiers.AsyncMethodsCannotHaveRefOrOutParameters:
+                    case CompilerDiagnosticIdentifiers.IteratorsCannotHaveRefOrOutParameters:
                         {
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveRefModifier))
                                 RemoveModifier(context, diagnostic, node, SyntaxKind.RefKeyword);
 
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveOutModifier))
                                 RemoveModifier(context, diagnostic, node, SyntaxKind.OutKeyword);
+
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.CannotHaveInstancePropertyOrFieldInitializersInStruct:
+                        {
+                            if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddStaticModifier))
+                                AddStaticModifier(context, diagnostic, node, CodeFixIdentifiers.AddStaticModifier);
 
                             break;
                         }

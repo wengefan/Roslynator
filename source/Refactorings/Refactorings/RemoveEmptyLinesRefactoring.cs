@@ -5,7 +5,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
 using Roslynator.Utilities;
 
@@ -17,7 +16,7 @@ namespace Roslynator.CSharp.Refactorings
         {
             if (node
                 .DescendantTrivia(context.Span, descendIntoTrivia: true)
-                .Any(f => f.IsKind(SyntaxKind.EndOfLineTrivia)))
+                .Any(f => f.IsEndOfLineTrivia()))
             {
                 SourceText sourceText = await context.Document.GetTextAsync(context.CancellationToken).ConfigureAwait(false);
 
@@ -38,7 +37,7 @@ namespace Roslynator.CSharp.Refactorings
             SourceText sourceText = await document.GetTextAsync(cancellationToken).ConfigureAwait(false);
 
             IEnumerable<TextChange> textChanges = GetEmptyLines(sourceText, root, span)
-                .Select(line => new TextChange(line.SpanIncludingLineBreak, string.Empty));
+                .Select(line => new TextChange(line.SpanIncludingLineBreak, ""));
 
             SourceText newSourceText = sourceText.WithChanges(textChanges);
 
@@ -56,7 +55,7 @@ namespace Roslynator.CSharp.Refactorings
                 {
                     SyntaxTrivia endOfLine = root.FindTrivia(line.End, findInsideTrivia: true);
 
-                    if (endOfLine.IsKind(SyntaxKind.EndOfLineTrivia))
+                    if (endOfLine.IsEndOfLineTrivia())
                         yield return line;
                 }
             }

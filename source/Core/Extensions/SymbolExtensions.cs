@@ -832,6 +832,21 @@ namespace Roslynator
 
             return false;
         }
+
+        public static bool IsRef(this IParameterSymbol parameterSymbol)
+        {
+            return parameterSymbol?.RefKind == RefKind.Ref;
+        }
+
+        public static bool IsOut(this IParameterSymbol parameterSymbol)
+        {
+            return parameterSymbol?.RefKind == RefKind.Out;
+        }
+
+        public static bool IsRefOrOut(this IParameterSymbol parameterSymbol)
+        {
+            return parameterSymbol?.RefKind.IsRefOrOut() == true;
+        }
         #endregion IParameterSymbol
 
         #region IPropertySymbol
@@ -1743,17 +1758,20 @@ namespace Roslynator
             return false;
         }
 
-        public static bool IsIEnumerableOf(this ITypeSymbol typeSymbol, SpecialType specialTypeArgument)
+        public static bool IsIEnumerableOf(this ITypeSymbol typeSymbol, Func<ITypeSymbol, bool> typeArgumentPredicate)
         {
             if (typeSymbol == null)
                 throw new ArgumentNullException(nameof(typeSymbol));
+
+            if (typeArgumentPredicate == null)
+                throw new ArgumentNullException(nameof(typeArgumentPredicate));
 
             if (typeSymbol.IsNamedType())
             {
                 var namedTypeSymbol = (INamedTypeSymbol)typeSymbol;
 
-                return IsConstructedFrom(namedTypeSymbol, SpecialType.System_Collections_Generic_IEnumerable_T)
-                    && namedTypeSymbol.TypeArguments[0].SpecialType == specialTypeArgument;
+                return namedTypeSymbol.ConstructedFrom.SpecialType == SpecialType.System_Collections_Generic_IEnumerable_T
+                    && typeArgumentPredicate(namedTypeSymbol.TypeArguments[0]);
             }
 
             return false;
@@ -1768,6 +1786,12 @@ namespace Roslynator
         {
             return IsIEnumerable(typeSymbol)
                 || IsConstructedFromIEnumerableOfT(typeSymbol);
+        }
+
+        public static bool IsReferenceTypeOrNullableType(this ITypeSymbol typeSymbol)
+        {
+            return typeSymbol?.IsReferenceType == true
+                || IsConstructedFrom(typeSymbol, SpecialType.System_Nullable_T);
         }
         #endregion ITypeSymbol
     }

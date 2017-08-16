@@ -1,7 +1,6 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
-using System.Diagnostics;
 using System.Linq;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -15,7 +14,7 @@ namespace Roslynator.CSharp
         #region Trivia
         public static SyntaxTrivia EmptyWhitespace()
         {
-            return SyntaxTrivia(SyntaxKind.WhitespaceTrivia, string.Empty);
+            return SyntaxTrivia(SyntaxKind.WhitespaceTrivia, "");
         }
 
         public static SyntaxTrivia NewLine()
@@ -1415,78 +1414,6 @@ namespace Roslynator.CSharp
                 expressionBody,
                 default(EqualsValueClauseSyntax));
         }
-
-        public static PropertyDeclarationSyntax AutoPropertyDeclaration(AutoPropertyKind kind, TypeSyntax type, SyntaxToken identifier)
-        {
-            return AutoPropertyDeclaration(
-                kind,
-                default(SyntaxTokenList),
-                type,
-                identifier);
-        }
-
-        public static PropertyDeclarationSyntax AutoPropertyDeclaration(AutoPropertyKind kind, SyntaxTokenList modifiers, TypeSyntax type, SyntaxToken identifier)
-        {
-            return AutoPropertyDeclaration(
-                kind,
-                default(SyntaxList<AttributeListSyntax>),
-                modifiers,
-                type,
-                default(ExplicitInterfaceSpecifierSyntax),
-                identifier);
-        }
-
-        public static PropertyDeclarationSyntax AutoPropertyDeclaration(
-            AutoPropertyKind kind,
-            SyntaxList<AttributeListSyntax> attributeLists,
-            SyntaxTokenList modifiers,
-            TypeSyntax type,
-            ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier,
-            SyntaxToken identifier)
-        {
-            switch (kind)
-            {
-                case AutoPropertyKind.None:
-                    {
-                        return SyntaxFactory.PropertyDeclaration(
-                            attributeLists,
-                            modifiers,
-                            type,
-                            explicitInterfaceSpecifier,
-                            identifier,
-                            AccessorList(
-                                AutoGetAccessorDeclaration(),
-                                AutoSetAccessorDeclaration()));
-                    }
-                case AutoPropertyKind.PrivateSet:
-                    {
-                        return SyntaxFactory.PropertyDeclaration(
-                            attributeLists,
-                            modifiers,
-                            type,
-                            explicitInterfaceSpecifier,
-                            identifier,
-                            AccessorList(
-                                AutoGetAccessorDeclaration(),
-                                AutoSetAccessorDeclaration(Modifiers.Private())));
-                    }
-                case AutoPropertyKind.ReadOnly:
-                    {
-                        return SyntaxFactory.PropertyDeclaration(
-                            attributeLists,
-                            modifiers,
-                            type,
-                            explicitInterfaceSpecifier,
-                            identifier,
-                            AccessorList(AutoGetAccessorDeclaration()));
-                    }
-                default:
-                    {
-                        Debug.Fail(kind.ToString());
-                        throw new ArgumentOutOfRangeException(nameof(kind));
-                    }
-            }
-        }
         #endregion MemberDeclaration
 
         #region AccessorDeclaration
@@ -2127,6 +2054,11 @@ namespace Roslynator.CSharp
             return SyntaxFactory.LiteralExpression(SyntaxKind.FalseLiteralExpression);
         }
 
+        public static LiteralExpressionSyntax BooleanLiteralExpression(bool value)
+        {
+            return (value) ? TrueLiteralExpression() : FalseLiteralExpression();
+        }
+
         public static LiteralExpressionSyntax NullLiteralExpression()
         {
             return SyntaxFactory.LiteralExpression(SyntaxKind.NullLiteralExpression);
@@ -2303,6 +2235,22 @@ namespace Roslynator.CSharp
             return SyntaxFactory.Attribute(
                 name,
                 AttributeArgumentList(argument));
+        }
+
+        public static AttributeArgumentSyntax AttributeArgument(NameEqualsSyntax nameEquals, ExpressionSyntax expression)
+        {
+            return SyntaxFactory.AttributeArgument(
+                nameEquals: nameEquals,
+                nameColon: null,
+                expression: expression);
+        }
+
+        public static AttributeArgumentSyntax AttributeArgument(NameColonSyntax nameColon, ExpressionSyntax expression)
+        {
+            return SyntaxFactory.AttributeArgument(
+                nameEquals: null,
+                nameColon: nameColon,
+                expression: expression);
         }
 
         public static ParameterSyntax Parameter(TypeSyntax type, string identifier, EqualsValueClauseSyntax @default = null)

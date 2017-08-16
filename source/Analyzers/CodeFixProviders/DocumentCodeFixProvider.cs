@@ -7,7 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 
-namespace Roslynator.CSharp.CodeFixProviders
+namespace Roslynator.CSharp.CodeFixes
 {
     [ExportCodeFixProvider(LanguageNames.CSharp, Name = nameof(DocumentCodeFixProvider))]
     [Shared]
@@ -29,7 +29,7 @@ namespace Roslynator.CSharp.CodeFixProviders
                             CodeAction codeAction = CodeAction.Create(
                                 "Remove file with no code",
                                 cancellationToken => RemoveFromSolutionAsync(context.Document),
-                                diagnostic.Id + EquivalenceKeySuffix);
+                                GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
                             break;
@@ -42,7 +42,7 @@ namespace Roslynator.CSharp.CodeFixProviders
 
         public static Task<Solution> RemoveFromSolutionAsync(Document document)
         {
-            return Task.FromResult(document.Project.Solution.RemoveDocument(document.Id));
+            return Task.FromResult(document.Solution().RemoveDocument(document.Id));
         }
     }
 }

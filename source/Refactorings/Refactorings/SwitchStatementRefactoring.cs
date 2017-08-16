@@ -3,7 +3,7 @@
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Roslynator.Text;
+using Microsoft.CodeAnalysis.Text;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -25,10 +25,15 @@ namespace Roslynator.CSharp.Refactorings
 
             SelectedSwitchSectionsRefactoring.ComputeRefactorings(context, switchStatement);
 
-            if (context.IsRefactoringEnabled(RefactoringIdentifiers.ReplaceSwitchWithIfElse)
-                && context.Span.IsBetweenSpans(switchStatement))
+            if (context.IsRefactoringEnabled(RefactoringIdentifiers.ReplaceSwitchWithIfElse))
             {
-                ReplaceSwitchWithIfElseRefactoring.ComputeRefactoring(context, switchStatement);
+                TextSpan span = context.Span;
+
+                if (span.IsEmptyAndContainedInSpan(switchStatement.SwitchKeyword)
+                    || span.IsBetweenSpans(switchStatement))
+                {
+                    ReplaceSwitchWithIfElseRefactoring.ComputeRefactoring(context, switchStatement);
+                }
             }
         }
     }

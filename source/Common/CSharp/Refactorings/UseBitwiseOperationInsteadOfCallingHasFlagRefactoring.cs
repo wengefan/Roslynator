@@ -49,8 +49,8 @@ namespace Roslynator.CSharp.Refactorings
         {
             ParenthesizedExpressionSyntax parenthesizedExpression = ParenthesizedExpression(
                 BitwiseAndExpression(
-                    ((MemberAccessExpressionSyntax)invocation.Expression).Expression,
-                    invocation.ArgumentList.Arguments[0].Expression));
+                    ((MemberAccessExpressionSyntax)invocation.Expression).Expression.Parenthesize(),
+                    invocation.ArgumentList.Arguments[0].Expression).Parenthesize());
 
             var binaryExpressionKind = SyntaxKind.NotEqualsExpression;
             SyntaxNode nodeToReplace = invocation;
@@ -90,8 +90,7 @@ namespace Roslynator.CSharp.Refactorings
 
             ParenthesizedExpressionSyntax newNode = BinaryExpression(binaryExpressionKind, parenthesizedExpression, NumericLiteralExpression(0))
                 .WithTriviaFrom(nodeToReplace)
-                .Parenthesize(moveTrivia: true)
-                .WithSimplifierAnnotation()
+                .Parenthesize()
                 .WithFormatterAnnotation();
 
             return document.ReplaceNodeAsync(nodeToReplace, newNode, cancellationToken);

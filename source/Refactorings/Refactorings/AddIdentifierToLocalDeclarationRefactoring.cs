@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -32,10 +31,10 @@ namespace Roslynator.CSharp.Refactorings
                     if (triviaList.Any())
                     {
                         SyntaxTrivia trivia = triviaList
-                            .SkipWhile(f => f.IsKind(SyntaxKind.WhitespaceTrivia))
+                            .SkipWhile(f => f.IsWhitespaceTrivia())
                             .FirstOrDefault();
 
-                        if (trivia.IsKind(SyntaxKind.EndOfLineTrivia)
+                        if (trivia.IsEndOfLineTrivia()
                             && context.Span.End <= trivia.Span.Start)
                         {
                             SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
@@ -98,7 +97,7 @@ namespace Roslynator.CSharp.Refactorings
             CancellationToken cancellationToken = default(CancellationToken))
         {
             SyntaxTrivia endOfLine = type.GetTrailingTrivia()
-                .SkipWhile(f => f.IsKind(SyntaxKind.WhitespaceTrivia))
+                .SkipWhile(f => f.IsWhitespaceTrivia())
                 .First();
 
             TextSpan span = TextSpan.FromBounds(type.Span.End, endOfLine.Span.Start);

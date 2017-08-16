@@ -9,11 +9,16 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.CodeAnalysis.Simplification;
 using Microsoft.CodeAnalysis.Text;
+using Roslynator.Diagnostics;
 
 namespace Roslynator
 {
     public static class SyntaxExtensions
     {
+        private static readonly SyntaxAnnotation[] _formatterAnnotationArray = new SyntaxAnnotation[] { Formatter.Annotation };
+
+        private static readonly SyntaxAnnotation[] _simplifierAnnotationArray = new SyntaxAnnotation[] { Simplifier.Annotation };
+
         private static readonly SyntaxAnnotation[] _formatterAndSimplifierAnnotations = new SyntaxAnnotation[] { Formatter.Annotation, Simplifier.Annotation };
 
         #region SeparatedSyntaxList<T>
@@ -24,13 +29,14 @@ namespace Roslynator
 
         public static bool IsFirst<TNode>(this SeparatedSyntaxList<TNode> list, TNode node) where TNode : SyntaxNode
         {
-            return list.IndexOf(node) == 0;
+            return list.Any()
+                && list.First() == node;
         }
 
         public static bool IsLast<TNode>(this SeparatedSyntaxList<TNode> list, TNode node) where TNode : SyntaxNode
         {
             return list.Any()
-                && list.IndexOf(node) == list.Count - 1;
+                && list.Last() == node;
         }
 
         public static bool Any<TNode>(this SeparatedSyntaxList<TNode> list, Func<TNode, bool> predicate) where TNode : SyntaxNode
@@ -70,13 +76,14 @@ namespace Roslynator
 
         public static bool IsFirst<TNode>(this SyntaxList<TNode> list, TNode node) where TNode : SyntaxNode
         {
-            return list.IndexOf(node) == 0;
+            return list.Any()
+                && list.First() == node;
         }
 
         public static bool IsLast<TNode>(this SyntaxList<TNode> list, TNode node) where TNode : SyntaxNode
         {
             return list.Any()
-                && list.IndexOf(node) == list.Count - 1;
+                && list.Last() == node;
         }
 
         public static bool Any<TNode>(this SyntaxList<TNode> list, Func<TNode, bool> predicate) where TNode : SyntaxNode
@@ -325,7 +332,7 @@ namespace Roslynator
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
 
-            return node.WithAdditionalAnnotations(Formatter.Annotation);
+            return node.WithAdditionalAnnotations(_formatterAnnotationArray);
         }
 
         public static TNode WithSimplifierAnnotation<TNode>(this TNode node) where TNode : SyntaxNode
@@ -333,7 +340,12 @@ namespace Roslynator
             if (node == null)
                 throw new ArgumentNullException(nameof(node));
 
-            return node.WithAdditionalAnnotations(Simplifier.Annotation);
+            return node.WithAdditionalAnnotations(_simplifierAnnotationArray);
+        }
+
+        internal static TNode WithSimplifierAnnotationIf<TNode>(this TNode node, bool condition) where TNode : SyntaxNode
+        {
+            return (condition) ? node.WithAdditionalAnnotations(_simplifierAnnotationArray) : node;
         }
 
         internal static TNode WithFormatterAndSimplifierAnnotations<TNode>(this TNode node) where TNode : SyntaxNode
@@ -520,12 +532,12 @@ namespace Roslynator
 
         public static SyntaxToken WithFormatterAnnotation(this SyntaxToken token)
         {
-            return token.WithAdditionalAnnotations(Formatter.Annotation);
+            return token.WithAdditionalAnnotations(_formatterAnnotationArray);
         }
 
         public static SyntaxToken WithSimplifierAnnotation(this SyntaxToken token)
         {
-            return token.WithAdditionalAnnotations(Simplifier.Annotation);
+            return token.WithAdditionalAnnotations(_simplifierAnnotationArray);
         }
 
         internal static SyntaxToken WithFormatterAndSimplifierAnnotations(this SyntaxToken token)
@@ -674,6 +686,16 @@ namespace Roslynator
             {
                 return -1;
             }
+        }
+
+        internal static TextSpan LeadingTriviaSpan(this SyntaxTrivia trivia)
+        {
+            return TextSpan.FromBounds(trivia.FullSpan.Start, trivia.Span.Start);
+        }
+
+        internal static TextSpan TrailingTriviaSpan(this SyntaxTrivia trivia)
+        {
+            return TextSpan.FromBounds(trivia.Span.End, trivia.FullSpan.End);
         }
         #endregion SyntaxTrivia
 

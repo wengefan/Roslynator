@@ -93,6 +93,7 @@ namespace Roslynator.CSharp.Refactorings
         public const string NotifyPropertyChanged = Prefix + "0083";
         public const string ParenthesizeExpression = Prefix + "0084";
         public const string PromoteLocalToParameter = Prefix + "0085";
+        public const string ReduceIfNesting = Prefix + "0189";
         public const string RemoveAllComments = Prefix + "0086";
         public const string RemoveAllCommentsExceptDocumentationComments = Prefix + "0087";
         public const string RemoveAllDocumentationComments = Prefix + "0088";
@@ -134,7 +135,7 @@ namespace Roslynator.CSharp.Refactorings
         public const string ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace = Prefix + "0126";
         public const string ReplaceExpressionWithConstantValue = Prefix + "0127";
         public const string ReplaceForEachWithFor = Prefix + "0129";
-        public const string ReplaceForEachWithForAndReverseLoop = Prefix + "0187";
+        public const string ReplaceForEachWithForAndReverseLoop = Prefix + "0188";
         public const string ReplaceForWithForEach = Prefix + "0130";
         public const string ReplaceForWithWhile = Prefix + "0131";
         public const string ReplaceHexadecimalLiteralWithDecimalLiteral = Prefix + "0132";

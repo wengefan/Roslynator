@@ -2,8 +2,6 @@
 
 using System.Collections.Immutable;
 using System.Composition;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
@@ -23,77 +21,31 @@ namespace Roslynator.CSharp.CodeFixes
             get
             {
                 return ImmutableArray.Create(
-                    CompilerDiagnosticIdentifiers.UnreachableCodeDetected,
                     CompilerDiagnosticIdentifiers.EmptySwitchBlock,
-                    CompilerDiagnosticIdentifiers.OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement);
+                    CompilerDiagnosticIdentifiers.OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement,
+                    CompilerDiagnosticIdentifiers.NoEnclosingLoopOutOfWhichToBreakOrContinue);
             }
         }
 
         public sealed override async Task RegisterCodeFixesAsync(CodeFixContext context)
         {
             if (!Settings.IsAnyCodeFixEnabled(
-                CodeFixIdentifiers.RemoveUnreachableCode,
                 CodeFixIdentifiers.RemoveEmptySwitchStatement,
-                CodeFixIdentifiers.IntroduceLocalVariable))
+                CodeFixIdentifiers.IntroduceLocalVariable,
+                CodeFixIdentifiers.RemoveJumpStatement))
             {
                 return;
             }
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
-            StatementSyntax statement = root
-                .FindNode(context.Span, getInnermostNodeForTie: true)?
-                .FirstAncestorOrSelf<StatementSyntax>();
-
-            Debug.Assert(statement != null, $"{nameof(statement)} is null");
-
-            if (statement == null)
+            if (!TryFindFirstAncestorOrSelf(root, context.Span, out StatementSyntax statement))
                 return;
 
             foreach (Diagnostic diagnostic in context.Diagnostics)
             {
                 switch (diagnostic.Id)
                 {
-                    case CompilerDiagnosticIdentifiers.UnreachableCodeDetected:
-                        {
-                            if (context.Span.Start == statement.SpanStart)
-                            {
-                                StatementContainer container;
-                                if (StatementContainer.TryCreate(statement, out container))
-                                {
-                                    CodeAction codeAction = CodeAction.Create(
-                                        "Remove unreachable code",
-                                        cancellationToken =>
-                                        {
-                                            SyntaxList<StatementSyntax> statements = container.Statements;
-
-                                            int index = statements.IndexOf(statement);
-
-                                            if (index == statements.Count - 1)
-                                            {
-                                                return context.Document.RemoveStatementAsync(statement, context.CancellationToken);
-                                            }
-                                            else
-                                            {
-                                                SyntaxRemoveOptions removeOptions = RemoveHelper.DefaultRemoveOptions;
-
-                                                if (statement.GetLeadingTrivia().All(f => f.IsWhitespaceOrEndOfLineTrivia()))
-                                                    removeOptions &= ~SyntaxRemoveOptions.KeepLeadingTrivia;
-
-                                                if (statements.Last().GetTrailingTrivia().All(f => f.IsWhitespaceOrEndOfLineTrivia()))
-                                                    removeOptions &= ~SyntaxRemoveOptions.KeepTrailingTrivia;
-
-                                                return context.Document.RemoveNodesAsync(statements.Skip(index), removeOptions, context.CancellationToken);
-                                            }
-                                        },
-                                        GetEquivalenceKey(diagnostic));
-
-                                    context.RegisterCodeFix(codeAction, diagnostic);
-                                }
-                            }
-
-                            break;
-                        }
                     case CompilerDiagnosticIdentifiers.EmptySwitchBlock:
                         {
                             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveEmptySwitchStatement))
@@ -114,36 +66,62 @@ namespace Roslynator.CSharp.CodeFixes
                         }
                     case CompilerDiagnosticIdentifiers.OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement:
                         {
-                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.IntroduceLocalVariable))
-                                break;
-
-                            if (!statement.IsKind(SyntaxKind.ExpressionStatement))
-                                break;
-
-                            var expressionStatement = (ExpressionStatementSyntax)statement;
-
-                            ExpressionSyntax expression = expressionStatement.Expression;
-
-                            SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
-
-                            if (semanticModel.GetSymbol(expression, context.CancellationToken)?.IsErrorType() == false)
+                            if (Settings.IsAnyCodeFixEnabled(
+                                CodeFixIdentifiers.IntroduceLocalVariable,
+                                CodeFixIdentifiers.IntroduceField))
                             {
+                                if (!(statement is ExpressionStatementSyntax expressionStatement))
+                                    break;
+
+                                ExpressionSyntax expression = expressionStatement.Expression;
+
+                                SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
+
+                                if (semanticModel.GetSymbol(expression, context.CancellationToken)?.IsErrorType() != false)
+                                    break;
+
                                 ITypeSymbol typeSymbol = semanticModel.GetTypeSymbol(expression, context.CancellationToken);
 
-                                if (typeSymbol?.IsErrorType() == false)
-                                {
-                                    bool addAwait = typeSymbol.IsConstructedFromTaskOfT(semanticModel)
-                                        && semanticModel.GetEnclosingSymbol(expressionStatement.SpanStart, context.CancellationToken).IsAsyncMethod();
+                                if (typeSymbol?.IsErrorType() != false)
+                                    break;
 
+                                bool addAwait = typeSymbol.IsConstructedFromTaskOfT(semanticModel)
+                                    && semanticModel.GetEnclosingSymbol(expressionStatement.SpanStart, context.CancellationToken).IsAsyncMethod();
+
+                                if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.IntroduceLocalVariable))
+                                {
                                     CodeAction codeAction = CodeAction.Create(
                                         IntroduceLocalVariableRefactoring.GetTitle(expression),
                                         cancellationToken => IntroduceLocalVariableRefactoring.RefactorAsync(context.Document, expressionStatement, typeSymbol, addAwait, semanticModel, cancellationToken),
-                                        GetEquivalenceKey(diagnostic));
+                                        GetEquivalenceKey(diagnostic, CodeFixIdentifiers.IntroduceLocalVariable));
+
+                                    context.RegisterCodeFix(codeAction, diagnostic);
+                                }
+
+                                if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.IntroduceField))
+                                {
+                                    CodeAction codeAction = CodeAction.Create(
+                                        $"Introduce field for '{expression}'",
+                                        cancellationToken => IntroduceFieldRefactoring.RefactorAsync(context.Document, expressionStatement, typeSymbol, semanticModel, cancellationToken),
+                                        GetEquivalenceKey(diagnostic, CodeFixIdentifiers.IntroduceField));
 
                                     context.RegisterCodeFix(codeAction, diagnostic);
                                 }
                             }
 
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.NoEnclosingLoopOutOfWhichToBreakOrContinue:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveJumpStatement))
+                                break;
+
+                            CodeAction codeAction = CodeAction.Create(
+                                $"Remove {statement.GetTitle()}",
+                                cancellationToken => context.Document.RemoveStatementAsync(statement, cancellationToken),
+                                GetEquivalenceKey(diagnostic));
+
+                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                 }

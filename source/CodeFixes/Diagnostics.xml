@@ -5,6 +5,7 @@
   <Diagnostic Id="CS0029" Identifier="CannotImplicitlyConvertType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0029" />
   <Diagnostic Id="CS0037" Identifier="CannotConvertNullToTypeBecauseItIsNonNullableValueType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0037" />
   <Diagnostic Id="CS0069" Identifier="EventInInterfaceCannotHaveAddOrRemoveAccessors" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0069" />
+  <Diagnostic Id="CS0077" Identifier="AsOperatorMustBeUsedWithReferenceTypeOrNullableType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0077" />
   <Diagnostic Id="CS0080" Identifier="ConstraintsAreNotAllowedOnNonGenericDeclarations" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080" />
   <Diagnostic Id="CS0101" Identifier="NamespaceAlreadyContainsDefinition" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0101" />
   <Diagnostic Id="CS0102" Identifier="TypeAlreadyContainsDefinition" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0102" />
@@ -22,6 +23,7 @@
   <Diagnostic Id="CS0132" Identifier="StaticConstructorMustBeParameterless" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0132" />
   <Diagnostic Id="CS0133" Identifier="ExpressionBeingAssignedMustBeConstant" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0133" />
   <Diagnostic Id="CS0136" Identifier="LocalOrParameterCannotBeDeclaredInThisScopeBecauseThatNameIsUsedInEnclosingScopeToDefineLocalOrParameter" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0136" />
+  <Diagnostic Id="CS0139" Identifier="NoEnclosingLoopOutOfWhichToBreakOrContinue" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0139" />
   <Diagnostic Id="CS0161" Identifier="NotAllCodePathsReturnValue" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0161" />
   <Diagnostic Id="CS0162" Identifier="UnreachableCodeDetected" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0162" />
   <Diagnostic Id="CS0163" Identifier="ControlCannotFallThroughFromOneCaseLabelToAnother" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0163" />
@@ -51,6 +53,7 @@
   <Diagnostic Id="CS0449" Identifier="ClassOrStructConstraintMustComeBeforeAnyOtherConstraints" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0449" />
   <Diagnostic Id="CS0450" Identifier="CannotSpecifyBothConstraintClassAndClassOrStructConstraint" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0450" />
   <Diagnostic Id="CS0451" Identifier="NewConstraintCannotBeUsedWithStructConstraint" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0451" />
+  <Diagnostic Id="CS0472" Identifier="ResultOfExpressionIsAlwaysConstantSinceValueIsNeverEqualToNull" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0472" />
   <Diagnostic Id="CS0500" Identifier="MemberCannotDeclareBodyBecauseItIsMarkedAbstract" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0500" />
   <Diagnostic Id="CS0501" Identifier="MemberMustDeclareBodyBecauseItIsNotMarkedAbstractExternOrPartial" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0501" />
   <Diagnostic Id="CS0507" Identifier="CannotChangeAccessModifiersWhenOverridingInheritedMember" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0507" />
@@ -61,6 +64,7 @@
   <Diagnostic Id="CS0558" Identifier="UserDefinedOperatorMustBeDeclaredStaticAndPublic" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0558" />
   <Diagnostic Id="CS0573" Identifier="CannotHaveInstancePropertyOrFieldInitializersInStruct" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0573" />
   <Diagnostic Id="CS0579" Identifier="DuplicateAttribute" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0579" />
+  <Diagnostic Id="CS0592" Identifier="AttributeIsNotValidOnThisDeclarationType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0592" />
   <Diagnostic Id="CS0621" Identifier="VirtualOrAbstractmembersCannotBePrivate " HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0621" />
   <Diagnostic Id="CS0628" Identifier="NewProtectedMemberDeclaredInSealedClass" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0628" />
   <Diagnostic Id="CS0678" Identifier="FieldCanNotBeBothVolatileAndReadOnly" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0678" />
@@ -94,8 +98,10 @@
   <Diagnostic Id="CS1620" Identifier="ArgumentMustBePassedWithOutKeyword" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1620" />
   <Diagnostic Id="CS1621" Identifier="YieldStatementCannotBeUsedInsideAnonymousMethodOrLambdaExpression" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1621" />
   <Diagnostic Id="CS1622" Identifier="CannotReturnValueFromIterator" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1622" />
+  <Diagnostic Id="CS1623" Identifier="IteratorsCannotHaveRefOrOutParameters" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1623" />
   <Diagnostic Id="CS1643" Identifier="NotAllCodePathsReturnValueInAnonymousFunction" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1643" />
   <Diagnostic Id="CS1674" Identifier="TypeUsedInUsingStatementMustBeImplicitlyConvertibleToIDisposable" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs1674" />
+  <Diagnostic Id="CS1689" Identifier="AttributeIsOnlyValidOnMethodsOrAttributeClasses" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1689" />
   <Diagnostic Id="CS1715" Identifier="MemberTypeMustMatchOverriddenMemberType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1715" />
   <Diagnostic Id="CS1717" Identifier="AssignmentMadeToSameVariable" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1717" />
   <Diagnostic Id="CS1722" Identifier="BaseClassMustComeBeforeAnyInterface" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs1722" />

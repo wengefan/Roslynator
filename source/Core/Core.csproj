@@ -44,8 +44,19 @@
     <Compile Include="CSharp\AccessibilityHelper.cs" />
     <Compile Include="CSharp\AccessibilityInfo.cs" />
     <Compile Include="CSharp\Analysis\BracesAnalysisResult.cs" />
+    <Compile Include="CSharp\CodeFixes\AbstractCodeFixProvider.cs" />
     <Compile Include="CSharp\GenericDeclarationHelper.cs" />
     <Compile Include="CSharp\Helpers\DetermineParameterTypeHelper.cs" />
+    <Compile Include="CSharp\Refactorings\RefactoringIdentifierSet.cs" />
+    <Compile Include="CSharp\Refactorings\RefactoringSettings.cs" />
+    <Compile Include="CSharp\Syntax\ConditionalExpressionInfo.cs" />
+    <Compile Include="CSharp\Syntax\NullCheckExpression.cs" />
+    <Compile Include="CSharp\Syntax\NullCheckKind.cs" />
+    <Compile Include="DocumentReferenceInfo.cs" />
+    <Compile Include="Diagnostics\Assert.cs" />
+    <Compile Include="Extensions\RefKindExtensions.cs" />
+    <Compile Include="SyntaxComparer.cs" />
+    <Compile Include="SyntaxFinder.cs" />
     <Compile Include="CSharp\TypeParameterInfo.cs" />
     <Compile Include="CSharp\InterpolatedStringContentConversion.cs" />
     <Compile Include="CSharp\OperatorPrecedence.cs" />
@@ -89,7 +100,6 @@
     <Compile Include="CSharp\Documentation\BaseDocumentationCommentOrigin.cs" />
     <Compile Include="CSharp\Extensions\DocumentExtensions.cs" />
     <Compile Include="CSharp\SyntaxRewriters\WhitespaceOrEndOfLineTriviaRewriter.cs" />
-    <Compile Include="CSharp\Refactorings\GenerateBaseConstructorsRefactoring.cs" />
     <Compile Include="CSharp\Syntax\EqualsToNullExpression.cs" />
     <Compile Include="CSharp\StatementContainer.cs" />
     <Compile Include="CSharp\Syntax\SingleLocalDeclarationStatement.cs" />
@@ -126,7 +136,6 @@
     <Compile Include="CSharp\CSharpFactory.cs" />
     <Compile Include="CSharp\Helpers\DetermineParameterHelper.cs" />
     <Compile Include="CSharp\Extensions\SyntaxExtensions.cs" />
-    <Compile Include="CSharp\AutoPropertyKind.cs" />
     <Compile Include="CSharp\Documentation\AddNewDocumentationCommentRewriter.cs" />
     <Compile Include="DefaultNames.cs" />
     <Compile Include="CSharp\Syntax\MemberInvocationExpression.cs" />
@@ -137,8 +146,9 @@
     <Compile Include="Utilities\FlagsUtility.cs" />
     <Compile Include="Utilities\Deferred`1.cs" />
     <Compile Include="MethodInfo.cs" />
+    <Compile Include="Utilities\SemanticUtilities.cs" />
     <Compile Include="Utilities\SymbolUtility.cs" />
-    <Compile Include="NodeWriter.cs" />
+    <Compile Include="Text\SyntaxNodeTextBuilder.cs" />
     <Compile Include="CSharp\SyntaxRewriters\CommentRemover.cs" />
     <Compile Include="CSharp\Analysis\TypeAnalysisFlags.cs" />
     <Compile Include="CSharp\RemoveHelper.cs" />
@@ -175,7 +185,9 @@
     <None Include="Roslynator.Core.snk" />
     <None Include="Roslynator.Core.nuspec" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="CSharp\Refactorings\" />
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Target Name="AfterBuild">
     <GetAssemblyIdentity AssemblyFiles="$(OutDir)\$(AssemblyName).dll">

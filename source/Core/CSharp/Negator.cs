@@ -57,6 +57,7 @@ namespace Roslynator.CSharp
                     }
                 case SyntaxKind.IsExpression:
                 case SyntaxKind.AsExpression:
+                case SyntaxKind.IsPatternExpression:
                     {
                         return LogicalNotExpressionWithParentheses(expression);
                     }
@@ -279,7 +280,7 @@ namespace Roslynator.CSharp
             if (expression != null
                 && OperatorPrecedence.GetPrecedence(expression) > OperatorPrecedence.GetPrecedence(kind))
             {
-                expression = expression.Parenthesize(moveTrivia: true);
+                expression = expression.Parenthesize(simplifiable: false);
             }
 
             return expression;
@@ -290,7 +291,7 @@ namespace Roslynator.CSharp
             if (expression?.IsMissing == false)
             {
                 if (!expression.IsKind(SyntaxKind.ParenthesizedExpression))
-                    expression = expression.Parenthesize(moveTrivia: true);
+                    expression = expression.Parenthesize(simplifiable: false);
 
                 return LogicalNotExpression(expression);
             }

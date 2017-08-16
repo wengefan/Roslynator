@@ -242,6 +242,11 @@ namespace Roslynator.CSharp.Refactorings
                             SemicolonTokenRefactoring.ComputeRefactorings(this, token);
                             break;
                         }
+                    case SyntaxKind.PlusToken:
+                        {
+                            await PlusTokenRefactoring.ComputeRefactoringsAsync(this, token).ConfigureAwait(false);
+                            break;
+                        }
                     case SyntaxKind.PublicKeyword:
                     case SyntaxKind.InternalKeyword:
                     case SyntaxKind.ProtectedKeyword:
@@ -328,6 +333,7 @@ namespace Roslynator.CSharp.Refactorings
             bool fCastExpression = false;
             bool fThrowExpression = false;
             bool fDeclarationExpression = false;
+            bool fIsPatternExpression = false;
 
             bool fMemberDeclaration = false;
             bool fStatement = false;
@@ -661,6 +667,13 @@ namespace Roslynator.CSharp.Refactorings
                             fDeclarationExpression = true;
                         }
 
+                        if (!fIsPatternExpression
+                            && kind == SyntaxKind.IsPatternExpression)
+                        {
+                            NegateIsExpressionRefactoring.ComputeRefactoring(this, (IsPatternExpressionSyntax)node);
+                            fIsPatternExpression = true;
+                        }
+
                         continue;
                     }
 
@@ -785,7 +798,7 @@ namespace Roslynator.CSharp.Refactorings
                         if (!fLocalFunctionStatement
                             && kind == SyntaxKind.LocalFunctionStatement)
                         {
-                            LocalFunctionStatementRefactoring.ComputeRefactorings(this, (LocalFunctionStatementSyntax)node);
+                            await LocalFunctionStatementRefactoring.ComputeRefactoringsAsync(this, (LocalFunctionStatementSyntax)node).ConfigureAwait(false);
                             fLocalFunctionStatement = true;
                         }
 

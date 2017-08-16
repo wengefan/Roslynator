@@ -2,7 +2,6 @@
 
 using System.Collections.Immutable;
 using System.Composition;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,13 +32,7 @@ namespace Roslynator.CSharp.CodeFixes
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
-            SyntaxNode node = root
-                .FindNode(context.Span, getInnermostNodeForTie: true)?
-                .FirstAncestorOrSelf(f => f.IsKind(SyntaxKind.MethodDeclaration, SyntaxKind.LocalFunctionStatement) || f is StatementSyntax);
-
-            Debug.Assert(node != null, $"{nameof(node)} is null");
-
-            if (node == null)
+            if (!TryFindFirstAncestorOrSelf(root, context.Span, out SyntaxNode node, predicate: f => f.IsKind(SyntaxKind.MethodDeclaration, SyntaxKind.LocalFunctionStatement) || f is StatementSyntax))
                 return;
 
             foreach (Diagnostic diagnostic in context.Diagnostics)
@@ -57,6 +50,9 @@ namespace Roslynator.CSharp.CodeFixes
 
                             if (statement != null)
                                 node = node.FirstAncestor(f => f.IsKind(SyntaxKind.MethodDeclaration, SyntaxKind.LocalFunctionStatement));
+
+                            if (ContainsYield(node))
+                                break;
 
                             bodyOrExpressionBody = GetBodyOrExpressionBody(node);
 
@@ -137,7 +133,14 @@ namespace Roslynator.CSharp.CodeFixes
             {
                 if (statement != null)
                 {
-                    newNode = node.InsertNodesBefore(statement, new StatementSyntax[] { expressionStatement });
+                    if (EmbeddedStatementHelper.IsEmbeddedStatement(statement))
+                    {
+                        newNode = node.ReplaceNode(statement, Block(expressionStatement, statement));
+                    }
+                    else
+                    {
+                        newNode = node.InsertNodesBefore(statement, new StatementSyntax[] { expressionStatement });
+                    }
                 }
                 else
                 {
@@ -183,6 +186,18 @@ namespace Roslynator.CSharp.CodeFixes
             else
             {
                 return ((LocalFunctionStatementSyntax)node).BodyOrExpressionBody();
+            }
+        }
+
+        private static bool ContainsYield(SyntaxNode node)
+        {
+            if (node.IsKind(SyntaxKind.MethodDeclaration))
+            {
+                return ((MethodDeclarationSyntax)node).ContainsYield();
+            }
+            else
+            {
+                return ((LocalFunctionStatementSyntax)node).ContainsYield();
             }
         }
     }

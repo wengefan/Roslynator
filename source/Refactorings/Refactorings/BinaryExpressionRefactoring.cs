@@ -47,7 +47,7 @@ namespace Roslynator.CSharp.Refactorings
                 SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
                 StringConcatenationExpression concatenation;
-                if (StringConcatenationExpression.TryCreate(binaryExpression, semanticModel, context.CancellationToken, out concatenation))
+                if (StringConcatenationExpression.TryCreate(binaryExpression, semanticModel, out concatenation, context.CancellationToken))
                 {
                     if (context.IsRefactoringEnabled(RefactoringIdentifiers.JoinStringExpressions))
                         JoinStringExpressionsRefactoring.ComputeRefactoring(context, concatenation);
@@ -66,7 +66,14 @@ namespace Roslynator.CSharp.Refactorings
             if (context.IsRefactoringEnabled(RefactoringIdentifiers.ReplaceAsWithCast)
                 && context.Span.IsEmptyAndContainedInSpanOrBetweenSpans(binaryExpression))
             {
-                ReplaceAsWithCastRefactoring.ComputeRefactoring(context, binaryExpression);
+                SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
+
+                if (ReplaceAsWithCastRefactoring.CanRefactor(binaryExpression, semanticModel, context.CancellationToken))
+                {
+                    context.RegisterRefactoring(
+                        "Replace as with cast",
+                        cancellationToken => ReplaceAsWithCastRefactoring.RefactorAsync(context.Document, binaryExpression, context.CancellationToken));
+                }
             }
 
             if (context.IsRefactoringEnabled(RefactoringIdentifiers.NegateIsExpression))
@@ -103,7 +110,7 @@ namespace Roslynator.CSharp.Refactorings
                         SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
                         StringConcatenationExpression concatenation;
-                        if (StringConcatenationExpression.TryCreate(binaryExpressionSelection, semanticModel, context.CancellationToken, out concatenation))
+                        if (StringConcatenationExpression.TryCreate(binaryExpressionSelection, semanticModel, out concatenation, context.CancellationToken))
                         {
                             JoinStringExpressionsRefactoring.ComputeRefactoring(context, concatenation);
                         }

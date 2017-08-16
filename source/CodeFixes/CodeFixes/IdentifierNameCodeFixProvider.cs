@@ -29,13 +29,7 @@ namespace Roslynator.CSharp.CodeFixes
 
             SyntaxNode root = await context.GetSyntaxRootAsync().ConfigureAwait(false);
 
-            IdentifierNameSyntax identifierName = root
-                .FindNode(context.Span, getInnermostNodeForTie: true)?
-                .FirstAncestorOrSelf<IdentifierNameSyntax>();
-
-            Debug.Assert(identifierName != null, $"{nameof(identifierName)} is null");
-
-            if (identifierName == null)
+            if (!TryFindFirstAncestorOrSelf(root, context.Span, out IdentifierNameSyntax identifierName))
                 return;
 
             foreach (Diagnostic diagnostic in context.Diagnostics)
@@ -77,7 +71,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                     var variableDeclaration = (VariableDeclarationSyntax)variableDeclarator.Parent;
 
-                    ExpressionSyntax value = typeSymbol.ToDefaultValueSyntax(variableDeclaration.Type);
+                    ExpressionSyntax value = typeSymbol.ToDefaultValueSyntax(variableDeclaration.Type.WithoutTrivia());
 
                     EqualsValueClauseSyntax newEqualsValue = EqualsValueClause(value)
                         .WithLeadingTrivia(TriviaList(Space))
