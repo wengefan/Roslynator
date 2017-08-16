@@ -53,7 +53,7 @@ namespace Roslynator.CSharp.Refactorings
                 if (expression != null
                     && context.SemanticModel
                         .GetTypeSymbol(expression, context.CancellationToken)?
-                        .IsConstructedFrom(SpecialType.System_Nullable_T) == false)
+                        .IsReferenceType == true)
                 {
                     ExpressionSyntax right = logicalAndExpression.Right;
 
@@ -95,6 +95,7 @@ namespace Roslynator.CSharp.Refactorings
                         SyntaxKind.ElementAccessExpression,
                         SyntaxKind.ConditionalAccessExpression,
                         SyntaxKind.InvocationExpression)
+                        && semanticModel.GetTypeSymbol(nullCheck.Expression, cancellationToken)?.IsReferenceTypeOrNullableType() == true
                     && !ContainsOutArgumentWithLocal(whenNotNull, semanticModel, cancellationToken))
                 {
                     ExpressionSyntax expression = FindExpressionThatCanBeConditionallyAccessed(nullCheck.Expression, whenNotNull);
