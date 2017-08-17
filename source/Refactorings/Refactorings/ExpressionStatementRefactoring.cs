@@ -19,6 +19,7 @@ namespace Roslynator.CSharp.Refactorings
 
                 if (expression?.IsMissing == false
                     && context.Span.IsEmptyAndContainedInSpanOrBetweenSpans(expression)
+                    && !EmbeddedStatementHelper.IsEmbeddedStatement(expressionStatement)
                     && !(expression is AssignmentExpressionSyntax)
                     && !expression.IsIncrementOrDecrementExpression())
                 {
