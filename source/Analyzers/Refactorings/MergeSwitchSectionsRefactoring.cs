@@ -93,7 +93,7 @@ namespace Roslynator.CSharp.Refactorings
         private static bool AreEquivalent(StatementSyntax statement, StatementSyntax statement2)
         {
             return statement.Kind() == statement2.Kind()
-                && statement.IsEquivalentTo(statement2, topLevel: false)
+                && SyntaxComparer.AreEquivalent(statement, statement2)
                 && statement.DescendantTrivia().All(f => f.IsWhitespaceOrEndOfLineTrivia())
                 && statement2.DescendantTrivia().All(f => f.IsWhitespaceOrEndOfLineTrivia());
         }
