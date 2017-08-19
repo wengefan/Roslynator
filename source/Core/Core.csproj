@@ -64,7 +64,7 @@
     <Compile Include="Extensions\RefKindExtensions.cs" />
     <Compile Include="SyntaxComparer.cs" />
     <Compile Include="SyntaxFinder.cs" />
-    <Compile Include="CSharp\TypeParameterInfo.cs" />
+    <Compile Include="CSharp\Syntax\TypeParameterInfo.cs" />
     <Compile Include="CSharp\InterpolatedStringContentConversion.cs" />
     <Compile Include="CSharp\OperatorPrecedence.cs" />
     <Compile Include="Extensions\AccessibilityExtensions.cs" />

@@ -194,5 +194,10 @@ namespace Roslynator.CSharp.Syntax
         {
             return Syntax.SingleParameterLambdaExpressionInfo.Create(lambdaExpression, options);
         }
+
+        public static TypeParameterInfo TypeParameterInfo(TypeParameterSyntax typeParameter)
+        {
+            return Syntax.TypeParameterInfo.Create(typeParameter);
+        }
     }
 }

@@ -3758,6 +3758,19 @@ namespace Roslynator.CSharp
         }
         #endregion TypeParameterConstraintClauseSyntax
 
+        #region TypeParameterListSyntax
+        internal static TypeParameterSyntax GetTypeParameterByName(this TypeParameterListSyntax typeParameterList, string name)
+        {
+            foreach (TypeParameterSyntax typeParameter in typeParameterList.Parameters)
+            {
+                if (string.Equals(typeParameter.Identifier.ValueText, name, StringComparison.Ordinal))
+                    return typeParameter;
+            }
+
+            return null;
+        }
+        #endregion TypeParameterListSyntax
+
         #region TypeSyntax
         public static bool IsVoid(this TypeSyntax type)
         {

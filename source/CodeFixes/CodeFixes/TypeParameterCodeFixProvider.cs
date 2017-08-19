@@ -7,6 +7,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -35,8 +36,8 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case CompilerDiagnosticIdentifiers.TypeParameterHasSameNameAsTypeParameterFromOuterType:
                         {
-                            TypeParameterInfo info;
-                            if (TypeParameterInfo.TryCreate(typeParameter, out info))
+                            TypeParameterInfo info = SyntaxInfo.TypeParameterInfo(typeParameter);
+                            if (info.Success)
                             {
                                 CodeAction codeAction = CodeAction.Create(
                                     $"Remove type parameter '{info.Name}'",
