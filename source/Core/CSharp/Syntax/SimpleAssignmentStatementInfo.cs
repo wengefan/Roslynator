@@ -40,7 +40,15 @@ namespace Roslynator.CSharp.Syntax
             SyntaxNode node,
             SyntaxInfoOptions options)
         {
-            return Create(node as ExpressionStatementSyntax, options);
+            switch (node)
+            {
+                case ExpressionStatementSyntax expressionStatement:
+                    return Create(expressionStatement, options);
+                case AssignmentExpressionSyntax assignmentExpression:
+                    return Create(assignmentExpression, options);
+            }
+
+            return Default;
         }
 
         internal static SimpleAssignmentStatementInfo Create(
@@ -49,12 +57,40 @@ namespace Roslynator.CSharp.Syntax
         {
             options = options ?? SyntaxInfoOptions.Default;
 
-            ExpressionSyntax expression = options.WalkAndCheck(expressionStatement?.Expression);
+            ExpressionSyntax expression = expressionStatement?.Expression;
+
+            if (!options.Check(expression))
+                return Default;
 
             if (expression?.Kind() != SyntaxKind.SimpleAssignmentExpression)
                 return Default;
 
             var assignmentExpression = (AssignmentExpressionSyntax)expression;
+
+            ExpressionSyntax left = options.WalkAndCheck(assignmentExpression.Left);
+
+            if (left == null)
+                return Default;
+
+            ExpressionSyntax right = options.WalkAndCheck(assignmentExpression.Right);
+
+            if (right == null)
+                return Default;
+
+            return new SimpleAssignmentStatementInfo(assignmentExpression, left, right);
+        }
+
+        internal static SimpleAssignmentStatementInfo Create(
+            AssignmentExpressionSyntax assignmentExpression,
+            SyntaxInfoOptions options)
+        {
+            if (assignmentExpression?.Kind() != SyntaxKind.SimpleAssignmentExpression)
+                return Default;
+
+            if (!(assignmentExpression.Parent is ExpressionStatementSyntax expressionStatement))
+                return Default;
+
+            options = options ?? SyntaxInfoOptions.Default;
 
             ExpressionSyntax left = options.WalkAndCheck(assignmentExpression.Left);
 
