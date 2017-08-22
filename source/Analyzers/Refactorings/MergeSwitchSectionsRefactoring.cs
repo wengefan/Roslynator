@@ -128,7 +128,7 @@ namespace Roslynator.CSharp.Refactorings
             IEnumerable<SwitchSectionSyntax> sectionsWithoutStatements = sections
                 .Skip(index)
                 .Take(numberOfAdditionalSectionsToMerge + 1)
-                .Select(section => CreateSectionWithoutStatements(section));
+                .Select(CreateSectionWithoutStatements);
 
             SyntaxList<SwitchSectionSyntax> newSections = sections.Take(index)
                 .Concat(sectionsWithoutStatements)
