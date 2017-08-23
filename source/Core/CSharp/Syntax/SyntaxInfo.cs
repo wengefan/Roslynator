@@ -199,5 +199,10 @@ namespace Roslynator.CSharp.Syntax
         {
             return Syntax.TypeParameterInfo.Create(typeParameter);
         }
+
+        public static XmlElementInfo XmlElementInfo(XmlNodeSyntax xmlNode)
+        {
+            return Syntax.XmlElementInfo.Create(xmlNode);
+        }
     }
 }
