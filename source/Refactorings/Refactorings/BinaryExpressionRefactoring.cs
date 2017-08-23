@@ -6,6 +6,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Refactorings.ExtractCondition;
 using Roslynator.CSharp.Refactorings.ReplaceEqualsExpression;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -46,8 +47,8 @@ namespace Roslynator.CSharp.Refactorings
             {
                 SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                StringConcatenationExpression concatenation;
-                if (StringConcatenationExpression.TryCreate(binaryExpression, semanticModel, out concatenation, context.CancellationToken))
+                StringConcatenationExpressionInfo concatenation = SyntaxInfo.StringConcatenationExpressionInfo(binaryExpression, semanticModel, context.CancellationToken);
+                if (concatenation.Success)
                 {
                     if (context.IsRefactoringEnabled(RefactoringIdentifiers.JoinStringExpressions))
                         JoinStringExpressionsRefactoring.ComputeRefactoring(context, concatenation);
@@ -109,8 +110,8 @@ namespace Roslynator.CSharp.Refactorings
                     {
                         SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                        StringConcatenationExpression concatenation;
-                        if (StringConcatenationExpression.TryCreate(binaryExpressionSelection, semanticModel, out concatenation, context.CancellationToken))
+                        StringConcatenationExpressionInfo concatenation = SyntaxInfo.StringConcatenationExpressionInfo(binaryExpressionSelection, semanticModel, context.CancellationToken);
+                        if (concatenation.Success)
                         {
                             JoinStringExpressionsRefactoring.ComputeRefactoring(context, concatenation);
                         }

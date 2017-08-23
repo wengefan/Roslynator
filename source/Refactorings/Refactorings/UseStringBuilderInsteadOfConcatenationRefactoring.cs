@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Roslynator.CSharp.CSharpFactory;
 
@@ -14,7 +15,7 @@ namespace Roslynator.CSharp.Refactorings
 {
     internal static class UseStringBuilderInsteadOfConcatenationRefactoring
     {
-        public static void ComputeRefactoring(RefactoringContext context, StringConcatenationExpression concatenation)
+        public static void ComputeRefactoring(RefactoringContext context, StringConcatenationExpressionInfo concatenation)
         {
             BinaryExpressionSyntax expression = concatenation.OriginalExpression;
 
@@ -58,7 +59,7 @@ namespace Roslynator.CSharp.Refactorings
             }
         }
 
-        private static void RegisterRefactoring(RefactoringContext context, StringConcatenationExpression concatenation, StatementSyntax statement)
+        private static void RegisterRefactoring(RefactoringContext context, StringConcatenationExpressionInfo concatenation, StatementSyntax statement)
         {
             context.RegisterRefactoring(
                 "Use StringBuilder instead of concatenation",
@@ -67,7 +68,7 @@ namespace Roslynator.CSharp.Refactorings
 
         private static async Task<Document> RefactorAsync(
             Document document,
-            StringConcatenationExpression concatenation,
+            StringConcatenationExpressionInfo concatenation,
             StatementSyntax statement,
             CancellationToken cancellationToken)
         {

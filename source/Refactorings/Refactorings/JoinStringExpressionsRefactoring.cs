@@ -7,12 +7,13 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Refactorings
 {
     internal static class JoinStringExpressionsRefactoring
     {
-        public static void ComputeRefactoring(RefactoringContext context, StringConcatenationExpression concatenation)
+        public static void ComputeRefactoring(RefactoringContext context, StringConcatenationExpressionInfo concatenation)
         {
             if (concatenation.ContainsNonLiteralExpression)
             {
@@ -42,7 +43,7 @@ namespace Roslynator.CSharp.Refactorings
 
         private static Task<Document> ToInterpolatedStringAsync(
             Document document,
-            StringConcatenationExpression concatenation,
+            StringConcatenationExpressionInfo concatenation,
             CancellationToken cancellationToken)
         {
             InterpolatedStringExpressionSyntax newExpression = concatenation.ToInterpolatedString();
@@ -52,7 +53,7 @@ namespace Roslynator.CSharp.Refactorings
 
         public static Task<Document> ToStringLiteralAsync(
             Document document,
-            StringConcatenationExpression concatenation,
+            StringConcatenationExpressionInfo concatenation,
             bool multiline,
             CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -65,7 +66,7 @@ namespace Roslynator.CSharp.Refactorings
 
         private static Task<Document> RefactorAsync(
             Document document,
-            StringConcatenationExpression concatenation,
+            StringConcatenationExpressionInfo concatenation,
             ExpressionSyntax expression,
             CancellationToken cancellationToken)
         {

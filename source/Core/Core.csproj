@@ -135,7 +135,7 @@
     <Compile Include="CSharp\MemberDeclarationSelection.cs" />
     <Compile Include="CSharp\Syntax\SimpleAssignmentStatementInfo.cs" />
     <Compile Include="CSharp\Syntax\SimpleIfStatementInfo.cs" />
-    <Compile Include="CSharp\StringConcatenationExpression.cs" />
+    <Compile Include="CSharp\Syntax\StringConcatenationExpressionInfo.cs" />
     <Compile Include="CommentRemoveOptions.cs" />
     <Compile Include="CSharp\CSharpFactory.cs" />
     <Compile Include="CSharp\Helpers\DetermineParameterHelper.cs" />

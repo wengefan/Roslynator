@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -23,9 +24,9 @@ namespace Roslynator.CSharp.Refactorings
 
             var addExpression = (BinaryExpressionSyntax)node;
 
-            StringConcatenationExpression concatenation;
+            StringConcatenationExpressionInfo concatenation = SyntaxInfo.StringConcatenationExpressionInfo(addExpression, context.SemanticModel, context.CancellationToken);
 
-            if (StringConcatenationExpression.TryCreate(addExpression, context.SemanticModel, out concatenation)
+            if (concatenation.Success
                 && !concatenation.ContainsNonSpecificExpression
                 && (concatenation.ContainsLiteralExpression ^ concatenation.ContainsInterpolatedStringExpression)
                 && (concatenation.ContainsRegular ^ concatenation.ContainsVerbatim)
@@ -35,7 +36,7 @@ namespace Roslynator.CSharp.Refactorings
             }
         }
 
-        private static bool ContainsMultiLine(StringConcatenationExpression concatenation, CancellationToken cancellationToken)
+        private static bool ContainsMultiLine(StringConcatenationExpressionInfo concatenation, CancellationToken cancellationToken)
         {
             foreach (ExpressionSyntax expression in concatenation.Expressions)
             {
@@ -53,8 +54,8 @@ namespace Roslynator.CSharp.Refactorings
         {
             SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
 
-            StringConcatenationExpression concatenation;
-            if (StringConcatenationExpression.TryCreate(binaryExpression, semanticModel, out concatenation))
+            StringConcatenationExpressionInfo concatenation = SyntaxInfo.StringConcatenationExpressionInfo(binaryExpression, semanticModel, cancellationToken);
+            if (concatenation.Success)
             {
                 ExpressionSyntax newNode = null;
 

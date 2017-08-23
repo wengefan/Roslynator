@@ -195,6 +195,22 @@ namespace Roslynator.CSharp.Syntax
             return Syntax.SingleParameterLambdaExpressionInfo.Create(lambdaExpression, options);
         }
 
+        public static StringConcatenationExpressionInfo StringConcatenationExpressionInfo(
+            BinaryExpressionSyntax binaryExpression,
+            SemanticModel semanticModel,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return Syntax.StringConcatenationExpressionInfo.Create(binaryExpression, semanticModel, cancellationToken);
+        }
+
+        internal static StringConcatenationExpressionInfo StringConcatenationExpressionInfo(
+            BinaryExpressionSelection binaryExpressionSelection,
+            SemanticModel semanticModel,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return Syntax.StringConcatenationExpressionInfo.Create(binaryExpressionSelection, semanticModel, cancellationToken);
+        }
+
         public static TypeParameterInfo TypeParameterInfo(TypeParameterSyntax typeParameter)
         {
             return Syntax.TypeParameterInfo.Create(typeParameter);
