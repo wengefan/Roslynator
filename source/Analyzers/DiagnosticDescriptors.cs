@@ -1,20 +1,22 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System;
 using Microsoft.CodeAnalysis;
 
 namespace Roslynator.CSharp
 {
     public static class DiagnosticDescriptors
     {
+        private const string HelpLinkUriRoot = "http://github.com/JosefPihrt/Roslynator/blob/master/docs/analyzers";
+
         public static readonly DiagnosticDescriptor AddBraces = new DiagnosticDescriptor(
              id: DiagnosticIdentifiers.AddBraces,
              title: "Add braces.",
              messageFormat: "Add braces to {0}.",
              category: DiagnosticCategories.Style,
              defaultSeverity: DiagnosticSeverity.Info,
-             isEnabledByDefault: true
-         );
+             isEnabledByDefault: true,
+             helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddBraces}.md"
+        );
 
         public static readonly DiagnosticDescriptor RemoveBraces = new DiagnosticDescriptor(
             id: DiagnosticIdentifiers.RemoveBraces,
@@ -22,7 +24,8 @@ namespace Roslynator.CSharp
             messageFormat: "Remove braces from {0}.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveBraces}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveBracesFadeOut = RemoveBraces.CreateFadeOut();
@@ -33,7 +36,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add braces to if-else.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddBracesToIfElse}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveBracesFromIfElse = new DiagnosticDescriptor(
@@ -42,7 +46,8 @@ namespace Roslynator.CSharp
             messageFormat: "Remove braces from if-else.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveBracesFromIfElse}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveBracesFromIfElseFadeOut = RemoveBracesFromIfElse.CreateFadeOut();
@@ -53,7 +58,8 @@ namespace Roslynator.CSharp
             messageFormat: "Simplify nested using statement.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyNestedUsingStatement}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyNestedUsingStatementFadeOut = SimplifyNestedUsingStatement.CreateFadeOut();
@@ -64,7 +70,8 @@ namespace Roslynator.CSharp
             messageFormat: "Merge else clause with nested if statement.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.MergeElseClauseWithNestedIfStatement}.md"
         );
 
         public static readonly DiagnosticDescriptor MergeElseClauseWithNestedIfStatementFadeOut = MergeElseClauseWithNestedIfStatement.CreateFadeOut();
@@ -75,7 +82,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add braces to {0}.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidEmbeddedStatement}.md"
         );
 
         public static readonly DiagnosticDescriptor UseExplicitTypeInsteadOfVarWhenTypeIsNotObvious = new DiagnosticDescriptor(
@@ -122,7 +130,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: false,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UsePredefinedType}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidImplicitlyTypedArray = new DiagnosticDescriptor(
@@ -131,7 +140,8 @@ namespace Roslynator.CSharp
             messageFormat: "Declare explicit type when creating an array.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidImplicitlyTypedArray}.md"
         );
 
         public static readonly DiagnosticDescriptor UseNameOfOperator = new DiagnosticDescriptor(
@@ -140,7 +150,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use nameof operator.",
             category: DiagnosticCategories.Maintainability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseNameOfOperator}.md"
         );
 
         public static readonly DiagnosticDescriptor UseNameOfOperatorFadeOut = UseNameOfOperator.CreateFadeOut();
@@ -151,7 +162,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use expression bodied member.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseExpressionBodiedMember}.md"
         );
 
         public static readonly DiagnosticDescriptor UseExpressionBodiedMemberFadeOut = UseExpressionBodiedMember.CreateFadeOut();
@@ -162,7 +174,8 @@ namespace Roslynator.CSharp
             messageFormat: "Expand expression body with multiline expression.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidMultilineExpressionBody}.md"
         );
 
         public static readonly DiagnosticDescriptor AddDefaultAccessModifier = new DiagnosticDescriptor(
@@ -171,7 +184,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add default access modifier.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddDefaultAccessModifier}.md"
         );
 
         public static readonly DiagnosticDescriptor ReorderModifiers = new DiagnosticDescriptor(
@@ -180,7 +194,8 @@ namespace Roslynator.CSharp
             messageFormat: "Reorder modifiers.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ReorderModifiers}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyNullableOfT = new DiagnosticDescriptor(
@@ -190,7 +205,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyNullableOfT}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyLambdaExpression = new DiagnosticDescriptor(
@@ -199,7 +215,8 @@ namespace Roslynator.CSharp
             messageFormat: "Simplify lambda expression.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyLambdaExpression}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyLambdaExpressionFadeOut = SimplifyLambdaExpression.CreateFadeOut();
@@ -210,7 +227,8 @@ namespace Roslynator.CSharp
             messageFormat: "Simplify lambda expression parameter list.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyLambdaExpressionParameterList}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyLambdaExpressionParameterListFadeOut = SimplifyLambdaExpressionParameterList.CreateFadeOut();
@@ -221,7 +239,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format empty block.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatEmptyBlock}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatAccessorList = new DiagnosticDescriptor(
@@ -230,7 +249,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format accessor list.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatAccessorList}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatEachEnumMemberOnSeparateLine = new DiagnosticDescriptor(
@@ -239,7 +259,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format each enum member on a separate line.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatEachEnumMemberOnSeparateLine}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatEachStatementOnSeparateLine = new DiagnosticDescriptor(
@@ -248,7 +269,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format each statement on a separate line.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatEachStatementOnSeparateLine}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatEmbeddedStatementOnSeparateLine = new DiagnosticDescriptor(
@@ -257,7 +279,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format embedded statement on a separate line.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatEmbeddedStatementOnSeparateLine}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatSwitchSectionStatementOnSeparateLine = new DiagnosticDescriptor(
@@ -266,7 +289,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format switch section's statement on a separate line.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatSwitchSectionStatementOnSeparateLine}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatBinaryOperatorOnNextLine = new DiagnosticDescriptor(
@@ -275,7 +299,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format binary operator on next line.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatBinaryOperatorOnNextLine}.md"
         );
 
         public static readonly DiagnosticDescriptor AddEmptyLineAfterEmbeddedStatement = new DiagnosticDescriptor(
@@ -284,7 +309,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add empty line after embedded statement.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddEmptyLineAfterEmbeddedStatement}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantParentheses = new DiagnosticDescriptor(
@@ -293,7 +319,8 @@ namespace Roslynator.CSharp
             messageFormat: "Remove redundant parentheses.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantParentheses}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantParenthesesFadeOut = RemoveRedundantParentheses.CreateFadeOut();
@@ -305,7 +332,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantBooleanLiteral}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantSealedModifier = new DiagnosticDescriptor(
@@ -315,7 +343,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantSealedModifier}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantCommaInInitializer = new DiagnosticDescriptor(
@@ -325,7 +354,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantCommaInInitializer}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantEmptyLine = new DiagnosticDescriptor(
@@ -334,7 +364,8 @@ namespace Roslynator.CSharp
             messageFormat: "Remove redundant empty line.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantEmptyLine}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveTrailingWhitespace = new DiagnosticDescriptor(
@@ -343,7 +374,8 @@ namespace Roslynator.CSharp
             messageFormat: "Remove trailing white-space.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveTrailingWhitespace}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveEmptyStatement = new DiagnosticDescriptor(
@@ -353,7 +385,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveEmptyStatement}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveEmptyAttributeArgumentList = new DiagnosticDescriptor(
@@ -363,7 +396,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveEmptyAttributeArgumentList}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveEmptyElseClause = new DiagnosticDescriptor(
@@ -373,7 +407,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: false,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveEmptyElseClause}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveEmptyInitializer = new DiagnosticDescriptor(
@@ -383,7 +418,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveEmptyInitializer}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveEnumDefaultUnderlyingType = new DiagnosticDescriptor(
@@ -393,7 +429,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveEnumDefaultUnderlyingType}.md"
         );
 
         public static readonly DiagnosticDescriptor RemovePartialModifierFromTypeWithSinglePart = new DiagnosticDescriptor(
@@ -403,7 +440,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemovePartialModifierFromTypeWithSinglePart}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveOriginalExceptionFromThrowStatement = new DiagnosticDescriptor(
@@ -413,7 +451,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Maintainability,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveOriginalExceptionFromThrowStatement}.md"
         );
 
         public static readonly DiagnosticDescriptor RenamePrivateFieldAccordingToCamelCaseWithUnderscore = new DiagnosticDescriptor(
@@ -422,7 +461,8 @@ namespace Roslynator.CSharp
             messageFormat: "Rename private field to camel case with underscore.",
             category: DiagnosticCategories.Naming,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RenamePrivateFieldAccordingToCamelCaseWithUnderscore}.md"
         );
 
         public static readonly DiagnosticDescriptor AsynchronousMethodNameShouldEndWithAsync = new DiagnosticDescriptor(
@@ -431,7 +471,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add suffix 'Async' to asynchronous method name.",
             category: DiagnosticCategories.Naming,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AsynchronousMethodNameShouldEndWithAsync}.md"
         );
 
         public static readonly DiagnosticDescriptor NonAsynchronousMethodNameShouldNotEndWithAsync = new DiagnosticDescriptor(
@@ -440,7 +481,8 @@ namespace Roslynator.CSharp
             messageFormat: "Remove suffix 'Async' from non-asynchronous method name.",
             category: DiagnosticCategories.Naming,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.NonAsynchronousMethodNameShouldNotEndWithAsync}.md"
         );
 
         public static readonly DiagnosticDescriptor NonAsynchronousMethodNameShouldNotEndWithAsyncFadeOut = NonAsynchronousMethodNameShouldNotEndWithAsync.CreateFadeOut();
@@ -451,7 +493,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use lambda expression instead of anonymous method.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseLambdaExpressionInsteadOfAnonymousMethod}.md"
         );
 
         public static readonly DiagnosticDescriptor UseLambdaExpressionInsteadOfAnonymousMethodFadeOut = UseLambdaExpressionInsteadOfAnonymousMethod.CreateFadeOut();
@@ -462,7 +505,8 @@ namespace Roslynator.CSharp
             messageFormat: "Simplify boolean comparison.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyBooleanComparison}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyBooleanComparisonFadeOut = SimplifyBooleanComparison.CreateFadeOut();
@@ -473,7 +517,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add constructor argument list.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddConstructorArgumentList}.md"
         );
 
         public static readonly DiagnosticDescriptor ParenthesizeConditionInConditionalExpression = new DiagnosticDescriptor(
@@ -482,7 +527,8 @@ namespace Roslynator.CSharp
             messageFormat: "Parenthesize condition in conditional expression.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ParenthesizeConditionInConditionalExpression}.md"
         );
 
         public static readonly DiagnosticDescriptor DeclareEachAttributeSeparately = new DiagnosticDescriptor(
@@ -491,7 +537,8 @@ namespace Roslynator.CSharp
             messageFormat: "Declare each attribute separately.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.DeclareEachAttributeSeparately}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidSemicolonAtEndOfDeclaration = new DiagnosticDescriptor(
@@ -501,7 +548,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidSemicolonAtEndOfDeclaration}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidUsageOfUsingAliasDirective = new DiagnosticDescriptor(
@@ -510,7 +558,8 @@ namespace Roslynator.CSharp
             messageFormat: "Avoid usage of using alias directive.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidUsageOfUsingAliasDirective}.md"
         );
 
         public static readonly DiagnosticDescriptor AddEmptyLineBetweenDeclarations = new DiagnosticDescriptor(
@@ -519,7 +568,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add empty line between declarations.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddEmptyLineBetweenDeclarations}.md"
         );
 
         public static readonly DiagnosticDescriptor UseCompoundAssignment = new DiagnosticDescriptor(
@@ -528,7 +578,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use compound assignment.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseCompoundAssignment}.md"
         );
 
         public static readonly DiagnosticDescriptor UseCompoundAssignmentFadeOut = UseCompoundAssignment.CreateFadeOut();
@@ -539,7 +590,8 @@ namespace Roslynator.CSharp
             messageFormat: "Lock on private field instead of locking on '{0}'.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidLockingOnPubliclyAccessibleInstance}.md"
         );
 
         public static readonly DiagnosticDescriptor DeclareEachTypeInSeparateFile = new DiagnosticDescriptor(
@@ -548,7 +600,8 @@ namespace Roslynator.CSharp
             messageFormat: "Declare each type in separate file.",
             category: DiagnosticCategories.Maintainability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.DeclareEachTypeInSeparateFile}.md"
         );
 
         public static readonly DiagnosticDescriptor MergeIfStatementWithNestedIfStatement = new DiagnosticDescriptor(
@@ -557,7 +610,8 @@ namespace Roslynator.CSharp
             messageFormat: "Merge if statement with nested if statement.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.MergeIfStatementWithNestedIfStatement}.md"
         );
 
         public static readonly DiagnosticDescriptor MergeIfStatementWithNestedIfStatementFadeOut = MergeIfStatementWithNestedIfStatement.CreateFadeOut();
@@ -569,7 +623,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidInterpolatedStringWithNoInterpolation}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidUsageOfDoStatementToCreateInfiniteLoop = new DiagnosticDescriptor(
@@ -578,7 +633,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use while statement to create an infinite loop.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidUsageOfDoStatementToCreateInfiniteLoop}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidUsageOfForStatementToCreateInfiniteLoop = new DiagnosticDescriptor(
@@ -587,7 +643,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use while statement to create an infinite loop.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidUsageOfForStatementToCreateInfiniteLoop}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidUsageOfWhileStatementToCreateInfiniteLoop = new DiagnosticDescriptor(
@@ -596,7 +653,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use for statement to create an infinite loop.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidUsageOfWhileStatementToCreateInfiniteLoop}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveEmptyFinallyClause = new DiagnosticDescriptor(
@@ -606,7 +664,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveEmptyFinallyClause}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveEmptyArgumentList = new DiagnosticDescriptor(
@@ -616,7 +675,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: false,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveEmptyArgumentList}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyLogicalNotExpression = new DiagnosticDescriptor(
@@ -625,7 +685,8 @@ namespace Roslynator.CSharp
             messageFormat: "Simplify logical not expression.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyLogicalNotExpression}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveUnnecessaryCaseLabel = new DiagnosticDescriptor(
@@ -635,7 +696,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveUnnecessaryCaseLabel}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantDefaultSwitchSection = new DiagnosticDescriptor(
@@ -645,7 +707,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantDefaultSwitchSection}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantBaseConstructorCall = new DiagnosticDescriptor(
@@ -655,7 +718,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantBaseConstructorCall}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveEmptyNamespaceDeclaration = new DiagnosticDescriptor(
@@ -665,7 +729,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveEmptyNamespaceDeclaration}.md"
         );
 
         public static readonly DiagnosticDescriptor ReplaceIfStatementWithReturnStatement = new DiagnosticDescriptor(
@@ -674,7 +739,8 @@ namespace Roslynator.CSharp
             messageFormat: "Replace if statement with return statement.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ReplaceIfStatementWithReturnStatement}.md"
         );
 
         public static readonly DiagnosticDescriptor ReplaceIfStatementWithReturnStatementFadeOut = ReplaceIfStatementWithReturnStatement.CreateFadeOut();
@@ -686,7 +752,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantConstructor}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidEmptyCatchClauseThatCatchesSystemException = new DiagnosticDescriptor(
@@ -695,7 +762,8 @@ namespace Roslynator.CSharp
             messageFormat: "Avoid empty catch clause that catches System.Exception.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidEmptyCatchClauseThatCatchesSystemException}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatDeclarationBraces = new DiagnosticDescriptor(
@@ -704,7 +772,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format declaration braces.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatDeclarationBraces}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyLinqMethodChain = new DiagnosticDescriptor(
@@ -713,7 +782,8 @@ namespace Roslynator.CSharp
             messageFormat: "Simplify LINQ method chain.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyLinqMethodChain}.md"
         );
 
         public static readonly DiagnosticDescriptor UseEmptyStringLiteralInsteadOfStringEmpty = new DiagnosticDescriptor(
@@ -723,7 +793,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.General,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: false,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseEmptyStringLiteralInsteadOfStringEmpty}.md"
         );
 
         public static readonly DiagnosticDescriptor ThrowingOfNewNotImplementedException = new DiagnosticDescriptor(
@@ -732,7 +803,8 @@ namespace Roslynator.CSharp
             messageFormat: "Implement the functionality instead of throwing new NotImplementedException.",
             category: DiagnosticCategories.General,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ThrowingOfNewNotImplementedException}.md"
         );
 
         public static readonly DiagnosticDescriptor UseCountOrLengthPropertyInsteadOfAnyMethod = new DiagnosticDescriptor(
@@ -741,7 +813,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use '{0}' property instead of 'Any' method.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseCountOrLengthPropertyInsteadOfAnyMethod}.md"
         );
 
         public static readonly DiagnosticDescriptor SplitVariableDeclaration = new DiagnosticDescriptor(
@@ -750,7 +823,8 @@ namespace Roslynator.CSharp
             messageFormat: "Split variable declaration.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SplitVariableDeclaration}.md"
         );
 
         public static readonly DiagnosticDescriptor UseCountOrLengthPropertyInsteadOfCountMethod = new DiagnosticDescriptor(
@@ -759,7 +833,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use '{0}' property instead of 'Count' method.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseCountOrLengthPropertyInsteadOfCountMethod}.md"
         );
 
         public static readonly DiagnosticDescriptor UseAnyMethodInsteadOfCountMethod = new DiagnosticDescriptor(
@@ -768,7 +843,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use 'Any' method instead of 'Count' method.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseAnyMethodInsteadOfCountMethod}.md"
         );
 
         public static readonly DiagnosticDescriptor UseCoalesceExpressionInsteadOfConditionalExpression = new DiagnosticDescriptor(
@@ -777,7 +853,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use coalesce expression instead of conditional expression.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseCoalesceExpressionInsteadOfConditionalExpression}.md"
         );
 
         public static readonly DiagnosticDescriptor UseAutoProperty = new DiagnosticDescriptor(
@@ -786,7 +863,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use auto-implemented property.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseAutoProperty}.md"
         );
 
         public static readonly DiagnosticDescriptor UseAutoPropertyFadeOut = UseAutoProperty.CreateFadeOut();
@@ -797,7 +875,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use linefeed as newline.",
             category: DiagnosticCategories.General,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseLinefeedAsNewLine}.md"
         );
 
         public static readonly DiagnosticDescriptor UseCarriageReturnAndLinefeedAsNewLine = new DiagnosticDescriptor(
@@ -806,7 +885,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use carriage return + linefeed as newline.",
             category: DiagnosticCategories.General,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseCarriageReturnAndLinefeedAsNewLine}.md"
         );
 
         public static readonly DiagnosticDescriptor UseSpacesInsteadOfTab = new DiagnosticDescriptor(
@@ -824,7 +904,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use {0} operator instead of assignment.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UsePostfixUnaryOperatorInsteadOfAssignment}.md"
         );
 
         public static readonly DiagnosticDescriptor UsePostfixUnaryOperatorInsteadOfAssignmentFadeOut = UsePostfixUnaryOperatorInsteadOfAssignment.CreateFadeOut();
@@ -844,7 +925,8 @@ namespace Roslynator.CSharp
              messageFormat: "Remove empty region.",
              category: DiagnosticCategories.Redundancy,
              defaultSeverity: DiagnosticSeverity.Hidden,
-             isEnabledByDefault: true
+             isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveEmptyRegion}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveEmptyRegionFadeOut = RemoveEmptyRegion.CreateFadeOut();
@@ -855,7 +937,8 @@ namespace Roslynator.CSharp
              messageFormat: "Add empty line after last statement in do statement.",
              category: DiagnosticCategories.Formatting,
              defaultSeverity: DiagnosticSeverity.Info,
-             isEnabledByDefault: false
+             isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddEmptyLineAfterLastStatementInDoStatement}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveFileWithNoCode = new DiagnosticDescriptor(
@@ -864,7 +947,8 @@ namespace Roslynator.CSharp
              messageFormat: "Remove file with no code.",
              category: DiagnosticCategories.Redundancy,
              defaultSeverity: DiagnosticSeverity.Info,
-             isEnabledByDefault: true
+             isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveFileWithNoCode}.md"
         );
 
         public static readonly DiagnosticDescriptor DeclareUsingDirectiveOnTopLevel = new DiagnosticDescriptor(
@@ -873,7 +957,8 @@ namespace Roslynator.CSharp
              messageFormat: "Declare using directive on top level.",
              category: DiagnosticCategories.Readability,
              defaultSeverity: DiagnosticSeverity.Warning,
-             isEnabledByDefault: false
+             isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.DeclareUsingDirectiveOnTopLevel}.md"
         );
 
         public static readonly DiagnosticDescriptor UseCSharp6DictionaryInitializer = new DiagnosticDescriptor(
@@ -882,7 +967,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use C# 6.0 dictionary initializer.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseCSharp6DictionaryInitializer}.md"
         );
 
         public static readonly DiagnosticDescriptor UseBitwiseOperationInsteadOfCallingHasFlag = new DiagnosticDescriptor(
@@ -891,7 +977,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use bitwise operation instead of calling 'HasFlag'.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseBitwiseOperationInsteadOfCallingHasFlag}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantToStringCall = new DiagnosticDescriptor(
@@ -901,7 +988,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantToStringCall}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidNullLiteralExpressionOnLeftSideOfBinaryExpression = new DiagnosticDescriptor(
@@ -910,7 +998,8 @@ namespace Roslynator.CSharp
             messageFormat: "'null' should be on the right side of a binary expression.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidNullLiteralExpressionOnLeftSideOfBinaryExpression}.md"
         );
 
         public static readonly DiagnosticDescriptor DefaultLabelShouldBeLastLabelInSwitchSection = new DiagnosticDescriptor(
@@ -919,7 +1008,8 @@ namespace Roslynator.CSharp
             messageFormat: "Move default label to last position in switch section.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.DefaultLabelShouldBeLastLabelInSwitchSection}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatDocumentationSummaryOnSingleLine = new DiagnosticDescriptor(
@@ -928,7 +1018,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format documentation summary on a single line.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatDocumentationSummaryOnSingleLine}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatDocumentationSummaryOnMultipleLines = new DiagnosticDescriptor(
@@ -937,7 +1028,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format documentation summary on multiple lines.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatDocumentationSummaryOnMultipleLines}.md"
         );
 
         public static readonly DiagnosticDescriptor MakeClassStatic = new DiagnosticDescriptor(
@@ -946,7 +1038,8 @@ namespace Roslynator.CSharp
             messageFormat: "Make class static.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.MakeClassStatic}.md"
         );
 
         public static readonly DiagnosticDescriptor ReplaceIfStatementWithAssignment = new DiagnosticDescriptor(
@@ -955,7 +1048,8 @@ namespace Roslynator.CSharp
             messageFormat: "Replace if statement with assignment.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ReplaceIfStatementWithAssignment}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyConditionalExpression = new DiagnosticDescriptor(
@@ -964,7 +1058,8 @@ namespace Roslynator.CSharp
             messageFormat: "Simplify conditional expression.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyConditionalExpression}.md"
         );
 
         public static readonly DiagnosticDescriptor MergeInterpolationIntoInterpolatedString = new DiagnosticDescriptor(
@@ -973,7 +1068,8 @@ namespace Roslynator.CSharp
             messageFormat: "Merge interpolation into interpolated string.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.MergeInterpolationIntoInterpolatedString}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveEmptyDestructor = new DiagnosticDescriptor(
@@ -983,7 +1079,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveEmptyDestructor}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantStringToCharArrayCall = new DiagnosticDescriptor(
@@ -993,7 +1090,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantStringToCharArrayCall}.md"
         );
 
         public static readonly DiagnosticDescriptor AddStaticModifierToAllPartialClassDeclarations = new DiagnosticDescriptor(
@@ -1002,7 +1100,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add 'static' modifier to all partial class declarations.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddStaticModifierToAllPartialClassDeclarations}.md"
         );
 
         public static readonly DiagnosticDescriptor CallCastInsteadOfSelect = new DiagnosticDescriptor(
@@ -1011,7 +1110,8 @@ namespace Roslynator.CSharp
             messageFormat: "Call 'Enumerable.Cast' instead of 'Enumerable.Select'.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.CallCastInsteadOfSelect}.md"
         );
 
         public static readonly DiagnosticDescriptor DeclareTypeInsideNamespace = new DiagnosticDescriptor(
@@ -1020,7 +1120,8 @@ namespace Roslynator.CSharp
             messageFormat: "Declare '{0}' inside namespace.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.DeclareTypeInsideNamespace}.md"
         );
 
         public static readonly DiagnosticDescriptor AddBracesToSwitchSectionWithMultipleStatements = new DiagnosticDescriptor(
@@ -1029,7 +1130,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add braces to switch section with multiple statements.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddBracesToSwitchSectionWithMultipleStatements}.md"
         );
 
         public static readonly DiagnosticDescriptor CombineEnumerableWhereMethodChain = new DiagnosticDescriptor(
@@ -1038,7 +1140,8 @@ namespace Roslynator.CSharp
             messageFormat: "Combine 'Enumerable.Where' method chain.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.CombineEnumerableWhereMethodChain}.md"
         );
 
         public static readonly DiagnosticDescriptor CombineEnumerableWhereMethodChainFadeOut = CombineEnumerableWhereMethodChain.CreateFadeOut();
@@ -1049,7 +1152,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use 'string.IsNullOrEmpty' method.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseStringIsNullOrEmptyMethod}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantDelegateCreation = new DiagnosticDescriptor(
@@ -1058,7 +1162,8 @@ namespace Roslynator.CSharp
             messageFormat: "Remove redundant delegate creation.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantDelegateCreation}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantDelegateCreationFadeOut = RemoveRedundantDelegateCreation.CreateFadeOut();
@@ -1069,7 +1174,8 @@ namespace Roslynator.CSharp
             messageFormat: "Mark local variable as const.",
             category: DiagnosticCategories.General,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.MarkLocalVariableAsConst}.md"
         );
 
         public static readonly DiagnosticDescriptor CallFindInsteadOfFirstOrDefault = new DiagnosticDescriptor(
@@ -1078,7 +1184,8 @@ namespace Roslynator.CSharp
             messageFormat: "Call 'Find' instead of 'FirstOrDefault'.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.CallFindInsteadOfFirstOrDefault}.md"
         );
 
         public static readonly DiagnosticDescriptor UseElementAccessInsteadOfElementAt = new DiagnosticDescriptor(
@@ -1087,7 +1194,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use [] instead of calling 'ElementAt'.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseElementAccessInsteadOfElementAt}.md"
         );
 
         public static readonly DiagnosticDescriptor UseElementAccessInsteadOfFirst = new DiagnosticDescriptor(
@@ -1096,7 +1204,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use [] instead of calling 'First'.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseElementAccessInsteadOfFirst}.md"
         );
 
         public static readonly DiagnosticDescriptor AddParenthesesAccordingToOperatorPrecedence = new DiagnosticDescriptor(
@@ -1105,7 +1214,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add parentheses according to operator precedence.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddParenthesesAccordingToOperatorPrecedence}.md"
         );
 
         public static readonly DiagnosticDescriptor InlineLocalVariable = new DiagnosticDescriptor(
@@ -1114,7 +1224,8 @@ namespace Roslynator.CSharp
             messageFormat: "Inline local variable.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.InlineLocalVariable}.md"
         );
 
         public static readonly DiagnosticDescriptor InlineLocalVariableFadeOut = InlineLocalVariable.CreateFadeOut();
@@ -1125,7 +1236,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add braces to {0}.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidEmbeddedStatementInIfElse}.md"
         );
 
         public static readonly DiagnosticDescriptor MergeLocalDeclarationWithAssignment = new DiagnosticDescriptor(
@@ -1134,7 +1246,8 @@ namespace Roslynator.CSharp
             messageFormat: "Merge local declaration with assignment.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.MergeLocalDeclarationWithAssignment}.md"
         );
 
         public static readonly DiagnosticDescriptor MergeLocalDeclarationWithAssignmentFadeOut = MergeLocalDeclarationWithAssignment.CreateFadeOut();
@@ -1145,7 +1258,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use coalesce expression.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseCoalesceExpression}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantFieldInitialization = new DiagnosticDescriptor(
@@ -1155,7 +1269,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantFieldInitialization}.md"
         );
 
         public static readonly DiagnosticDescriptor BitwiseOperationOnEnumWithoutFlagsAttribute = new DiagnosticDescriptor(
@@ -1164,7 +1279,8 @@ namespace Roslynator.CSharp
             messageFormat: "Bitwise operation on enum without Flags attribute.",
             category: DiagnosticCategories.General,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.BitwiseOperationOnEnumWithoutFlagsAttribute}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantOverridingMember = new DiagnosticDescriptor(
@@ -1174,7 +1290,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantOverridingMember}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantDisposeOrCloseCall = new DiagnosticDescriptor(
@@ -1184,7 +1301,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantDisposeOrCloseCall}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantStatement = new DiagnosticDescriptor(
@@ -1194,7 +1312,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantStatement}.md"
         );
 
         public static readonly DiagnosticDescriptor DeclareEnumMemberWithZeroValue = new DiagnosticDescriptor(
@@ -1213,7 +1332,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.MergeSwitchSectionsWithEquivalentContent}.md"
         );
 
         public static readonly DiagnosticDescriptor AddSummaryToDocumentationComment = new DiagnosticDescriptor(
@@ -1222,7 +1342,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add summary to documentation comment.",
             category: DiagnosticCategories.Maintainability,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddSummaryToDocumentationComment}.md"
         );
 
         public static readonly DiagnosticDescriptor AddSummaryElementToDocumentationComment = new DiagnosticDescriptor(
@@ -1231,7 +1352,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add summary element to documentation comment.",
             category: DiagnosticCategories.Maintainability,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddSummaryElementToDocumentationComment}.md"
         );
 
         public static readonly DiagnosticDescriptor AddExceptionToDocumentationComment = new DiagnosticDescriptor(
@@ -1240,7 +1362,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add exception to documentation comment.",
             category: DiagnosticCategories.Maintainability,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddExceptionToDocumentationComment}.md"
         );
 
         public static readonly DiagnosticDescriptor AddParameterToDocumentationComment = new DiagnosticDescriptor(
@@ -1249,7 +1372,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add parameter to documentation comment.",
             category: DiagnosticCategories.Maintainability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddParameterToDocumentationComment}.md"
         );
 
         public static readonly DiagnosticDescriptor AddTypeParameterToDocumentationComment = new DiagnosticDescriptor(
@@ -1258,7 +1382,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add type parameter to documentation comment.",
             category: DiagnosticCategories.Maintainability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddTypeParameterToDocumentationComment}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyCoalesceExpression = new DiagnosticDescriptor(
@@ -1268,7 +1393,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyCoalesceExpression}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantAsOperator = new DiagnosticDescriptor(
@@ -1278,7 +1404,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantAsOperator}.md"
         );
 
         public static readonly DiagnosticDescriptor UseConditionalAccess = new DiagnosticDescriptor(
@@ -1287,7 +1414,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use conditional access.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseConditionalAccess}.md"
         );
 
         public static readonly DiagnosticDescriptor CallStringConcatInsteadOfStringJoin = new DiagnosticDescriptor(
@@ -1296,7 +1424,8 @@ namespace Roslynator.CSharp
             messageFormat: "Call string.Concat instead of string.Join.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.CallStringConcatInsteadOfStringJoin}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantCast = new DiagnosticDescriptor(
@@ -1306,7 +1435,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantCast}.md"
         );
 
         public static readonly DiagnosticDescriptor AddEmptyLineAfterClosingBrace = new DiagnosticDescriptor(
@@ -1315,7 +1445,8 @@ namespace Roslynator.CSharp
             messageFormat: "Add empty line after closing brace.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddEmptyLineAfterClosingBrace}.md"
         );
 
         public static readonly DiagnosticDescriptor SortEnumMembers = new DiagnosticDescriptor(
@@ -1324,7 +1455,8 @@ namespace Roslynator.CSharp
             messageFormat: "Sort '{0}' members.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SortEnumMembers}.md"
         );
 
         public static readonly DiagnosticDescriptor UseStringComparison = new DiagnosticDescriptor(
@@ -1333,7 +1465,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use StringComparison when comparing strings.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseStringComparison}.md"
         );
 
         public static readonly DiagnosticDescriptor UseStringLengthInsteadOfComparisonWithEmptyString = new DiagnosticDescriptor(
@@ -1342,7 +1475,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use string.Length instead of comparison with empty string.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseStringLengthInsteadOfComparisonWithEmptyString}.md"
         );
 
         public static readonly DiagnosticDescriptor CompositeEnumValueContainsUndefinedFlag = new DiagnosticDescriptor(
@@ -1351,7 +1485,8 @@ namespace Roslynator.CSharp
             messageFormat: "Composite enum value contains undefined flag {0}.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.CompositeEnumValueContainsUndefinedFlag}.md"
         );
 
         public static readonly DiagnosticDescriptor StaticMemberInGenericTypeShouldUseTypeParameter = new DiagnosticDescriptor(
@@ -1360,7 +1495,8 @@ namespace Roslynator.CSharp
             messageFormat: "Static member in generic type should use a type parameter.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.StaticMemberInGenericTypeShouldUseTypeParameter}.md"
         );
 
         public static readonly DiagnosticDescriptor UseGenericEventHandler = new DiagnosticDescriptor(
@@ -1369,7 +1505,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use EventHandler<T>.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseGenericEventHandler}.md"
         );
 
         public static readonly DiagnosticDescriptor AbstractTypeShouldNotHavePublicConstructors = new DiagnosticDescriptor(
@@ -1378,7 +1515,8 @@ namespace Roslynator.CSharp
             messageFormat: "Abstract type should not have public constructors.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AbstractTypeShouldNotHavePublicConstructors}.md"
         );
 
         public static readonly DiagnosticDescriptor EnumMemberShouldDeclareExplicitValue = new DiagnosticDescriptor(
@@ -1387,7 +1525,8 @@ namespace Roslynator.CSharp
             messageFormat: "Enum member should declare explicit value.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.EnumMemberShouldDeclareExplicitValue}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidChainOfAssignments = new DiagnosticDescriptor(
@@ -1396,7 +1535,8 @@ namespace Roslynator.CSharp
             messageFormat: "Avoid chain of assignments.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidChainOfAssignments}.md"
         );
 
         public static readonly DiagnosticDescriptor UnusedParameter = new DiagnosticDescriptor(
@@ -1406,7 +1546,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UnusedParameter}.md"
         );
 
         public static readonly DiagnosticDescriptor UnusedTypeParameter = new DiagnosticDescriptor(
@@ -1416,7 +1557,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UnusedTypeParameter}.md"
         );
 
         public static readonly DiagnosticDescriptor UnconstrainedTypeParameterCheckedForNull = new DiagnosticDescriptor(
@@ -1425,7 +1567,8 @@ namespace Roslynator.CSharp
             messageFormat: "Unconstrained type parameter checked for null.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UnconstrainedTypeParameterCheckedForNull}.md"
         );
 
         public static readonly DiagnosticDescriptor ValueTypeObjectIsNeverEqualToNull = new DiagnosticDescriptor(
@@ -1434,7 +1577,8 @@ namespace Roslynator.CSharp
             messageFormat: "Value type object is never equal to null.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ValueTypeObjectIsNeverEqualToNull}.md"
         );
 
         public static readonly DiagnosticDescriptor ParameterNameDiffersFromBase = new DiagnosticDescriptor(
@@ -1443,7 +1587,8 @@ namespace Roslynator.CSharp
             messageFormat: "Parameter name '{0}' differs from base name '{1}'.",
             category: DiagnosticCategories.Maintainability,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ParameterNameDiffersFromBase}.md"
         );
 
         public static readonly DiagnosticDescriptor MarkFieldAsReadOnly = new DiagnosticDescriptor(
@@ -1452,7 +1597,8 @@ namespace Roslynator.CSharp
             messageFormat: "Mark field as read-only.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.MarkFieldAsReadOnly}.md"
         );
 
         public static readonly DiagnosticDescriptor UseReadOnlyAutoProperty = new DiagnosticDescriptor(
@@ -1462,7 +1608,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseReadOnlyAutoProperty}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyLazilyInitializedProperty = new DiagnosticDescriptor(
@@ -1471,7 +1618,8 @@ namespace Roslynator.CSharp
             messageFormat: "Simplify lazily initialized property.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyLazilyInitializedProperty}.md"
         );
 
         public static readonly DiagnosticDescriptor UseIsOperatorInsteadOfAsOperator = new DiagnosticDescriptor(
@@ -1480,7 +1628,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use is operator instead of as operator.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseIsOperatorInsteadOfAsOperator}.md"
         );
 
         public static readonly DiagnosticDescriptor UseCoalesceExpressionInsteadOfIf = new DiagnosticDescriptor(
@@ -1489,7 +1638,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use coalesce expression instead of if.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseCoalesceExpressionInsteadOfIf}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantAsyncAwait = new DiagnosticDescriptor(
@@ -1498,7 +1648,8 @@ namespace Roslynator.CSharp
             messageFormat: "Remove redundant async/await.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantAsyncAwait}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantAsyncAwaitFadeOut = RemoveRedundantAsyncAwait.CreateFadeOut();
@@ -1510,7 +1661,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UnusedThisParameter}.md"
         );
 
         public static readonly DiagnosticDescriptor UseVarInsteadOfExplicitTypeWhenTypeIsNotObvious = new DiagnosticDescriptor(
@@ -1537,7 +1689,8 @@ namespace Roslynator.CSharp
             messageFormat: "Call Debug.Fail instead of Debug.Assert.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.CallDebugFailInsteadOfDebugAssert}.md"
         );
 
         public static readonly DiagnosticDescriptor UseReturnInsteadOfAssignment = new DiagnosticDescriptor(
@@ -1546,7 +1699,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use return instead of assignment.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseReturnInsteadOfAssignment}.md"
         );
 
         public static readonly DiagnosticDescriptor InlineLazyInitialization = new DiagnosticDescriptor(
@@ -1555,7 +1709,8 @@ namespace Roslynator.CSharp
             messageFormat: "Inline lazy initialization.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.InlineLazyInitialization}.md"
         );
 
         public static readonly DiagnosticDescriptor ReplaceCommentWithDocumentationComment = new DiagnosticDescriptor(
@@ -1564,7 +1719,8 @@ namespace Roslynator.CSharp
             messageFormat: "Replace comment with documentation comment.",
             category: DiagnosticCategories.General,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ReplaceCommentWithDocumentationComment}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantBaseInterface = new DiagnosticDescriptor(
@@ -1574,7 +1730,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantBaseInterface}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatInitializerWithSingleExpressionOnSingleLine = new DiagnosticDescriptor(
@@ -1583,7 +1740,8 @@ namespace Roslynator.CSharp
             messageFormat: "Format initializer with single expression on single line.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.FormatInitializerWithSingleExpressionOnSingleLine}.md"
         );
 
         public static readonly DiagnosticDescriptor FormatConditionalExpression = new DiagnosticDescriptor(
@@ -1601,7 +1759,8 @@ namespace Roslynator.CSharp
             messageFormat: "Avoid single-line block.",
             category: DiagnosticCategories.Formatting,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidSingleLineBlock}.md"
         );
 
         public static readonly DiagnosticDescriptor UseRegexInstanceInsteadOfStaticMethod = new DiagnosticDescriptor(
@@ -1610,7 +1769,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use Regex instance instead of static method.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseRegexInstanceInsteadOfStaticMethod}.md"
         );
 
         public static readonly DiagnosticDescriptor UseConstantInsteadOfField = new DiagnosticDescriptor(
@@ -1619,7 +1779,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use constant instead of field.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseConstantInsteadOfField}.md"
         );
 
         public static readonly DiagnosticDescriptor RemoveRedundantAutoPropertyInitialization = new DiagnosticDescriptor(
@@ -1629,7 +1790,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.RemoveRedundantAutoPropertyInitialization}.md"
         );
 
         public static readonly DiagnosticDescriptor AddOrRemoveRegionName = new DiagnosticDescriptor(
@@ -1638,7 +1800,8 @@ namespace Roslynator.CSharp
             messageFormat: "{0} region name {1} #endregion.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AddOrRemoveRegionName}.md"
         );
 
         public static readonly DiagnosticDescriptor JoinStringExpressions = new DiagnosticDescriptor(
@@ -1647,7 +1810,8 @@ namespace Roslynator.CSharp
             messageFormat: "Join string expressions.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.JoinStringExpressions}.md"
         );
 
         public static readonly DiagnosticDescriptor DeclareEnumValueAsCombinationOfNames = new DiagnosticDescriptor(
@@ -1656,7 +1820,8 @@ namespace Roslynator.CSharp
             messageFormat: "Declare enum value as combination of names.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.DeclareEnumValueAsCombinationOfNames}.md"
         );
 
         public static readonly DiagnosticDescriptor UseRegularStringLiteralInsteadOfVerbatimStringLiteral = new DiagnosticDescriptor(
@@ -1666,7 +1831,8 @@ namespace Roslynator.CSharp
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
             isEnabledByDefault: true,
-            customTags: WellKnownDiagnosticTags.Unnecessary
+            customTags: WellKnownDiagnosticTags.Unnecessary,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseRegularStringLiteralInsteadOfVerbatimStringLiteral}.md"
         );
 
         public static readonly DiagnosticDescriptor OverridingMemberCannotChangeParamsModifier = new DiagnosticDescriptor(
@@ -1675,7 +1841,8 @@ namespace Roslynator.CSharp
             messageFormat: "Overriding member cannot change 'params' modifier.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.OverridingMemberCannotChangeParamsModifier}.md"
         );
 
         public static readonly DiagnosticDescriptor ImplementExceptionConstructors = new DiagnosticDescriptor(
@@ -1684,7 +1851,8 @@ namespace Roslynator.CSharp
             messageFormat: "Implement exception constructors.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ImplementExceptionConstructors}.md"
         );
 
         public static readonly DiagnosticDescriptor UseExclusiveOrOperator = new DiagnosticDescriptor(
@@ -1693,7 +1861,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use ^ operator.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseExclusiveOrOperator}.md"
         );
 
         public static readonly DiagnosticDescriptor CallExtensionMethodAsInstanceMethod = new DiagnosticDescriptor(
@@ -1702,7 +1871,8 @@ namespace Roslynator.CSharp
             messageFormat: "Call extension method as instance method.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.CallExtensionMethodAsInstanceMethod}.md"
         );
 
         public static readonly DiagnosticDescriptor OptimizeStringBuilderAppendCall = new DiagnosticDescriptor(
@@ -1711,7 +1881,8 @@ namespace Roslynator.CSharp
             messageFormat: "Optimize StringBuilder.{0} call.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.OptimizeStringBuilderAppendCall}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidBoxingOfValueType = new DiagnosticDescriptor(
@@ -1720,7 +1891,8 @@ namespace Roslynator.CSharp
             messageFormat: "Avoid unnecessary boxing of value type.",
             category: DiagnosticCategories.Performance,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidBoxingOfValueType}.md"
         );
 
         public static readonly DiagnosticDescriptor SimplifyBooleanExpression = new DiagnosticDescriptor(
@@ -1729,7 +1901,8 @@ namespace Roslynator.CSharp
             messageFormat: "Simplify boolean expression.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.SimplifyBooleanExpression}.md"
         );
 
         public static readonly DiagnosticDescriptor CallThenByInsteadOfOrderBy = new DiagnosticDescriptor(
@@ -1738,7 +1911,8 @@ namespace Roslynator.CSharp
             messageFormat: "Call 'Enumerable.ThenBy{0}' instead of 'Enumerable.OrderBy{0}'.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.CallThenByInsteadOfOrderBy}.md"
         );
 
         public static readonly DiagnosticDescriptor UseMethodChaining = new DiagnosticDescriptor(
@@ -1747,7 +1921,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use method chaining.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseMethodChaining}.md"
         );
 
         public static readonly DiagnosticDescriptor AvoidNullReferenceException = new DiagnosticDescriptor(
@@ -1756,7 +1931,8 @@ namespace Roslynator.CSharp
             messageFormat: "Avoid NullReferenceException.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.AvoidNullReferenceException}.md"
         );
 
         public static readonly DiagnosticDescriptor UseAttributeUsageAttribute = new DiagnosticDescriptor(
@@ -1765,7 +1941,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use AttributeUsageAttribute.",
             category: DiagnosticCategories.Design,
             defaultSeverity: DiagnosticSeverity.Warning,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseAttributeUsageAttribute}.md"
         );
 
         public static readonly DiagnosticDescriptor UseEventArgsEmpty = new DiagnosticDescriptor(
@@ -1774,7 +1951,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use EventArgs.Empty.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseEventArgsEmpty}.md"
         );
 
         public static readonly DiagnosticDescriptor ReorderNamedArguments = new DiagnosticDescriptor(
@@ -1783,7 +1961,8 @@ namespace Roslynator.CSharp
             messageFormat: "Reorder named arguments according to the order of parameters.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ReorderNamedArguments}.md"
         );
 
         public static readonly DiagnosticDescriptor UseConditionalAccessInsteadOfConditionalExpression = new DiagnosticDescriptor(
@@ -1792,7 +1971,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use conditional access instead of conditional expression.",
             category: DiagnosticCategories.Usage,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseConditionalAccessInsteadOfConditionalExpression}.md"
         );
 
         public static readonly DiagnosticDescriptor UseMethodGroupInsteadOfAnonymousFunction = new DiagnosticDescriptor(
@@ -1801,7 +1981,8 @@ namespace Roslynator.CSharp
             messageFormat: "Use method group instead of anonymous function.",
             category: DiagnosticCategories.Simplification,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.UseMethodGroupInsteadOfAnonymousFunction}.md"
         );
 
         public static readonly DiagnosticDescriptor UseMethodGroupInsteadOfAnonymousFunctionFadeOut = UseMethodGroupInsteadOfAnonymousFunction.CreateFadeOut();
@@ -1812,7 +1993,8 @@ namespace Roslynator.CSharp
             messageFormat: "Reduce if nesting.",
             category: DiagnosticCategories.Style,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: false
+            isEnabledByDefault: false,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ReduceIfNesting}.md"
         );
 
         public static readonly DiagnosticDescriptor ReorderTypeParameterConstraints = new DiagnosticDescriptor(
@@ -1821,7 +2003,8 @@ namespace Roslynator.CSharp
             messageFormat: "Reorder type parameter constraints.",
             category: DiagnosticCategories.Readability,
             defaultSeverity: DiagnosticSeverity.Info,
-            isEnabledByDefault: true
+            isEnabledByDefault: true,
+            helpLinkUri: $"{HelpLinkUriRoot}/{DiagnosticIdentifiers.ReorderTypeParameterConstraints}.md"
         );
     }
 }

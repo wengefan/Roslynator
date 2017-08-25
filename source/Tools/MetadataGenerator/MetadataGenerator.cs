@@ -34,6 +34,14 @@ namespace Roslynator.CodeGeneration
                 @"Analyzers\AnalyzersByCategory.md",
                 MarkdownGenerator.CreateAnalyzersByCategoryMarkDown(Analyzers, Comparer));
 
+            foreach (AnalyzerDescriptor analyzer in Analyzers)
+            {
+                WriteAllText(
+                    $@"..\docs\analyzers\{analyzer.Id}.md",
+                    MarkdownGenerator.CreateAnalyzerMarkDown(analyzer),
+                    fileMustExists: false);
+            }
+
             WriteAllText(
                 @"..\docs\refactorings\Refactorings.md",
                 MarkdownGenerator.CreateRefactoringsMarkDown(Refactorings, Comparer));
