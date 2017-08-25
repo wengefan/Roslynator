@@ -24,7 +24,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
 
             base.Initialize(context);
 
-            context.RegisterSyntaxNodeAction(f => AnalyzeStatement(f),
+            context.RegisterSyntaxNodeAction(AnalyzeStatement,
                 SyntaxKind.IfStatement,
                 SyntaxKind.ElseClause,
                 SyntaxKind.ForEachStatement,
@@ -39,7 +39,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
 
         private void AnalyzeStatement(SyntaxNodeAnalysisContext context)
         {
-            StatementSyntax statement = EmbeddedStatementHelper.GetEmbeddedStatement(context.Node);
+            StatementSyntax statement = EmbeddedStatementHelper.GetEmbeddedStatement(context.Node, ifInsideElse: false, usingInsideUsing: false);
 
             if (statement != null)
             {

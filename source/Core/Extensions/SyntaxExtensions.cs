@@ -71,6 +71,21 @@ namespace Roslynator
         {
             return (throwException) ? list.SingleOrDefault() : ((list.Count == 1) ? list[0] : default(TNode));
         }
+
+        public static bool SpanContainsDirectives<TNode>(this SeparatedSyntaxList<TNode> list) where TNode : SyntaxNode
+        {
+            if (!list.Any())
+                return false;
+
+            for (int i = 1; i < list.Count - 1; i++)
+            {
+                if (list[i].ContainsDirectives)
+                    return true;
+            }
+
+            return list.First().SpanOrLeadingTriviaContainsDirectives()
+                || list.Last().SpanOrTrailingTriviaContainsDirectives();
+        }
         #endregion SeparatedSyntaxList<T>
 
         #region SyntaxList<T>
@@ -127,6 +142,21 @@ namespace Roslynator
         internal static TNode SingleOrDefault<TNode>(this SyntaxList<TNode> list, bool throwException) where TNode : SyntaxNode
         {
             return (throwException) ? list.SingleOrDefault() : ((list.Count == 1) ? list[0] : default(TNode));
+        }
+
+        public static bool SpanContainsDirectives<TNode>(this SyntaxList<TNode> list) where TNode : SyntaxNode
+        {
+            if (!list.Any())
+                return false;
+
+            for (int i = 1; i < list.Count - 1; i++)
+            {
+                if (list[i].ContainsDirectives)
+                    return true;
+            }
+
+            return list.First().SpanOrLeadingTriviaContainsDirectives()
+                || list.Last().SpanOrTrailingTriviaContainsDirectives();
         }
         #endregion SyntaxList<T>
 

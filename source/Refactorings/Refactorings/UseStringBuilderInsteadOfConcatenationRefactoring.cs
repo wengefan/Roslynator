@@ -124,7 +124,7 @@ namespace Roslynator.CSharp.Refactorings
                 .WithTrailingTrivia(statement.GetTrailingTrivia())
                 .WithoutLeadingTrivia());
 
-            if (EmbeddedStatementHelper.IsEmbeddedStatement(statement))
+            if (statement.IsEmbedded())
             {
                 BlockSyntax block = Block(statements).WithFormatterAnnotation();
 
