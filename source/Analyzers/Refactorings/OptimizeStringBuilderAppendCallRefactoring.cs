@@ -154,7 +154,7 @@ namespace Roslynator.CSharp.Refactorings
                     }
                 case SyntaxKind.AddExpression:
                     {
-                        ImmutableArray<ExpressionSyntax> expressions = BinaryExpressionChain.Create((BinaryExpressionSyntax)expression).Expressions;
+                        ImmutableArray<ExpressionSyntax> expressions = SyntaxInfo.BinaryExpressionChainInfo((BinaryExpressionSyntax)expression).Expressions;
 
                         newInvocation = invocation
                             .ReplaceNode(memberInvocation.Name, IdentifierName("Append").WithTriviaFrom(memberInvocation.Name))

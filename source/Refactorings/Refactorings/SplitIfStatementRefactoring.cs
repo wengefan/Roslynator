@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -41,7 +42,7 @@ namespace Roslynator.CSharp.Refactorings
 
             var logicalOr = (BinaryExpressionSyntax)condition;
 
-            BinaryExpressionChain chain = BinaryExpressionChain.Create((BinaryExpressionSyntax)condition);
+            BinaryExpressionChainInfo chain = SyntaxInfo.BinaryExpressionChainInfo((BinaryExpressionSyntax)condition);
 
             var ifStatements = new List<IfStatementSyntax>();
 

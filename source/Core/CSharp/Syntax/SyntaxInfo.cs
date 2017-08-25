@@ -2,6 +2,7 @@
 
 using System.Threading;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Syntax
@@ -24,6 +25,22 @@ namespace Roslynator.CSharp.Syntax
             return Syntax.AsExpressionInfo.Create(
                 binaryExpression,
                 options);
+        }
+
+        public static BinaryExpressionChainInfo BinaryExpressionChainInfo(
+            SyntaxNode node,
+            SyntaxKind kind,
+            SyntaxInfoOptions options = null)
+        {
+            return Syntax.BinaryExpressionChainInfo.Create(
+                node,
+                kind,
+                options);
+        }
+
+        public static BinaryExpressionChainInfo BinaryExpressionChainInfo(BinaryExpressionSyntax binaryExpression)
+        {
+            return Syntax.BinaryExpressionChainInfo.Create(binaryExpression);
         }
 
         public static BinaryExpressionInfo BinaryExpressionInfo(
