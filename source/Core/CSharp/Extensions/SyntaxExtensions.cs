@@ -2245,7 +2245,7 @@ namespace Roslynator.CSharp
                 throw new ArgumentNullException(nameof(statement));
 
             return (statement.Kind() == SyntaxKind.Block)
-                ? SingleNonBlockStatementOrDefault((BlockSyntax)statement)
+                ? SingleNonBlockStatementOrDefault((BlockSyntax)statement, recursive)
                 : statement;
         }
 
