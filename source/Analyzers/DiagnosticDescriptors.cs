@@ -372,7 +372,7 @@ namespace Roslynator.CSharp
             messageFormat: "Remove empty else clause.",
             category: DiagnosticCategories.Redundancy,
             defaultSeverity: DiagnosticSeverity.Hidden,
-            isEnabledByDefault: false,
+            isEnabledByDefault: true,
             customTags: WellKnownDiagnosticTags.Unnecessary
         );
 
