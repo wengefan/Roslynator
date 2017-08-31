@@ -10,11 +10,11 @@ using Roslynator.CSharp.Refactorings;
 namespace Roslynator.CSharp.DiagnosticAnalyzers
 {
     [DiagnosticAnalyzer(LanguageNames.CSharp)]
-    public class UseConditionalAccessInsteadOfConditionalExpressionDiagnosticAnalyzer : BaseDiagnosticAnalyzer
+    public class ReorderTypeParameterConstraintsDiagnosticAnalyzer : BaseDiagnosticAnalyzer
     {
         public override ImmutableArray<DiagnosticDescriptor> SupportedDiagnostics
         {
-            get { return ImmutableArray.Create(DiagnosticDescriptors.UseConditionalAccessInsteadOfConditionalExpression); }
+            get { return ImmutableArray.Create(DiagnosticDescriptors.ReorderTypeParameterConstraints); }
         }
 
         public override void Initialize(AnalysisContext context)
@@ -24,12 +24,9 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
 
             base.Initialize(context);
 
-            context.RegisterCompilationStartAction(startContext =>
-            {
-                INamedTypeSymbol expressionType = startContext.Compilation.GetTypeByMetadataName(MetadataNames.System_Linq_Expressions_Expression_1);
-
-                startContext.RegisterSyntaxNodeAction(nodeContext => UseConditionalAccessRefactoring.AnalyzeConditionalExpression(nodeContext, expressionType), SyntaxKind.ConditionalExpression);
-            });
+            context.RegisterSyntaxNodeAction(
+                ReorderTypeParameterConstraintsRefactoring.AnalyzeTypeParameterList,
+                SyntaxKind.TypeParameterList);
         }
     }
 }
