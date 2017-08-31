@@ -2195,11 +2195,40 @@ namespace Roslynator.CSharp
                     }
                 default:
                     {
-                        Debug.Assert(parent == null || EmbeddedStatementHelper.IsEmbeddedStatement(statement), parent.Kind().ToString());
+                        Debug.Assert(parent == null || statement.IsEmbedded(), parent.Kind().ToString());
                         statements = default(SyntaxList<StatementSyntax>);
                         return false;
                     }
             }
+        }
+
+        public static bool IsEmbedded(
+            this StatementSyntax statement,
+            bool ifInsideElse = true,
+            bool usingInsideUsing = true)
+        {
+            if (statement == null)
+                throw new ArgumentNullException(nameof(statement));
+
+            SyntaxKind kind = statement.Kind();
+
+            if (kind == SyntaxKind.Block)
+                return false;
+
+            SyntaxNode parent = statement.Parent;
+
+            if (parent == null)
+                return false;
+
+            SyntaxKind parentKind = parent.Kind();
+
+            return EmbeddedStatementHelper.CanContainEmbeddedStatement(parentKind)
+                && (ifInsideElse
+                    || kind != SyntaxKind.IfStatement
+                    || parentKind != SyntaxKind.ElseClause)
+                && (usingInsideUsing
+                    || kind != SyntaxKind.UsingStatement
+                    || parentKind != SyntaxKind.UsingStatement);
         }
         #endregion StatementSyntax
 
@@ -3199,6 +3228,18 @@ namespace Roslynator.CSharp
             }
 
             return false;
+        }
+
+        internal static bool IsInExpressionTree(
+            this SyntaxNode node,
+            SemanticModel semanticModel,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            return IsInExpressionTree(
+                node,
+                semanticModel.GetTypeByMetadataName(MetadataNames.System_Linq_Expressions_Expression_1),
+                semanticModel,
+                cancellationToken);
         }
 
         internal static bool IsInExpressionTree(
