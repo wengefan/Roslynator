@@ -31,7 +31,7 @@ namespace Roslynator.CodeGeneration.Markdown
 
                 foreach (RefactoringDescriptor info in refactorings.OrderBy(f => f.Title, comparer))
                 {
-                    sw.WriteLine($"* [{info.Title.TrimEnd('.').EscapeMarkdown()}](docs/refactorings/{info.Identifier}.md)");
+                    sw.WriteLine($"* [{info.Title.TrimEnd('.').EscapeMarkdown()}](docs/refactorings/{info.Id}.md)");
                 }
 
                 return sw.ToString();
@@ -180,7 +180,7 @@ namespace Roslynator.CodeGeneration.Markdown
                 {
                     sw.Write(info.Id);
                     sw.Write('|');
-                    sw.Write($"[{info.Title.TrimEnd('.').EscapeMarkdown()}](../../docs/refactorings/{info.Identifier}.md)");
+                    sw.Write($"[{info.Title.TrimEnd('.').EscapeMarkdown()}](../../docs/refactorings/{info.Id}.md)");
                     sw.Write('|');
                     sw.Write((info.IsEnabledByDefault) ? "x" : "");
                     sw.WriteLine();
