@@ -40,7 +40,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string RemoveImplementationFromAbstractMember = Prefix + "0032";
         public const string AddStaticModifier = Prefix + "0033";
         public const string MakeContainingClassAbstract = Prefix + "0034";
-        public const string AddSemicolon = Prefix + "0035";
         public const string SynchronizeAccessibility = Prefix + "0036";
         public const string RemoveArgumentList = Prefix + "0037";
         public const string FixMemberAccessName = Prefix + "0038";
@@ -82,5 +81,6 @@ namespace Roslynator.CSharp.CodeFixes
         public const string ReplaceAsExpressionWithCastExpression = Prefix + "0074";
         public const string RemoveConditionThatIsAlwaysEqualToTrueOrFalse = Prefix + "0075";
         public const string IntroduceField = Prefix + "0076";
+        public const string ReplaceElementAccessWithInvocation = Prefix + "0077";
     }
 }
