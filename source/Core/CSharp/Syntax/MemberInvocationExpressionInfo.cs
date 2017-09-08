@@ -74,7 +74,7 @@ namespace Roslynator.CSharp.Syntax
             return CreateCore(invocationExpression, options ?? SyntaxInfoOptions.Default);
         }
 
-        internal static MemberInvocationExpressionInfo CreateCore(
+        private static MemberInvocationExpressionInfo CreateCore(
             InvocationExpressionSyntax invocationExpression,
             SyntaxInfoOptions options)
         {

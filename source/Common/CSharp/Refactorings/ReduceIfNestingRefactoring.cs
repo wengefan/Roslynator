@@ -20,107 +20,154 @@ namespace Roslynator.CSharp.Refactorings
             CancellationToken cancellationToken = default(CancellationToken),
             bool topLevelOnly = false)
         {
-            if (IsFixable(ifStatement))
+            if (!IsFixable(ifStatement))
+                return false;
+
+            var block = (BlockSyntax)ifStatement.Parent;
+
+            if (!block.Statements.IsLastStatement(ifStatement, skipLocalFunction: true))
+                return false;
+
+            SyntaxNode parent = block.Parent;
+
+            switch (parent.Kind())
             {
-                var block = (BlockSyntax)ifStatement.Parent;
-
-                if (block.Statements.IsLastStatement(ifStatement, skipLocalFunction: true))
-                {
-                    SyntaxNode parent = block.Parent;
-
-                    switch (parent.Kind())
+                case SyntaxKind.MethodDeclaration:
                     {
-                        case SyntaxKind.MethodDeclaration:
-                            {
-                                var methodDeclaration = (MethodDeclarationSyntax)parent;
+                        var methodDeclaration = (MethodDeclarationSyntax)parent;
 
-                                if (methodDeclaration.ReturnsVoid())
-                                {
-                                    return true;
-                                }
-                                else if (methodDeclaration.Modifiers.Contains(SyntaxKind.AsyncKeyword))
-                                {
-                                    return taskType != null
-                                        && semanticModel
-                                            .GetDeclaredSymbol(methodDeclaration, cancellationToken)?
-                                            .ReturnType
-                                            .Equals(taskType) == true;
-                                }
-                                else
-                                {
-                                    return semanticModel
-                                            .GetDeclaredSymbol(methodDeclaration, cancellationToken)?
-                                            .ReturnType
-                                            .IsIEnumerableOrConstructedFromIEnumerableOfT() == true
-                                        && methodDeclaration.ContainsYield();
-                                }
-                            }
-                        case SyntaxKind.LocalFunctionStatement:
-                            {
-                                var localFunction = (LocalFunctionStatementSyntax)parent;
+                        if (methodDeclaration.ReturnsVoid())
+                            return true;
 
-                                if (localFunction.ReturnsVoid())
-                                {
-                                    return true;
-                                }
-                                else if (localFunction.Modifiers.Contains(SyntaxKind.AsyncKeyword))
-                                {
-                                    return taskType != null
-                                    && ((IMethodSymbol)semanticModel.GetDeclaredSymbol(localFunction, cancellationToken))?
-                                        .ReturnType
-                                        .Equals(taskType) == true;
-                                }
-                                else
-                                {
-                                    return ((IMethodSymbol)semanticModel.GetDeclaredSymbol(localFunction, cancellationToken))?
-                                            .ReturnType
-                                            .IsIEnumerableOrConstructedFromIEnumerableOfT() == true
-                                        && localFunction.ContainsYield();
-                                }
-                            }
-                        case SyntaxKind.IfStatement:
-                            {
-                                if (!topLevelOnly)
-                                    return  IsFixable((IfStatementSyntax)parent, semanticModel, taskType, cancellationToken, topLevelOnly);
+                        if (methodDeclaration.Modifiers.Contains(SyntaxKind.AsyncKeyword))
+                        {
+                            return taskType != null
+                                && semanticModel
+                                    .GetDeclaredSymbol(methodDeclaration, cancellationToken)?
+                                    .ReturnType
+                                    .Equals(taskType) == true;
+                        }
 
-                                break;
-                            }
+                        return semanticModel
+                                .GetDeclaredSymbol(methodDeclaration, cancellationToken)?
+                                .ReturnType
+                                .IsIEnumerableOrConstructedFromIEnumerableOfT() == true
+                            && methodDeclaration.ContainsYield();
                     }
-                }
+                case SyntaxKind.LocalFunctionStatement:
+                    {
+                        var localFunction = (LocalFunctionStatementSyntax)parent;
+
+                        if (localFunction.ReturnsVoid())
+                            return true;
+
+                        if (localFunction.Modifiers.Contains(SyntaxKind.AsyncKeyword))
+                        {
+                            return taskType != null
+                                && ((IMethodSymbol)semanticModel.GetDeclaredSymbol(localFunction, cancellationToken))?
+                                    .ReturnType
+                                    .Equals(taskType) == true;
+                        }
+
+                        return ((IMethodSymbol)semanticModel.GetDeclaredSymbol(localFunction, cancellationToken))?
+                                .ReturnType
+                                .IsIEnumerableOrConstructedFromIEnumerableOfT() == true
+                            && localFunction.ContainsYield();
+                    }
+                case SyntaxKind.SimpleLambdaExpression:
+                case SyntaxKind.ParenthesizedLambdaExpression:
+                case SyntaxKind.AnonymousMethodExpression:
+                    {
+                        var function = (AnonymousFunctionExpressionSyntax)parent;
+
+                        var methodSymbol = semanticModel.GetSymbol(function, cancellationToken) as IMethodSymbol;
+
+                        if (methodSymbol == null)
+                            return false;
+
+                        if (methodSymbol.ReturnsVoid)
+                            return true;
+
+                        return function.AsyncKeyword.IsKind(SyntaxKind.AsyncKeyword)
+                            && methodSymbol.ReturnType.Equals(taskType);
+                    }
+                case SyntaxKind.IfStatement:
+                    {
+                        return !topLevelOnly
+                            && IsFixable((IfStatementSyntax)parent, semanticModel, taskType, cancellationToken, topLevelOnly);
+                    }
             }
 
             return false;
+        }
+
+        internal static bool IsFixableRecursively(IfStatementSyntax ifStatement)
+        {
+            StatementSyntax statement = ifStatement.Statement;
+
+            if (statement == null)
+                return false;
+
+            SyntaxKind kind = statement.Kind();
+
+            if (kind == SyntaxKind.Block)
+            {
+                statement = ((BlockSyntax)statement).Statements.LastOrDefault();
+
+                if (statement == null)
+                    return false;
+
+                kind = statement.Kind();
+            }
+
+            return kind == SyntaxKind.IfStatement
+                && IsFixable((IfStatementSyntax)statement);
         }
 
         private static bool IsFixable(IfStatementSyntax ifStatement)
         {
             return ifStatement.IsSimpleIf()
                 && ifStatement.Condition?.IsMissing == false
-                && ifStatement.Statement?.IsKind(SyntaxKind.Block) == true
-                && ifStatement.IsParentKind(SyntaxKind.Block);
+                && ifStatement.IsParentKind(SyntaxKind.Block)
+                && (ifStatement.Statement is BlockSyntax block)
+                && block.Statements.Any();
         }
 
         public static Task<Document> RefactorAsync(
             Document document,
             IfStatementSyntax ifStatement,
+            bool recursive,
             CancellationToken cancellationToken)
         {
             var block = (BlockSyntax)ifStatement.Parent;
 
-            SyntaxNode node = block;
+            SyntaxNode outermostBlock = block;
 
-            while (!node.IsParentKind(SyntaxKind.MethodDeclaration, SyntaxKind.LocalFunctionStatement))
-                node = node.Parent;
+            while (!outermostBlock.IsParentKind(
+                SyntaxKind.MethodDeclaration,
+                SyntaxKind.LocalFunctionStatement,
+                SyntaxKind.SimpleLambdaExpression,
+                SyntaxKind.ParenthesizedLambdaExpression,
+                SyntaxKind.AnonymousMethodExpression))
+            {
+                outermostBlock = outermostBlock.Parent;
+            }
 
-            bool containsYield = node
-                .DescendantNodes(f => !f.IsNestedMethod())
-                .Any(f => f.IsKind(SyntaxKind.YieldBreakStatement, SyntaxKind.YieldReturnStatement));
+            StatementSyntax jumpStatement = null;
 
-            StatementSyntax jumpStatement = (containsYield)
-                ? (StatementSyntax)YieldBreakStatement()
-                : ReturnStatement();
+            if (outermostBlock.IsParentKind(SyntaxKind.MethodDeclaration, SyntaxKind.LocalFunctionStatement)
+                && outermostBlock
+                    .DescendantNodes(f => !f.IsNestedMethod())
+                    .Any(f => f.IsKind(SyntaxKind.YieldBreakStatement, SyntaxKind.YieldReturnStatement)))
+            {
+                jumpStatement = YieldBreakStatement();
+            }
+            else
+            {
+                jumpStatement = ReturnStatement();
+            }
 
-            var rewriter = new IfStatementRewriter(jumpStatement, visitLocalFunction: node.IsParentKind(SyntaxKind.LocalFunctionStatement));
+            var rewriter = new IfStatementRewriter(jumpStatement, recursive);
 
             SyntaxNode newNode = rewriter.VisitBlock(block);
 
@@ -130,36 +177,60 @@ namespace Roslynator.CSharp.Refactorings
         private class IfStatementRewriter : CSharpSyntaxRewriter
         {
             private readonly StatementSyntax _jumpStatement;
-            private readonly bool _visitLocalFunction;
+            private readonly bool _recursive;
+            private BlockSyntax _block;
 
-            public IfStatementRewriter(StatementSyntax jumpStatement, bool visitLocalFunction)
+            public IfStatementRewriter(StatementSyntax jumpStatement, bool recursive)
             {
                 _jumpStatement = jumpStatement;
-                _visitLocalFunction = visitLocalFunction;
+                _recursive = recursive;
+            }
+
+            public override SyntaxNode VisitIfStatement(IfStatementSyntax node)
+            {
+                if (node.Parent == _block)
+                {
+                    return base.VisitIfStatement(node);
+                }
+                else
+                {
+                    return node;
+                }
             }
 
             public override SyntaxNode VisitBlock(BlockSyntax node)
             {
-                node = (BlockSyntax)base.VisitBlock(node);
+                _block = node;
 
-                SyntaxList<StatementSyntax> statements = node.Statements;
-
-                var ifStatement = statements.LastOrDefault(f => !f.IsKind(SyntaxKind.LocalFunctionStatement)) as IfStatementSyntax;
-
-                if (ifStatement != null
-                    && IsFixable(ifStatement)
-                    && ((BlockSyntax)ifStatement.Parent).Statements.IsLastStatement(ifStatement, skipLocalFunction: true))
+                if (node.LastStatementOrDefault(skipLocalFunction: true) is IfStatementSyntax ifStatement
+                    && IsFixable(ifStatement))
                 {
+                    SyntaxList<StatementSyntax> statements = node.Statements;
+
+                    int index = statements.IndexOf(ifStatement);
+
+                    if (_recursive)
+                        ifStatement = (IfStatementSyntax)VisitIfStatement(ifStatement);
+
                     var block = (BlockSyntax)ifStatement.Statement;
 
                     ExpressionSyntax newCondition = Negator.LogicallyNegate(ifStatement.Condition);
 
+                    BlockSyntax newBlock = block.WithStatements(SingletonList(_jumpStatement));
+
+                    if (!block
+                        .Statements
+                        .First()
+                        .GetLeadingTrivia()
+                        .Any(f => f.IsEndOfLineTrivia()))
+                    {
+                        newBlock = newBlock.WithCloseBraceToken(newBlock.CloseBraceToken.AppendToTrailingTrivia(NewLine()));
+                    }
+
                     IfStatementSyntax newIfStatement = ifStatement
                         .WithCondition(newCondition)
-                        .WithStatement(block.WithStatements(SingletonList(_jumpStatement)))
+                        .WithStatement(newBlock)
                         .WithFormatterAnnotation();
-
-                    int index = statements.IndexOf(ifStatement);
 
                     SyntaxList<StatementSyntax> newStatements = statements
                         .ReplaceAt(index, newIfStatement)
@@ -169,18 +240,6 @@ namespace Roslynator.CSharp.Refactorings
                 }
 
                 return node;
-            }
-
-            public override SyntaxNode VisitLocalFunctionStatement(LocalFunctionStatementSyntax node)
-            {
-                if (_visitLocalFunction)
-                {
-                    return base.VisitLocalFunctionStatement(node);
-                }
-                else
-                {
-                    return node;
-                }
             }
         }
     }

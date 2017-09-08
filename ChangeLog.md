@@ -1,3 +1,23 @@
+### 1.4.57 (2017-09-06)
+
+#### Refactorings
+
+##### New Refactorings
+
+  * ReplaceIfElseWithIfReturn (RR0190)
+
+#### Code Fixes
+
+  * Add code fix for CS0021.
+
+### 1.4.56 (2017-08-28)
+
+#### Analyzers
+
+##### New Analyzers
+
+  * ReorderTypeParameterConstraints (RCS1209)
+
 ### 1.4.55 (2017-08-16)
 
 #### Code Fixes
