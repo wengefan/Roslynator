@@ -136,6 +136,7 @@ RR0131|[Replace for statement with while statement](../../docs/refactorings/RR01
 RR0129|[Replace foreach statement with for statement](../../docs/refactorings/RR0129.md)|x
 RR0188|[Replace foreach with for and reverse loop](../../docs/refactorings/RR0188.md)|
 RR0132|[Replace hexadecimal literal with decimal literal](../../docs/refactorings/RR0132.md)|x
+RR0190|[Replace if\-else with if\-return](../../docs/refactorings/RR0190.md)|x
 RR0133|[Replace if\-else with switch statement](../../docs/refactorings/RR0133.md)|x
 RR0134|[Replace increment operator with decrement operator](../../docs/refactorings/RR0134.md)|x
 RR0135|[Replace interpolated string with interpolation expression](../../docs/refactorings/RR0135.md)|x

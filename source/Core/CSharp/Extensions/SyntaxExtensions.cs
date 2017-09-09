@@ -129,6 +129,34 @@ namespace Roslynator.CSharp
                 .DescendantNodes(block.Span, node => !node.IsNestedMethod())
                 .Any(f => f.IsKind(SyntaxKind.YieldReturnStatement, SyntaxKind.YieldBreakStatement)) == true;
         }
+
+        internal static StatementSyntax LastStatementOrDefault(this BlockSyntax block, bool skipLocalFunction = false)
+        {
+            if (block == null)
+                throw new ArgumentNullException(nameof(block));
+
+            SyntaxList<StatementSyntax> statements = block.Statements;
+
+            if (!statements.Any())
+                return null;
+
+            if (!skipLocalFunction)
+                return statements.Last();
+
+            int i = statements.Count - 1;
+
+            while (i >= 0)
+            {
+                StatementSyntax statement = statements[i];
+
+                if (statement.Kind() != SyntaxKind.LocalFunctionStatement)
+                    return statement;
+
+                i--;
+            }
+
+            return null;
+        }
         #endregion BlockSyntax
 
         #region BaseArgumentListSyntax
@@ -1071,6 +1099,59 @@ namespace Roslynator.CSharp
             return interpolatedString.StringStartToken.ValueText.Contains("@");
         }
         #endregion InterpolatedStringExpressionSyntax
+
+        #region InvocationExpressionSyntax
+        internal static ExpressionSyntax WalkDownMethodChain(
+            this InvocationExpressionSyntax invocationExpression,
+            bool walkInvocation = true,
+            bool walkElementAccess = true)
+        {
+            ExpressionSyntax expression = invocationExpression;
+            ExpressionSyntax current = invocationExpression.Expression;
+
+            while (current.Kind() == SyntaxKind.SimpleMemberAccessExpression)
+            {
+                var memberAccessExpression = (MemberAccessExpressionSyntax)current;
+
+                current = memberAccessExpression.Expression;
+
+                SyntaxKind kind = current.Kind();
+
+                if (kind == SyntaxKind.InvocationExpression)
+                {
+                    if (walkInvocation)
+                    {
+                        invocationExpression = (InvocationExpressionSyntax)current;
+                        expression = invocationExpression;
+                        current = invocationExpression.Expression;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else if (kind == SyntaxKind.ElementAccessExpression)
+                {
+                    if (walkElementAccess)
+                    {
+                        var elementAccess = (ElementAccessExpressionSyntax)current;
+                        expression = elementAccess;
+                        current = elementAccess.Expression;
+                    }
+                    else
+                    {
+                        break;
+                    }
+                }
+                else
+                {
+                    break;
+                }
+            }
+
+            return expression;
+        }
+        #endregion InvocationExpressionSyntax
 
         #region LiteralExpressionSyntax
         public static bool IsVerbatimStringLiteral(this LiteralExpressionSyntax literalExpression)
