@@ -31,6 +31,10 @@ namespace Roslynator.CodeGeneration
                 DiagnosticDescriptorsGenerator.Generate(Analyzers, Comparer));
 
             WriteCompilationUnit(
+                @"Analyzers\DiagnosticIdentifiers.Generated.cs",
+                DiagnosticIdentifiersGenerator.Generate(Analyzers, Comparer));
+
+            WriteCompilationUnit(
                 @"CodeFixes\CodeFixIdentifiers.Generated.cs",
                 CodeFixIdentifiersGenerator.Generate(CodeFixes, Comparer));
 

@@ -2,7 +2,7 @@
 
 namespace Roslynator.CSharp
 {
-    public static partial class DiagnosticIdentifiers
+    public static partial class DiagnosticIdentifiers2
     {
         public const string Prefix = "RCS";
 

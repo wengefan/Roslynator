@@ -126,6 +126,7 @@
     <Compile Include="DiagnosticAnalyzers\UnconstrainedTypeParameterCheckedForNullDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticDescriptors.Generated.cs" />
     <Compile Include="DiagnosticIdentifiers.cs" />
+    <Compile Include="DiagnosticIdentifiers.Generated.cs" />
     <Compile Include="Refactorings\AddOrRemoveRegionNameRefactoring.cs" />
     <Compile Include="Refactorings\CallThenByInsteadOfOrderByRefactoring.cs" />
     <Compile Include="Refactorings\OptimizeStringBuilderAppendCallRefactoring.cs" />
