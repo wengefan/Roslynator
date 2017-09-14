@@ -27,6 +27,10 @@ namespace Roslynator.CodeGeneration
                 RefactoringsOptionsPageGenerator.Generate(Refactorings, Comparer));
 
             WriteCompilationUnit(
+                @"Analyzers\DiagnosticDescriptors.Generated.cs",
+                DiagnosticDescriptorsGenerator.Generate(Analyzers, Comparer));
+
+            WriteCompilationUnit(
                 @"CodeFixes\CodeFixIdentifiers.Generated.cs",
                 CodeFixIdentifiersGenerator.Generate(CodeFixes, Comparer));
 

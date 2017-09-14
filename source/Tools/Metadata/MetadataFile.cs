@@ -21,9 +21,10 @@ namespace Roslynator.Metadata
             foreach (XElement element in doc.Root.Elements())
             {
                 yield return new AnalyzerDescriptor(
+                    element.Element("Id").Value,
                     element.Attribute("Identifier").Value,
                     element.Element("Title").Value,
-                    element.Element("Id").Value,
+                    element.Element("MessageFormat").Value,
                     element.Element("Category").Value,
                     element.Element("DefaultSeverity").Value,
                     bool.Parse(element.Element("IsEnabledByDefault").Value),

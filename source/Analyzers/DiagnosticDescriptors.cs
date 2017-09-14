@@ -1,10 +1,11 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System;
 using Microsoft.CodeAnalysis;
 
 namespace Roslynator.CSharp
 {
-    public static class DiagnosticDescriptors
+    public static class DiagnosticDescriptors2
     {
         private const string HelpLinkUriRoot = "http://pihrt.net/roslynator/analyzer?id=";
 
@@ -15,6 +16,7 @@ namespace Roslynator.CSharp
              category: DiagnosticCategories.Style,
              defaultSeverity: DiagnosticSeverity.Info,
              isEnabledByDefault: true,
+             customTags: Array.Empty<string>(),
              helpLinkUri: $"{HelpLinkUriRoot}{DiagnosticIdentifiers.AddBraces}"
         );
 

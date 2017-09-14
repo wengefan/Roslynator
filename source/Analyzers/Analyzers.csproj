@@ -124,6 +124,7 @@
     <Compile Include="DiagnosticAnalyzers\UseVarWhenTypeIsNotObviousDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\ValueTypeObjectIsNeverEqualToNullDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\UnconstrainedTypeParameterCheckedForNullDiagnosticAnalyzer.cs" />
+    <Compile Include="DiagnosticDescriptors.Generated.cs" />
     <Compile Include="DiagnosticIdentifiers.cs" />
     <Compile Include="Refactorings\AddOrRemoveRegionNameRefactoring.cs" />
     <Compile Include="Refactorings\CallThenByInsteadOfOrderByRefactoring.cs" />

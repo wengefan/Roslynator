@@ -22,9 +22,10 @@ namespace Roslynator.CodeGeneration
 
         public void Generate()
         {
-            WriteAllText(
-                @"Analyzers\Analyzers.xml",
-                XmlGenerator.CreateAnalyzersXml());
+            //TODO: 
+            //WriteAllText(
+            //    @"Analyzers\Analyzers.xml",
+            //    XmlGenerator.CreateAnalyzersXml());
 
             WriteAllText(
                 @"Analyzers\README.md",

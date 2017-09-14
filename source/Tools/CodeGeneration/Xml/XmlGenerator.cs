@@ -97,9 +97,10 @@ namespace Roslynator.CodeGeneration.Xml
                 var descriptor = (DiagnosticDescriptor)fieldInfo.GetValue(null);
 
                 var analyzer = new AnalyzerDescriptor(
+                    descriptor.Id,
                     fieldInfo.Name,
                     descriptor.Title.ToString(),
-                    descriptor.Id,
+                    descriptor.MessageFormat.ToString(),
                     descriptor.Category,
                     descriptor.DefaultSeverity.ToString(),
                     descriptor.IsEnabledByDefault,
@@ -108,9 +109,10 @@ namespace Roslynator.CodeGeneration.Xml
 
                 root.Add(new XElement(
                     "Analyzer",
-                    new XAttribute("Identifier", analyzer.Identifier),
                     new XElement("Id", analyzer.Id),
+                    new XAttribute("Identifier", analyzer.Identifier),
                     new XElement("Title", analyzer.Title),
+                    new XElement("MessageFormat", analyzer.MessageFormat),
                     new XElement("Category", analyzer.Category),
                     new XElement("DefaultSeverity", analyzer.DefaultSeverity),
                     new XElement("IsEnabledByDefault", analyzer.IsEnabledByDefault),
