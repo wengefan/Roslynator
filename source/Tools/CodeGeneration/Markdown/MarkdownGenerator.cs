@@ -122,7 +122,7 @@ namespace Roslynator.CodeGeneration.Markdown
             using (var sw = new StringWriter())
             {
                 string title = analyzer.Title.TrimEnd('.').EscapeMarkdown();
-                sw.WriteLine($"## {analyzer.Id}: {title}");
+                sw.WriteLine($"# {analyzer.Id}: {title}");
                 sw.WriteLine("");
 
                 sw.WriteLine("Property | Value");
@@ -136,10 +136,10 @@ namespace Roslynator.CodeGeneration.Markdown
 
                 sw.WriteLine();
 
-                sw.WriteLine("### How to Suppress");
+                sw.WriteLine("## How to Suppress");
                 sw.WriteLine();
 
-                sw.WriteLine("#### SuppressMessageAttribute");
+                sw.WriteLine("### SuppressMessageAttribute");
                 sw.WriteLine();
 
                 sw.WriteLine("```csharp");
@@ -147,7 +147,7 @@ namespace Roslynator.CodeGeneration.Markdown
                 sw.WriteLine("```");
                 sw.WriteLine();
 
-                sw.WriteLine(@"#### \#pragma");
+                sw.WriteLine(@"### \#pragma");
                 sw.WriteLine();
 
                 sw.WriteLine("```csharp");
@@ -156,10 +156,10 @@ namespace Roslynator.CodeGeneration.Markdown
                 sw.WriteLine("```");
                 sw.WriteLine();
 
-                sw.WriteLine("#### Ruleset");
+                sw.WriteLine("### Ruleset");
                 sw.WriteLine();
 
-                sw.Write("* See [how to configure rule set](../HowToConfigureAnalyzers.md)");
+                sw.Write("* [How to configure rule set](../HowToConfigureAnalyzers.md)");
                 sw.WriteLine();
 
                 return sw.ToString();
