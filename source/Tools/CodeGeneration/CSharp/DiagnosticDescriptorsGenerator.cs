@@ -2,7 +2,6 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp;
 using Roslynator.Metadata;
@@ -13,25 +12,23 @@ namespace Roslynator.CodeGeneration.CSharp
 {
     public static class DiagnosticDescriptorsGenerator
     {
-        public static CompilationUnitSyntax Generate(IEnumerable<AnalyzerDescriptor> analyzers, IComparer<string> comparer)
+        public static CompilationUnitSyntax Generate(IEnumerable<AnalyzerDescriptor> analyzers, bool obsolete, IComparer<string> comparer)
         {
             return CompilationUnit(
                 UsingDirectives("System", "Microsoft.CodeAnalysis"),
                 NamespaceDeclaration("Roslynator.CSharp",
                     ClassDeclaration(
-                        Modifiers.PublicStatic(),
+                        Modifiers.PublicStaticPartial(),
                         "DiagnosticDescriptors",
-                        List(CreateMembers(analyzers.OrderBy(f => f.Id, comparer)).Select(f => f.WithTrailingTrivia(NewLine()))))));
+                        List(
+                            CreateMembers(
+                                analyzers
+                                    .Where(f => f.IsObsolete == obsolete)
+                                    .OrderBy(f => f.Id, comparer))))));
         }
 
         private static IEnumerable<MemberDeclarationSyntax> CreateMembers(IEnumerable<AnalyzerDescriptor> analyzers)
         {
-            yield return FieldDeclaration(
-                Modifiers.PrivateConst(),
-                StringType(),
-                "HelpLinkUriRoot",
-                StringLiteralExpression("http://pihrt.net/roslynator/analyzer?id="));
-
             foreach (AnalyzerDescriptor analyzer in analyzers)
             {
                 yield return FieldDeclaration(
@@ -70,7 +67,7 @@ namespace Roslynator.CodeGeneration.CSharp
                                 (analyzer.SupportsFadeOut)
                                     ? SimpleMemberAccessExpression(IdentifierName("WellKnownDiagnosticTags"), IdentifierName("Unnecessary"))
                                     : ParseExpression("Array.Empty<string>()"))
-                            )));
+                            ))).AddObsoleteAttributeIf(analyzer.IsObsolete, error: true);
 
                 if (analyzer.SupportsFadeOutAnalyzer)
                 {
@@ -80,7 +77,7 @@ namespace Roslynator.CodeGeneration.CSharp
                         analyzer.Identifier + "FadeOut",
                         SimpleMemberInvocationExpression(
                             IdentifierName(analyzer.Identifier),
-                            IdentifierName("CreateFadeOut")));
+                            IdentifierName("CreateFadeOut"))).AddObsoleteAttributeIf(analyzer.IsObsolete, error: true);
                 }
             }
         }

@@ -290,6 +290,16 @@
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
   </Analyzer>
+  <Analyzer Identifier="RemoveRedundantBraces" IsObsolete="true">
+    <Id>RCS1031</Id>
+    <Title>Remove redundant braces.</Title>
+    <MessageFormat>Remove redundant braces.</MessageFormat>
+    <Category>Redundancy</Category>
+    <DefaultSeverity>Info</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>true</SupportsFadeOutAnalyzer>
+  </Analyzer>
   <Analyzer Identifier="RemoveRedundantParentheses">
     <Id>RCS1032</Id>
     <Title>Remove redundant parentheses.</Title>
@@ -499,6 +509,26 @@
     <IsEnabledByDefault>false</IsEnabledByDefault>
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="ReplaceForEachWithFor" IsObsolete="true">
+    <Id>RCS1053</Id>
+    <Title>Replace foreach statement with for statement.</Title>
+    <MessageFormat>Replace foreach statement with for statement.</MessageFormat>
+    <Category>General</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>false</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>true</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="MergeLocalDeclarationWithReturnStatement" IsObsolete="true">
+    <Id>RCS1054</Id>
+    <Title>Merge local declaration with return statement.</Title>
+    <MessageFormat>Merge local declaration with return statement.</MessageFormat>
+    <Category>Simplification</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>true</SupportsFadeOutAnalyzer>
   </Analyzer>
   <Analyzer Identifier="AvoidSemicolonAtEndOfDeclaration">
     <Id>RCS1055</Id>
@@ -1100,6 +1130,36 @@
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>true</SupportsFadeOutAnalyzer>
   </Analyzer>
+  <Analyzer Identifier="ReplaceReturnStatementWithExpressionStatement" IsObsolete="true">
+    <Id>RCS1115</Id>
+    <Title>Replace yield/return statement with expression statement.</Title>
+    <MessageFormat>Replace {0} statement with expression statement.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>true</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="AddBreakStatementToSwitchSection" IsObsolete="true">
+    <Id>RCS1116</Id>
+    <Title>Add break statement to switch section.</Title>
+    <MessageFormat>Add break statement to switch section.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="AddReturnStatementThatReturnsDefaultValue" IsObsolete="true">
+    <Id>RCS1117</Id>
+    <Title>Add return statement that returns default value.</Title>
+    <MessageFormat>Add return statement that returns default value.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
   <Analyzer Identifier="MarkLocalVariableAsConst">
     <Id>RCS1118</Id>
     <Title>Mark local variable as const.</Title>
@@ -1140,6 +1200,16 @@
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
   </Analyzer>
+  <Analyzer Identifier="AddMissingSemicolon" IsObsolete="true">
+    <Id>RCS1122</Id>
+    <Title>Add missing semicolon.</Title>
+    <MessageFormat>Add missing semicolon.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>false</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
   <Analyzer Identifier="AddParenthesesAccordingToOperatorPrecedence">
     <Id>RCS1123</Id>
     <Title>Add parentheses according to operator precedence.</Title>
@@ -1159,6 +1229,16 @@
     <IsEnabledByDefault>true</IsEnabledByDefault>
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>true</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="MarkMemberAsStatic" IsObsolete="true">
+    <Id>RCS1125</Id>
+    <Title>Mark member as static.</Title>
+    <MessageFormat>Mark member as static.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
   </Analyzer>
   <Analyzer Identifier="AvoidEmbeddedStatementInIfElse">
     <Id>RCS1126</Id>
@@ -1206,6 +1286,16 @@
     <MessageFormat>Bitwise operation on enum without Flags attribute.</MessageFormat>
     <Category>General</Category>
     <DefaultSeverity>Info</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="ReplaceReturnWithYieldReturn" IsObsolete="true">
+    <Id>RCS1131</Id>
+    <Title>Replace return with yield return.</Title>
+    <MessageFormat>Replace return with yield return.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
     <IsEnabledByDefault>true</IsEnabledByDefault>
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
@@ -1258,6 +1348,16 @@
     <DefaultSeverity>Hidden</DefaultSeverity>
     <IsEnabledByDefault>true</IsEnabledByDefault>
     <SupportsFadeOut>true</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="AddDocumentationComment" IsObsolete="true">
+    <Id>RCS1137</Id>
+    <Title>Add documentation comment to publicly visible type or member.</Title>
+    <MessageFormat>Add documentation comment to publicly visible type or member.</MessageFormat>
+    <Category>Maintainability</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
   </Analyzer>
   <Analyzer Identifier="AddSummaryToDocumentationComment">
@@ -1320,6 +1420,16 @@
     <SupportsFadeOut>true</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
   </Analyzer>
+  <Analyzer Identifier="MarkContainingClassAsAbstract" IsObsolete="true">
+    <Id>RCS1144</Id>
+    <Title>Mark containing class as abstract.</Title>
+    <MessageFormat>Mark containing class as abstract.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
   <Analyzer Identifier="RemoveRedundantAsOperator">
     <Id>RCS1145</Id>
     <Title>Remove redundant 'as' operator.</Title>
@@ -1340,6 +1450,36 @@
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
   </Analyzer>
+  <Analyzer Identifier="RemoveInapplicableModifier" IsObsolete="true">
+    <Id>RCS1147</Id>
+    <Title>Remove inapplicable modifier.</Title>
+    <MessageFormat>Remove inapplicable modifier.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>true</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="RemoveUnreachableCode" IsObsolete="true">
+    <Id>RCS1148</Id>
+    <Title>Remove unreachable code.</Title>
+    <MessageFormat>Remove unreachable code.</MessageFormat>
+    <Category>General</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>true</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="RemoveImplementationFromAbstractMember" IsObsolete="true">
+    <Id>RCS1149</Id>
+    <Title>Remove implementation from abstract member.</Title>
+    <MessageFormat>Remove implementation from {0}.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>true</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
   <Analyzer Identifier="CallStringConcatInsteadOfStringJoin">
     <Id>RCS1150</Id>
     <Title>Call string.Concat instead of string.Join.</Title>
@@ -1358,6 +1498,16 @@
     <DefaultSeverity>Hidden</DefaultSeverity>
     <IsEnabledByDefault>true</IsEnabledByDefault>
     <SupportsFadeOut>true</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="MemberTypeMustMatchOverriddenMemberType" IsObsolete="true">
+    <Id>RCS1152</Id>
+    <Title>Member type must match overriden member type.</Title>
+    <MessageFormat>Member type must match overriden member type.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
   </Analyzer>
   <Analyzer Identifier="AddEmptyLineAfterClosingBrace">
@@ -1496,6 +1646,16 @@
     <MessageFormat>Value type object is never equal to null.</MessageFormat>
     <Category>Usage</Category>
     <DefaultSeverity>Info</DefaultSeverity>
+    <IsEnabledByDefault>true</IsEnabledByDefault>
+    <SupportsFadeOut>false</SupportsFadeOut>
+    <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>
+  </Analyzer>
+  <Analyzer Identifier="OverridingMemberCannotChangeAccessModifiers" IsObsolete="true">
+    <Id>RCS1167</Id>
+    <Title>Overriding member cannot change access modifiers.</Title>
+    <MessageFormat>Overriding member cannot change access modifiers.</MessageFormat>
+    <Category>ErrorFix</Category>
+    <DefaultSeverity>Hidden</DefaultSeverity>
     <IsEnabledByDefault>true</IsEnabledByDefault>
     <SupportsFadeOut>false</SupportsFadeOut>
     <SupportsFadeOutAnalyzer>false</SupportsFadeOutAnalyzer>

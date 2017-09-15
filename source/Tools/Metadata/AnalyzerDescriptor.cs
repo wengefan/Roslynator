@@ -12,6 +12,7 @@ namespace Roslynator.Metadata
             string category,
             string defaultSeverity,
             bool isEnabledByDefault,
+            bool isObsolete,
             bool supportsFadeOut,
             bool supportsFadeOutAnalyzer)
         {
@@ -22,6 +23,7 @@ namespace Roslynator.Metadata
             Category = category;
             DefaultSeverity = defaultSeverity;
             IsEnabledByDefault = isEnabledByDefault;
+            IsObsolete = isObsolete;
             SupportsFadeOut = supportsFadeOut;
             SupportsFadeOutAnalyzer = supportsFadeOutAnalyzer;
         }
@@ -39,6 +41,8 @@ namespace Roslynator.Metadata
         public string DefaultSeverity { get; }
 
         public bool IsEnabledByDefault { get; }
+
+        public bool IsObsolete { get; }
 
         public bool SupportsFadeOut { get; }
 

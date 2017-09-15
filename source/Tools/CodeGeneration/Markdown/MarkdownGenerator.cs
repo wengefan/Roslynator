@@ -122,7 +122,7 @@ namespace Roslynator.CodeGeneration.Markdown
             using (var sw = new StringWriter())
             {
                 string title = analyzer.Title.TrimEnd('.').EscapeMarkdown();
-                sw.WriteLine($"# {analyzer.Id}: {title}");
+                sw.WriteLine($"#{((analyzer.IsObsolete) ? " [deprecated]" : "")} {analyzer.Id}: {title}");
                 sw.WriteLine("");
 
                 sw.WriteLine("Property | Value");

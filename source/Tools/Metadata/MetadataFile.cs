@@ -7,6 +7,7 @@ using System.Xml.Linq;
 
 namespace Roslynator.Metadata
 {
+
     public static class MetadataFile
     {
         public static ImmutableArray<AnalyzerDescriptor> ReadAllAnalyzers(string filePath)
@@ -28,6 +29,7 @@ namespace Roslynator.Metadata
                     element.Element("Category").Value,
                     element.Element("DefaultSeverity").Value,
                     bool.Parse(element.Element("IsEnabledByDefault").Value),
+                    element.AttributeValueAsBooleanOrDefault("IsObsolete"),
                     bool.Parse(element.Element("SupportsFadeOut").Value),
                     bool.Parse(element.Element("SupportsFadeOutAnalyzer").Value));
             }
@@ -48,9 +50,7 @@ namespace Roslynator.Metadata
                     element.Attribute("Id")?.Value,
                     element.Attribute("Identifier").Value,
                     element.Attribute("Title").Value,
-                    (element.Attribute("IsEnabledByDefault") != null)
-                        ? bool.Parse(element.Attribute("IsEnabledByDefault").Value)
-                        : true,
+                    element.AttributeValueAsBooleanOrDefault("IsEnabledByDefault", true),
                     element.Element("Scope")?.Value,
                     element.Element("Syntaxes")
                         .Elements("Syntax")
@@ -80,9 +80,7 @@ namespace Roslynator.Metadata
                     element.Attribute("Id").Value,
                     element.Attribute("Identifier").Value,
                     element.Attribute("Title").Value,
-                    (element.Attribute("IsEnabledByDefault") != null)
-                        ? bool.Parse(element.Attribute("IsEnabledByDefault").Value)
-                        : true,
+                    element.AttributeValueAsBooleanOrDefault("IsEnabledByDefault", true),
                     element.Element("FixableDiagnosticIds")
                         .Elements("Id")
                         .Select(f => f.Value)

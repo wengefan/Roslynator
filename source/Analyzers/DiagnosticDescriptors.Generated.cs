@@ -7,9 +7,8 @@ using Microsoft.CodeAnalysis;
 
 namespace Roslynator.CSharp
 {
-    public static class DiagnosticDescriptors
+    public static partial class DiagnosticDescriptors
     {
-        private const string HelpLinkUriRoot = "http://pihrt.net/roslynator/analyzer?id=";
         public static readonly DiagnosticDescriptor AddBraces = new DiagnosticDescriptor(id: DiagnosticIdentifiers.AddBraces, title: "Add braces.", messageFormat: "Add braces to {0}.", category: DiagnosticCategories.Style, defaultSeverity: DiagnosticSeverity.Info, isEnabledByDefault: true, description: null, helpLinkUri: $"{HelpLinkUriRoot}{DiagnosticIdentifiers.AddBraces}", customTags: Array.Empty<string>());
         public static readonly DiagnosticDescriptor RemoveBraces = new DiagnosticDescriptor(id: DiagnosticIdentifiers.RemoveBraces, title: "Remove braces.", messageFormat: "Remove braces from {0}.", category: DiagnosticCategories.Style, defaultSeverity: DiagnosticSeverity.Hidden, isEnabledByDefault: false, description: null, helpLinkUri: $"{HelpLinkUriRoot}{DiagnosticIdentifiers.RemoveBraces}", customTags: Array.Empty<string>());
         public static readonly DiagnosticDescriptor RemoveBracesFadeOut = RemoveBraces.CreateFadeOut();
