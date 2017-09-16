@@ -127,7 +127,6 @@
     <Compile Include="DiagnosticDescriptors.cs" />
     <Compile Include="DiagnosticDescriptors.Deprecated.Generated.cs" />
     <Compile Include="DiagnosticDescriptors.Generated.cs" />
-    <Compile Include="DiagnosticIdentifiers2.cs" />
     <Compile Include="DiagnosticIdentifiers.Deprecated.Generated.cs" />
     <Compile Include="DiagnosticIdentifiers.Generated.cs" />
     <Compile Include="Refactorings\AddOrRemoveRegionNameRefactoring.cs" />
@@ -329,9 +328,7 @@
     <Compile Include="Refactorings\UseStringIsNullOrEmptyMethodRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceIfStatementWithAssignmentRefactoring.cs" />
     <Compile Include="Refactorings\SimplifyConditionalExpressionRefactoring.cs" />
-    <Compile Include="Refactorings\UseCSharp6DictionaryInitializerRefactoring.cs" />
     <Compile Include="Refactorings\SwapExpressionsInBinaryExpressionRefactoring.cs" />
-    <Compile Include="DiagnosticAnalyzers\ComplexElementInitializerDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\RegionDirectiveTriviaDiagnosticAnalyzer.cs" />
     <Compile Include="Refactorings\MakeClassStaticRefactoring.cs" />
     <Compile Include="Refactorings\UsePostfixUnaryOperatorInsteadOfAssignmentRefactoring.cs" />
@@ -425,7 +422,7 @@
     <Compile Include="DiagnosticAnalyzers\WhileStatementDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticDescriptorExtensions.cs" />
     <Compile Include="Refactorings\AddBracesRefactoring.cs" />
-    <Compile Include="Refactorings\ReplaceDoStatementWithWhileStatementRefactoring.cs" />
+    <Compile Include="Refactorings\ReplaceDoWithWhileRefactoring.cs" />
     <Compile Include="Refactorings\RemoveRedundantBooleanLiteralRefactoring.cs" />
     <Compile Include="DiagnosticAnalyzers\AccessorListDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\AnonymousMethodDiagnosticAnalyzer.cs" />
@@ -464,7 +461,6 @@
     <Compile Include="DiagnosticAnalyzers\WhitespaceDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticAnalyzers\UseExpressionBodiedMemberDiagnosticAnalyzer.cs" />
     <Compile Include="DiagnosticCategories.cs" />
-    <Compile Include="DiagnosticDescriptors2.cs" />
     <Compile Include="DiagnosticAnalyzers\AttributeListDiagnosticAnalyzer.cs" />
     <Compile Include="CodeFixProviders\DeclareEachAttributeSeparatelyCodeFixProvider.cs" />
     <Compile Include="Refactorings\SimplifyBooleanComparisonRefactoring.cs" />
