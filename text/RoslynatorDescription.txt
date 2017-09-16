@@ -1,7 +1,7 @@
 ﻿<h3>Introduction</h3>
 
 <p>
-    A collection of 180+ analyzers and 180+ refactorings for C#, powered by Roslyn.
+    A collection of 190+ analyzers and 180+ refactorings for C#, powered by Roslyn.
 </p>
 
 <h3>Links</h3>
@@ -46,12 +46,7 @@
     <li>
         <a href="http://www.nuget.org/packages/Roslynator.Analyzers">Roslynator.Analyzers</a>
         <span> - NuGet package that contains only analyzers.</span>
-        <span> - This package supersedes package CSharpAnalyzers.</span>
         <span> - This package cannot be used with Visual Studio 2015.</span>
-    </li>  
-    <li>
-        <a href="http://www.nuget.org/packages/CSharpAnalyzers">CSharpAnalyzers</a>
-        <span> - NuGet package that contains only analyzers.</span>
     </li>  
 </ul>
 

@@ -23,16 +23,20 @@ namespace Roslynator.CodeGeneration
         public void Generate()
         {
             WriteAllText(
-                @"Analyzers\Analyzers.xml",
-                XmlGenerator.CreateAnalyzersXml());
-
-            WriteAllText(
                 @"Analyzers\README.md",
-                MarkdownGenerator.CreateAnalyzersReadMe(Analyzers, Comparer));
+                MarkdownGenerator.CreateAnalyzersReadMe(Analyzers.Where(f => !f.IsObsolete), Comparer));
 
             WriteAllText(
                 @"Analyzers\AnalyzersByCategory.md",
-                MarkdownGenerator.CreateAnalyzersByCategoryMarkDown(Analyzers, Comparer));
+                MarkdownGenerator.CreateAnalyzersByCategoryMarkDown(Analyzers.Where(f => !f.IsObsolete), Comparer));
+
+            foreach (AnalyzerDescriptor analyzer in Analyzers)
+            {
+                WriteAllText(
+                    $@"..\docs\analyzers\{analyzer.Id}.md",
+                    MarkdownGenerator.CreateAnalyzerMarkDown(analyzer),
+                    fileMustExists: false);
+            }
 
             WriteAllText(
                 @"..\docs\refactorings\Refactorings.md",
@@ -45,7 +49,7 @@ namespace Roslynator.CodeGeneration
             foreach (RefactoringDescriptor refactoring in Refactorings)
             {
                 WriteAllText(
-                    $@"..\docs\refactorings\{refactoring.Identifier}.md",
+                    $@"..\docs\refactorings\{refactoring.Id}.md",
                     MarkdownGenerator.CreateRefactoringMarkDown(refactoring),
                     fileMustExists: false);
             }
@@ -89,7 +93,7 @@ namespace Roslynator.CodeGeneration
             foreach (string path in Directory.EnumerateFiles(GetPath(@"..\docs\refactorings")))
             {
                 if (Path.GetFileName(path) != "Refactorings.md"
-                    && Refactorings.FirstOrDefault(f => f.Identifier == Path.GetFileNameWithoutExtension(path)) == null)
+                    && Refactorings.FirstOrDefault(f => f.Id == Path.GetFileNameWithoutExtension(path)) == null)
                 {
                     Console.WriteLine($"FILE TO DELETE: {path}");
                 }

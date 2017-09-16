@@ -823,7 +823,7 @@
       <Syntax>constant declaration</Syntax>
     </Syntaxes>
   </Refactoring>
-  <Refactoring Id="RR0123" Identifier="ReplaceDoStatementWithWhileStatement" Title="Replace do statement with while statement">
+  <Refactoring Id="RR0123" Identifier="ReplaceDoWithWhile" Title="Replace do statement with while statement">
     <Syntaxes>
       <Syntax>do statement</Syntax>
     </Syntaxes>
@@ -874,13 +874,14 @@
     <Syntaxes>
       <Syntax>for statement</Syntax>
     </Syntaxes>
+    <Scope>for keyword or selected for statement</Scope>
   </Refactoring>
   <Refactoring Id="RR0132" Identifier="ReplaceHexadecimalLiteralWithDecimalLiteral" Title="Replace hexadecimal literal with decimal literal">
     <Syntaxes>
       <Syntax>hexadecimal literal</Syntax>
     </Syntaxes>
   </Refactoring>
-  <Refactoring Id="RR0133" Identifier="ReplaceIfElseWithSwitch" Title="Replace if-else with switch statement">
+  <Refactoring Id="RR0133" Identifier="ReplaceIfWithSwitch" Title="Replace if statement with switch statement">
     <Syntaxes>
       <Syntax>if statement</Syntax>
     </Syntaxes>
@@ -971,7 +972,7 @@
       <Syntax>multiline verbatim string literal</Syntax>
     </Syntaxes>
   </Refactoring>
-  <Refactoring Id="RR0150" Identifier="ReplaceWhileStatementWithDoStatement" Title="Replace while statement with do statement">
+  <Refactoring Id="RR0150" Identifier="ReplaceWhileWithDo" Title="Replace while statement with do statement">
     <Syntaxes>
       <Syntax>while statement</Syntax>
     </Syntaxes>
@@ -981,6 +982,7 @@
     <Syntaxes>
       <Syntax>while statement</Syntax>
     </Syntaxes>
+    <Scope>while keyword or selected statement(s)</Scope>
   </Refactoring>
   <Refactoring Id="RR0152" Identifier="ReverseForLoop" Title="Reverse for loop">
     <Syntaxes>
@@ -1211,5 +1213,16 @@
       <Syntax>if statement</Syntax>
     </Syntaxes>
     <Scope>if keyword</Scope>
+  </Refactoring>
+  <Refactoring Id="RR0190" Identifier="ReplaceIfElseWithIfReturn" Title="Replace if-else with if-return">
+    <Syntaxes>
+      <Syntax>if statement</Syntax>
+    </Syntaxes>
+    <Scope>selected if statement or if keyword</Scope>
+  </Refactoring>
+  <Refactoring Id="RR0191" Identifier="UseCSharp6DictionaryInitializer" Title="Use C# 6.0 dictionary initializer">
+    <Syntaxes>
+      <Syntax>collection initializer</Syntax>
+    </Syntaxes>
   </Refactoring>
 </Refactorings>

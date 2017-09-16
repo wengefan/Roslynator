@@ -22,7 +22,7 @@ namespace Roslynator.VisualStudio
             get;
         }
 
-        = RefactoringIdentifiers.ReduceIfNesting;
+        = RefactoringIdentifiers.UseCSharp6DictionaryInitializer;
         public RefactoringsOptionsPage()
         {
             AddBraces = true;
@@ -142,7 +142,7 @@ namespace Roslynator.VisualStudio
             ReplaceConditionalExpressionWithExpression = true;
             UseIfElseInsteadOfConditionalExpression = true;
             ReplaceConstantWithField = true;
-            ReplaceDoStatementWithWhileStatement = true;
+            ReplaceDoWithWhile = true;
             ReplaceEqualsExpressionWithStringEquals = true;
             ReplaceEqualsExpressionWithStringIsNullOrEmpty = true;
             ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace = true;
@@ -152,7 +152,7 @@ namespace Roslynator.VisualStudio
             ReplaceForWithForEach = true;
             ReplaceForWithWhile = true;
             ReplaceHexadecimalLiteralWithDecimalLiteral = true;
-            ReplaceIfElseWithSwitch = true;
+            ReplaceIfWithSwitch = true;
             ReplaceIncrementOperatorWithDecrementOperator = true;
             ReplaceInterpolatedStringWithInterpolationExpression = true;
             ReplaceInterpolatedStringWithStringLiteral = true;
@@ -168,7 +168,7 @@ namespace Roslynator.VisualStudio
             ReplaceSwitchWithIfElse = true;
             ReplaceVerbatimStringLiteralWithRegularStringLiteral = true;
             ReplaceVerbatimStringLiteralWithRegularStringLiterals = true;
-            ReplaceWhileStatementWithDoStatement = true;
+            ReplaceWhileWithDo = true;
             ReplaceWhileWithFor = true;
             ReverseForLoop = true;
             SimplifyIf = true;
@@ -317,7 +317,7 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.ReplaceConditionalExpressionWithExpression, ReplaceConditionalExpressionWithExpression);
             SetIsEnabled(RefactoringIdentifiers.UseIfElseInsteadOfConditionalExpression, UseIfElseInsteadOfConditionalExpression);
             SetIsEnabled(RefactoringIdentifiers.ReplaceConstantWithField, ReplaceConstantWithField);
-            SetIsEnabled(RefactoringIdentifiers.ReplaceDoStatementWithWhileStatement, ReplaceDoStatementWithWhileStatement);
+            SetIsEnabled(RefactoringIdentifiers.ReplaceDoWithWhile, ReplaceDoWithWhile);
             SetIsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringEquals, ReplaceEqualsExpressionWithStringEquals);
             SetIsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty, ReplaceEqualsExpressionWithStringIsNullOrEmpty);
             SetIsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace, ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace);
@@ -327,7 +327,7 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.ReplaceForWithForEach, ReplaceForWithForEach);
             SetIsEnabled(RefactoringIdentifiers.ReplaceForWithWhile, ReplaceForWithWhile);
             SetIsEnabled(RefactoringIdentifiers.ReplaceHexadecimalLiteralWithDecimalLiteral, ReplaceHexadecimalLiteralWithDecimalLiteral);
-            SetIsEnabled(RefactoringIdentifiers.ReplaceIfElseWithSwitch, ReplaceIfElseWithSwitch);
+            SetIsEnabled(RefactoringIdentifiers.ReplaceIfWithSwitch, ReplaceIfWithSwitch);
             SetIsEnabled(RefactoringIdentifiers.ReplaceIncrementOperatorWithDecrementOperator, ReplaceIncrementOperatorWithDecrementOperator);
             SetIsEnabled(RefactoringIdentifiers.ReplaceInterpolatedStringWithInterpolationExpression, ReplaceInterpolatedStringWithInterpolationExpression);
             SetIsEnabled(RefactoringIdentifiers.ReplaceInterpolatedStringWithStringLiteral, ReplaceInterpolatedStringWithStringLiteral);
@@ -343,7 +343,7 @@ namespace Roslynator.VisualStudio
             SetIsEnabled(RefactoringIdentifiers.ReplaceSwitchWithIfElse, ReplaceSwitchWithIfElse);
             SetIsEnabled(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiteral, ReplaceVerbatimStringLiteralWithRegularStringLiteral);
             SetIsEnabled(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiterals, ReplaceVerbatimStringLiteralWithRegularStringLiterals);
-            SetIsEnabled(RefactoringIdentifiers.ReplaceWhileStatementWithDoStatement, ReplaceWhileStatementWithDoStatement);
+            SetIsEnabled(RefactoringIdentifiers.ReplaceWhileWithDo, ReplaceWhileWithDo);
             SetIsEnabled(RefactoringIdentifiers.ReplaceWhileWithFor, ReplaceWhileWithFor);
             SetIsEnabled(RefactoringIdentifiers.ReverseForLoop, ReverseForLoop);
             SetIsEnabled(RefactoringIdentifiers.SimplifyIf, SimplifyIf);
@@ -502,7 +502,7 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceConditionalExpressionWithExpression, "Replace conditional expression with expression", IsEnabled(RefactoringIdentifiers.ReplaceConditionalExpressionWithExpression)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.UseIfElseInsteadOfConditionalExpression, "Use if-else instead of conditional expression", IsEnabled(RefactoringIdentifiers.UseIfElseInsteadOfConditionalExpression)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceConstantWithField, "Replace constant with field", IsEnabled(RefactoringIdentifiers.ReplaceConstantWithField)));
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceDoStatementWithWhileStatement, "Replace do statement with while statement", IsEnabled(RefactoringIdentifiers.ReplaceDoStatementWithWhileStatement)));
+            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceDoWithWhile, "Replace do statement with while statement", IsEnabled(RefactoringIdentifiers.ReplaceDoWithWhile)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringEquals, "Replace equals expression with string.Equals", IsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringEquals)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty, "Replace equals expression with string.IsNullOrEmpty", IsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrEmpty)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace, "Replace equals expression with string.IsNullOrWhiteSpace", IsEnabled(RefactoringIdentifiers.ReplaceEqualsExpressionWithStringIsNullOrWhiteSpace)));
@@ -512,7 +512,7 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceForWithForEach, "Replace for statement with foreach statement", IsEnabled(RefactoringIdentifiers.ReplaceForWithForEach)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceForWithWhile, "Replace for statement with while statement", IsEnabled(RefactoringIdentifiers.ReplaceForWithWhile)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceHexadecimalLiteralWithDecimalLiteral, "Replace hexadecimal literal with decimal literal", IsEnabled(RefactoringIdentifiers.ReplaceHexadecimalLiteralWithDecimalLiteral)));
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceIfElseWithSwitch, "Replace if-else with switch statement", IsEnabled(RefactoringIdentifiers.ReplaceIfElseWithSwitch)));
+            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceIfWithSwitch, "Replace if statement with switch statement", IsEnabled(RefactoringIdentifiers.ReplaceIfWithSwitch)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceIncrementOperatorWithDecrementOperator, "Replace increment operator with decrement operator", IsEnabled(RefactoringIdentifiers.ReplaceIncrementOperatorWithDecrementOperator)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceInterpolatedStringWithInterpolationExpression, "Replace interpolated string with interpolation expression", IsEnabled(RefactoringIdentifiers.ReplaceInterpolatedStringWithInterpolationExpression)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceInterpolatedStringWithStringLiteral, "Replace interpolated string with string literal", IsEnabled(RefactoringIdentifiers.ReplaceInterpolatedStringWithStringLiteral)));
@@ -528,7 +528,7 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceSwitchWithIfElse, "Replace switch statement with if-else", IsEnabled(RefactoringIdentifiers.ReplaceSwitchWithIfElse)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiteral, "Replace verbatim string literal with regular string literal", IsEnabled(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiteral)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiterals, "Replace verbatim string literal with regular string literals", IsEnabled(RefactoringIdentifiers.ReplaceVerbatimStringLiteralWithRegularStringLiterals)));
-            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceWhileStatementWithDoStatement, "Replace while statement with do statement", IsEnabled(RefactoringIdentifiers.ReplaceWhileStatementWithDoStatement)));
+            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceWhileWithDo, "Replace while statement with do statement", IsEnabled(RefactoringIdentifiers.ReplaceWhileWithDo)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceWhileWithFor, "Replace while statement with for statement", IsEnabled(RefactoringIdentifiers.ReplaceWhileWithFor)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReverseForLoop, "Reverse for loop", IsEnabled(RefactoringIdentifiers.ReverseForLoop)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.SimplifyIf, "Simplify if", IsEnabled(RefactoringIdentifiers.SimplifyIf)));
@@ -568,6 +568,8 @@ namespace Roslynator.VisualStudio
             refactorings.Add(new BaseModel(RefactoringIdentifiers.FormatConstraintClauses, "Format constraint clauses", IsEnabled(RefactoringIdentifiers.FormatConstraintClauses)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceForEachWithForAndReverseLoop, "Replace foreach with for and reverse loop", IsEnabled(RefactoringIdentifiers.ReplaceForEachWithForAndReverseLoop)));
             refactorings.Add(new BaseModel(RefactoringIdentifiers.ReduceIfNesting, "Reduce if nesting", IsEnabled(RefactoringIdentifiers.ReduceIfNesting)));
+            refactorings.Add(new BaseModel(RefactoringIdentifiers.ReplaceIfElseWithIfReturn, "Replace if-else with if-return", IsEnabled(RefactoringIdentifiers.ReplaceIfElseWithIfReturn)));
+            refactorings.Add(new BaseModel(RefactoringIdentifiers.UseCSharp6DictionaryInitializer, "Use C# 6.0 dictionary initializer", IsEnabled(RefactoringIdentifiers.UseCSharp6DictionaryInitializer)));
         }
 
         [Browsable(false)]
@@ -1617,7 +1619,7 @@ namespace Roslynator.VisualStudio
         [Browsable(false)]
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool ReplaceDoStatementWithWhileStatement
+        public bool ReplaceDoWithWhile
         {
             get;
             set;
@@ -1698,7 +1700,7 @@ namespace Roslynator.VisualStudio
         [Browsable(false)]
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool ReplaceIfElseWithSwitch
+        public bool ReplaceIfWithSwitch
         {
             get;
             set;
@@ -1842,7 +1844,7 @@ namespace Roslynator.VisualStudio
         [Browsable(false)]
         [Category(RefactoringCategory)]
         [TypeConverter(typeof (EnabledDisabledConverter))]
-        public bool ReplaceWhileStatementWithDoStatement
+        public bool ReplaceWhileWithDo
         {
             get;
             set;

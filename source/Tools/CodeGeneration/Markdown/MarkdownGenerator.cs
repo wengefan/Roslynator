@@ -22,7 +22,7 @@ namespace Roslynator.CodeGeneration.Markdown
 
                 foreach (AnalyzerDescriptor info in analyzers.OrderBy(f => f.Id, comparer))
                 {
-                    sw.WriteLine($"* {info.Id} - {info.Title.TrimEnd('.').EscapeMarkdown()}");
+                    sw.WriteLine($"* {info.Id} - [{info.Title.TrimEnd('.').EscapeMarkdown()}](docs/analyzers/{info.Id}.md)");
                 }
 
                 sw.WriteLine();
@@ -31,7 +31,7 @@ namespace Roslynator.CodeGeneration.Markdown
 
                 foreach (RefactoringDescriptor info in refactorings.OrderBy(f => f.Title, comparer))
                 {
-                    sw.WriteLine($"* [{info.Title.TrimEnd('.').EscapeMarkdown()}](docs/refactorings/{info.Identifier}.md)");
+                    sw.WriteLine($"* [{info.Title.TrimEnd('.').EscapeMarkdown()}](docs/refactorings/{info.Id}.md)");
                 }
 
                 return sw.ToString();
@@ -101,7 +101,7 @@ namespace Roslynator.CodeGeneration.Markdown
                 if (!string.IsNullOrEmpty(refactoring.Scope))
                     sw.WriteLine($"Scope | {refactoring.Scope.EscapeMarkdown()}");
 
-                sw.WriteLine($"Enabled by Default | {((refactoring.IsEnabledByDefault) ? "yes" : "no")}");
+                sw.WriteLine($"Enabled by Default | {GetBooleanAsText(refactoring.IsEnabledByDefault)}");
 
                 sw.WriteLine("");
                 sw.WriteLine("### Usage");
@@ -112,6 +112,55 @@ namespace Roslynator.CodeGeneration.Markdown
                 sw.WriteLine("");
 
                 sw.WriteLine("[full list of refactorings](Refactorings.md)");
+
+                return sw.ToString();
+            }
+        }
+
+        public static string CreateAnalyzerMarkDown(AnalyzerDescriptor analyzer)
+        {
+            using (var sw = new StringWriter())
+            {
+                string title = analyzer.Title.TrimEnd('.').EscapeMarkdown();
+                sw.WriteLine($"#{((analyzer.IsObsolete) ? " [deprecated]" : "")} {analyzer.Id}: {title}");
+                sw.WriteLine("");
+
+                sw.WriteLine("Property | Value");
+                sw.WriteLine("--- | --- ");
+                sw.WriteLine($"Id | {analyzer.Id}");
+                sw.WriteLine($"Category | {analyzer.Category}");
+                sw.WriteLine($"Default Severity | {analyzer.DefaultSeverity}");
+                sw.WriteLine($"Enabled by Default | {GetBooleanAsText(analyzer.IsEnabledByDefault)}");
+                sw.WriteLine($"Supports Fade-Out | {GetBooleanAsText(analyzer.SupportsFadeOut)}");
+                sw.WriteLine($"Supports Fade-Out Analyzer | {GetBooleanAsText(analyzer.SupportsFadeOutAnalyzer)}");
+
+                sw.WriteLine();
+
+                sw.WriteLine("## How to Suppress");
+                sw.WriteLine();
+
+                sw.WriteLine("### SuppressMessageAttribute");
+                sw.WriteLine();
+
+                sw.WriteLine("```csharp");
+                sw.WriteLine($"[assembly: SuppressMessage(\"{analyzer.Category}\", \"{analyzer.Id}:{analyzer.Title}\", Justification = \"<Pending>\")]");
+                sw.WriteLine("```");
+                sw.WriteLine();
+
+                sw.WriteLine(@"### \#pragma");
+                sw.WriteLine();
+
+                sw.WriteLine("```csharp");
+                sw.WriteLine($"#pragma warning disable {analyzer.Id} // {analyzer.Title}");
+                sw.WriteLine($"#pragma warning restore {analyzer.Id} // {analyzer.Title}");
+                sw.WriteLine("```");
+                sw.WriteLine();
+
+                sw.WriteLine("### Ruleset");
+                sw.WriteLine();
+
+                sw.Write("* [How to configure rule set](../HowToConfigureAnalyzers.md)");
+                sw.WriteLine();
 
                 return sw.ToString();
             }
@@ -131,7 +180,7 @@ namespace Roslynator.CodeGeneration.Markdown
                 {
                     sw.Write(info.Id);
                     sw.Write('|');
-                    sw.Write(info.Title.TrimEnd('.').EscapeMarkdown());
+                    sw.Write($"[{info.Title.TrimEnd('.').EscapeMarkdown()}](../../docs/analyzers/{info.Id}.md)");
                     sw.Write('|');
                     sw.Write(info.Category.EscapeMarkdown());
                     sw.Write('|');
@@ -158,7 +207,7 @@ namespace Roslynator.CodeGeneration.Markdown
                 {
                     sw.Write(info.Id);
                     sw.Write('|');
-                    sw.Write($"[{info.Title.TrimEnd('.').EscapeMarkdown()}](../../docs/refactorings/{info.Identifier}.md)");
+                    sw.Write($"[{info.Title.TrimEnd('.').EscapeMarkdown()}](../../docs/refactorings/{info.Id}.md)");
                     sw.Write('|');
                     sw.Write((info.IsEnabledByDefault) ? "x" : "");
                     sw.WriteLine();
@@ -252,7 +301,7 @@ namespace Roslynator.CodeGeneration.Markdown
                     {
                         sw.Write(grouping.Key);
                         sw.Write('|');
-                        sw.Write(info.Title.TrimEnd('.').EscapeMarkdown());
+                        sw.Write($"[{info.Title.TrimEnd('.').EscapeMarkdown()}](../../docs/analyzers/{info.Id}.md)");
                         sw.Write('|');
                         sw.Write(info.Id);
                         sw.Write('|');
@@ -269,6 +318,11 @@ namespace Roslynator.CodeGeneration.Markdown
         private static string CreateImageMarkDown(RefactoringDescriptor refactoring, string fileName)
         {
             return $"![{refactoring.Title.EscapeMarkdown()}](../../images/refactorings/{fileName.EscapeMarkdown()}.png)";
+        }
+
+        private static string GetBooleanAsText(bool value)
+        {
+            return (value) ? "yes" : "no";
         }
     }
 }

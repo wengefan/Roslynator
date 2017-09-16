@@ -101,17 +101,42 @@ namespace Roslynator.CSharp.Refactorings
             return false;
         }
 
+        internal static bool IsFixableRecursively(IfStatementSyntax ifStatement)
+        {
+            StatementSyntax statement = ifStatement.Statement;
+
+            if (statement == null)
+                return false;
+
+            SyntaxKind kind = statement.Kind();
+
+            if (kind == SyntaxKind.Block)
+            {
+                statement = ((BlockSyntax)statement).Statements.LastOrDefault();
+
+                if (statement == null)
+                    return false;
+
+                kind = statement.Kind();
+            }
+
+            return kind == SyntaxKind.IfStatement
+                && IsFixable((IfStatementSyntax)statement);
+        }
+
         private static bool IsFixable(IfStatementSyntax ifStatement)
         {
             return ifStatement.IsSimpleIf()
                 && ifStatement.Condition?.IsMissing == false
-                && ifStatement.Statement?.IsKind(SyntaxKind.Block) == true
-                && ifStatement.IsParentKind(SyntaxKind.Block);
+                && ifStatement.IsParentKind(SyntaxKind.Block)
+                && (ifStatement.Statement is BlockSyntax block)
+                && block.Statements.Any();
         }
 
         public static Task<Document> RefactorAsync(
             Document document,
             IfStatementSyntax ifStatement,
+            bool recursive,
             CancellationToken cancellationToken)
         {
             var block = (BlockSyntax)ifStatement.Parent;
@@ -142,7 +167,7 @@ namespace Roslynator.CSharp.Refactorings
                 jumpStatement = ReturnStatement();
             }
 
-            var rewriter = new IfStatementRewriter(jumpStatement);
+            var rewriter = new IfStatementRewriter(jumpStatement, recursive);
 
             SyntaxNode newNode = rewriter.VisitBlock(block);
 
@@ -152,11 +177,13 @@ namespace Roslynator.CSharp.Refactorings
         private class IfStatementRewriter : CSharpSyntaxRewriter
         {
             private readonly StatementSyntax _jumpStatement;
+            private readonly bool _recursive;
             private BlockSyntax _block;
 
-            public IfStatementRewriter(StatementSyntax jumpStatement)
+            public IfStatementRewriter(StatementSyntax jumpStatement, bool recursive)
             {
                 _jumpStatement = jumpStatement;
+                _recursive = recursive;
             }
 
             public override SyntaxNode VisitIfStatement(IfStatementSyntax node)
@@ -182,15 +209,27 @@ namespace Roslynator.CSharp.Refactorings
 
                     int index = statements.IndexOf(ifStatement);
 
-                    ifStatement = (IfStatementSyntax)VisitIfStatement(ifStatement);
+                    if (_recursive)
+                        ifStatement = (IfStatementSyntax)VisitIfStatement(ifStatement);
 
                     var block = (BlockSyntax)ifStatement.Statement;
 
                     ExpressionSyntax newCondition = Negator.LogicallyNegate(ifStatement.Condition);
 
+                    BlockSyntax newBlock = block.WithStatements(SingletonList(_jumpStatement));
+
+                    if (!block
+                        .Statements
+                        .First()
+                        .GetLeadingTrivia()
+                        .Any(f => f.IsEndOfLineTrivia()))
+                    {
+                        newBlock = newBlock.WithCloseBraceToken(newBlock.CloseBraceToken.AppendToTrailingTrivia(NewLine()));
+                    }
+
                     IfStatementSyntax newIfStatement = ifStatement
                         .WithCondition(newCondition)
-                        .WithStatement(block.WithStatements(SingletonList(_jumpStatement)))
+                        .WithStatement(newBlock)
                         .WithFormatterAnnotation();
 
                     SyntaxList<StatementSyntax> newStatements = statements
