@@ -235,7 +235,7 @@ namespace Roslynator.CSharp.CodeFixes
                             if (node == null)
                                 break;
 
-                            ModifiersRefactoring.AddModifier(context, diagnostic, node, SyntaxKind.PartialKeyword, GetEquivalenceKey(diagnostic));
+                            ModifiersRefactoring.AddModifier(context, diagnostic, node, SyntaxKind.PartialKeyword);
                             break;
                         }
                     case CompilerDiagnosticIdentifiers.MemberIsAbstractButItIsContainedInNonAbstractClass:
@@ -251,7 +251,7 @@ namespace Roslynator.CSharp.CodeFixes
                                 diagnostic,
                                 memberDeclaration.Parent,
                                 SyntaxKind.AbstractKeyword,
-                                "Make containing class abstract");
+                                title: "Make containing class abstract");
 
                             break;
                         }

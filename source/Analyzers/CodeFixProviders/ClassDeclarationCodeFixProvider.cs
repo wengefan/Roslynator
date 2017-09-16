@@ -86,13 +86,7 @@ namespace Roslynator.CSharp.CodeFixes
                         }
                     case DiagnosticIdentifiers.AddStaticModifierToAllPartialClassDeclarations:
                         {
-                            ModifiersRefactoring.AddModifier(
-                                context,
-                                diagnostic,
-                                classDeclaration,
-                                SyntaxKind.StaticKeyword,
-                                GetEquivalenceKey(diagnostic));
-
+                            ModifiersRefactoring.AddModifier(context, diagnostic, classDeclaration, SyntaxKind.StaticKeyword);
                             break;
                         }
                     case DiagnosticIdentifiers.ImplementExceptionConstructors:

@@ -127,7 +127,7 @@ namespace Roslynator.CSharp.CodeFixes
                                 ? $"Mark '{declarators[0].Identifier.ValueText}' as read-only"
                                 : "Mark fields as read-only";
 
-                            ModifiersRefactoring.AddModifier(context, diagnostic, fieldDeclaration, SyntaxKind.ReadOnlyKeyword, title);
+                            ModifiersRefactoring.AddModifier(context, diagnostic, fieldDeclaration, SyntaxKind.ReadOnlyKeyword, title: title);
                             break;
                         }
                     case DiagnosticIdentifiers.UseConstantInsteadOfField:

@@ -36,12 +36,7 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case CompilerDiagnosticIdentifiers.MemberDoesNotHideAccessibleMember:
                         {
-                            ModifiersRefactoring.RemoveModifier(
-                                context,
-                                diagnostic,
-                                memberDeclaration,
-                                SyntaxKind.NewKeyword,
-                                GetEquivalenceKey(diagnostic));
+                            ModifiersRefactoring.RemoveModifier(context, diagnostic, memberDeclaration, SyntaxKind.NewKeyword);
 
                             break;
                         }

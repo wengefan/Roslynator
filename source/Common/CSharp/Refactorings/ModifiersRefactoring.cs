@@ -30,7 +30,7 @@ namespace Roslynator.CSharp.Refactorings
             CodeAction codeAction = CodeAction.Create(
                 title ?? GetAddModifierTitle(kind),
                 cancellationToken => AddModifierAsync(document, node, kind, comparer, cancellationToken),
-                AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey));
+                GetEquivalenceKey(diagnostic, kind, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
@@ -90,24 +90,25 @@ namespace Roslynator.CSharp.Refactorings
             return node.InsertModifier(kind, comparer);
         }
 
-        public static void AddPartialModifier(
+        public static void AddModifier(
             CodeFixContext context,
             Diagnostic diagnostic,
             IEnumerable<SyntaxNode> nodes,
+            SyntaxKind kind,
             string title = null,
             string additionalKey = null,
             IModifierComparer comparer = null)
         {
             CodeAction codeAction = CodeAction.Create(
-                title ?? GetAddModifierTitle(SyntaxKind.PartialKeyword),
+                title ?? GetAddModifierTitle(kind),
                 cancellationToken =>
                 {
                     return context.Solution().ReplaceNodesAsync(
                         nodes,
-                        (f, g) => f.InsertModifier(SyntaxKind.PartialKeyword, comparer),
+                        (f, g) => f.InsertModifier(kind, comparer),
                         cancellationToken);
                 },
-                AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey));
+                GetEquivalenceKey(diagnostic, kind, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
@@ -125,7 +126,7 @@ namespace Roslynator.CSharp.Refactorings
             CodeAction codeAction = CodeAction.Create(
                 title ?? GetRemoveModifierTitle(kind),
                 cancellationToken => RemoveModifierAsync(document, node, kind, cancellationToken),
-                AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey ?? kind.ToString()));
+                GetEquivalenceKey(diagnostic, kind, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
@@ -145,7 +146,7 @@ namespace Roslynator.CSharp.Refactorings
             CodeAction codeAction = CodeAction.Create(
                 title ?? GetRemoveModifierTitle(kind),
                 cancellationToken => RemoveModifierAsync(document, node, modifier, cancellationToken),
-                AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey ?? kind.ToString()));
+                GetEquivalenceKey(diagnostic, kind, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
@@ -217,7 +218,7 @@ namespace Roslynator.CSharp.Refactorings
 
                             return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
                         },
-                        AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey));
+                        GetEquivalenceKey(diagnostic, additionalKey));
 
                     context.RegisterCodeFix(codeAction, diagnostic);
                 }
@@ -246,7 +247,7 @@ namespace Roslynator.CSharp.Refactorings
 
                         return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
                     },
-                    AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey));
+                    GetEquivalenceKey(diagnostic, additionalKey));
 
                 context.RegisterCodeFix(codeAction, diagnostic);
             }
@@ -285,14 +286,14 @@ namespace Roslynator.CSharp.Refactorings
             else
             {
                 CodeAction codeAction = CodeAction.Create(
-                    "Remove accessibility modifiers",
+                    "Remove access modifiers",
                     cancellationToken =>
                     {
                         SyntaxNode newNode = ModifierHelper.RemoveAccessModifiers(node);
 
                         return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
                     },
-                    AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey));
+                    GetEquivalenceKey(diagnostic, additionalKey));
 
                 context.RegisterCodeFix(codeAction, diagnostic);
             }
@@ -321,9 +322,19 @@ namespace Roslynator.CSharp.Refactorings
 
                     return document.ReplaceNodeAsync(node, newNode, cancellationToken);
                 },
-                AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey ?? kind.ToString()));
+                GetEquivalenceKey(diagnostic, kind, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
+        }
+
+        private static string GetEquivalenceKey(Diagnostic diagnostic, string additionalKey)
+        {
+            return AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey);
+        }
+
+        private static string GetEquivalenceKey(Diagnostic diagnostic, SyntaxKind kind, string additionalKey)
+        {
+            return AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey ?? kind.ToString());
         }
 
         private static string GetAddModifierTitle(SyntaxKind kind)

@@ -54,11 +54,11 @@ namespace Roslynator.CSharp.CodeFixes
                         {
                             if (parameter.IsParams())
                             {
-                                ModifiersRefactoring.RemoveModifier(context, diagnostic, parameter, SyntaxKind.ParamsKeyword, GetEquivalenceKey(diagnostic));
+                                ModifiersRefactoring.RemoveModifier(context, diagnostic, parameter, SyntaxKind.ParamsKeyword);
                             }
                             else
                             {
-                                ModifiersRefactoring.AddModifier(context, diagnostic, parameter, SyntaxKind.ParamsKeyword, GetEquivalenceKey(diagnostic));
+                                ModifiersRefactoring.AddModifier(context, diagnostic, parameter, SyntaxKind.ParamsKeyword);
                             }
 
                             break;
