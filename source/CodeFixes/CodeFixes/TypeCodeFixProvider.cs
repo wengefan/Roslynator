@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -48,12 +49,12 @@ namespace Roslynator.CSharp.CodeFixes
 
                                 if (syntaxReferences.Length == 1)
                                 {
-                                    CodeAction codeAction = CodeAction.Create(
-                                        GetTitle(symbol, semanticModel, type.SpanStart),
-                                        cancellationToken => context.Document.RemoveModifierAsync(syntaxReferences[0].GetSyntax(cancellationToken), SyntaxKind.StaticKeyword, cancellationToken),
-                                        GetEquivalenceKey(diagnostic));
-
-                                    context.RegisterCodeFix(codeAction, diagnostic);
+                                    ModifiersRefactoring.RemoveModifier(
+                                        context,
+                                        diagnostic,
+                                        syntaxReferences[0].GetSyntax(context.CancellationToken),
+                                        SyntaxKind.StaticKeyword,
+                                        title: GetTitle(symbol, semanticModel, type.SpanStart));
                                 }
                                 else if (syntaxReferences.Length > 1)
                                 {

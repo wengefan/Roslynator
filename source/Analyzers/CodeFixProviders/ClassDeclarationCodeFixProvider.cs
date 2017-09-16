@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Refactorings;
+using Microsoft.CodeAnalysis.CSharp;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -85,18 +86,13 @@ namespace Roslynator.CSharp.CodeFixes
                         }
                     case DiagnosticIdentifiers.AddStaticModifierToAllPartialClassDeclarations:
                         {
-                            CodeAction codeAction = CodeAction.Create(
-                                "Add 'static' modifier",
-                                cancellationToken =>
-                                {
-                                    return AddStaticModifierToAllPartialClassDeclarationsRefactoring.RefactorAsync(
-                                        context.Document,
-                                        classDeclaration,
-                                        cancellationToken);
-                                },
+                            ModifiersRefactoring.AddModifier(
+                                context,
+                                diagnostic,
+                                classDeclaration,
+                                SyntaxKind.StaticKeyword,
                                 GetEquivalenceKey(diagnostic));
 
-                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                     case DiagnosticIdentifiers.ImplementExceptionConstructors:
