@@ -8,24 +8,20 @@ namespace Roslynator.CSharp.Refactorings
     {
         public static void ComputeRefactorings(RefactoringContext context, WhileStatementSyntax whileStatement)
         {
-            if (context.IsRefactoringEnabled(RefactoringIdentifiers.ReplaceWhileStatementWithDoStatement)
+            if (context.IsRefactoringEnabled(RefactoringIdentifiers.ReplaceWhileWithDo)
                 && (whileStatement.WhileKeyword.Span.Contains(context.Span)))
             {
                 context.RegisterRefactoring(
                     "Replace while with do",
-                    cancellationToken =>
-                    {
-                        return ReplaceWhileWithDoRefactoring.RefactorAsync(
-                            context.Document,
-                            whileStatement,
-                            cancellationToken);
-                    });
+                    cancellationToken => ReplaceWhileWithDoRefactoring.RefactorAsync(context.Document, whileStatement, cancellationToken));
             }
 
             if (context.IsRefactoringEnabled(RefactoringIdentifiers.ReplaceWhileWithFor)
-                && context.Span.IsBetweenSpans(whileStatement))
+                && (whileStatement.WhileKeyword.Span.Contains(context.Span)))
             {
-                ReplaceWhileWithForRefactoring.ComputeRefactoring(context, whileStatement);
+                context.RegisterRefactoring(
+                    ReplaceWhileWithForRefactoring.Title,
+                    cancellationToken => ReplaceWhileWithForRefactoring.RefactorAsync(context.Document, whileStatement, cancellationToken));
             }
         }
     }

@@ -122,6 +122,7 @@
     <Compile Include="Refactorings\SplitIfStatementRefactoring.cs" />
     <Compile Include="Refactorings\ThrowExpressionRefactoring.cs" />
     <Compile Include="Refactorings\TypeParameterConstraintClauseRefactoring.cs" />
+    <Compile Include="Refactorings\UseCSharp6DictionaryInitializerRefactoring.cs" />
     <Compile Include="Refactorings\UseStringBuilderInsteadOfConcatenationRefactoring.cs" />
     <Compile Include="Refactorings\UseListInsteadOfYieldRefactoring.cs" />
     <Compile Include="Refactorings\WrapSelectedLines\WrapInIfDirectiveRefactoring.cs" />
@@ -263,7 +264,7 @@
     <Compile Include="Refactorings\ReplaceNullLiteralExpressionWithDefaultExpressionRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceExpressionWithConstantValueRefactoring.cs" />
     <Compile Include="Refactorings\RemoveAllPreprocessorDirectivesRefactoring.cs" />
-    <Compile Include="Refactorings\ReplaceIfElseWithSwitchRefactoring.cs" />
+    <Compile Include="Refactorings\ReplaceIfWithSwitchRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceEqualsExpressionWithStringEqualsRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceStringContainsWithStringIndexOfRefactoring.cs" />
     <Compile Include="Refactorings\ReplaceMethodGroupWithLambdaRefactoring.cs" />
