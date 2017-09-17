@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Roslynator.CSharp.Refactorings;
-using Microsoft.CodeAnalysis.CSharp;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -42,51 +42,27 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case DiagnosticIdentifiers.MakeClassStatic:
                         {
-                            CodeAction codeAction = null;
-
                             SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
                             ISymbol symbol = semanticModel.GetDeclaredSymbol(classDeclaration, context.CancellationToken);
 
                             ImmutableArray<SyntaxReference> syntaxReferences = symbol.DeclaringSyntaxReferences;
 
-                            if (syntaxReferences.Length == 1)
-                            {
-                                codeAction = CodeAction.Create(
-                                    $"Make '{classDeclaration.Identifier.ValueText}' static",
-                                    cancellationToken =>
-                                    {
-                                        return MakeClassStaticRefactoring.RefactorAsync(
-                                            context.Document,
-                                            classDeclaration,
-                                            cancellationToken);
-                                    },
-                                    GetEquivalenceKey(diagnostic));
-                            }
-                            else
-                            {
-                                ImmutableArray<ClassDeclarationSyntax> classDeclarations = syntaxReferences
-                                    .Select(f => (ClassDeclarationSyntax)f.GetSyntax(context.CancellationToken))
-                                    .ToImmutableArray();
+                            if (!syntaxReferences.Any())
+                                break;
 
-                                codeAction = CodeAction.Create(
-                                    $"Make '{classDeclaration.Identifier.ValueText}' static",
-                                    cancellationToken =>
-                                    {
-                                        return MakeClassStaticRefactoring.RefactorAsync(
-                                            context.Solution(),
-                                            classDeclarations,
-                                            cancellationToken);
-                                    },
-                                    GetEquivalenceKey(diagnostic));
-                            }
+                            ModifiersCodeFixes.AddModifier(
+                                context,
+                                diagnostic,
+                                ImmutableArray.CreateRange(syntaxReferences, f => f.GetSyntax()),
+                                SyntaxKind.StaticKeyword,
+                                title: "Make class static");
 
-                            context.RegisterCodeFix(codeAction, diagnostic);
                             break;
                         }
                     case DiagnosticIdentifiers.AddStaticModifierToAllPartialClassDeclarations:
                         {
-                            ModifiersRefactoring.AddModifier(context, diagnostic, classDeclaration, SyntaxKind.StaticKeyword);
+                            ModifiersCodeFixes.AddModifier(context, diagnostic, classDeclaration, SyntaxKind.StaticKeyword);
                             break;
                         }
                     case DiagnosticIdentifiers.ImplementExceptionConstructors:

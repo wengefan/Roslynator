@@ -5,11 +5,9 @@ using System.Composition;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -40,48 +38,30 @@ namespace Roslynator.CSharp.CodeFixes
                         {
                             SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                            ISymbol symbol = semanticModel.GetSymbol(type, context.CancellationToken)?.OriginalDefinition;
+                            ITypeSymbol typeSymbol = semanticModel.GetTypeSymbol(type, context.CancellationToken)?.OriginalDefinition;
 
-                            if (symbol?.IsNamedType() == true
-                                && ((INamedTypeSymbol)symbol).IsClass())
-                            {
-                                ImmutableArray<SyntaxReference> syntaxReferences = symbol.DeclaringSyntaxReferences;
+                            if (typeSymbol == null)
+                                break;
 
-                                if (syntaxReferences.Length == 1)
-                                {
-                                    ModifiersRefactoring.RemoveModifier(
-                                        context,
-                                        diagnostic,
-                                        syntaxReferences[0].GetSyntax(context.CancellationToken),
-                                        SyntaxKind.StaticKeyword,
-                                        title: GetTitle(symbol, semanticModel, type.SpanStart));
-                                }
-                                else if (syntaxReferences.Length > 1)
-                                {
-                                    CodeAction codeAction = CodeAction.Create(
-                                        GetTitle(symbol, semanticModel, type.SpanStart),
-                                        cancellationToken =>
-                                        {
-                                            return context.Document.Solution().ReplaceNodesAsync(
-                                                syntaxReferences.Select(f => (ClassDeclarationSyntax)f.GetSyntax(cancellationToken)),
-                                                (f, g) => f.RemoveModifier(SyntaxKind.StaticKeyword),
-                                                cancellationToken);
-                                        },
-                                        GetEquivalenceKey(diagnostic));
+                            if (!typeSymbol.IsClass())
+                                break;
 
-                                    context.RegisterCodeFix(codeAction, diagnostic);
-                                }
-                            }
+                            ImmutableArray<SyntaxReference> syntaxReferences = typeSymbol.DeclaringSyntaxReferences;
+
+                            if (!syntaxReferences.Any())
+                                break;
+
+                            ModifiersCodeFixes.RemoveModifier(
+                                context,
+                                diagnostic,
+                                ImmutableArray.CreateRange(syntaxReferences, f => f.GetSyntax()),
+                                SyntaxKind.StaticKeyword,
+                                title: "Make class non-static");
 
                             break;
                         }
                 }
             }
-        }
-
-        private static string GetTitle(ISymbol symbol, SemanticModel semanticModel, int position)
-        {
-            return $"Make '{SymbolDisplay.GetMinimalString(symbol, semanticModel, position)}' non-static";
         }
     }
 }

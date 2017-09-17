@@ -235,7 +235,7 @@ namespace Roslynator.CSharp.CodeFixes
                             if (node == null)
                                 break;
 
-                            ModifiersRefactoring.AddModifier(context, diagnostic, node, SyntaxKind.PartialKeyword);
+                            ModifiersCodeFixes.AddModifier(context, diagnostic, node, SyntaxKind.PartialKeyword);
                             break;
                         }
                     case CompilerDiagnosticIdentifiers.MemberIsAbstractButItIsContainedInNonAbstractClass:
@@ -246,7 +246,7 @@ namespace Roslynator.CSharp.CodeFixes
                             if (!memberDeclaration.IsParentKind(SyntaxKind.ClassDeclaration))
                                 break;
 
-                            ModifiersRefactoring.AddModifier(
+                            ModifiersCodeFixes.AddModifier(
                                 context,
                                 diagnostic,
                                 memberDeclaration.Parent,
@@ -265,7 +265,7 @@ namespace Roslynator.CSharp.CodeFixes
                             if (!memberDeclaration.GetModifiers().Contains(SyntaxKind.StaticKeyword))
                                 break;
 
-                            ModifiersRefactoring.RemoveModifier(
+                            ModifiersCodeFixes.RemoveModifier(
                                 context,
                                 diagnostic,
                                 memberDeclaration,

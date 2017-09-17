@@ -9,12 +9,11 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
-using Roslynator.CSharp.CodeFixes;
 using Roslynator.CSharp.Helpers.ModifierHelpers;
 
-namespace Roslynator.CSharp.Refactorings
+namespace Roslynator.CSharp.CodeFixes
 {
-    internal static class ModifiersRefactoring
+    internal static class ModifiersCodeFixes
     {
         public static void AddModifier(
             CodeFixContext context,
@@ -83,6 +82,8 @@ namespace Roslynator.CSharp.Refactorings
                         if (node.Kind() == SyntaxKind.ConstructorDeclaration)
                             node = ModifierHelper.RemoveAccessModifiers(node);
 
+                        node = node.RemoveModifier(SyntaxKind.SealedKeyword);
+
                         break;
                     }
             }
@@ -90,22 +91,29 @@ namespace Roslynator.CSharp.Refactorings
             return node.InsertModifier(kind, comparer);
         }
 
-        public static void AddModifier(
+        public static void AddModifier<TNode>(
             CodeFixContext context,
             Diagnostic diagnostic,
-            IEnumerable<SyntaxNode> nodes,
+            IEnumerable<TNode> nodes,
             SyntaxKind kind,
             string title = null,
             string additionalKey = null,
-            IModifierComparer comparer = null)
+            IModifierComparer comparer = null) where TNode : SyntaxNode
         {
+            if (nodes is IList<TNode> list
+                && list.Count == 1)
+            {
+                AddModifier(context, diagnostic, list[0], kind, title, additionalKey, comparer);
+                return;
+            }
+
             CodeAction codeAction = CodeAction.Create(
                 title ?? GetAddModifierTitle(kind),
                 cancellationToken =>
                 {
                     return context.Solution().ReplaceNodesAsync(
                         nodes,
-                        (f, g) => f.InsertModifier(kind, comparer),
+                        (f, g) => AddModifier(f, kind, comparer),
                         cancellationToken);
                 },
                 GetEquivalenceKey(diagnostic, kind, additionalKey));
@@ -171,6 +179,35 @@ namespace Roslynator.CSharp.Refactorings
             SyntaxNode newNode = ModifierHelper.RemoveModifier(node, modifier);
 
             return document.ReplaceNodeAsync(node, newNode, cancellationToken);
+        }
+
+        public static void RemoveModifier<TNode>(
+            CodeFixContext context,
+            Diagnostic diagnostic,
+            IEnumerable<TNode> nodes,
+            SyntaxKind kind,
+            string title = null,
+            string additionalKey = null) where TNode : SyntaxNode
+        {
+            if (nodes is IList<TNode> list
+                && list.Count == 1)
+            {
+                RemoveModifier(context, diagnostic, list[0], kind, title, additionalKey);
+                return;
+            }
+
+            CodeAction codeAction = CodeAction.Create(
+                title ?? GetRemoveModifierTitle(kind),
+                cancellationToken =>
+                {
+                    return context.Solution().ReplaceNodesAsync(
+                        nodes,
+                        (f, g) => ModifierHelper.RemoveModifier(f, kind),
+                        cancellationToken);
+                },
+                GetEquivalenceKey(diagnostic, kind, additionalKey));
+
+            context.RegisterCodeFix(codeAction, diagnostic);
         }
 
         public static void RemoveModifiers(

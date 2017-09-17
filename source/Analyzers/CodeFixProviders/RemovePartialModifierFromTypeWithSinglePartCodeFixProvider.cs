@@ -28,7 +28,7 @@ namespace Roslynator.CSharp.CodeFixes
             if (!TryFindFirstAncestorOrSelf(root, context.Span, out TypeDeclarationSyntax typeDeclaration))
                 return;
 
-            ModifiersRefactoring.RemoveModifier(context, context.Diagnostics[0], typeDeclaration, SyntaxKind.PartialKeyword);
+            ModifiersCodeFixes.RemoveModifier(context, context.Diagnostics[0], typeDeclaration, SyntaxKind.PartialKeyword);
         }
     }
 }

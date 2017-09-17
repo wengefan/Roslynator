@@ -34,7 +34,7 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     case CompilerDiagnosticIdentifiers.DuplicateModifier:
                         {
-                            ModifiersRefactoring.RemoveModifier(
+                            ModifiersCodeFixes.RemoveModifier(
                                 context,
                                 diagnostic,
                                 token.Parent,

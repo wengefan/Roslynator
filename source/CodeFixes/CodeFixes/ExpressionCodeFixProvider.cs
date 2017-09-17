@@ -161,7 +161,7 @@ namespace Roslynator.CSharp.CodeFixes
                             if (!modifiers.Contains(SyntaxKind.ConstKeyword))
                                 break;
 
-                            ModifiersRefactoring.RemoveModifier(context, diagnostic, localDeclarationStatement, SyntaxKind.ConstKeyword);
+                            ModifiersCodeFixes.RemoveModifier(context, diagnostic, localDeclarationStatement, SyntaxKind.ConstKeyword);
 
                             break;
                         }

@@ -48,7 +48,7 @@ namespace Roslynator.CSharp.CodeFixes
                     case CompilerDiagnosticIdentifiers.MemberHidesInheritedMemberUseNewKeywordIfHidingWasIntended:
                         {
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddNewModifier))
-                                ModifiersRefactoring.AddModifier(context, diagnostic, memberDeclaration, SyntaxKind.NewKeyword);
+                                ModifiersCodeFixes.AddModifier(context, diagnostic, memberDeclaration, SyntaxKind.NewKeyword);
 
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveMemberDeclaration))
                                 RemoveMember(context, memberDeclaration, diagnostic);
@@ -60,11 +60,11 @@ namespace Roslynator.CSharp.CodeFixes
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddOverrideModifier)
                                 && !memberDeclaration.GetModifiers().Contains(SyntaxKind.StaticKeyword))
                             {
-                                ModifiersRefactoring.AddModifier(context, diagnostic, memberDeclaration, SyntaxKind.OverrideKeyword);
+                                ModifiersCodeFixes.AddModifier(context, diagnostic, memberDeclaration, SyntaxKind.OverrideKeyword);
                             }
 
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddNewModifier))
-                                ModifiersRefactoring.AddModifier(context, diagnostic, memberDeclaration, SyntaxKind.NewKeyword);
+                                ModifiersCodeFixes.AddModifier(context, diagnostic, memberDeclaration, SyntaxKind.NewKeyword);
 
                             if (Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveMemberDeclaration))
                                 RemoveMember(context, memberDeclaration, diagnostic);

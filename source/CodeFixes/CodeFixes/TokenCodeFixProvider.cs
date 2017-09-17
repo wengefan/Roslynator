@@ -90,7 +90,7 @@ namespace Roslynator.CSharp.CodeFixes
                             if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.ReorderModifiers))
                                 break;
 
-                            ModifiersRefactoring.MoveModifier(context, diagnostic, token.Parent, token);
+                            ModifiersCodeFixes.MoveModifier(context, diagnostic, token.Parent, token);
                             break;
                         }
                 }
