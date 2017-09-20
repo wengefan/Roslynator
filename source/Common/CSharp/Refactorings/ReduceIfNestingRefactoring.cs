@@ -1,5 +1,6 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,19 +24,49 @@ namespace Roslynator.CSharp.Refactorings
             if (!IsFixable(ifStatement))
                 return false;
 
-            var block = (BlockSyntax)ifStatement.Parent;
-
-            if (!block.Statements.IsLastStatement(ifStatement, skipLocalFunction: true))
+            if (!StatementContainer.TryCreate(ifStatement, out StatementContainer container))
                 return false;
 
-            SyntaxNode parent = block.Parent;
+            SyntaxNode parent = container.Node.Parent;
+            SyntaxKind parentKind = parent.Kind();
 
-            switch (parent.Kind())
+            SyntaxList<StatementSyntax> statements = container.Statements;
+
+            if (container.IsSwitchSection
+                || parentKind == SyntaxKind.SwitchSection)
             {
-                case SyntaxKind.MethodDeclaration:
-                    {
-                        var methodDeclaration = (MethodDeclarationSyntax)parent;
+                if (topLevelOnly)
+                    return false;
 
+                if (statements.Count == 1)
+                    return false;
+
+                if (statements.Last().Kind() != SyntaxKind.BreakStatement)
+                    return false;
+
+                if (!object.ReferenceEquals(ifStatement, statements[statements.Count - 2]))
+                    return false;
+
+                return true;
+            }
+
+            if (parentKind.IsKind(
+                SyntaxKind.ForStatement,
+                SyntaxKind.ForEachStatement,
+                SyntaxKind.DoStatement,
+                SyntaxKind.WhileStatement))
+            {
+                return !topLevelOnly
+                    && statements.IsLast(ifStatement);
+            }
+
+            if (!statements.IsLastStatement(ifStatement, skipLocalFunction: true))
+                return false;
+
+            switch (parent)
+            {
+                case MethodDeclarationSyntax methodDeclaration:
+                    {
                         if (methodDeclaration.ReturnsVoid())
                             return true;
 
@@ -54,10 +85,8 @@ namespace Roslynator.CSharp.Refactorings
                                 .IsIEnumerableOrConstructedFromIEnumerableOfT() == true
                             && methodDeclaration.ContainsYield();
                     }
-                case SyntaxKind.LocalFunctionStatement:
+                case LocalFunctionStatementSyntax localFunction:
                     {
-                        var localFunction = (LocalFunctionStatementSyntax)parent;
-
                         if (localFunction.ReturnsVoid())
                             return true;
 
@@ -74,13 +103,9 @@ namespace Roslynator.CSharp.Refactorings
                                 .IsIEnumerableOrConstructedFromIEnumerableOfT() == true
                             && localFunction.ContainsYield();
                     }
-                case SyntaxKind.SimpleLambdaExpression:
-                case SyntaxKind.ParenthesizedLambdaExpression:
-                case SyntaxKind.AnonymousMethodExpression:
+                case AnonymousFunctionExpressionSyntax anonymousFunction:
                     {
-                        var function = (AnonymousFunctionExpressionSyntax)parent;
-
-                        var methodSymbol = semanticModel.GetSymbol(function, cancellationToken) as IMethodSymbol;
+                        var methodSymbol = semanticModel.GetSymbol(anonymousFunction, cancellationToken) as IMethodSymbol;
 
                         if (methodSymbol == null)
                             return false;
@@ -88,13 +113,13 @@ namespace Roslynator.CSharp.Refactorings
                         if (methodSymbol.ReturnsVoid)
                             return true;
 
-                        return function.AsyncKeyword.IsKind(SyntaxKind.AsyncKeyword)
+                        return anonymousFunction.AsyncKeyword.IsKind(SyntaxKind.AsyncKeyword)
                             && methodSymbol.ReturnType.Equals(taskType);
                     }
-                case SyntaxKind.IfStatement:
+                case IfStatementSyntax parentIfStatement:
                     {
                         return !topLevelOnly
-                            && IsFixable((IfStatementSyntax)parent, semanticModel, taskType, cancellationToken, topLevelOnly);
+                            && IsFixable(parentIfStatement, semanticModel, taskType, cancellationToken, topLevelOnly);
                     }
             }
 
@@ -128,7 +153,6 @@ namespace Roslynator.CSharp.Refactorings
         {
             return ifStatement.IsSimpleIf()
                 && ifStatement.Condition?.IsMissing == false
-                && ifStatement.IsParentKind(SyntaxKind.Block)
                 && (ifStatement.Statement is BlockSyntax block)
                 && block.Statements.Any();
         }
@@ -139,46 +163,77 @@ namespace Roslynator.CSharp.Refactorings
             bool recursive,
             CancellationToken cancellationToken)
         {
-            var block = (BlockSyntax)ifStatement.Parent;
+            StatementContainer container = StatementContainer.Create(ifStatement);
 
-            SyntaxNode outermostBlock = block;
+            CSharpSyntaxNode node = container.Node;
 
-            while (!outermostBlock.IsParentKind(
-                SyntaxKind.MethodDeclaration,
-                SyntaxKind.LocalFunctionStatement,
-                SyntaxKind.SimpleLambdaExpression,
-                SyntaxKind.ParenthesizedLambdaExpression,
-                SyntaxKind.AnonymousMethodExpression))
-            {
-                outermostBlock = outermostBlock.Parent;
-            }
-
-            StatementSyntax jumpStatement = null;
-
-            if (outermostBlock.IsParentKind(SyntaxKind.MethodDeclaration, SyntaxKind.LocalFunctionStatement)
-                && outermostBlock
-                    .DescendantNodes(f => !f.IsNestedMethod())
-                    .Any(f => f.IsKind(SyntaxKind.YieldBreakStatement, SyntaxKind.YieldReturnStatement)))
-            {
-                jumpStatement = YieldBreakStatement();
-            }
-            else
-            {
-                jumpStatement = ReturnStatement();
-            }
+            StatementSyntax jumpStatement = GetJumpStatement(node);
 
             var rewriter = new IfStatementRewriter(jumpStatement, recursive);
 
-            SyntaxNode newNode = rewriter.VisitBlock(block);
+            SyntaxNode newNode = rewriter.Visit(node);
 
-            return document.ReplaceNodeAsync(block, newNode, cancellationToken);
+            return document.ReplaceNodeAsync(node, newNode, cancellationToken);
+        }
+
+        private static StatementSyntax GetJumpStatement(SyntaxNode node)
+        {
+            while (node != null)
+            {
+                switch (node.Kind())
+                {
+                    case SyntaxKind.MethodDeclaration:
+                        {
+                            if (((MethodDeclarationSyntax)node).ContainsYield())
+                            {
+                                return YieldBreakStatement();
+                            }
+                            else
+                            {
+                                return ReturnStatement();
+                            }
+                        }
+                    case SyntaxKind.LocalFunctionStatement:
+                        {
+                            if (((LocalFunctionStatementSyntax)node).ContainsYield())
+                            {
+                                return YieldBreakStatement();
+                            }
+                            else
+                            {
+                                return ReturnStatement();
+                            }
+                        }
+                    case SyntaxKind.SimpleLambdaExpression:
+                    case SyntaxKind.ParenthesizedLambdaExpression:
+                    case SyntaxKind.AnonymousMethodExpression:
+                        {
+                            return ReturnStatement();
+                        }
+                    case SyntaxKind.ForStatement:
+                    case SyntaxKind.ForEachStatement:
+                    case SyntaxKind.DoStatement:
+                    case SyntaxKind.WhileStatement:
+                        {
+                            return ContinueStatement();
+                        }
+                    case SyntaxKind.SwitchSection:
+                        {
+                            return BreakStatement();
+                        }
+                }
+
+                node = node.Parent;
+            }
+
+            throw new InvalidOperationException("");
         }
 
         private class IfStatementRewriter : CSharpSyntaxRewriter
         {
             private readonly StatementSyntax _jumpStatement;
             private readonly bool _recursive;
-            private BlockSyntax _block;
+            private StatementContainer _container;
 
             public IfStatementRewriter(StatementSyntax jumpStatement, bool recursive)
             {
@@ -188,7 +243,7 @@ namespace Roslynator.CSharp.Refactorings
 
             public override SyntaxNode VisitIfStatement(IfStatementSyntax node)
             {
-                if (node.Parent == _block)
+                if (node.Parent == _container.Node)
                 {
                     return base.VisitIfStatement(node);
                 }
@@ -198,48 +253,80 @@ namespace Roslynator.CSharp.Refactorings
                 }
             }
 
+            public override SyntaxNode VisitSwitchSection(SwitchSectionSyntax node)
+            {
+                if (_container.Node == null)
+                {
+                    return Rewrite(new StatementContainer(node));
+                }
+
+                return node;
+            }
+
             public override SyntaxNode VisitBlock(BlockSyntax node)
             {
-                _block = node;
+                if (_container.Node == null
+                    && node.IsParentKind(SyntaxKind.SwitchSection))
+                {
+                    return Rewrite(new StatementContainer(node));
+                }
+
+                _container = new StatementContainer(node);
 
                 if (node.LastStatementOrDefault(skipLocalFunction: true) is IfStatementSyntax ifStatement
                     && IsFixable(ifStatement))
                 {
-                    SyntaxList<StatementSyntax> statements = node.Statements;
-
-                    int index = statements.IndexOf(ifStatement);
-
-                    if (_recursive)
-                        ifStatement = (IfStatementSyntax)VisitIfStatement(ifStatement);
-
-                    var block = (BlockSyntax)ifStatement.Statement;
-
-                    ExpressionSyntax newCondition = Negator.LogicallyNegate(ifStatement.Condition);
-
-                    BlockSyntax newBlock = block.WithStatements(SingletonList(_jumpStatement));
-
-                    if (!block
-                        .Statements
-                        .First()
-                        .GetLeadingTrivia()
-                        .Any(f => f.IsEndOfLineTrivia()))
-                    {
-                        newBlock = newBlock.WithCloseBraceToken(newBlock.CloseBraceToken.AppendToTrailingTrivia(NewLine()));
-                    }
-
-                    IfStatementSyntax newIfStatement = ifStatement
-                        .WithCondition(newCondition)
-                        .WithStatement(newBlock)
-                        .WithFormatterAnnotation();
-
-                    SyntaxList<StatementSyntax> newStatements = statements
-                        .ReplaceAt(index, newIfStatement)
-                        .InsertRange(index + 1, block.Statements.Select(f => f.WithFormatterAnnotation()));
-
-                    node = node.WithStatements(newStatements);
+                    return Rewrite(_container, ifStatement);
                 }
 
                 return node;
+            }
+
+            private SyntaxNode Rewrite(StatementContainer container)
+            {
+                _container = container;
+
+                SyntaxList<StatementSyntax> statements = _container.Statements;
+
+                var ifStatement = (IfStatementSyntax)statements[statements.Count - 2];
+
+                return Rewrite(_container, ifStatement);
+            }
+
+            private SyntaxNode Rewrite(StatementContainer container, IfStatementSyntax ifStatement)
+            {
+                SyntaxList<StatementSyntax> statements = container.Statements;
+
+                int index = statements.IndexOf(ifStatement);
+
+                if (_recursive)
+                    ifStatement = (IfStatementSyntax)VisitIfStatement(ifStatement);
+
+                var block = (BlockSyntax)ifStatement.Statement;
+
+                ExpressionSyntax newCondition = Negator.LogicallyNegate(ifStatement.Condition);
+
+                BlockSyntax newBlock = block.WithStatements(SingletonList(_jumpStatement));
+
+                if (!block
+                    .Statements
+                    .First()
+                    .GetLeadingTrivia()
+                    .Any(f => f.IsEndOfLineTrivia()))
+                {
+                    newBlock = newBlock.WithCloseBraceToken(newBlock.CloseBraceToken.AppendToTrailingTrivia(NewLine()));
+                }
+
+                IfStatementSyntax newIfStatement = ifStatement
+                    .WithCondition(newCondition)
+                    .WithStatement(newBlock)
+                    .WithFormatterAnnotation();
+
+                SyntaxList<StatementSyntax> newStatements = statements
+                    .ReplaceAt(index, newIfStatement)
+                    .InsertRange(index + 1, block.Statements.Select(f => f.WithFormatterAnnotation()));
+
+                return container.NodeWithStatements(newStatements);
             }
         }
     }
