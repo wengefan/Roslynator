@@ -21,9 +21,17 @@ namespace Roslynator.CSharp.Refactorings
             CancellationToken cancellationToken = default(CancellationToken),
             bool topLevelOnly = false)
         {
-            if (!IsFixable(ifStatement))
-                return false;
+            return IsFixable(ifStatement)
+                && IsFixableCore(ifStatement, semanticModel, taskType, cancellationToken, topLevelOnly);
+        }
 
+        private static bool IsFixableCore(
+            IfStatementSyntax ifStatement,
+            SemanticModel semanticModel,
+            INamedTypeSymbol taskType = null,
+            CancellationToken cancellationToken = default(CancellationToken),
+            bool topLevelOnly = false)
+        {
             if (!StatementContainer.TryCreate(ifStatement, out StatementContainer container))
                 return false;
 
@@ -116,10 +124,25 @@ namespace Roslynator.CSharp.Refactorings
                         return anonymousFunction.AsyncKeyword.IsKind(SyntaxKind.AsyncKeyword)
                             && methodSymbol.ReturnType.Equals(taskType);
                     }
-                case IfStatementSyntax parentIfStatement:
+                case IfStatementSyntax ifStatement2:
+                    {
+                        if (topLevelOnly)
+                            return false;
+
+                        if (ifStatement2.Parent is ElseClauseSyntax elseClause)
+                        {
+                            return ifStatement2.Else == null
+                                && IsFixableCore(ifStatement2.GetTopmostIf(), semanticModel, taskType, cancellationToken, topLevelOnly);
+                        }
+                        else
+                        {
+                            return IsFixable(ifStatement2, semanticModel, taskType, cancellationToken, topLevelOnly);
+                        }
+                    }
+                case ElseClauseSyntax elseClause:
                     {
                         return !topLevelOnly
-                            && IsFixable(parentIfStatement, semanticModel, taskType, cancellationToken, topLevelOnly);
+                            && IsFixableCore(elseClause.GetTopmostIf(), semanticModel, taskType, cancellationToken, topLevelOnly);
                     }
             }
 

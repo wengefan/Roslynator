@@ -2,6 +2,8 @@
 
 using System.Collections.Generic;
 
+#pragma warning disable CS0168
+
 namespace Roslynator.CSharp.Refactorings.Tests
 {
     internal static class ReduceIfNesting
@@ -26,6 +28,62 @@ namespace Roslynator.CSharp.Refactorings.Tests
                         Foo3();
                     }
                 }
+            }
+        }
+
+        private static void FooElseIf()
+        {
+            if (_condition)
+            {
+            }
+            else if (_condition)
+            {
+                if (_condition1)
+                {
+                    Foo1();
+
+                    if (_condition2)
+                    {
+                        Foo2();
+
+                        if (_condition3)
+                        {
+                            Foo3();
+                        }
+                    }
+                }
+            }
+
+            void Local()
+            {
+            }
+        }
+
+        private static void FooElse()
+        {
+            if (_condition)
+            {
+            }
+            else
+            {
+                if (_condition1)
+                {
+                    Foo1();
+
+                    if (_condition2)
+                    {
+                        Foo2();
+
+                        if (_condition3)
+                        {
+                            Foo3();
+                        }
+                    }
+                }
+            }
+
+            void Local()
+            {
             }
         }
 
