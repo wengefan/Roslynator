@@ -40,20 +40,46 @@ namespace Roslynator.CSharp.Refactorings
 
             SyntaxList<StatementSyntax> statements = container.Statements;
 
-            if (container.IsSwitchSection
-                || parentKind == SyntaxKind.SwitchSection)
+            if (container.IsSwitchSection)
             {
                 if (topLevelOnly)
                     return false;
 
-                if (statements.Count == 1)
+                if (ifStatement != statements.LastButOneOrDefault())
                     return false;
 
-                if (statements.Last().Kind() != SyntaxKind.BreakStatement)
+                if (!IsFixableJumpStatement(statements.Last()))
                     return false;
 
-                if (!object.ReferenceEquals(ifStatement, statements[statements.Count - 2]))
+                return true;
+            }
+
+            if (parentKind == SyntaxKind.SwitchSection)
+            {
+                if (topLevelOnly)
                     return false;
+
+                SyntaxList<StatementSyntax> sectionStatements = ((SwitchSectionSyntax)parent).Statements;
+
+                if (sectionStatements.Count == 1)
+                {
+                    if (ifStatement != statements.LastButOneOrDefault())
+                        return false;
+
+                    if (!IsFixableJumpStatement(statements.Last()))
+                        return false;
+                }
+                else
+                {
+                    if (!statements.IsLast(ifStatement))
+                        return false;
+
+                    if (container.Node != sectionStatements.LastButOne())
+                        return false;
+
+                    if (!IsFixableJumpStatement(sectionStatements.Last()))
+                        return false;
+                }
 
                 return true;
             }
@@ -149,6 +175,21 @@ namespace Roslynator.CSharp.Refactorings
             return false;
         }
 
+        private static bool IsFixableJumpStatement(StatementSyntax statement)
+        {
+            switch (statement)
+            {
+                case BreakStatementSyntax breakStatement:
+                    return true;
+                case ReturnStatementSyntax returnStatement:
+                    return returnStatement.Expression == null;
+                case ThrowStatementSyntax throwStatement:
+                    return throwStatement.Expression == null;
+                default:
+                    return false;
+            }
+        }
+
         internal static bool IsFixableRecursively(IfStatementSyntax ifStatement)
         {
             StatementSyntax statement = ifStatement.Statement;
@@ -242,14 +283,37 @@ namespace Roslynator.CSharp.Refactorings
                         }
                     case SyntaxKind.SwitchSection:
                         {
-                            return BreakStatement();
+                            var switchSection = (SwitchSectionSyntax)node;
+
+                            StatementSyntax statement = switchSection.Statements.Last();
+
+                            SyntaxKind kind = statement.Kind();
+
+                            if (kind == SyntaxKind.Block)
+                            {
+                                statement = ((BlockSyntax)statement).Statements.Last();
+
+                                kind = statement.Kind();
+                            }
+
+                            switch (kind)
+                            {
+                                case SyntaxKind.BreakStatement:
+                                    return BreakStatement();
+                                case SyntaxKind.ReturnStatement:
+                                    return ReturnStatement();
+                                case SyntaxKind.ThrowStatement:
+                                    return ThrowStatement();
+                            }
+
+                            throw new InvalidOperationException();
                         }
                 }
 
                 node = node.Parent;
             }
 
-            throw new InvalidOperationException("");
+            throw new InvalidOperationException();
         }
 
         private class IfStatementRewriter : CSharpSyntaxRewriter
@@ -311,7 +375,7 @@ namespace Roslynator.CSharp.Refactorings
 
                 SyntaxList<StatementSyntax> statements = _container.Statements;
 
-                var ifStatement = (IfStatementSyntax)statements[statements.Count - 2];
+                var ifStatement = (IfStatementSyntax)((statements.Count == 1) ? statements.First() : statements.LastButOne());
 
                 return Rewrite(_container, ifStatement);
             }
