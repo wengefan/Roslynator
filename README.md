@@ -26,9 +26,9 @@
 
 ## Roslynator For Visual Studio Code
 
-* [How to enable Roslynator for Visual Studio Code](docs/RoslynatorForVisualStudioCode.md) (refactorings and code fixes for compiler diagnostics).
+* [How to Enable Roslynator for Visual Studio Code](docs/RoslynatorForVisualStudioCode.md) (refactorings and code fixes for compiler diagnostics)
 
 ## NuGet Package
 
-* [Roslynator.Analyzers](http://www.nuget.org/packages/Roslynator.Analyzers/) (analyzers only).
-  * Package is dependent on Microsoft.CodeAnalysis.CSharp.Workspaces.2.0.0 (Visual Studio 2017 or higher).
+* [Roslynator.Analyzers](http://www.nuget.org/packages/Roslynator.Analyzers/) (analyzers only)
+  * This package is dependent on Microsoft.CodeAnalysis.CSharp.Workspaces.2.0.0 (Visual Studio 2017 or higher).
