@@ -366,12 +366,12 @@ namespace Roslynator.CSharp.CodeFixes
 
         private static string GetEquivalenceKey(Diagnostic diagnostic, string additionalKey)
         {
-            return AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey);
+            return EquivalenceKeyProvider.GetEquivalenceKey(diagnostic, additionalKey);
         }
 
         private static string GetEquivalenceKey(Diagnostic diagnostic, SyntaxKind kind, string additionalKey)
         {
-            return AbstractCodeFixProvider.GetEquivalenceKey(diagnostic, additionalKey ?? kind.ToString());
+            return EquivalenceKeyProvider.GetEquivalenceKey(diagnostic, additionalKey ?? kind.ToString());
         }
 
         private static string GetAddModifierTitle(SyntaxKind kind)
