@@ -12,7 +12,7 @@
 * [How to Configure Analyzers](http://github.com/JosefPihrt/Roslynator/blob/master/docs/HowToConfigureAnalyzers.md)
 * [How to Configure Refactorings](http://github.com/JosefPihrt/Roslynator/blob/master/docs/HowToConfigureRefactorings.md)
 
-### Products
+### Roslynator For Visual Studio
 
 #### Extensions for Visual Studio 2017
 
@@ -23,6 +23,10 @@
 
 * [Roslynator](http://visualstudiogallery.msdn.microsoft.com/e83c5e41-92c5-42a3-80cc-e0720c621b5e) (analyzers, refactorings and code fixes for compiler diagnostics).
 * [Roslynator Refactorings](http://visualstudiogallery.msdn.microsoft.com/a9a2b4bc-70da-437d-9ab7-b6b8e7d76cd9) (refactorings and code fixes for compiler diagnostics).
+
+### Roslynator For Visual Studio Code
+
+* [How to enable Roslynator for Visual Studio Code](docs/RoslynatorForVisualStudioCode.md) (refactorings and code fixes for compiler diagnostics).
 
 #### NuGet Package
 
