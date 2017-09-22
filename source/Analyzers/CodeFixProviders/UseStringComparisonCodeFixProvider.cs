@@ -44,10 +44,10 @@ namespace Roslynator.CSharp.CodeFixes
                     {
                         var binaryExpression = (BinaryExpressionSyntax)node;
 
-                        MemberInvocationExpressionInfo invocationInfo = MemberInvocationExpressionInfo.Create(binaryExpression.Left.WalkDownParentheses());
+                        MemberInvocationExpressionInfo invocationInfo = SyntaxInfo.MemberInvocationExpressionInfo(binaryExpression.Left.WalkDownParentheses());
 
                         if (!invocationInfo.Success)
-                            invocationInfo = MemberInvocationExpressionInfo.Create((InvocationExpressionSyntax)binaryExpression.Right.WalkDownParentheses());
+                            invocationInfo = SyntaxInfo.MemberInvocationExpressionInfo((InvocationExpressionSyntax)binaryExpression.Right.WalkDownParentheses());
 
                         SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
@@ -66,7 +66,7 @@ namespace Roslynator.CSharp.CodeFixes
                     {
                         var invocationExpression = (InvocationExpressionSyntax)node;
 
-                        MemberInvocationExpressionInfo invocationInfo = MemberInvocationExpressionInfo.Create(invocationExpression);
+                        MemberInvocationExpressionInfo invocationInfo = SyntaxInfo.MemberInvocationExpressionInfo(invocationExpression);
 
                         SeparatedSyntaxList<ArgumentSyntax> arguments = invocationInfo.ArgumentList.Arguments;
 
@@ -82,7 +82,7 @@ namespace Roslynator.CSharp.CodeFixes
                                 ?? (InvocationExpressionSyntax)arguments[1].Expression.WalkDownParentheses();
                         }
 
-                        MemberInvocationExpressionInfo invocationInfo2 = MemberInvocationExpressionInfo.Create(invocationExpression2);
+                        MemberInvocationExpressionInfo invocationInfo2 = SyntaxInfo.MemberInvocationExpressionInfo(invocationExpression2);
 
                         SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 

@@ -28,7 +28,7 @@ namespace Roslynator.CSharp.Refactorings
 
             if (kind == SyntaxKind.SimpleMemberAccessExpression)
             {
-                MemberInvocationExpressionInfo invocationInfo2 = MemberInvocationExpressionInfo.Create(parent.Parent);
+                MemberInvocationExpressionInfo invocationInfo2 = SyntaxInfo.MemberInvocationExpressionInfo(parent.Parent);
 
                 if (!invocationInfo2.Success)
                     return;
@@ -82,7 +82,7 @@ namespace Roslynator.CSharp.Refactorings
 
             if (!isStringLiteral)
             {
-                invocationInfo3 = MemberInvocationExpressionInfo.Create(argumentExpression);
+                invocationInfo3 = SyntaxInfo.MemberInvocationExpressionInfo(argumentExpression);
 
                 if (!invocationInfo3.Success)
                     return;
@@ -129,7 +129,7 @@ namespace Roslynator.CSharp.Refactorings
             if (arguments.Count != 2)
                 return;
 
-            MemberInvocationExpressionInfo equalsInvocation = MemberInvocationExpressionInfo.Create(argumentList.Parent);
+            MemberInvocationExpressionInfo equalsInvocation = SyntaxInfo.MemberInvocationExpressionInfo(argumentList.Parent);
 
             if (!equalsInvocation.Success)
                 return;
@@ -229,7 +229,7 @@ namespace Roslynator.CSharp.Refactorings
 
         private static bool TryCreateCaseChangingInvocation(ExpressionSyntax expression, out MemberInvocationExpressionInfo invocationInfo)
         {
-            invocationInfo = MemberInvocationExpressionInfo.Create(expression);
+            invocationInfo = SyntaxInfo.MemberInvocationExpressionInfo(expression);
 
             if (invocationInfo.Success
                 && !invocationInfo.ArgumentList.Arguments.Any())

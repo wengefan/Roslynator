@@ -31,7 +31,7 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
             if (name != (simpleAssignment.Left as IdentifierNameSyntax)?.Identifier.ValueText)
                 return false;
 
-            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(simpleAssignment.Right);
+            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(simpleAssignment.Right);
 
             if (!memberInvocation.Success)
                 return false;

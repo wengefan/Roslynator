@@ -22,7 +22,7 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
             if (!(statement is ExpressionStatementSyntax expressionStatement))
                 return false;
 
-            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(expressionStatement.Expression);
+            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(expressionStatement.Expression);
 
             if (!memberInvocation.Success)
                 return false;

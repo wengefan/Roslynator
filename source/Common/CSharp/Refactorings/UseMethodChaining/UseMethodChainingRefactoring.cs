@@ -120,7 +120,7 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
         {
             while (true)
             {
-                MemberInvocationExpressionInfo memberInvocation2 = MemberInvocationExpressionInfo.Create(memberInvocation.Expression);
+                MemberInvocationExpressionInfo memberInvocation2 = SyntaxInfo.MemberInvocationExpressionInfo(memberInvocation.Expression);
 
                 if (memberInvocation2.Success)
                 {
@@ -146,7 +146,7 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
 
             semanticModel.TryGetMethodInfo(invocationExpression, out MethodInfo methodInfo, cancellationToken);
 
-            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(invocationExpression);
+            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(invocationExpression);
 
             ITypeSymbol typeSymbol = methodInfo.ReturnType;
 
@@ -209,7 +209,7 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
 
         private string GetTextToAppend(ExpressionStatementSyntax expressionStatement)
         {
-            MemberInvocationExpressionInfo memberInvocation = MemberInvocationExpressionInfo.Create(GetInvocationExpression(expressionStatement));
+            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(GetInvocationExpression(expressionStatement));
 
             MemberInvocationExpressionInfo firstMemberInvocation = WalkDownMethodChain(memberInvocation);
 
