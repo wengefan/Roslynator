@@ -233,6 +233,56 @@ namespace Roslynator.CSharp.Syntax
             return Syntax.TypeParameterInfo.Create(typeParameter);
         }
 
+        public static TypeParameterConstraintInfo TypeParameterConstraintInfo(TypeParameterConstraintSyntax constraint)
+        {
+            return Syntax.TypeParameterConstraintInfo.Create(constraint);
+        }
+
+        public static GenericInfo GenericInfo(TypeParameterConstraintSyntax typeParameterConstraint)
+        {
+            return Syntax.GenericInfo.Create(typeParameterConstraint);
+        }
+
+        public static GenericInfo GenericInfo(TypeParameterConstraintClauseSyntax constraintClause)
+        {
+            return Syntax.GenericInfo.Create(constraintClause);
+        }
+
+        public static GenericInfo GenericInfo(SyntaxNode declaration)
+        {
+            return Syntax.GenericInfo.Create(declaration);
+        }
+
+        public static GenericInfo GenericInfo(ClassDeclarationSyntax classDeclaration)
+        {
+            return Syntax.GenericInfo.Create(classDeclaration);
+        }
+
+        public static GenericInfo GenericInfo(DelegateDeclarationSyntax delegateDeclaration)
+        {
+            return Syntax.GenericInfo.Create(delegateDeclaration);
+        }
+
+        public static GenericInfo GenericInfo(InterfaceDeclarationSyntax interfaceDeclaration)
+        {
+            return Syntax.GenericInfo.Create(interfaceDeclaration);
+        }
+
+        public static GenericInfo GenericInfo(LocalFunctionStatementSyntax localFunctionStatement)
+        {
+            return Syntax.GenericInfo.Create(localFunctionStatement);
+        }
+
+        public static GenericInfo GenericInfo(MethodDeclarationSyntax methodDeclaration)
+        {
+            return Syntax.GenericInfo.Create(methodDeclaration);
+        }
+
+        public static GenericInfo GenericInfo(StructDeclarationSyntax structDeclaration)
+        {
+            return Syntax.GenericInfo.Create(structDeclaration);
+        }
+
         public static XmlElementInfo XmlElementInfo(XmlNodeSyntax xmlNode)
         {
             return Syntax.XmlElementInfo.Create(xmlNode);

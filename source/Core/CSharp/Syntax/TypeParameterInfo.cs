@@ -32,6 +32,11 @@ namespace Roslynator.CSharp.Syntax
 
         public TypeParameterListSyntax TypeParameterList { get; }
 
+        public SeparatedSyntaxList<TypeParameterSyntax> TypeParameters
+        {
+            get { return TypeParameterList?.Parameters ?? default(SeparatedSyntaxList<TypeParameterSyntax>); }
+        }
+
         public SyntaxList<TypeParameterConstraintClauseSyntax> ConstraintClauses { get; }
 
         public TypeParameterConstraintClauseSyntax ConstraintClause
@@ -48,12 +53,17 @@ namespace Roslynator.CSharp.Syntax
             }
         }
 
+        public GenericInfo GenericInfo()
+        {
+            return SyntaxInfo.GenericInfo(Declaration);
+        }
+
         public bool Success
         {
             get { return TypeParameter != null; }
         }
 
-        internal static TypeParameterInfo Create(TypeParameterSyntax typeParameter)
+        public static TypeParameterInfo Create(TypeParameterSyntax typeParameter)
         {
             if (!(typeParameter.Parent is TypeParameterListSyntax typeParameterList))
                 return Default;
@@ -97,7 +107,7 @@ namespace Roslynator.CSharp.Syntax
             return Default;
         }
 
-        internal static TypeParameterInfo Create(SyntaxNode declaration, string name)
+        public static TypeParameterInfo Create(SyntaxNode declaration, string name)
         {
             switch (declaration?.Kind())
             {
