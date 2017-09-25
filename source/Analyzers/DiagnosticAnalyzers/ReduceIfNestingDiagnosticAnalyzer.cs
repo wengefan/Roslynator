@@ -1,12 +1,14 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
+using System.Collections.Generic;
 using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
 using Roslynator.CSharp.Refactorings;
+using Roslynator.CSharp.Refactorings.ReduceIfNesting;
 
 namespace Roslynator.CSharp.DiagnosticAnalyzers
 {
@@ -37,8 +39,20 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
         {
             var ifStatement = (IfStatementSyntax)context.Node;
 
-            if (ReduceIfNestingRefactoring.IsFixable(ifStatement, context.SemanticModel, taskType, context.CancellationToken, topLevelOnly: true))
-                context.ReportDiagnostic(DiagnosticDescriptors.ReduceIfNesting, ifStatement.IfKeyword);
+            ReduceIfNestingAnalysis analysis = ReduceIfNestingRefactoring.Analyze(
+                ifStatement,
+                context.SemanticModel,
+                topOnly: true,
+                taskType: taskType,
+                cancellationToken: context.CancellationToken);
+
+            if (!analysis.Success)
+                return;
+
+            context.ReportDiagnostic(
+                DiagnosticDescriptors.ReduceIfNesting,
+                ifStatement.IfKeyword.GetLocation(),
+                ImmutableDictionary.CreateRange(new KeyValuePair<string, string>[] { new KeyValuePair<string, string>("JumpKind", analysis.JumpKind.ToString()) }));
         }
     }
 }
