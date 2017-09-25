@@ -41,8 +41,9 @@
     <AssemblyOriginatorKeyFile>Roslynator.Core.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="CSharp\AccessibilityHelper.cs" />
-    <Compile Include="CSharp\AccessibilityInfo.cs" />
+    <Compile Include="CSharp\Helpers\AllowedAccessibilityHelper.cs" />
+    <Compile Include="CSharp\Helpers\ChangeAccessibilityHelper.cs" />
+    <Compile Include="CSharp\Syntax\AccessibilityInfo.cs" />
     <Compile Include="CSharp\Analysis\BracesAnalysisResult.cs" />
     <Compile Include="CSharp\CodeFixes\AbstractCodeFixProvider.cs" />
     <Compile Include="CSharp\CodeFixes\EquivalenceKeyProvider.cs" />
@@ -123,8 +124,8 @@
     <Compile Include="CSharp\CSharpGeneratedCodeAnalyzer.cs" />
     <Compile Include="CSharp\Extensions\SymbolExtensions.cs" />
     <Compile Include="CSharp\SyntaxRewriters\BinaryExpressionToMultiLineRewriter.cs" />
-    <Compile Include="CSharp\HexadecimalLiteralInfo.cs" />
-    <Compile Include="CSharp\HexadecimalLiteralSuffixKind.cs" />
+    <Compile Include="CSharp\Syntax\HexadecimalLiteralInfo.cs" />
+    <Compile Include="CSharp\Syntax\HexadecimalLiteralSuffixKind.cs" />
     <Compile Include="CSharp\Syntax\IfStatementInfo.cs" />
     <Compile Include="CSharp\IfStatementOrElseClause.cs" />
     <Compile Include="CSharp\Comparers\MemberDeclarationSortMode.cs" />

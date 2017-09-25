@@ -287,5 +287,15 @@ namespace Roslynator.CSharp.Syntax
         {
             return Syntax.XmlElementInfo.Create(xmlNode);
         }
+
+        public static HexadecimalLiteralInfo HexadecimalLiteralInfo(LiteralExpressionSyntax literalExpression)
+        {
+            return Syntax.HexadecimalLiteralInfo.Create(literalExpression);
+        }
+
+        public static AccessibilityInfo AccessibilityInfo(SyntaxNode node)
+        {
+            return Syntax.AccessibilityInfo.Create(node);
+        }
     }
 }

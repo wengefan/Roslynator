@@ -5,6 +5,7 @@ using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Helpers;
 
 namespace Roslynator.CSharp
 {
@@ -422,6 +423,11 @@ namespace Roslynator.CSharp
             }
 
             return false;
+        }
+
+        public static bool IsAllowedAccessibility(SyntaxNode node, Accessibility accessibility)
+        {
+            return AllowedAccessibilityHelper.IsAllowedAccessibility(node, accessibility);
         }
     }
 }

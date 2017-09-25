@@ -429,10 +429,10 @@ namespace Roslynator.CSharp.CodeFixes
         {
             foreach (Accessibility accessibility in accessibilities)
             {
-                if (AccessibilityHelper.IsAllowedAccessibility(node, accessibility))
+                if (CSharpUtility.IsAllowedAccessibility(node, accessibility))
                 {
                     CodeAction codeAction = CodeAction.Create(
-                        $"Change accessibility to '{AccessibilityHelper.GetAccessibilityName(accessibility)}'",
+                        $"Change accessibility to '{accessibility.GetTitle()}'",
                         cancellationToken => ChangeAccessibilityRefactoring.RefactorAsync(context.Document, node, accessibility, cancellationToken),
                         GetEquivalenceKey(diagnostic.Id, accessibility.ToString()));
 

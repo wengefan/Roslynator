@@ -11,7 +11,9 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Roslynator.CSharp.Documentation;
+using Roslynator.CSharp.Helpers;
 using Roslynator.CSharp.Helpers.ModifierHelpers;
+using Roslynator.CSharp.Syntax;
 using Roslynator.CSharp.SyntaxRewriters;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Roslynator.CSharp.CSharpFactory;
@@ -3387,6 +3389,17 @@ namespace Roslynator.CSharp
             }
 
             return false;
+        }
+
+        internal static TNode WithAccessibility<TNode>(
+            this TNode node,
+            Accessibility newAccessibility,
+            IModifierComparer comparer = null) where TNode : SyntaxNode
+        {
+            if (node == null)
+                throw new ArgumentNullException(nameof(node));
+
+            return (TNode)ChangeAccessibilityHelper.ChangeAccessibility(node, newAccessibility, comparer);
         }
         #endregion SyntaxNode
 

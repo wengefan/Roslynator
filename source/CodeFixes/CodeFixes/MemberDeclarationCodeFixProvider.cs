@@ -70,7 +70,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                             Accessibility newAccessibility = overrideInfo.OverriddenSymbol.DeclaredAccessibility;
 
-                            string title = $"Change accessibility to '{AccessibilityHelper.GetAccessibilityName(newAccessibility)}'";
+                            string title = $"Change accessibility to '{newAccessibility.GetTitle()}'";
 
                             CodeAction codeAction = CodeAction.Create(
                                 title,

@@ -177,7 +177,7 @@ namespace Roslynator.CSharp.Refactorings
             Accessibility accessibility,
             CancellationToken cancellationToken)
         {
-            MemberDeclarationSyntax newNode = AccessibilityHelper.ChangeAccessibility(member, accessibility, ModifierComparer.Instance);
+            MemberDeclarationSyntax newNode = member.WithAccessibility(accessibility, ModifierComparer.Instance);
 
             return document.ReplaceNodeAsync(member, newNode, cancellationToken);
         }
