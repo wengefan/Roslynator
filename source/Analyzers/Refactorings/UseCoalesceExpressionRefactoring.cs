@@ -149,9 +149,9 @@ namespace Roslynator.CSharp.Refactorings
             IfStatementSyntax ifStatement,
             CancellationToken cancellationToken)
         {
-            StatementContainer container = StatementContainer.Create(ifStatement);
+            StatementsInfo statementsInfo = StatementsInfo.Create(ifStatement);
 
-            SyntaxList<StatementSyntax> statements = container.Statements;
+            SyntaxList<StatementSyntax> statements = statementsInfo.Statements;
 
             int index = statements.IndexOf(ifStatement);
 
@@ -170,7 +170,7 @@ namespace Roslynator.CSharp.Refactorings
 
             StatementSyntax newExpressionStatement = expressionStatement.ReplaceNode(expression, newExpression);
 
-            IEnumerable<SyntaxTrivia> trivia = container.Node.DescendantTrivia(TextSpan.FromBounds(ifStatement.FullSpan.Start, expressionStatement.FullSpan.Start));
+            IEnumerable<SyntaxTrivia> trivia = statementsInfo.Node.DescendantTrivia(TextSpan.FromBounds(ifStatement.FullSpan.Start, expressionStatement.FullSpan.Start));
 
             if (trivia.Any(f => !f.IsWhitespaceOrEndOfLineTrivia()))
                 newExpressionStatement = newExpressionStatement.PrependToLeadingTrivia(trivia);
@@ -179,7 +179,7 @@ namespace Roslynator.CSharp.Refactorings
                 .Replace(expressionStatement, newExpressionStatement)
                 .RemoveAt(index);
 
-            return document.ReplaceNodeAsync(container.Node, container.NodeWithStatements(newStatements), cancellationToken);
+            return document.ReplaceStatementsAsync(statementsInfo, newStatements, cancellationToken);
         }
 
         public static async Task<Document> RefactorAsync(
@@ -189,9 +189,9 @@ namespace Roslynator.CSharp.Refactorings
         {
             SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
 
-            StatementContainer container = StatementContainer.Create(statement);
+            StatementsInfo statementsInfo = StatementsInfo.Create(statement);
 
-            SyntaxList<StatementSyntax> statements = container.Statements;
+            SyntaxList<StatementSyntax> statements = statementsInfo.Statements;
 
             int index = statements.IndexOf(statement);
 
@@ -240,7 +240,7 @@ namespace Roslynator.CSharp.Refactorings
 
                         var assignment = (AssignmentExpressionSyntax)expressionStatement.Expression;
 
-                        return await RefactorAsync(document, expressionStatement, (IfStatementSyntax)statements[index + 1], index, container, assignment.Right, semanticModel, cancellationToken).ConfigureAwait(false);
+                        return await RefactorAsync(document, expressionStatement, (IfStatementSyntax)statements[index + 1], index, statementsInfo, assignment.Right, semanticModel, cancellationToken).ConfigureAwait(false);
                     }
                 case SyntaxKind.LocalDeclarationStatement:
                     {
@@ -253,7 +253,7 @@ namespace Roslynator.CSharp.Refactorings
                             .Initializer
                             .Value;
 
-                        return await RefactorAsync(document, localDeclaration, (IfStatementSyntax)statements[index + 1], index, container, value, semanticModel, cancellationToken).ConfigureAwait(false);
+                        return await RefactorAsync(document, localDeclaration, (IfStatementSyntax)statements[index + 1], index, statementsInfo, value, semanticModel, cancellationToken).ConfigureAwait(false);
                     }
                 default:
                     {
@@ -269,7 +269,7 @@ namespace Roslynator.CSharp.Refactorings
             StatementSyntax statement,
             IfStatementSyntax ifStatement,
             int statementIndex,
-            StatementContainer container,
+            StatementsInfo statementsInfo,
             ExpressionSyntax expression,
             SemanticModel semanticModel,
             CancellationToken cancellationToken)
@@ -287,7 +287,7 @@ namespace Roslynator.CSharp.Refactorings
 
             StatementSyntax newStatement = statement.ReplaceNode(expression, newNode);
 
-            IEnumerable<SyntaxTrivia> trivia = container.Node.DescendantTrivia(TextSpan.FromBounds(statement.Span.End, ifStatement.Span.End));
+            IEnumerable<SyntaxTrivia> trivia = statementsInfo.Node.DescendantTrivia(TextSpan.FromBounds(statement.Span.End, ifStatement.Span.End));
 
             if (!trivia.All(f => f.IsWhitespaceOrEndOfLineTrivia()))
             {
@@ -299,11 +299,11 @@ namespace Roslynator.CSharp.Refactorings
                 newStatement = newStatement.WithTrailingTrivia(ifStatement.GetTrailingTrivia());
             }
 
-            SyntaxList<StatementSyntax> newStatements = container.Statements
+            SyntaxList<StatementSyntax> newStatements = statementsInfo.Statements
                 .Remove(ifStatement)
                 .ReplaceAt(statementIndex, newStatement);
 
-            return document.ReplaceNodeAsync(container.Node, container.NodeWithStatements(newStatements), cancellationToken);
+            return document.ReplaceStatementsAsync(statementsInfo, newStatements, cancellationToken);
         }
     }
 }

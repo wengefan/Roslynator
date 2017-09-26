@@ -144,9 +144,9 @@ namespace Roslynator.CSharp.Refactorings
 
             var localDeclaration = (LocalDeclarationStatementSyntax)declaration.Parent;
 
-            StatementContainer container = StatementContainer.Create(localDeclaration);
+            StatementsInfo statementsInfo = StatementsInfo.Create(localDeclaration);
 
-            SyntaxList<StatementSyntax> statements = container.Statements;
+            SyntaxList<StatementSyntax> statements = statementsInfo.Statements;
 
             int index = statements.IndexOf(localDeclaration);
 
@@ -190,7 +190,7 @@ namespace Roslynator.CSharp.Refactorings
                 .Replace(localDeclaration, newLocalDeclaration)
                 .RemoveAt(index + 1);
 
-            return document.ReplaceNodeAsync(container.Node, container.NodeWithStatements(newStatements), cancellationToken);
+            return document.ReplaceStatementsAsync(statementsInfo, newStatements, cancellationToken);
         }
 
         private struct LocalInfo

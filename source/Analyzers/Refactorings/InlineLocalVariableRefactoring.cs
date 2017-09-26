@@ -281,11 +281,11 @@ namespace Roslynator.CSharp.Refactorings
             LocalDeclarationStatementSyntax localDeclaration,
             CancellationToken cancellationToken)
         {
-            StatementContainer container = StatementContainer.Create(localDeclaration);
+            StatementsInfo statementsInfo = StatementsInfo.Create(localDeclaration);
 
-            int index = container.Statements.IndexOf(localDeclaration);
+            int index = statementsInfo.Statements.IndexOf(localDeclaration);
 
-            StatementSyntax nextStatement = container.Statements[index + 1];
+            StatementSyntax nextStatement = statementsInfo.Statements[index + 1];
 
             SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
 
@@ -295,7 +295,7 @@ namespace Roslynator.CSharp.Refactorings
 
             SyntaxTriviaList leadingTrivia = localDeclaration.GetLeadingTrivia();
 
-            IEnumerable<SyntaxTrivia> trivia = container
+            IEnumerable<SyntaxTrivia> trivia = statementsInfo
                 .Node
                 .DescendantTrivia(TextSpan.FromBounds(localDeclaration.SpanStart, nextStatement.Span.Start));
 
@@ -308,11 +308,11 @@ namespace Roslynator.CSharp.Refactorings
                 newStatement = newStatement.WithLeadingTrivia(leadingTrivia);
             }
 
-            SyntaxList<StatementSyntax> newStatements = container.Statements
+            SyntaxList<StatementSyntax> newStatements = statementsInfo.Statements
                 .Replace(nextStatement, newStatement)
                 .RemoveAt(index);
 
-            return await document.ReplaceNodeAsync(container.Node, container.NodeWithStatements(newStatements), cancellationToken).ConfigureAwait(false);
+            return await document.ReplaceStatementsAsync(statementsInfo, newStatements, cancellationToken).ConfigureAwait(false);
         }
 
         private static ExpressionSyntax GetExpressionToInline(LocalDeclarationStatementSyntax localDeclaration, SemanticModel semanticModel, CancellationToken cancellationToken)

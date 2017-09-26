@@ -97,15 +97,15 @@ namespace Roslynator.CSharp.Refactorings
                 SimpleAssignmentStatement(left, conditionalExpression.WhenTrue.WithoutTrivia()),
                 SimpleAssignmentStatement(left, conditionalExpression.WhenFalse.WithoutTrivia()));
 
-            StatementContainer container = StatementContainer.Create(localDeclaration);
+            StatementsInfo info = StatementsInfo.Create(localDeclaration);
 
-            SyntaxList<StatementSyntax> statements = container.Statements;
+            SyntaxList<StatementSyntax> statements = info.Statements;
 
             SyntaxList<StatementSyntax> newStatements = statements
                 .Replace(localDeclaration, newLocalDeclaration.WithFormatterAnnotation())
                 .Insert(statements.IndexOf(localDeclaration) + 1, ifStatement.WithFormatterAnnotation());
 
-            return document.ReplaceNodeAsync(container.Node, container.NodeWithStatements(newStatements), cancellationToken);
+            return document.ReplaceStatementsAsync(info, newStatements, cancellationToken);
         }
 
         private static Task<Document> RefactorAsync(

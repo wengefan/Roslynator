@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -16,11 +17,11 @@ namespace Roslynator.CSharp.Refactorings
             UsingStatementSyntax usingStatement,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            StatementContainer container = StatementContainer.Create(usingStatement);
+            StatementsInfo statementsInfo = StatementsInfo.Create(usingStatement);
 
-            int index = container.Statements.IndexOf(usingStatement);
+            int index = statementsInfo.Statements.IndexOf(usingStatement);
 
-            StatementContainer newContainer = container.RemoveStatementAt(index);
+            StatementsInfo newContainer = statementsInfo.RemoveAt(index);
 
             var statements = new List<StatementSyntax>() { SyntaxFactory.LocalDeclarationStatement(usingStatement.Declaration) };
 
@@ -37,7 +38,7 @@ namespace Roslynator.CSharp.Refactorings
 
             newContainer = newContainer.WithStatements(newContainer.Statements.InsertRange(index, statements));
 
-            return document.ReplaceNodeAsync(container.Node, newContainer.Node.WithFormatterAnnotation(), cancellationToken);
+            return document.ReplaceNodeAsync(statementsInfo.Node, newContainer.Node.WithFormatterAnnotation(), cancellationToken);
         }
 
         private static IEnumerable<StatementSyntax> GetStatements(UsingStatementSyntax usingStatement)

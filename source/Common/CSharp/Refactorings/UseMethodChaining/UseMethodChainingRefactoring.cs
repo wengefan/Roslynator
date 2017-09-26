@@ -74,10 +74,12 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
             if (statement.SpanOrTrailingTriviaContainsDirectives())
                 return false;
 
-            if (!StatementContainer.TryCreate(statement, out StatementContainer container))
+            StatementsInfo statementsInfo = SyntaxInfo.StatementsInfo(statement);
+
+            if (!statementsInfo.Success)
                 return false;
 
-            SyntaxList<StatementSyntax> statements = container.Statements;
+            SyntaxList<StatementSyntax> statements = statementsInfo.Statements;
 
             if (statements.Count == 1)
                 return false;
@@ -152,9 +154,9 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
 
             string name = ((IdentifierNameSyntax)WalkDownMethodChain(memberInvocation).Expression).Identifier.ValueText;
 
-            StatementContainer statementContainer = StatementContainer.Create(expressionStatement);
+            StatementsInfo statementsInfo = StatementsInfo.Create(expressionStatement);
 
-            SyntaxList<StatementSyntax> statements = statementContainer.Statements;
+            SyntaxList<StatementSyntax> statements = statementsInfo.Statements;
 
             int index = statements.IndexOf(expressionStatement);
 
@@ -189,7 +191,7 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
 
             ExpressionSyntax newInvocationExpression = SyntaxFactory.ParseExpression(sb.ToString());
 
-            SyntaxTriviaList trailingTrivia = statementContainer
+            SyntaxTriviaList trailingTrivia = statementsInfo
                 .Node
                 .DescendantTrivia(TextSpan.FromBounds(invocationExpression.Span.End, lastStatement.Span.End))
                 .ToSyntaxTriviaList()
@@ -204,7 +206,7 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
 
             newStatements = newStatements.ReplaceAt(index, newExpressionStatement);
 
-            return await document.ReplaceNodeAsync(statementContainer.Node, statementContainer.NodeWithStatements(newStatements), cancellationToken).ConfigureAwait(false);
+            return await document.ReplaceStatementsAsync(statementsInfo, newStatements, cancellationToken).ConfigureAwait(false);
         }
 
         private string GetTextToAppend(ExpressionStatementSyntax expressionStatement)

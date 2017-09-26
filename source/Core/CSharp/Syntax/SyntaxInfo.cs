@@ -297,5 +297,20 @@ namespace Roslynator.CSharp.Syntax
         {
             return Syntax.AccessibilityInfo.Create(node);
         }
+
+        public static StatementsInfo StatementsInfo(StatementSyntax statement)
+        {
+            return Syntax.StatementsInfo.Create(statement);
+        }
+
+        internal static StatementsInfo StatementsInfo(BlockSyntax block)
+        {
+            return Syntax.StatementsInfo.Create(block);
+        }
+
+        internal static StatementsInfo StatementsInfo(SwitchSectionSyntax switchSection)
+        {
+            return Syntax.StatementsInfo.Create(switchSection);
+        }
     }
 }

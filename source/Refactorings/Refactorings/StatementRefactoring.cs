@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Syntax;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -181,23 +182,23 @@ namespace Roslynator.CSharp.Refactorings
             StatementSyntax statement,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            StatementContainer container;
-            if (StatementContainer.TryCreate(statement, out container))
+            StatementsInfo info = SyntaxInfo.StatementsInfo(statement);
+            if (info.Success)
             {
-                int index = container.Statements.IndexOf(statement);
+                int index = info.Statements.IndexOf(statement);
 
                 if (index == 0
-                    && container.IsBlock
-                    && container.Block.OpenBraceToken.GetFullSpanEndLine() == statement.GetFullSpanStartLine())
+                    && info.IsBlock
+                    && info.Block.OpenBraceToken.GetFullSpanEndLine() == statement.GetFullSpanStartLine())
                 {
                     statement = statement.PrependToLeadingTrivia(CSharpFactory.NewLine());
                 }
 
-                SyntaxList<StatementSyntax> newStatements = container.Statements.Insert(index + 1, statement);
+                SyntaxList<StatementSyntax> newStatements = info.Statements.Insert(index + 1, statement);
 
-                SyntaxNode newNode = container.NodeWithStatements(newStatements);
+                StatementsInfo newInfo = info.WithStatements(newStatements);
 
-                return document.ReplaceNodeAsync(container.Node, newNode, cancellationToken);
+                return document.ReplaceNodeAsync(info.Node, newInfo.Node, cancellationToken);
             }
             else
             {

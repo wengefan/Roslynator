@@ -111,7 +111,7 @@
     <Compile Include="CSharp\Documentation\BaseDocumentationCommentOrigin.cs" />
     <Compile Include="CSharp\Extensions\DocumentExtensions.cs" />
     <Compile Include="CSharp\SyntaxRewriters\WhitespaceOrEndOfLineTriviaRewriter.cs" />
-    <Compile Include="CSharp\StatementContainer.cs" />
+    <Compile Include="CSharp\Syntax\StatementsInfo.cs" />
     <Compile Include="CSharp\Syntax\SingleLocalDeclarationStatementInfo.cs" />
     <Compile Include="DirectiveRemoveOptions.cs" />
     <Compile Include="CSharp\CSharpFormatter.cs" />
@@ -175,7 +175,7 @@
     <Compile Include="CSharp\Modifiers.cs" />
     <Compile Include="NameGenerator.cs" />
     <Compile Include="Text\TextLineCollectionSelection.cs" />
-    <Compile Include="CSharp\StatementContainerSelection.cs" />
+    <Compile Include="CSharp\StatementsSelection.cs" />
     <Compile Include="SyntaxListSelection`1.cs" />
     <Compile Include="CSharp\Comparers\ModifierComparer.cs" />
     <Compile Include="Extensions\SyntaxExtensions.cs" />

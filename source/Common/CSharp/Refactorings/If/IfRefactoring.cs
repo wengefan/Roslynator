@@ -284,7 +284,7 @@ namespace Roslynator.CSharp.Refactorings.If
         }
 
         public static ImmutableArray<IfRefactoring> Analyze(
-            StatementContainerSelection selectedStatements,
+            StatementsSelection selectedStatements,
             SemanticModel semanticModel,
             CancellationToken cancellationToken)
         {
@@ -292,7 +292,7 @@ namespace Roslynator.CSharp.Refactorings.If
         }
 
         public static ImmutableArray<IfRefactoring> Analyze(
-            StatementContainerSelection selectedStatements,
+            StatementsSelection selectedStatements,
             IfAnalysisOptions options,
             SemanticModel semanticModel,
             CancellationToken cancellationToken)
