@@ -111,11 +111,11 @@ namespace Roslynator.CSharp
         {
             if (members.Any())
             {
-                IndexPair indexes = GetIndexes(members, span);
+                (int startIndex, int endIndex) = GetIndexes(members, span);
 
-                if (indexes.StartIndex != -1)
+                if (startIndex != -1)
                 {
-                    selectedMembers = new MemberDeclarationSelection(containingMember, members, span, indexes.StartIndex, indexes.EndIndex);
+                    selectedMembers = new MemberDeclarationSelection(containingMember, members, span, startIndex, endIndex);
                     return true;
                 }
             }

@@ -10,15 +10,15 @@ namespace Roslynator
 {
     public class SyntaxListSelection<TNode> : IEnumerable, IEnumerable<TNode> where TNode : SyntaxNode
     {
-        public SyntaxListSelection(SyntaxList<TNode> list, TextSpan span)
+        protected SyntaxListSelection(SyntaxList<TNode> list, TextSpan span)
         {
             UnderlyingList = list;
             Span = span;
 
-            IndexPair indexes = GetIndexes(list, span);
+            (int startIndex, int endIndex) = GetIndexes(list, span);
 
-            StartIndex = indexes.StartIndex;
-            EndIndex = indexes.EndIndex;
+            StartIndex = startIndex;
+            EndIndex = endIndex;
         }
 
         protected SyntaxListSelection(SyntaxList<TNode> list, TextSpan span, int startIndex, int endIndex)
@@ -29,7 +29,7 @@ namespace Roslynator
             EndIndex = endIndex;
         }
 
-        protected static IndexPair GetIndexes(SyntaxList<TNode> list, TextSpan span)
+        protected static (int startIndex, int endIndex) GetIndexes(SyntaxList<TNode> list, TextSpan span)
         {
             SyntaxList<TNode>.Enumerator en = list.GetEnumerator();
 
@@ -57,23 +57,23 @@ namespace Roslynator
                     if (span.End >= en.Current.Span.End
                         && span.End <= en.Current.FullSpan.End)
                     {
-                        return new IndexPair(i, j);
+                        return (i, j);
                     }
                 }
             }
 
-            return new IndexPair(-1, -1);
+            return (-1, -1);
         }
 
         public static bool TryCreate(SyntaxList<TNode> list, TextSpan span, out SyntaxListSelection<TNode> selectedNodes)
         {
             if (list.Any())
             {
-                IndexPair indexes = GetIndexes(list, span);
+                (int startIndex, int endIndex) = GetIndexes(list, span);
 
-                if (indexes.IsValid)
+                if (startIndex != -1)
                 {
-                    selectedNodes = new SyntaxListSelection<TNode>(list, span, indexes.StartIndex, indexes.EndIndex);
+                    selectedNodes = new SyntaxListSelection<TNode>(list, span, startIndex, endIndex);
                     return true;
                 }
             }
@@ -179,23 +179,6 @@ namespace Roslynator
         IEnumerator IEnumerable.GetEnumerator()
         {
             return GetEnumerator();
-        }
-
-        protected class IndexPair
-        {
-            public IndexPair(int startIndex, int endIndex)
-            {
-                StartIndex = startIndex;
-                EndIndex = endIndex;
-            }
-
-            public bool IsValid
-            {
-                get { return StartIndex != -1; }
-            }
-
-            public int StartIndex { get; }
-            public int EndIndex { get; }
         }
     }
 }

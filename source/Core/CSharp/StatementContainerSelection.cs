@@ -72,11 +72,11 @@ namespace Roslynator.CSharp
         {
             if (container.Statements.Any())
             {
-                IndexPair indexes = GetIndexes(container.Statements, span);
+                (int startIndex, int endIndex) = GetIndexes(container.Statements, span);
 
-                if (indexes.StartIndex != -1)
+                if (startIndex != -1)
                 {
-                    selectedStatements = new StatementContainerSelection(container, span, indexes.StartIndex, indexes.EndIndex);
+                    selectedStatements = new StatementContainerSelection(container, span, startIndex, endIndex);
                     return true;
                 }
             }
