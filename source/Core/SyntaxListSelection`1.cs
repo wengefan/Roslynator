@@ -1,32 +1,15 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Immutable;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
 namespace Roslynator
 {
-    public class SyntaxListSelection<TNode> : IEnumerable, IEnumerable<TNode> where TNode : SyntaxNode
+    public class SyntaxListSelection<TNode> : Selection<TNode> where TNode : SyntaxNode
     {
-        protected SyntaxListSelection(SyntaxList<TNode> list, TextSpan span)
-        {
-            UnderlyingList = list;
-            Span = span;
-
-            (int startIndex, int endIndex) = GetIndexes(list, span);
-
-            StartIndex = startIndex;
-            EndIndex = endIndex;
-        }
-
         protected SyntaxListSelection(SyntaxList<TNode> list, TextSpan span, int startIndex, int endIndex)
+            : base(list, span, startIndex, endIndex)
         {
-            UnderlyingList = list;
-            Span = span;
-            StartIndex = startIndex;
-            EndIndex = endIndex;
         }
 
         protected static (int startIndex, int endIndex) GetIndexes(SyntaxList<TNode> list, TextSpan span)
@@ -65,120 +48,20 @@ namespace Roslynator
             return (-1, -1);
         }
 
-        public static bool TryCreate(SyntaxList<TNode> list, TextSpan span, out SyntaxListSelection<TNode> selectedNodes)
+        public static bool TryCreate(SyntaxList<TNode> list, TextSpan span, out SyntaxListSelection<TNode> selection)
         {
-            if (list.Any())
-            {
-                (int startIndex, int endIndex) = GetIndexes(list, span);
+            selection = null;
 
-                if (startIndex != -1)
-                {
-                    selectedNodes = new SyntaxListSelection<TNode>(list, span, startIndex, endIndex);
-                    return true;
-                }
-            }
+            if (!list.Any())
+                return false;
 
-            selectedNodes = null;
-            return false;
-        }
+            (int startIndex, int endIndex) = GetIndexes(list, span);
 
-        public TextSpan Span { get; }
+            if (startIndex == -1)
+                return false;
 
-        public SyntaxList<TNode> UnderlyingList { get; }
-
-        public int StartIndex { get; } = -1;
-
-        public int EndIndex { get; } = -1;
-
-        public int Count
-        {
-            get
-            {
-                if (Any())
-                {
-                    return EndIndex - StartIndex + 1;
-                }
-                else
-                {
-                    return 0;
-                }
-            }
-        }
-
-        public bool Any()
-        {
-            return StartIndex != -1;
-        }
-
-        public TNode First()
-        {
-            return UnderlyingList[StartIndex];
-        }
-
-        public TNode FirstOrDefault()
-        {
-            if (Any())
-            {
-                return UnderlyingList[StartIndex];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public TNode Last()
-        {
-            return UnderlyingList[EndIndex];
-        }
-
-        public TNode LastOrDefault()
-        {
-            if (Any())
-            {
-                return UnderlyingList[EndIndex];
-            }
-            else
-            {
-                return null;
-            }
-        }
-
-        public ImmutableArray<TNode> Nodes
-        {
-            get
-            {
-                if (Any())
-                {
-                    ImmutableArray<TNode>.Builder builder = ImmutableArray.CreateBuilder<TNode>(Count);
-
-                    for (int i = StartIndex; i <= EndIndex; i++)
-                        builder.Add(UnderlyingList[i]);
-
-                    return builder.ToImmutable();
-                }
-
-                return ImmutableArray<TNode>.Empty;
-            }
-        }
-
-        private IEnumerable<TNode> EnumerateNodes()
-        {
-            if (Any())
-            {
-                for (int i = StartIndex; i <= EndIndex; i++)
-                    yield return UnderlyingList[i];
-            }
-        }
-
-        public IEnumerator<TNode> GetEnumerator()
-        {
-            return EnumerateNodes().GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
+            selection = new SyntaxListSelection<TNode>(list, span, startIndex, endIndex);
+            return true;
         }
     }
 }
