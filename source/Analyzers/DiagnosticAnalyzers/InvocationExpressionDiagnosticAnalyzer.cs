@@ -80,7 +80,6 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                             case "Any":
                                 {
                                     SimplifyLinqMethodChainRefactoring.Analyze(context, invocation, memberAccess, methodName);
-                                    UseCountOrLengthPropertyInsteadOfAnyMethodRefactoring.Analyze(context, invocation, memberAccess);
                                     break;
                                 }
                             case "Cast":
@@ -170,6 +169,11 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                             {
                                 switch (methodName)
                                 {
+                                    case "Any":
+                                        {
+                                            UseCountOrLengthPropertyInsteadOfAnyMethodRefactoring.Analyze(context, memberInvocation);
+                                            break;
+                                        }
                                     case "First":
                                         {
                                             if (!memberInvocation.Expression.IsKind(SyntaxKind.InvocationExpression)
