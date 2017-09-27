@@ -21,9 +21,9 @@ namespace Roslynator
 
         public IReadOnlyList<T> Items { get; }
 
-        public int StartIndex { get; };
+        public int StartIndex { get; }
 
-        public int EndIndex { get; };
+        public int EndIndex { get; }
 
         public int Count
         {
