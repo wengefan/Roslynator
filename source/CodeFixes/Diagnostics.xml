@@ -33,6 +33,7 @@
   <Diagnostic Id="CS0168" Identifier="VariableIsDeclaredButNeverUsed" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0168" />
   <Diagnostic Id="CS0173" Identifier="TypeOfConditionalExpressionCannotBeDetermined" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0173" />
   <Diagnostic Id="CS0177" Identifier="OutParameterMustBeAssignedToBeforeControlLeavesCurrentMethod" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0177" />
+  <Diagnostic Id="CS0192" Identifier="ReadOnlyFieldCannotBeUsedAsRefOrOutValue" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0192" />
   <Diagnostic Id="CS0201" Identifier="OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0201" />
   <Diagnostic Id="CS0214" Identifier="PointersAndFixedSizeBuffersMayOnlyBeUsedInUnsafeContext" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0214" />
   <Diagnostic Id="CS0219" Identifier="VariableIsAssignedButItsValueIsNeverUsed" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0219" />

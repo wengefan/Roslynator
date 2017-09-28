@@ -39,6 +39,7 @@ namespace Roslynator.CSharp
         public const string VariableIsDeclaredButNeverUsed = "CS0168";
         public const string TypeOfConditionalExpressionCannotBeDetermined = "CS0173";
         public const string OutParameterMustBeAssignedToBeforeControlLeavesCurrentMethod = "CS0177";
+        public const string ReadOnlyFieldCannotBeUsedAsRefOrOutValue = "CS0192";
         public const string OnlyAssignmentCallIncrementDecrementAndNewObjectExpressionsCanBeUsedAsStatement = "CS0201";
         public const string PointersAndFixedSizeBuffersMayOnlyBeUsedInUnsafeContext = "CS0214";
         public const string VariableIsAssignedButItsValueIsNeverUsed = "CS0219";

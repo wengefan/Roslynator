@@ -137,6 +137,7 @@
   </CodeFix>
   <CodeFix Id="RCF0027" Identifier="RemoveRefModifier" Title="Remove 'ref' modifier">
     <FixableDiagnosticIds>
+      <Id>CS0192</Id>
       <Id>CS1615</Id>
       <Id>CS1988</Id>
       <Id>CS1623</Id>
@@ -385,6 +386,7 @@
   </CodeFix>
   <CodeFix Id="RCF0070" Identifier="RemoveOutModifier" Title="Remove 'out' modifier">
     <FixableDiagnosticIds>
+      <Id>CS0192</Id>
       <Id>CS1988</Id>
       <Id>CS1623</Id>
     </FixableDiagnosticIds>
