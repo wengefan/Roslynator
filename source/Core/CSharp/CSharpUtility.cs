@@ -15,6 +15,159 @@ namespace Roslynator.CSharp
             genericsOptions: SymbolDisplayGenericsOptions.IncludeTypeParameters,
             typeQualificationStyle: SymbolDisplayTypeQualificationStyle.NameAndContainingTypesAndNamespaces);
 
+        public static string GetCountOrLengthPropertyName(
+            ExpressionSyntax expression,
+            SemanticModel semanticModel,
+            CancellationToken cancellationToken = default(CancellationToken))
+        {
+            ITypeSymbol typeSymbol = semanticModel.GetTypeSymbol(expression, cancellationToken);
+
+            if (typeSymbol == null)
+                return null;
+
+            SymbolKind symbolKind = typeSymbol.Kind;
+
+            if (symbolKind == SymbolKind.ErrorType)
+                return null;
+
+            if (symbolKind == SymbolKind.ArrayType)
+                return "Length";
+
+            string propertyName = GetCountOrLengthPropertyName(typeSymbol.SpecialType);
+
+            if (propertyName != null)
+                return (propertyName.Length > 0) ? propertyName : null;
+
+            INamedTypeSymbol constructedFrom = null;
+
+            if (symbolKind == SymbolKind.NamedType)
+            {
+                constructedFrom = ((INamedTypeSymbol)typeSymbol).ConstructedFrom;
+
+                propertyName = GetCountOrLengthPropertyName(constructedFrom.SpecialType);
+
+                if (propertyName != null)
+                    return (propertyName.Length > 0) ? propertyName : null;
+            }
+
+            if (typeSymbol.ImplementsAny(
+                SpecialType.System_Collections_Generic_ICollection_T,
+                SpecialType.System_Collections_Generic_IReadOnlyCollection_T))
+            {
+                if (typeSymbol.TypeKind == TypeKind.Interface)
+                    return "Count";
+
+                int position = expression.SpanStart;
+
+                if (HasAccessibleProperty(typeSymbol, "Count", semanticModel, position))
+                    return "Count";
+
+                if (HasAccessibleProperty(typeSymbol, "Length", semanticModel, position))
+                    return "Length";
+            }
+
+            return null;
+        }
+
+        private static bool HasAccessibleProperty(
+            ITypeSymbol typeSymbol,
+            string propertyName,
+            SemanticModel semanticModel,
+            int position)
+        {
+            foreach (ISymbol symbol in typeSymbol.GetMembers(propertyName))
+            {
+                if (symbol.Kind == SymbolKind.Property
+                    && semanticModel.IsAccessible(position, symbol))
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        private static string GetCountOrLengthPropertyName(SpecialType specialType)
+        {
+            switch (specialType)
+            {
+                case SpecialType.None:
+                    return null;
+                case SpecialType.System_String:
+                case SpecialType.System_Array:
+                    return "Length";
+                case SpecialType.System_Collections_Generic_IList_T:
+                case SpecialType.System_Collections_Generic_ICollection_T:
+                case SpecialType.System_Collections_Generic_IReadOnlyList_T:
+                case SpecialType.System_Collections_Generic_IReadOnlyCollection_T:
+                    return "Count";
+            }
+
+            return "";
+        }
+
+        public static bool HasAccessibleIndexer(
+            ITypeSymbol typeSymbol,
+            SemanticModel semanticModel,
+            int position)
+        {
+            if (typeSymbol == null)
+                return false;
+
+            SymbolKind symbolKind = typeSymbol.Kind;
+
+            if (symbolKind == SymbolKind.ErrorType)
+                return false;
+
+            if (symbolKind == SymbolKind.ArrayType)
+                return true;
+
+            bool? hasIndexer = HasIndexer(typeSymbol.SpecialType);
+
+            if (hasIndexer != null)
+                return hasIndexer.Value;
+
+            if (symbolKind == SymbolKind.NamedType)
+            {
+                hasIndexer = HasIndexer(((INamedTypeSymbol)typeSymbol).ConstructedFrom.SpecialType);
+
+                if (hasIndexer != null)
+                    return hasIndexer.Value;
+            }
+
+            if (typeSymbol.ImplementsAny(
+                SpecialType.System_Collections_Generic_IList_T,
+                SpecialType.System_Collections_Generic_IReadOnlyList_T))
+            {
+                if (typeSymbol.TypeKind == TypeKind.Interface)
+                    return true;
+
+                foreach (ISymbol symbol in typeSymbol.GetMembers("this[]"))
+                {
+                    if (semanticModel.IsAccessible(position, symbol))
+                        return true;
+                }
+            }
+
+            return false;
+        }
+
+        public static bool? HasIndexer(SpecialType specialType)
+        {
+            switch (specialType)
+            {
+                case SpecialType.None:
+                    return null;
+                case SpecialType.System_String:
+                case SpecialType.System_Array:
+                case SpecialType.System_Collections_Generic_IList_T:
+                case SpecialType.System_Collections_Generic_IReadOnlyList_T:
+                    return true;
+            }
+
+            return false;
+        }
+
         public static bool IsNamespaceInScope(
             SyntaxNode node,
             INamespaceSymbol namespaceSymbol,
