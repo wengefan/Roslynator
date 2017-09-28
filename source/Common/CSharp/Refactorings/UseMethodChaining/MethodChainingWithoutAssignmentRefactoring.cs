@@ -22,18 +22,18 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
             if (!(statement is ExpressionStatementSyntax expressionStatement))
                 return false;
 
-            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(expressionStatement.Expression);
+            MemberInvocationExpressionInfo invocationInfo = SyntaxInfo.MemberInvocationExpressionInfo(expressionStatement.Expression);
 
-            if (!memberInvocation.Success)
+            if (!invocationInfo.Success)
                 return false;
 
-            if (!(WalkDownMethodChain(memberInvocation).Expression is IdentifierNameSyntax identifierName))
+            if (!(WalkDownMethodChain(invocationInfo).Expression is IdentifierNameSyntax identifierName))
                 return false;
 
             if (name != identifierName.Identifier.ValueText)
                 return false;
 
-            if (!semanticModel.TryGetMethodInfo(memberInvocation.InvocationExpression, out MethodInfo methodInfo, cancellationToken))
+            if (!semanticModel.TryGetMethodInfo(invocationInfo.InvocationExpression, out MethodInfo methodInfo, cancellationToken))
                 return false;
 
             return !methodInfo.IsStatic

@@ -57,9 +57,9 @@ namespace Roslynator.CSharp.Refactorings
 
                                 if (!nextStatement.ContainsDiagnostics)
                                 {
-                                    MemberInvocationStatementInfo memberInvocation = SyntaxInfo.MemberInvocationStatementInfo(nextStatement);
-                                    if (memberInvocation.Success
-                                        && SyntaxComparer.AreEquivalent(nullCheck.Expression, memberInvocation.Expression)
+                                    MemberInvocationStatementInfo invocationInfo = SyntaxInfo.MemberInvocationStatementInfo(nextStatement);
+                                    if (invocationInfo.Success
+                                        && SyntaxComparer.AreEquivalent(nullCheck.Expression, invocationInfo.Expression)
                                         && !ifStatement.Parent.ContainsDirectives(TextSpan.FromBounds(ifStatement.SpanStart, nextStatement.Span.End)))
                                     {
                                         context.ReportDiagnostic(DiagnosticDescriptors.InlineLazyInitialization, ifStatement);

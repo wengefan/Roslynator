@@ -225,9 +225,9 @@ namespace Roslynator.CSharp.CodeFixes
                         }
                     case DiagnosticIdentifiers.CallThenByInsteadOfOrderBy:
                         {
-                            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(invocation);
+                            MemberInvocationExpressionInfo invocationInfo = SyntaxInfo.MemberInvocationExpressionInfo(invocation);
 
-                            string oldName = memberInvocation.NameText;
+                            string oldName = invocationInfo.NameText;
 
                             string newName = (string.Equals(oldName, "OrderBy", StringComparison.Ordinal))
                                 ? "ThenBy"

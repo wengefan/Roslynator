@@ -27,9 +27,9 @@ namespace Roslynator.CSharp.Refactorings
                 NullCheckExpressionInfo nullCheck = SyntaxInfo.NullCheckExpressionInfo(ifStatement.Condition, allowedKinds: NullCheckKind.NotEqualsToNull);
                 if (nullCheck.Success)
                 {
-                    MemberInvocationStatementInfo memberInvocation = SyntaxInfo.MemberInvocationStatementInfo(ifStatement.GetSingleStatementOrDefault());
-                    if (memberInvocation.Success
-                        && SyntaxComparer.AreEquivalent(nullCheck.Expression, memberInvocation.Expression)
+                    MemberInvocationStatementInfo invocationInfo = SyntaxInfo.MemberInvocationStatementInfo(ifStatement.GetSingleStatementOrDefault());
+                    if (invocationInfo.Success
+                        && SyntaxComparer.AreEquivalent(nullCheck.Expression, invocationInfo.Expression)
                         && !ifStatement.IsInExpressionTree(expressionType, context.SemanticModel, context.CancellationToken)
                         && !ifStatement.SpanContainsDirectives())
                     {
@@ -254,9 +254,9 @@ namespace Roslynator.CSharp.Refactorings
         {
             var statement = (ExpressionStatementSyntax)ifStatement.GetSingleStatementOrDefault();
 
-            MemberInvocationStatementInfo memberInvocation = SyntaxInfo.MemberInvocationStatementInfo(statement);
+            MemberInvocationStatementInfo invocationInfo = SyntaxInfo.MemberInvocationStatementInfo(statement);
 
-            int insertIndex = memberInvocation.Expression.Span.End - statement.FullSpan.Start;
+            int insertIndex = invocationInfo.Expression.Span.End - statement.FullSpan.Start;
             StatementSyntax newStatement = SyntaxFactory.ParseStatement(statement.ToFullString().Insert(insertIndex, "?"));
 
             IEnumerable<SyntaxTrivia> leading = ifStatement.DescendantTrivia(TextSpan.FromBounds(ifStatement.SpanStart, statement.SpanStart));

@@ -44,12 +44,12 @@ namespace Roslynator.CSharp.Refactorings
 
             ExpressionSyntax expression = GetMethodExpression(methodDeclaration);
 
-            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(expression);
+            MemberInvocationExpressionInfo invocationInfo = SyntaxInfo.MemberInvocationExpressionInfo(expression);
 
-            if (!memberInvocation.Success)
+            if (!invocationInfo.Success)
                 return;
 
-            if (!memberInvocation.Expression.IsKind(SyntaxKind.BaseExpression))
+            if (!invocationInfo.Expression.IsKind(SyntaxKind.BaseExpression))
                 return;
 
             IMethodSymbol methodSymbol = context.SemanticModel.GetDeclaredSymbol(methodDeclaration, context.CancellationToken);
@@ -59,12 +59,12 @@ namespace Roslynator.CSharp.Refactorings
             if (overriddenMethod == null)
                 return;
 
-            ISymbol symbol = context.SemanticModel.GetSymbol(memberInvocation.Name, context.CancellationToken);
+            ISymbol symbol = context.SemanticModel.GetSymbol(invocationInfo.Name, context.CancellationToken);
 
             if (!overriddenMethod.Equals(symbol))
                 return;
 
-            if (!CheckParameters(methodDeclaration.ParameterList, memberInvocation.ArgumentList, context.SemanticModel, context.CancellationToken))
+            if (!CheckParameters(methodDeclaration.ParameterList, invocationInfo.ArgumentList, context.SemanticModel, context.CancellationToken))
                 return;
 
             if (!CheckDefaultValues(methodSymbol.Parameters, overriddenMethod.Parameters))

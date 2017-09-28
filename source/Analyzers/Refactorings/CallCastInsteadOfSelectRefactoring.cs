@@ -19,13 +19,13 @@ namespace Roslynator.CSharp.Refactorings
     {
         public static void Analyze(
             SyntaxNodeAnalysisContext context,
-            MemberInvocationExpressionInfo memberInvocation)
+            MemberInvocationExpressionInfo invocationInfo)
         {
-            InvocationExpressionSyntax invocationExpression = memberInvocation.InvocationExpression;
+            InvocationExpressionSyntax invocationExpression = invocationInfo.InvocationExpression;
 
             if (IsFixable(invocationExpression, context.SemanticModel, context.CancellationToken))
             {
-                TextSpan span = TextSpan.FromBounds(memberInvocation.Name.Span.Start, invocationExpression.Span.End);
+                TextSpan span = TextSpan.FromBounds(invocationInfo.Name.Span.Start, invocationExpression.Span.End);
 
                 if (!invocationExpression.ContainsDirectives(span))
                 {

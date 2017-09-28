@@ -11,21 +11,21 @@ namespace Roslynator.CSharp.Refactorings
     {
         public static async Task ComputeRefactoringsAsync(RefactoringContext context, InvocationExpressionSyntax invocation)
         {
-            MemberInvocationExpressionInfo memberInvocation = SyntaxInfo.MemberInvocationExpressionInfo(invocation);
+            MemberInvocationExpressionInfo invocationInfo = SyntaxInfo.MemberInvocationExpressionInfo(invocation);
 
-            if (!memberInvocation.Success)
+            if (!invocationInfo.Success)
                 return;
 
-            switch (memberInvocation.NameText)
+            switch (invocationInfo.NameText)
             {
                 case "First":
                     {
                         SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                        if (memberInvocation.Arguments.Any())
+                        if (invocationInfo.Arguments.Any())
                             break;
 
-                        if (!UseElementAccessInsteadOfFirstRefactoring.CanRefactor(memberInvocation, semanticModel, context.CancellationToken))
+                        if (!UseElementAccessInsteadOfFirstRefactoring.CanRefactor(invocationInfo, semanticModel, context.CancellationToken))
                             break;
 
                         context.RegisterRefactoring(
@@ -38,13 +38,13 @@ namespace Roslynator.CSharp.Refactorings
                     {
                         SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                        if (memberInvocation.Arguments.Any())
+                        if (invocationInfo.Arguments.Any())
                             break;
 
-                        if (!UseElementAccessInsteadOfLastRefactoring.CanRefactor(memberInvocation, semanticModel, context.CancellationToken))
+                        if (!UseElementAccessInsteadOfLastRefactoring.CanRefactor(invocationInfo, semanticModel, context.CancellationToken))
                             break;
 
-                        string propertyName = CSharpUtility.GetCountOrLengthPropertyName(memberInvocation.Expression, semanticModel, context.CancellationToken);
+                        string propertyName = CSharpUtility.GetCountOrLengthPropertyName(invocationInfo.Expression, semanticModel, context.CancellationToken);
 
                         if (propertyName == null)
                             break;
@@ -59,10 +59,10 @@ namespace Roslynator.CSharp.Refactorings
                     {
                         SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                        if (memberInvocation.Arguments.Count != 1)
+                        if (invocationInfo.Arguments.Count != 1)
                             break;
 
-                        if (!UseElementAccessInsteadOfElementAtRefactoring.CanRefactor(memberInvocation, semanticModel, context.CancellationToken))
+                        if (!UseElementAccessInsteadOfElementAtRefactoring.CanRefactor(invocationInfo, semanticModel, context.CancellationToken))
                             break;
 
                         context.RegisterRefactoring(

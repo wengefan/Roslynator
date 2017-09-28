@@ -13,9 +13,9 @@ namespace Roslynator.CSharp.Refactorings
 {
     internal static class CallThenByInsteadOfOrderByRefactoring
     {
-        public static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpressionInfo memberInvocation)
+        public static void Analyze(SyntaxNodeAnalysisContext context, MemberInvocationExpressionInfo invocationInfo)
         {
-            ExpressionSyntax expression = memberInvocation.Expression;
+            ExpressionSyntax expression = invocationInfo.Expression;
 
             if (expression.IsKind(SyntaxKind.InvocationExpression))
             {
@@ -28,13 +28,13 @@ namespace Roslynator.CSharp.Refactorings
                         case "OrderBy":
                         case "OrderByDescending":
                             {
-                                if (IsLinqExtensionOfIEnumerableOfT(context, memberInvocation.InvocationExpression)
+                                if (IsLinqExtensionOfIEnumerableOfT(context, invocationInfo.InvocationExpression)
                                     && IsLinqExtensionOfIEnumerableOfT(context, memberInvocation2.InvocationExpression))
                                 {
                                     context.ReportDiagnostic(
                                         DiagnosticDescriptors.CallThenByInsteadOfOrderBy,
-                                        memberInvocation.Name,
-                                        (memberInvocation.NameText == "OrderByDescending") ? "Descending" : null);
+                                        invocationInfo.Name,
+                                        (invocationInfo.NameText == "OrderByDescending") ? "Descending" : null);
                                 }
 
                                 break;
