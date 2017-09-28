@@ -31,7 +31,8 @@ namespace Roslynator.CSharp.CodeFixes
                     CompilerDiagnosticIdentifiers.MemberIsAbstractButItIsContainedInNonAbstractClass,
                     CompilerDiagnosticIdentifiers.ObjectReferenceIsRequiredForNonStaticMember,
                     CompilerDiagnosticIdentifiers.StaticConstructorMustBeParameterless,
-                    CompilerDiagnosticIdentifiers.PartialMethodsMustHaveVoidReturnType);
+                    CompilerDiagnosticIdentifiers.PartialMethodsMustHaveVoidReturnType,
+                    CompilerDiagnosticIdentifiers.ExplicitInterfaceDeclarationCanOnlyBeDeclaredInClassOrStruct);
             }
         }
 
@@ -43,7 +44,8 @@ namespace Roslynator.CSharp.CodeFixes
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.AddPartialModifier)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeContainingClassAbstract)
                 && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.MakeMemberNonStatic)
-                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveParametersFromStaticConstructor))
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveParametersFromStaticConstructor)
+                && !Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveMemberDeclaration))
             {
                 return;
             }
@@ -269,6 +271,14 @@ namespace Roslynator.CSharp.CodeFixes
                                 GetEquivalenceKey(diagnostic));
 
                             context.RegisterCodeFix(codeAction, diagnostic);
+                            break;
+                        }
+                    case CompilerDiagnosticIdentifiers.ExplicitInterfaceDeclarationCanOnlyBeDeclaredInClassOrStruct:
+                        {
+                            if (!Settings.IsCodeFixEnabled(CodeFixIdentifiers.RemoveMemberDeclaration))
+                                break;
+
+                            CodeFixRegistrator.RemoveMember(context, diagnostic, memberDeclaration);
                             break;
                         }
                 }

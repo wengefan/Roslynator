@@ -69,6 +69,7 @@ namespace Roslynator.CSharp
         public const string MemberIsAbstractButItIsContainedInNonAbstractClass = "CS0513";
         public const string AccessModifiersAreNotAllowedOnStaticConstructors = "CS0515";
         public const string InterfaceMembersCannotHaveDefinition = "CS0531";
+        public const string ExplicitInterfaceDeclarationCanOnlyBeDeclaredInClassOrStruct = "CS0541";
         public const string UserDefinedOperatorMustBeDeclaredStaticAndPublic = "CS0558";
         public const string CannotHaveInstancePropertyOrFieldInitializersInStruct = "CS0573";
         public const string DuplicateAttribute = "CS0579";

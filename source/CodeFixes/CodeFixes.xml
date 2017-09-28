@@ -306,6 +306,7 @@
   <CodeFix Id="RCF0056" Identifier="RemoveMemberDeclaration" Title="Remove member declaration">
     <FixableDiagnosticIds>
       <Id>CS0114</Id>
+      <Id>CS0541</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0057" Identifier="RemoveReturnExpression" Title="Remove return expression" IsEnabledByDefault="false">
