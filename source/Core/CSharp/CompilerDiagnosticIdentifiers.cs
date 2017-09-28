@@ -51,6 +51,7 @@ namespace Roslynator.CSharp
         public const string AccessibilityModifiersMayNotBeUsedOnAccessorsInInterface = "CS0275";
         public const string UsingGenericTypeRequiresTypeArguments = "CS0305";
         public const string NewConstraintMustBeLastConstraintSpecified = "CS0401";
+        public const string CannotConvertNullToTypeParameterBecauseItCouldBeNonNullableValueType = "CS0403";
         public const string DuplicateConstraintForTypeParameter = "CS0405";
         public const string MethodHasWrongReturnType = "CS0407";
         public const string ConstraintClauseHasAlreadyBeenSpecified = "CS0409";

@@ -317,6 +317,7 @@
   <CodeFix Id="RCF0058" Identifier="ReplaceNullLiteralExpressionWithDefaultValue" Title="Replace 'null' with default value">
     <FixableDiagnosticIds>
       <Id>CS0037</Id>
+      <Id>CS0403</Id>
     </FixableDiagnosticIds>
   </CodeFix>
   <CodeFix Id="RCF0059" Identifier="ReplaceVariableDeclarationWithAssignment" Title="Replace variable declaration with assignment">

@@ -45,6 +45,7 @@
   <Diagnostic Id="CS0275" Identifier="AccessibilityModifiersMayNotBeUsedOnAccessorsInInterface" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0275" />
   <Diagnostic Id="CS0305" Identifier="UsingGenericTypeRequiresTypeArguments" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0305" />
   <Diagnostic Id="CS0401" Identifier="NewConstraintMustBeLastConstraintSpecified" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0401" />
+  <Diagnostic Id="CS0403" Identifier="CannotConvertNullToTypeParameterBecauseItCouldBeNonNullableValueType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0403" />
   <Diagnostic Id="CS0405" Identifier="DuplicateConstraintForTypeParameter" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0405" />
   <Diagnostic Id="CS0407" Identifier="MethodHasWrongReturnType" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0407" />
   <Diagnostic Id="CS0409" Identifier="ConstraintClauseHasAlreadyBeenSpecified" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0409" />
