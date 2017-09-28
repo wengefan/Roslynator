@@ -66,7 +66,7 @@ namespace Roslynator.CSharp.Refactorings
                 return;
             }
 
-            SeparatedSyntaxList<ArgumentSyntax> arguments = invocationInfo2.ArgumentList.Arguments;
+            SeparatedSyntaxList<ArgumentSyntax> arguments = invocationInfo2.Arguments;
 
             if (arguments.Count != 1)
                 return;
@@ -232,7 +232,7 @@ namespace Roslynator.CSharp.Refactorings
             invocationInfo = SyntaxInfo.MemberInvocationExpressionInfo(expression);
 
             if (invocationInfo.Success
-                && !invocationInfo.ArgumentList.Arguments.Any())
+                && !invocationInfo.Arguments.Any())
             {
                 string name = invocationInfo.NameText;
 
@@ -300,7 +300,7 @@ namespace Roslynator.CSharp.Refactorings
             string comparisonName,
             CancellationToken cancellationToken)
         {
-            SeparatedSyntaxList<ArgumentSyntax> arguments = invocationInfo.ArgumentList.Arguments;
+            SeparatedSyntaxList<ArgumentSyntax> arguments = invocationInfo.Arguments;
 
             InvocationExpressionSyntax invocation = invocationInfo.InvocationExpression;
 

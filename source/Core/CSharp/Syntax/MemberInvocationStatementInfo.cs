@@ -30,6 +30,11 @@ namespace Roslynator.CSharp.Syntax
 
         public ArgumentListSyntax ArgumentList { get; }
 
+        public SeparatedSyntaxList<ArgumentSyntax> Arguments
+        {
+            get { return ArgumentList?.Arguments ?? default(SeparatedSyntaxList<ArgumentSyntax>); }
+        }
+
         public ExpressionStatementSyntax ExpressionStatement
         {
             get { return (ExpressionStatementSyntax)InvocationExpression?.Parent; }

@@ -30,7 +30,7 @@ namespace Roslynator.CSharp.Refactorings
                     && methodInfo.ContainingType?.Equals(stringBuilderSymbol) == true)
                 {
                     ImmutableArray<IParameterSymbol> parameters = methodInfo.Parameters;
-                    SeparatedSyntaxList<ArgumentSyntax> arguments = memberInvocation.ArgumentList.Arguments;
+                    SeparatedSyntaxList<ArgumentSyntax> arguments = memberInvocation.Arguments;
 
                     if (parameters.Length == 1
                         && arguments.Count == 1
@@ -278,7 +278,7 @@ namespace Roslynator.CSharp.Refactorings
             {
                 case "Substring":
                     {
-                        SeparatedSyntaxList<ArgumentSyntax> arguments = memberInvocation.ArgumentList.Arguments;
+                        SeparatedSyntaxList<ArgumentSyntax> arguments = memberInvocation.Arguments;
 
                         ArgumentListSyntax argumentList = ArgumentList(
                             Argument(memberInvocation.Expression),
@@ -290,7 +290,7 @@ namespace Roslynator.CSharp.Refactorings
                     }
                 case "Remove":
                     {
-                        SeparatedSyntaxList<ArgumentSyntax> arguments = memberInvocation.ArgumentList.Arguments;
+                        SeparatedSyntaxList<ArgumentSyntax> arguments = memberInvocation.Arguments;
 
                         ArgumentListSyntax argumentList = ArgumentList(
                             Argument(memberInvocation.Expression),

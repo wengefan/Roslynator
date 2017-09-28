@@ -162,7 +162,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
 
                     AvoidNullReferenceExceptionRefactoring.Analyze(context, memberInvocation);
 
-                    int argumentCount = memberInvocation.ArgumentList.Arguments.Count;
+                    int argumentCount = memberInvocation.Arguments.Count;
 
                     switch (argumentCount)
                     {

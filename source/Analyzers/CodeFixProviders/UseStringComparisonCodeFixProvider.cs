@@ -68,7 +68,7 @@ namespace Roslynator.CSharp.CodeFixes
 
                         MemberInvocationExpressionInfo invocationInfo = SyntaxInfo.MemberInvocationExpressionInfo(invocationExpression);
 
-                        SeparatedSyntaxList<ArgumentSyntax> arguments = invocationInfo.ArgumentList.Arguments;
+                        SeparatedSyntaxList<ArgumentSyntax> arguments = invocationInfo.Arguments;
 
                         InvocationExpressionSyntax invocationExpression2;
 

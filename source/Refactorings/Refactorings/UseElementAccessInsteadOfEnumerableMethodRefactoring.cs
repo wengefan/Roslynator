@@ -22,7 +22,7 @@ namespace Roslynator.CSharp.Refactorings
                     {
                         SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                        if (memberInvocation.ArgumentList.Arguments.Any())
+                        if (memberInvocation.Arguments.Any())
                             break;
 
                         if (!UseElementAccessInsteadOfFirstRefactoring.CanRefactor(memberInvocation, semanticModel, context.CancellationToken))
@@ -38,7 +38,7 @@ namespace Roslynator.CSharp.Refactorings
                     {
                         SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                        if (memberInvocation.ArgumentList.Arguments.Any())
+                        if (memberInvocation.Arguments.Any())
                             break;
 
                         if (!UseElementAccessInsteadOfLastRefactoring.CanRefactor(memberInvocation, semanticModel, context.CancellationToken))
@@ -59,7 +59,7 @@ namespace Roslynator.CSharp.Refactorings
                     {
                         SemanticModel semanticModel = await context.GetSemanticModelAsync().ConfigureAwait(false);
 
-                        if (memberInvocation.ArgumentList.Arguments.Count != 1)
+                        if (memberInvocation.Arguments.Count != 1)
                             break;
 
                         if (!UseElementAccessInsteadOfElementAtRefactoring.CanRefactor(memberInvocation, semanticModel, context.CancellationToken))

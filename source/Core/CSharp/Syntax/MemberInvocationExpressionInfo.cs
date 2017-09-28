@@ -26,6 +26,11 @@ namespace Roslynator.CSharp.Syntax
 
         public ArgumentListSyntax ArgumentList { get; }
 
+        public SeparatedSyntaxList<ArgumentSyntax> Arguments
+        {
+            get { return ArgumentList?.Arguments ?? default(SeparatedSyntaxList<ArgumentSyntax>); }
+        }
+
         public InvocationExpressionSyntax InvocationExpression
         {
             get { return (InvocationExpressionSyntax)ArgumentList?.Parent; }
@@ -34,11 +39,6 @@ namespace Roslynator.CSharp.Syntax
         public MemberAccessExpressionSyntax MemberAccessExpression
         {
             get { return (MemberAccessExpressionSyntax)Expression?.Parent; }
-        }
-
-        public SeparatedSyntaxList<ArgumentSyntax> Arguments
-        {
-            get { return ArgumentList?.Arguments ?? default(SeparatedSyntaxList<ArgumentSyntax>); }
         }
 
         public SyntaxToken OperatorToken

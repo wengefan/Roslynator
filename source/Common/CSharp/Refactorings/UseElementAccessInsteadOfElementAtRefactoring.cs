@@ -20,7 +20,7 @@ namespace Roslynator.CSharp.Refactorings
             SemanticModel semanticModel,
             CancellationToken cancellationToken)
         {
-            ExpressionSyntax argumentExpression = memberInvocation.ArgumentList.Arguments[0].Expression;
+            ExpressionSyntax argumentExpression = memberInvocation.Arguments[0].Expression;
 
             if (argumentExpression?.IsMissing != false)
                 return false;
