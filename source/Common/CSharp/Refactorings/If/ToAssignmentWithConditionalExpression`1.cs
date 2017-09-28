@@ -28,7 +28,7 @@ namespace Roslynator.CSharp.Refactorings.If
             Document document,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            StatementsInfo statementsInfo = StatementsInfo.Create(IfStatement);
+            StatementsInfo statementsInfo = SyntaxInfo.StatementsInfo(IfStatement);
 
             SyntaxList<StatementSyntax> statements = statementsInfo.Statements;
 

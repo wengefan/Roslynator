@@ -36,7 +36,6 @@ namespace Roslynator.CSharp.Syntax
             get { return BinaryExpression != null; }
         }
 
-
         internal static BinaryExpressionInfo Create(
             SyntaxNode node,
             SyntaxInfoOptions options = null)

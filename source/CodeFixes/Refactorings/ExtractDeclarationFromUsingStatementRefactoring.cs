@@ -17,7 +17,7 @@ namespace Roslynator.CSharp.Refactorings
             UsingStatementSyntax usingStatement,
             CancellationToken cancellationToken = default(CancellationToken))
         {
-            StatementsInfo statementsInfo = StatementsInfo.Create(usingStatement);
+            StatementsInfo statementsInfo = SyntaxInfo.StatementsInfo(usingStatement);
 
             int index = statementsInfo.Statements.IndexOf(usingStatement);
 

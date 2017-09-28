@@ -236,7 +236,7 @@ namespace Roslynator.CSharp.Refactorings
         {
             SemanticModel semanticModel = await document.GetSemanticModelAsync(cancellationToken).ConfigureAwait(false);
 
-            StatementsInfo statementsInfo = StatementsInfo.Create(statement);
+            StatementsInfo statementsInfo = SyntaxInfo.StatementsInfo(statement);
 
             int index = statementsInfo.Statements.IndexOf(statement);
 

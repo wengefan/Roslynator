@@ -154,7 +154,7 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
 
             string name = ((IdentifierNameSyntax)WalkDownMethodChain(invocationInfo).Expression).Identifier.ValueText;
 
-            StatementsInfo statementsInfo = StatementsInfo.Create(expressionStatement);
+            StatementsInfo statementsInfo = SyntaxInfo.StatementsInfo(expressionStatement);
 
             SyntaxList<StatementSyntax> statements = statementsInfo.Statements;
 

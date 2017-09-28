@@ -70,7 +70,7 @@ namespace Roslynator.CSharp.Helpers
                 node = InsertModifier(node, newAccessibility, comparer);
             }
 
-            return AccessibilityInfo.Create(node);
+            return SyntaxInfo.AccessibilityInfo(node);
         }
 
         private static SyntaxNode InsertModifier(SyntaxNode node, Accessibility accessibility, IModifierComparer comparer)

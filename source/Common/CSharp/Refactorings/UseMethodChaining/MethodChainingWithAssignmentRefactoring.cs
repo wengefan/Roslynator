@@ -23,7 +23,7 @@ namespace Roslynator.CSharp.Refactorings.UseMethodChaining
             if (!(statement is ExpressionStatementSyntax expressionStatement))
                 return false;
 
-            SimpleAssignmentExpressionInfo simpleAssignment = SimpleAssignmentExpressionInfo.Create(expressionStatement.Expression);
+            SimpleAssignmentExpressionInfo simpleAssignment = SyntaxInfo.SimpleAssignmentExpressionInfo(expressionStatement.Expression);
 
             if (!simpleAssignment.Success)
                 return false;

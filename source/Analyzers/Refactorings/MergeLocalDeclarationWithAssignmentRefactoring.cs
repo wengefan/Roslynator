@@ -144,7 +144,7 @@ namespace Roslynator.CSharp.Refactorings
 
             var localDeclaration = (LocalDeclarationStatementSyntax)declaration.Parent;
 
-            StatementsInfo statementsInfo = StatementsInfo.Create(localDeclaration);
+            StatementsInfo statementsInfo = SyntaxInfo.StatementsInfo(localDeclaration);
 
             SyntaxList<StatementSyntax> statements = statementsInfo.Statements;
 
