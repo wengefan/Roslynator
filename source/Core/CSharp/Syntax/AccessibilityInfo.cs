@@ -10,12 +10,12 @@ namespace Roslynator.CSharp.Syntax
     {
         private static AccessibilityInfo Default { get; } = new AccessibilityInfo();
 
-        private AccessibilityInfo(SyntaxNode node, SyntaxTokenList modifiers, int index, int additionalIndex = -1)
+        private AccessibilityInfo(SyntaxNode node, SyntaxTokenList modifiers, int index, int secondIndex = -1)
         {
             Node = node;
             Modifiers = modifiers;
             Index = index;
-            AdditionalIndex = additionalIndex;
+            SecondIndex = secondIndex;
         }
 
         public SyntaxNode Node { get; }
@@ -25,16 +25,16 @@ namespace Roslynator.CSharp.Syntax
             get { return GetTokenOrDefault(Index); }
         }
 
-        public SyntaxToken AdditionalToken
+        public SyntaxToken SecondToken
         {
-            get { return GetTokenOrDefault(AdditionalIndex); }
+            get { return GetTokenOrDefault(SecondIndex); }
         }
 
         public SyntaxTokenList Modifiers { get; }
 
         public int Index { get; }
 
-        public int AdditionalIndex { get; }
+        public int SecondIndex { get; }
 
         public bool Success
         {
@@ -48,7 +48,7 @@ namespace Roslynator.CSharp.Syntax
                 if (Index == -1)
                     return Accessibility.NotApplicable;
 
-                if (AdditionalIndex == -1)
+                if (SecondIndex == -1)
                 {
                     switch (Token.Kind())
                     {
@@ -75,7 +75,7 @@ namespace Roslynator.CSharp.Syntax
             return Create(node, node.GetModifiers());
         }
 
-        internal static AccessibilityInfo Create(SyntaxNode node, SyntaxTokenList modifiers)
+        private static AccessibilityInfo Create(SyntaxNode node, SyntaxTokenList modifiers)
         {
             if (node == null)
                 return Default;
@@ -108,6 +108,13 @@ namespace Roslynator.CSharp.Syntax
             }
 
             return new AccessibilityInfo(node, modifiers, i);
+        }
+
+        public AccessibilityInfo WithModifiers(SyntaxTokenList newModifiers)
+        {
+            SyntaxNode newNode = Node.WithModifiers(newModifiers);
+
+            return Create(newNode, newModifiers);
         }
 
         public AccessibilityInfo WithAccessibility(Accessibility newAccessibility, IModifierComparer comparer = null)

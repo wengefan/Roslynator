@@ -53,16 +53,16 @@ namespace Roslynator.CSharp.Helpers
 
                     SyntaxTokenList newModifiers = info.Modifiers.Replace(info.Token, newToken);
 
-                    return AccessibilityInfo.Create(node.WithModifiers(newModifiers), newModifiers);
+                    return info.WithModifiers(newModifiers);
                 }
             }
 
             if (accessibility != Accessibility.NotApplicable)
             {
-                node = ModifierHelper.RemoveModifierAt(node, Math.Max(info.Index, info.AdditionalIndex));
+                node = ModifierHelper.RemoveModifierAt(node, Math.Max(info.Index, info.SecondIndex));
 
                 if (accessibility == Accessibility.ProtectedOrInternal)
-                    node = ModifierHelper.RemoveModifierAt(node, Math.Min(info.Index, info.AdditionalIndex));
+                    node = ModifierHelper.RemoveModifierAt(node, Math.Min(info.Index, info.SecondIndex));
             }
 
             if (newAccessibility != Accessibility.NotApplicable)
