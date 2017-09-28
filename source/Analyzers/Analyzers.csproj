@@ -191,7 +191,6 @@
     <Compile Include="Refactorings\UseReturnInsteadOfAssignmentRefactoring.cs" />
     <Compile Include="Refactorings\UseIsOperatorInsteadOfAsOperatorRefactoring.cs" />
     <Compile Include="Refactorings\ValueTypeObjectIsNeverEqualToNullRefactoring.cs" />
-    <Compile Include="Refactorings\OverrideInfo.cs" />
     <Compile Include="Refactorings\UnconstrainedTypeParameterCheckedForNullRefactoring.cs" />
     <Compile Include="Refactorings\SimplifyCoalesceExpressionRefactoring.cs" />
     <Compile Include="DiagnosticAnalyzers\CallStringConcatInsteadOfStringJoinDiagnosticAnalyzer.cs" />
@@ -355,7 +354,7 @@
     <Compile Include="DiagnosticAnalyzers\UseLinefeedAsNewLineDiagnosticAnalyzer.cs" />
     <Compile Include="Refactorings\SimplifyLinqMethodChainRefactoring.cs" />
     <Compile Include="Refactorings\UseCountOrLengthPropertyInsteadOfAnyMethodRefactoring.cs" />
-    <Compile Include="Refactorings\UseInsteadOfCountMethod\UseAnyMethodInsteadOfCountMethodRefactoring.cs" />
+    <Compile Include="Refactorings\UseInsteadOfCountMethod\CallAnyInsteadOfCountRefactoring.cs" />
     <Compile Include="Refactorings\UseInsteadOfCountMethod\UseCountOrLengthPropertyInsteadOfCountMethodRefactoring.cs" />
     <Compile Include="CodeFixProviders\ConstructorDeclarationCodeFixProvider.cs" />
     <Compile Include="CodeFixProviders\DoStatementCodeFixProvider.cs" />
