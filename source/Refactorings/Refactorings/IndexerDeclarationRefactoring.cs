@@ -2,6 +2,8 @@
 
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Roslynator.CSharp.Refactorings.MakeMemberAbstract;
+using Roslynator.CSharp.Refactorings.MakeMemberVirtual;
 
 namespace Roslynator.CSharp.Refactorings
 {
@@ -10,18 +12,15 @@ namespace Roslynator.CSharp.Refactorings
         public static async Task ComputeRefactoringsAsync(RefactoringContext context, IndexerDeclarationSyntax indexerDeclaration)
         {
             if (context.IsRefactoringEnabled(RefactoringIdentifiers.MakeMemberAbstract)
-                && indexerDeclaration.HeaderSpan().Contains(context.Span)
-                && MakeMemberAbstractRefactoring.CanRefactor(indexerDeclaration))
+                && indexerDeclaration.HeaderSpan().Contains(context.Span))
             {
-                context.RegisterRefactoring(
-                    "Make indexer abstract",
-                    cancellationToken => MakeMemberAbstractRefactoring.RefactorAsync(context.Document, indexerDeclaration, cancellationToken));
+                MakeIndexerAbstractRefactoring.ComputeRefactoring(context, indexerDeclaration);
             }
 
             if (context.IsRefactoringEnabled(RefactoringIdentifiers.MakeMemberVirtual)
                 && indexerDeclaration.HeaderSpan().Contains(context.Span))
             {
-                MakeMemberVirtualRefactoring.ComputeRefactoring(context, indexerDeclaration);
+                MakeIndexerVirtualRefactoring.ComputeRefactoring(context, indexerDeclaration);
             }
 
             if (context.IsRefactoringEnabled(RefactoringIdentifiers.CopyDocumentationCommentFromBaseMember)

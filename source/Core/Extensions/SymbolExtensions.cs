@@ -1238,11 +1238,6 @@ namespace Roslynator
             return false;
         }
 
-        internal static bool ImplementsICollectionOfT(this ITypeSymbol symbol)
-        {
-            return symbol.Implements(SpecialType.System_Collections_Generic_ICollection_T);
-        }
-
         public static bool IsClass(this ITypeSymbol typeSymbol)
         {
             return typeSymbol?.TypeKind == TypeKind.Class;
@@ -1312,8 +1307,17 @@ namespace Roslynator
 
         public static bool IsConstructedFrom(this ITypeSymbol typeSymbol, SpecialType specialType)
         {
-            return typeSymbol?.IsNamedType() == true
-                && ((INamedTypeSymbol)typeSymbol).ConstructedFrom?.SpecialType == specialType;
+            return (typeSymbol as INamedTypeSymbol)?.ConstructedFrom.SpecialType == specialType;
+        }
+
+        public static bool IsConstructedFrom(this ITypeSymbol typeSymbol, SpecialType specialType1, SpecialType specialType2)
+        {
+            return (typeSymbol as INamedTypeSymbol)?.ConstructedFrom.IsSpecialType(specialType1, specialType2) == true;
+        }
+
+        public static bool IsConstructedFrom(this ITypeSymbol typeSymbol, SpecialType specialType1, SpecialType specialType2, SpecialType specialType3)
+        {
+            return (typeSymbol as INamedTypeSymbol)?.ConstructedFrom.IsSpecialType(specialType1, specialType2, specialType3) == true;
         }
 
         public static bool IsConstructedFrom(this ITypeSymbol typeSymbol, ISymbol symbol)
