@@ -20,21 +20,21 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
         public static ReduceIfNestingAnalysis Analyze(
             IfStatementSyntax ifStatement,
             SemanticModel semanticModel,
-            bool topOnly = false,
+            ReduceIfNestingOptions options,
             INamedTypeSymbol taskType = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!IsFixable(ifStatement))
                 return Fail;
 
-            return AnalyzeCore(ifStatement, semanticModel, SyntaxKind.None, topOnly, taskType, cancellationToken);
+            return AnalyzeCore(ifStatement, semanticModel, SyntaxKind.None, options, taskType, cancellationToken);
         }
 
         private static ReduceIfNestingAnalysis AnalyzeCore(
             IfStatementSyntax ifStatement,
             SemanticModel semanticModel,
             SyntaxKind jumpKind,
-            bool topOnly = false,
+            ReduceIfNestingOptions options,
             INamedTypeSymbol taskType = null,
             CancellationToken cancellationToken = default(CancellationToken))
         {
@@ -49,8 +49,8 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
             if (container.IsSwitchSection
                 || parentKind == SyntaxKind.SwitchSection)
             {
-                //if (topOnly)
-                //    return Fail;
+                if (!options.AllowSwitchSection)
+                    return Fail;
 
                 if (ifStatement != statements.LastButOneOrDefault())
                     return Fail;
@@ -58,7 +58,15 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                 if (!IsFixableJumpStatement(statements.Last(), ref jumpKind))
                     return Fail;
 
-                return Success((container.IsSwitchSection) ? container.Node : parent, jumpKind);
+                SyntaxNode node = (container.IsSwitchSection) ? container.Node : parent;
+
+                if (!options.AllowNestedFix
+                    && IsNestedFix(node, semanticModel, jumpKind, options, taskType, cancellationToken))
+                {
+                    return Fail;
+                }
+
+                return Success(node, jumpKind);
             }
 
             if (parentKind.IsKind(
@@ -67,25 +75,50 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                 SyntaxKind.DoStatement,
                 SyntaxKind.WhileStatement))
             {
-                //if (!topOnly)
-                //    return Fail;
+                if (!options.AllowLoop)
+                    return Fail;
 
                 StatementSyntax lastStatement = statements.Last();
 
                 if (ifStatement == lastStatement)
-                    return Success(parent, SyntaxKind.ContinueStatement);
-
-                if (ifStatement == statements.LastButOneOrDefault()
-                    && IsFixableJumpStatement(lastStatement, ref jumpKind))
                 {
-                    return Success(parent, jumpKind);
+                    jumpKind = SyntaxKind.ContinueStatement;
+                }
+                else
+                {
+                    if (ifStatement != statements.LastButOneOrDefault())
+                        return Fail;
+
+                    if (!IsFixableJumpStatement(lastStatement, ref jumpKind))
+                        return Fail;
                 }
 
-                return Fail;
+                if (!options.AllowNestedFix
+                    && IsNestedFix(parent.Parent, semanticModel, jumpKind, options, taskType, cancellationToken))
+                {
+                    return Fail;
+                }
+
+                return Success(parent, jumpKind);
             }
 
             if (!IsFixable(ifStatement, statements, ref jumpKind))
                 return Fail;
+
+            if (parentKind == SyntaxKind.ConstructorDeclaration
+                || parentKind == SyntaxKind.DestructorDeclaration
+                || parentKind == SyntaxKind.OperatorDeclaration
+                || parentKind == SyntaxKind.ConversionOperatorDeclaration
+                || parentKind == SyntaxKind.GetAccessorDeclaration
+                || parentKind == SyntaxKind.SetAccessorDeclaration
+                || parentKind == SyntaxKind.AddAccessorDeclaration
+                || parentKind == SyntaxKind.RemoveAccessorDeclaration)
+            {
+                if (jumpKind == SyntaxKind.None)
+                    return Fail;
+
+                return Success(parent, jumpKind);
+            }
 
             switch (parent)
             {
@@ -168,37 +201,53 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                     }
                 case IfStatementSyntax ifStatement2:
                     {
-                        //if (topOnly)
-                        //    return Fail;
+                        if (!options.AllowNestedIf)
+                            return Fail;
 
                         if (ifStatement2.Parent is ElseClauseSyntax elseClause)
                         {
                             if (ifStatement2.Else != null)
                                 return Fail;
 
-                            return AnalyzeCore(ifStatement2.GetTopmostIf(), semanticModel, jumpKind, topOnly, taskType, cancellationToken);
+                            return AnalyzeCore(ifStatement2.GetTopmostIf(), semanticModel, jumpKind, options, taskType, cancellationToken);
                         }
                         else
                         {
-                            if (topOnly)
-                                return Fail;
-
                             if (!IsFixable(ifStatement2))
                                 return Fail;
 
-                            return AnalyzeCore(ifStatement2, semanticModel, jumpKind, topOnly, taskType, cancellationToken);
+                            return AnalyzeCore(ifStatement2, semanticModel, jumpKind, options, taskType, cancellationToken);
                         }
                     }
                 case ElseClauseSyntax elseClause:
                     {
-                        //if (topOnly)
-                        //    return Fail;
-
-                        return AnalyzeCore(elseClause.GetTopmostIf(), semanticModel, jumpKind, topOnly, taskType, cancellationToken);
+                        return AnalyzeCore(elseClause.GetTopmostIf(), semanticModel, jumpKind, options, taskType, cancellationToken);
                     }
             }
 
             return Fail;
+        }
+
+        private static bool IsNestedFix(SyntaxNode node, SemanticModel semanticModel, SyntaxKind jumpKind, ReduceIfNestingOptions options, INamedTypeSymbol taskType, CancellationToken cancellationToken)
+        {
+            while (node != null)
+            {
+                if (node is IfStatementSyntax ifStatement)
+                {
+                    ReduceIfNestingAnalysis analysis = AnalyzeCore(ifStatement, semanticModel, jumpKind, options, taskType, cancellationToken);
+
+                    if (analysis.Success)
+                        return true;
+                }
+                else if (node is MemberDeclarationSyntax)
+                {
+                    break;
+                }
+
+                node = node.Parent;
+            }
+
+            return false;
         }
 
         //TODO: rename

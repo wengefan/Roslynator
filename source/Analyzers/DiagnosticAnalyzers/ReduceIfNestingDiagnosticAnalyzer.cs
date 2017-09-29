@@ -7,7 +7,6 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Diagnostics;
-using Roslynator.CSharp.Refactorings;
 using Roslynator.CSharp.Refactorings.ReduceIfNesting;
 
 namespace Roslynator.CSharp.DiagnosticAnalyzers
@@ -19,6 +18,8 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
         {
             get { return ImmutableArray.Create(DiagnosticDescriptors.ReduceIfNesting); }
         }
+
+        private static ReduceIfNestingOptions Options { get; } = new ReduceIfNestingOptions(allowNestedFix: false, allowNestedIf: true, allowLoop: true, allowSwitchSection: true);
 
         public override void Initialize(AnalysisContext context)
         {
@@ -42,7 +43,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
             ReduceIfNestingAnalysis analysis = ReduceIfNestingRefactoring.Analyze(
                 ifStatement,
                 context.SemanticModel,
-                topOnly: true,
+                options: Options,
                 taskType: taskType,
                 cancellationToken: context.CancellationToken);
 
