@@ -10,8 +10,6 @@ namespace Roslynator.CSharp.Refactorings
 {
     internal static class IfStatementRefactoring
     {
-        private static ReduceIfNestingOptions ReduceIfNestingOptions { get; } = new ReduceIfNestingOptions(allowNestedFix: true, allowLoop: true, allowSwitchSection: true);
-
         public static async Task ComputeRefactoringsAsync(RefactoringContext context, IfStatementSyntax ifStatement)
         {
             if (ifStatement.IsTopmostIf()
@@ -55,7 +53,7 @@ namespace Roslynator.CSharp.Refactorings
                 ReduceIfNestingAnalysis analysis = ReduceIfNestingRefactoring.Analyze(
                     ifStatement,
                     semanticModel,
-                    options: ReduceIfNestingOptions,
+                    options: ReduceIfNestingOptions.AllowNestedFix | ReduceIfNestingOptions.AllowLoop | ReduceIfNestingOptions.AllowSwitchSection,
                     taskSymbol: semanticModel.GetTypeByMetadataName(MetadataNames.System_Threading_Tasks_Task),
                     cancellationToken: context.CancellationToken);
 

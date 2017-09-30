@@ -1,21 +1,15 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
+using System;
+
 namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
 {
-    internal class ReduceIfNestingOptions
+    [Flags]
+    internal enum ReduceIfNestingOptions
     {
-        public ReduceIfNestingOptions(
-            bool allowNestedFix,
-            bool allowLoop,
-            bool allowSwitchSection)
-        {
-            AllowNestedFix = allowNestedFix;
-            AllowLoop = allowLoop;
-            AllowSwitchSection = allowSwitchSection;
-        }
-
-        public bool AllowNestedFix { get; }
-        public bool AllowLoop { get; }
-        public bool AllowSwitchSection { get; }
+        None = 0,
+        AllowNestedFix = 1,
+        AllowLoop = 2,
+        AllowSwitchSection = 4
     }
 }

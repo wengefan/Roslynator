@@ -11,8 +11,6 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
 {
     internal static partial class ReduceIfNestingRefactoring
     {
-        private static readonly ReduceIfNestingOptions _noneOptions = new ReduceIfNestingOptions(allowNestedFix: false, allowLoop: false, allowSwitchSection: false);
-
         private static ReduceIfNestingAnalysis Fail { get; } = new ReduceIfNestingAnalysis();
 
         private static ReduceIfNestingAnalysis Success(SyntaxNode topNode, SyntaxKind jumpKind)
@@ -52,7 +50,7 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
             if (container.IsSwitchSection
                 || parentKind == SyntaxKind.SwitchSection)
             {
-                if (!options.AllowSwitchSection)
+                if (!options.AllowsSwitchSection())
                     return Fail;
 
                 if (ifStatement != statements.LastButOneOrDefault())
@@ -63,8 +61,8 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
 
                 SyntaxNode node = (container.IsSwitchSection) ? container.Node : parent;
 
-                if (!options.AllowNestedFix
-                    && IsNestedFix(node.Parent, semanticModel, taskSymbol, cancellationToken))
+                if (!options.AllowsNestedFix()
+                    && IsNestedFix(node.Parent, semanticModel, options, taskSymbol, cancellationToken))
                 {
                     return Fail;
                 }
@@ -78,7 +76,7 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                 SyntaxKind.DoStatement,
                 SyntaxKind.WhileStatement))
             {
-                if (!options.AllowLoop)
+                if (!options.AllowsLoop())
                     return Fail;
 
                 StatementSyntax lastStatement = statements.Last();
@@ -96,8 +94,8 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                         return Fail;
                 }
 
-                if (!options.AllowNestedFix
-                    && IsNestedFix(parent.Parent, semanticModel, taskSymbol, cancellationToken))
+                if (!options.AllowsNestedFix()
+                    && IsNestedFix(parent.Parent, semanticModel, options, taskSymbol, cancellationToken))
                 {
                     return Fail;
                 }
@@ -219,7 +217,7 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                     }
                 case IfStatementSyntax ifStatement2:
                     {
-                        if (!options.AllowNestedFix)
+                        if (!options.AllowsNestedFix())
                             return Fail;
 
                         if (ifStatement2.Parent is ElseClauseSyntax elseClause)
@@ -246,13 +244,15 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
             return Fail;
         }
 
-        private static bool IsNestedFix(SyntaxNode node, SemanticModel semanticModel, INamedTypeSymbol taskSymbol, CancellationToken cancellationToken)
+        private static bool IsNestedFix(SyntaxNode node, SemanticModel semanticModel, ReduceIfNestingOptions options, INamedTypeSymbol taskSymbol, CancellationToken cancellationToken)
         {
             while (node != null)
             {
                 if (node is IfStatementSyntax ifStatement)
                 {
-                    ReduceIfNestingAnalysis analysis = Analyze(ifStatement, semanticModel, _noneOptions, taskSymbol, cancellationToken);
+                    options |= ReduceIfNestingOptions.AllowNestedFix;
+
+                    ReduceIfNestingAnalysis analysis = Analyze(ifStatement, semanticModel, options, taskSymbol, cancellationToken);
 
                     return analysis.Success;
                 }

@@ -19,8 +19,6 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
             get { return ImmutableArray.Create(DiagnosticDescriptors.ReduceIfNesting); }
         }
 
-        private static ReduceIfNestingOptions Options { get; } = new ReduceIfNestingOptions(allowNestedFix: false, allowLoop: true, allowSwitchSection: true);
-
         public override void Initialize(AnalysisContext context)
         {
             if (context == null)
@@ -43,7 +41,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
             ReduceIfNestingAnalysis analysis = ReduceIfNestingRefactoring.Analyze(
                 ifStatement,
                 context.SemanticModel,
-                options: Options,
+                options: ReduceIfNestingOptions.AllowLoop | ReduceIfNestingOptions.AllowSwitchSection,
                 taskSymbol: taskType,
                 cancellationToken: context.CancellationToken);
 
