@@ -19,7 +19,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
             get { return ImmutableArray.Create(DiagnosticDescriptors.ReduceIfNesting); }
         }
 
-        private static ReduceIfNestingOptions Options { get; } = new ReduceIfNestingOptions(allowNestedFix: false, allowNestedIf: true, allowLoop: true, allowSwitchSection: true);
+        private static ReduceIfNestingOptions Options { get; } = new ReduceIfNestingOptions(allowNestedFix: false, allowLoop: true, allowSwitchSection: true);
 
         public override void Initialize(AnalysisContext context)
         {
@@ -44,7 +44,7 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
                 ifStatement,
                 context.SemanticModel,
                 options: Options,
-                taskType: taskType,
+                taskSymbol: taskType,
                 cancellationToken: context.CancellationToken);
 
             if (!analysis.Success)

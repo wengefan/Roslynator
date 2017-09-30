@@ -6,18 +6,15 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
     {
         public ReduceIfNestingOptions(
             bool allowNestedFix,
-            bool allowNestedIf,
             bool allowLoop,
             bool allowSwitchSection)
         {
             AllowNestedFix = allowNestedFix;
-            AllowNestedIf = allowNestedIf;
             AllowLoop = allowLoop;
             AllowSwitchSection = allowSwitchSection;
         }
 
         public bool AllowNestedFix { get; }
-        public bool AllowNestedIf { get; }
         public bool AllowLoop { get; }
         public bool AllowSwitchSection { get; }
     }
