@@ -18,5 +18,10 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
         {
             return (options & ReduceIfNestingOptions.AllowSwitchSection) != 0;
         }
+
+        public static bool AllowIfInsideIfElse(this ReduceIfNestingOptions options)
+        {
+            return (options & ReduceIfNestingOptions.AllowIfInsideIfElse) != 0;
+        }
     }
 }

@@ -53,7 +53,10 @@ namespace Roslynator.CSharp.Refactorings
                 ReduceIfNestingAnalysis analysis = ReduceIfNestingRefactoring.Analyze(
                     ifStatement,
                     semanticModel,
-                    options: ReduceIfNestingOptions.AllowNestedFix | ReduceIfNestingOptions.AllowLoop | ReduceIfNestingOptions.AllowSwitchSection,
+                    options: ReduceIfNestingOptions.AllowNestedFix
+                        | ReduceIfNestingOptions.AllowIfInsideIfElse
+                        | ReduceIfNestingOptions.AllowLoop
+                        | ReduceIfNestingOptions.AllowSwitchSection,
                     taskSymbol: semanticModel.GetTypeByMetadataName(MetadataNames.System_Threading_Tasks_Task),
                     cancellationToken: context.CancellationToken);
 

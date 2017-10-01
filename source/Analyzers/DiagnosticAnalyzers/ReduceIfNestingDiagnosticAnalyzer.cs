@@ -41,7 +41,9 @@ namespace Roslynator.CSharp.DiagnosticAnalyzers
             ReduceIfNestingAnalysis analysis = ReduceIfNestingRefactoring.Analyze(
                 ifStatement,
                 context.SemanticModel,
-                options: ReduceIfNestingOptions.AllowLoop | ReduceIfNestingOptions.AllowSwitchSection,
+                options: ReduceIfNestingOptions.AllowIfInsideIfElse
+                    | ReduceIfNestingOptions.AllowLoop
+                    | ReduceIfNestingOptions.AllowSwitchSection,
                 taskSymbol: taskType,
                 cancellationToken: context.CancellationToken);
 

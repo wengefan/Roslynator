@@ -227,12 +227,12 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                     {
                         ifStatement = (IfStatementSyntax)parent;
 
-                        if (!options.AllowNestedFix())
-                            return Fail(parent);
-
                         if (ifStatement.Parent is ElseClauseSyntax elseClause)
                         {
                             if (ifStatement.Else != null)
+                                return Fail(parent);
+
+                            if (!options.AllowIfInsideIfElse())
                                 return Fail(parent);
 
                             return AnalyzeCore(ifStatement.GetTopmostIf(), semanticModel, jumpKind, options, taskSymbol, cancellationToken);
@@ -242,11 +242,17 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                             if (!IsFixable(ifStatement))
                                 return Fail(parent);
 
+                            if (!options.AllowNestedFix())
+                                return Fail(parent);
+
                             return AnalyzeCore(ifStatement, semanticModel, jumpKind, options, taskSymbol, cancellationToken);
                         }
                     }
                 case SyntaxKind.ElseClause:
                     {
+                        if (!options.AllowIfInsideIfElse())
+                            return Fail(parent);
+
                         var elseClause = (ElseClauseSyntax)parent;
 
                         return AnalyzeCore(elseClause.GetTopmostIf(), semanticModel, jumpKind, options, taskSymbol, cancellationToken);
