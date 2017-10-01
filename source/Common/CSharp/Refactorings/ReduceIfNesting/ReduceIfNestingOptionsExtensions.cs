@@ -4,17 +4,17 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
 {
     internal static class ReduceIfNestingOptionsExtensions
     {
-        public static bool AllowsNestedFix(this ReduceIfNestingOptions options)
+        public static bool AllowNestedFix(this ReduceIfNestingOptions options)
         {
             return (options & ReduceIfNestingOptions.AllowNestedFix) != 0;
         }
 
-        public static bool AllowsLoop(this ReduceIfNestingOptions options)
+        public static bool AllowLoop(this ReduceIfNestingOptions options)
         {
             return (options & ReduceIfNestingOptions.AllowLoop) != 0;
         }
 
-        public static bool AllowsSwitchSection(this ReduceIfNestingOptions options)
+        public static bool AllowSwitchSection(this ReduceIfNestingOptions options)
         {
             return (options & ReduceIfNestingOptions.AllowSwitchSection) != 0;
         }

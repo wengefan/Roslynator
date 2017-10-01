@@ -8,9 +8,10 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
 {
     internal struct ReduceIfNestingAnalysis
     {
-        public ReduceIfNestingAnalysis(SyntaxNode topNode, SyntaxKind jumpKind)
+        public ReduceIfNestingAnalysis(SyntaxKind jumpKind, SyntaxNode topNode)
         {
-            Debug.Assert(jumpKind == SyntaxKind.ReturnStatement
+            Debug.Assert(jumpKind == SyntaxKind.None
+                || jumpKind == SyntaxKind.ReturnStatement
                 || jumpKind == SyntaxKind.NullLiteralExpression
                 || jumpKind == SyntaxKind.FalseLiteralExpression
                 || jumpKind == SyntaxKind.TrueLiteralExpression
@@ -19,13 +20,13 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                 || jumpKind == SyntaxKind.ThrowStatement
                 || jumpKind == SyntaxKind.YieldBreakStatement, jumpKind.ToString());
 
-            TopNode = topNode;
             JumpKind = jumpKind;
+            TopNode = topNode;
         }
 
-        public SyntaxNode TopNode { get; }
-
         public SyntaxKind JumpKind { get; }
+
+        public SyntaxNode TopNode { get; }
 
         public bool Success
         {

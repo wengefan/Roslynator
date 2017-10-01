@@ -11,11 +11,14 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
 {
     internal static partial class ReduceIfNestingRefactoring
     {
-        private static ReduceIfNestingAnalysis Fail { get; } = new ReduceIfNestingAnalysis();
-
-        private static ReduceIfNestingAnalysis Success(SyntaxNode topNode, SyntaxKind jumpKind)
+        private static ReduceIfNestingAnalysis Success(SyntaxKind jumpKind, SyntaxNode topNode)
         {
-            return new ReduceIfNestingAnalysis(topNode, jumpKind);
+            return new ReduceIfNestingAnalysis(jumpKind, topNode);
+        }
+
+        private static ReduceIfNestingAnalysis Fail(SyntaxNode topNode)
+        {
+            return new ReduceIfNestingAnalysis(SyntaxKind.None, topNode);
         }
 
         public static ReduceIfNestingAnalysis Analyze(
@@ -26,7 +29,7 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
             CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!IsFixable(ifStatement))
-                return Fail;
+                return Fail(ifStatement);
 
             return AnalyzeCore(ifStatement, semanticModel, SyntaxKind.None, options, taskSymbol, cancellationToken);
         }
@@ -40,9 +43,10 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
             CancellationToken cancellationToken = default(CancellationToken))
         {
             if (!StatementContainer.TryCreate(ifStatement, out StatementContainer container))
-                return Fail;
+                return Fail(ifStatement);
 
-            SyntaxNode parent = container.Node.Parent;
+            CSharpSyntaxNode node = container.Node;
+            SyntaxNode parent = node.Parent;
             SyntaxKind parentKind = parent.Kind();
 
             SyntaxList<StatementSyntax> statements = container.Statements;
@@ -50,24 +54,24 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
             if (container.IsSwitchSection
                 || parentKind == SyntaxKind.SwitchSection)
             {
-                if (!options.AllowsSwitchSection())
-                    return Fail;
+                SyntaxNode switchSection = (container.IsSwitchSection) ? node : parent;
+
+                if (!options.AllowSwitchSection())
+                    return Fail(switchSection);
 
                 if (ifStatement != statements.LastButOneOrDefault())
-                    return Fail;
+                    return Fail(switchSection);
 
                 if (!IsFixableJumpStatement(statements.Last(), ref jumpKind))
-                    return Fail;
+                    return Fail(switchSection);
 
-                SyntaxNode node = (container.IsSwitchSection) ? container.Node : parent;
-
-                if (!options.AllowsNestedFix()
-                    && IsNestedFix(node.Parent, semanticModel, options, taskSymbol, cancellationToken))
+                if (!options.AllowNestedFix()
+                    && IsNestedFix(switchSection.Parent, semanticModel, options, taskSymbol, cancellationToken))
                 {
-                    return Fail;
+                    return Fail(switchSection);
                 }
 
-                return Success(node, jumpKind);
+                return Success(jumpKind, switchSection);
             }
 
             if (parentKind.IsKind(
@@ -76,8 +80,8 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                 SyntaxKind.DoStatement,
                 SyntaxKind.WhileStatement))
             {
-                if (!options.AllowsLoop())
-                    return Fail;
+                if (!options.AllowLoop())
+                    return Fail(parent);
 
                 StatementSyntax lastStatement = statements.Last();
 
@@ -88,23 +92,23 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                 else
                 {
                     if (ifStatement != statements.LastButOneOrDefault())
-                        return Fail;
+                        return Fail(parent);
 
                     if (!IsFixableJumpStatement(lastStatement, ref jumpKind))
-                        return Fail;
+                        return Fail(parent);
                 }
 
-                if (!options.AllowsNestedFix()
+                if (!options.AllowNestedFix()
                     && IsNestedFix(parent.Parent, semanticModel, options, taskSymbol, cancellationToken))
                 {
-                    return Fail;
+                    return Fail(parent);
                 }
 
-                return Success(parent, jumpKind);
+                return Success(jumpKind, parent);
             }
 
             if (!IsFixable(ifStatement, statements, ref jumpKind))
-                return Fail;
+                return Fail(node);
 
             switch (parentKind)
             {
@@ -120,31 +124,29 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                         }
                         else if (jumpKind != SyntaxKind.ReturnStatement)
                         {
-                            return Fail;
+                            return Fail(parent);
                         }
 
-                        return Success(parent, jumpKind);
+                        return Success(jumpKind, parent);
                     }
                 case SyntaxKind.OperatorDeclaration:
                 case SyntaxKind.ConversionOperatorDeclaration:
                 case SyntaxKind.GetAccessorDeclaration:
                     {
                         if (jumpKind == SyntaxKind.None)
-                            return Fail;
+                            return Fail(parent);
 
-                        return Success(parent, jumpKind);
+                        return Success(jumpKind, parent);
                     }
-            }
-
-            switch (parent)
-            {
-                case MethodDeclarationSyntax methodDeclaration:
+                case SyntaxKind.MethodDeclaration:
                     {
+                        var methodDeclaration = (MethodDeclarationSyntax)parent;
+
                         if (jumpKind != SyntaxKind.None)
-                            return Success(parent, jumpKind);
+                            return Success(jumpKind, parent);
 
                         if (methodDeclaration.ReturnsVoid())
-                            return Success(parent, SyntaxKind.ReturnStatement);
+                            return Success(SyntaxKind.ReturnStatement, parent);
 
                         if (methodDeclaration.Modifiers.Contains(SyntaxKind.AsyncKeyword)
                             && taskSymbol != null
@@ -153,7 +155,7 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                                 .ReturnType
                                 .Equals(taskSymbol) == true)
                         {
-                            return Success(parent, SyntaxKind.ReturnStatement);
+                            return Success(SyntaxKind.ReturnStatement, parent);
                         }
 
                         if (semanticModel
@@ -162,18 +164,20 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                                 .IsIEnumerableOrConstructedFromIEnumerableOfT() == true
                             && methodDeclaration.ContainsYield())
                         {
-                            return Success(parent, SyntaxKind.YieldBreakStatement);
+                            return Success(SyntaxKind.YieldBreakStatement, parent);
                         }
 
                         break;
                     }
-                case LocalFunctionStatementSyntax localFunction:
+                case SyntaxKind.LocalFunctionStatement:
                     {
+                        var localFunction = (LocalFunctionStatementSyntax)parent;
+
                         if (jumpKind != SyntaxKind.None)
-                            return Success(parent, jumpKind);
+                            return Success(jumpKind, parent);
 
                         if (localFunction.ReturnsVoid())
-                            return Success(parent, SyntaxKind.ReturnStatement);
+                            return Success(SyntaxKind.ReturnStatement, parent);
 
                         if (localFunction.Modifiers.Contains(SyntaxKind.AsyncKeyword)
                             && taskSymbol != null
@@ -181,7 +185,7 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                                 .ReturnType
                                 .Equals(taskSymbol) == true)
                         {
-                            return Success(parent, SyntaxKind.ReturnStatement);
+                            return Success(SyntaxKind.ReturnStatement, parent);
                         }
 
                         if (((IMethodSymbol)semanticModel.GetDeclaredSymbol(localFunction, cancellationToken))?
@@ -189,77 +193,90 @@ namespace Roslynator.CSharp.Refactorings.ReduceIfNesting
                                 .IsIEnumerableOrConstructedFromIEnumerableOfT() == true
                             && localFunction.ContainsYield())
                         {
-                            return Success(parent, SyntaxKind.YieldBreakStatement);
+                            return Success(SyntaxKind.YieldBreakStatement, parent);
                         }
 
                         break;
                     }
-                case AnonymousFunctionExpressionSyntax anonymousFunction:
+                case SyntaxKind.AnonymousMethodExpression:
+                case SyntaxKind.SimpleLambdaExpression:
+                case SyntaxKind.ParenthesizedLambdaExpression:
                     {
+                        var anonymousFunction = (AnonymousFunctionExpressionSyntax)parent;
+
                         if (jumpKind != SyntaxKind.None)
-                            return Success(parent, jumpKind);
+                            return Success(jumpKind, parent);
 
                         var methodSymbol = semanticModel.GetSymbol(anonymousFunction, cancellationToken) as IMethodSymbol;
 
                         if (methodSymbol == null)
-                            return Fail;
+                            return Fail(parent);
 
                         if (methodSymbol.ReturnsVoid)
-                            return Success(parent, SyntaxKind.ReturnStatement);
+                            return Success(SyntaxKind.ReturnStatement, parent);
 
                         if (anonymousFunction.AsyncKeyword.IsKind(SyntaxKind.AsyncKeyword)
                             && methodSymbol.ReturnType.Equals(taskSymbol))
                         {
-                            return Success(parent, SyntaxKind.ReturnStatement);
+                            return Success(SyntaxKind.ReturnStatement, parent);
                         }
 
                         break;
                     }
-                case IfStatementSyntax ifStatement2:
+                case SyntaxKind.IfStatement:
                     {
-                        if (!options.AllowsNestedFix())
-                            return Fail;
+                        ifStatement = (IfStatementSyntax)parent;
 
-                        if (ifStatement2.Parent is ElseClauseSyntax elseClause)
+                        if (!options.AllowNestedFix())
+                            return Fail(parent);
+
+                        if (ifStatement.Parent is ElseClauseSyntax elseClause)
                         {
-                            if (ifStatement2.Else != null)
-                                return Fail;
+                            if (ifStatement.Else != null)
+                                return Fail(parent);
 
-                            return AnalyzeCore(ifStatement2.GetTopmostIf(), semanticModel, jumpKind, options, taskSymbol, cancellationToken);
+                            return AnalyzeCore(ifStatement.GetTopmostIf(), semanticModel, jumpKind, options, taskSymbol, cancellationToken);
                         }
                         else
                         {
-                            if (!IsFixable(ifStatement2))
-                                return Fail;
+                            if (!IsFixable(ifStatement))
+                                return Fail(parent);
 
-                            return AnalyzeCore(ifStatement2, semanticModel, jumpKind, options, taskSymbol, cancellationToken);
+                            return AnalyzeCore(ifStatement, semanticModel, jumpKind, options, taskSymbol, cancellationToken);
                         }
                     }
-                case ElseClauseSyntax elseClause:
+                case SyntaxKind.ElseClause:
                     {
+                        var elseClause = (ElseClauseSyntax)parent;
+
                         return AnalyzeCore(elseClause.GetTopmostIf(), semanticModel, jumpKind, options, taskSymbol, cancellationToken);
                     }
             }
 
-            return Fail;
+            return Fail(parent);
         }
 
         private static bool IsNestedFix(SyntaxNode node, SemanticModel semanticModel, ReduceIfNestingOptions options, INamedTypeSymbol taskSymbol, CancellationToken cancellationToken)
         {
+            options |= ReduceIfNestingOptions.AllowNestedFix;
+
             while (node != null)
             {
                 if (node is IfStatementSyntax ifStatement)
                 {
-                    options |= ReduceIfNestingOptions.AllowNestedFix;
-
                     ReduceIfNestingAnalysis analysis = Analyze(ifStatement, semanticModel, options, taskSymbol, cancellationToken);
 
-                    return analysis.Success;
+                    if (analysis.Success)
+                        return true;
+
+                    node = analysis.TopNode;
                 }
-                else if (node is MemberDeclarationSyntax)
-                {
+
+                if (node is MemberDeclarationSyntax)
                     return false;
-                }
+
+                if (node is AccessorDeclarationSyntax)
+                    return false;
 
                 node = node.Parent;
             }
