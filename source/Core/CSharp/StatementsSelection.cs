@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Josef Pihrt. All rights reserved. Licensed under the Apache License, Version 2.0. See License.txt in the project root for license information.
 
 using System;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 using Roslynator.CSharp.Syntax;
@@ -19,6 +20,14 @@ namespace Roslynator.CSharp
              : base(info.Statements, span, startIndex, endIndex)
         {
             Info = info;
+        }
+
+        //TODO: 
+        public StatementsInfo Info { get; }
+
+        public SyntaxList<StatementSyntax> Statements
+        {
+            get { return Info.Statements; }
         }
 
         public static StatementsSelection Create(BlockSyntax block, TextSpan span)
@@ -83,8 +92,5 @@ namespace Roslynator.CSharp
             selectedStatements = null;
             return false;
         }
-
-        //TODO: 
-        public StatementsInfo Info { get; }
     }
 }
