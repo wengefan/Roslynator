@@ -8,6 +8,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
+using Roslynator.CSharp.Refactorings;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -27,7 +28,7 @@ namespace Roslynator.CSharp.CodeFixes
             CodeAction codeAction = CodeAction.Create(
                 title ?? GetAddModifierTitle(kind),
                 cancellationToken => AddModifierAsync(document, node, kind, comparer, cancellationToken),
-                GetEquivalenceKey(diagnostic, kind, additionalKey));
+                GetEquivalenceKey(diagnostic, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
@@ -114,7 +115,7 @@ namespace Roslynator.CSharp.CodeFixes
                         (f, g) => AddModifier(f, kind, comparer),
                         cancellationToken);
                 },
-                GetEquivalenceKey(diagnostic, kind, additionalKey));
+                GetEquivalenceKey(diagnostic, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
@@ -132,7 +133,7 @@ namespace Roslynator.CSharp.CodeFixes
             CodeAction codeAction = CodeAction.Create(
                 title ?? GetRemoveModifierTitle(kind),
                 cancellationToken => RemoveModifierAsync(document, node, kind, cancellationToken),
-                GetEquivalenceKey(diagnostic, kind, additionalKey));
+                GetEquivalenceKey(diagnostic, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
@@ -152,7 +153,7 @@ namespace Roslynator.CSharp.CodeFixes
             CodeAction codeAction = CodeAction.Create(
                 title ?? GetRemoveModifierTitle(kind),
                 cancellationToken => RemoveModifierAsync(document, node, modifier, cancellationToken),
-                GetEquivalenceKey(diagnostic, kind, additionalKey));
+                GetEquivalenceKey(diagnostic, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
@@ -203,7 +204,7 @@ namespace Roslynator.CSharp.CodeFixes
                         (f, g) => Modifier.Remove(f, kind),
                         cancellationToken);
                 },
-                GetEquivalenceKey(diagnostic, kind, additionalKey));
+                GetEquivalenceKey(diagnostic, additionalKey));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
@@ -357,7 +358,34 @@ namespace Roslynator.CSharp.CodeFixes
 
                     return document.ReplaceNodeAsync(node, newNode, cancellationToken);
                 },
-                GetEquivalenceKey(diagnostic, kind, additionalKey));
+                GetEquivalenceKey(diagnostic, additionalKey));
+
+            context.RegisterCodeFix(codeAction, diagnostic);
+        }
+
+        public static void ChangeAccessibility(
+            CodeFixContext context,
+            Diagnostic diagnostic,
+            SyntaxNode node,
+            IEnumerable<Accessibility> accessibilities)
+        {
+            foreach (Accessibility accessibility in accessibilities)
+                ChangeAccessibility(context, diagnostic, node, accessibility);
+        }
+
+        public static void ChangeAccessibility(
+            CodeFixContext context,
+            Diagnostic diagnostic,
+            SyntaxNode node,
+            Accessibility accessibility)
+        {
+            if (!AccessibilityHelper.IsAllowedAccessibility(node, accessibility))
+                return;
+
+            CodeAction codeAction = CodeAction.Create(
+                $"Change accessibility to '{AccessibilityHelper.GetAccessibilityName(accessibility)}'",
+                cancellationToken => ChangeAccessibilityRefactoring.RefactorAsync(context.Document, node, accessibility, cancellationToken),
+                GetEquivalenceKey(diagnostic, accessibility.ToString()));
 
             context.RegisterCodeFix(codeAction, diagnostic);
         }
@@ -365,11 +393,6 @@ namespace Roslynator.CSharp.CodeFixes
         private static string GetEquivalenceKey(Diagnostic diagnostic, string additionalKey)
         {
             return EquivalenceKeyProvider.GetEquivalenceKey(diagnostic, additionalKey);
-        }
-
-        private static string GetEquivalenceKey(Diagnostic diagnostic, SyntaxKind kind, string additionalKey)
-        {
-            return EquivalenceKeyProvider.GetEquivalenceKey(diagnostic, additionalKey ?? kind.ToString());
         }
 
         private static string GetAddModifierTitle(SyntaxKind kind)
