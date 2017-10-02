@@ -151,6 +151,10 @@ namespace Roslynator.CSharp.CodeFixes
                             {
                                 RemoveModifier(context, diagnostic, node, modifiers, SyntaxKind.StaticKeyword);
                             }
+                            else if (node.IsKind(SyntaxKind.PropertyDeclaration))
+                            {
+                                RemoveModifier(context, diagnostic, node, modifiers, SyntaxKind.AsyncKeyword);
+                            }
 
                             break;
                         }
