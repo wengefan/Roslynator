@@ -427,4 +427,9 @@
       <Id>CS0021</Id>
     </FixableDiagnosticIds>
   </CodeFix>
+  <CodeFix Id="RCF0078" Identifier="AddVariableType" Title="Add variable type">
+    <FixableDiagnosticIds>
+      <Id>CS0103</Id>
+    </FixableDiagnosticIds>
+  </CodeFix>
 </CodeFixes>

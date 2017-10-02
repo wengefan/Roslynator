@@ -10,6 +10,7 @@
   <Diagnostic Id="CS0080" Identifier="ConstraintsAreNotAllowedOnNonGenericDeclarations" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0080" />
   <Diagnostic Id="CS0101" Identifier="NamespaceAlreadyContainsDefinition" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0101" />
   <Diagnostic Id="CS0102" Identifier="TypeAlreadyContainsDefinition" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0102" />
+  <Diagnostic Id="CS0103" Identifier="NameDoesNotExistInCurrentContext" HelpUrl="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0103" />
   <Diagnostic Id="CS0106" Identifier="ModifierIsNotValidForThisItem" HelpUrl="https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0106" />
   <Diagnostic Id="CS0107" Identifier="MoreThanOneProtectionModifier" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/misc/cs0107" />
   <Diagnostic Id="CS0108" Identifier="MemberHidesInheritedMemberUseNewKeywordIfHidingWasIntended" HelpUrl="http://docs.microsoft.com/en-us/dotnet/csharp/language-reference/compiler-messages/cs0108" />

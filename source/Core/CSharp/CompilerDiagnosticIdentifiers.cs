@@ -16,6 +16,7 @@ namespace Roslynator.CSharp
         public const string ConstraintsAreNotAllowedOnNonGenericDeclarations = "CS0080";
         public const string NamespaceAlreadyContainsDefinition = "CS0101";
         public const string TypeAlreadyContainsDefinition = "CS0102";
+        public const string NameDoesNotExistInCurrentContext = "CS0103";
         public const string ModifierIsNotValidForThisItem = "CS0106";
         public const string MoreThanOneProtectionModifier = "CS0107";
         public const string MemberHidesInheritedMemberUseNewKeywordIfHidingWasIntended = "CS0108";

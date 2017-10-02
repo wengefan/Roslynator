@@ -20,7 +20,7 @@ namespace Roslynator.VisualStudio
             get;
         }
 
-        = CodeFixIdentifiers.ReplaceElementAccessWithInvocation;
+        = CodeFixIdentifiers.AddVariableType;
         protected override void Fill(ICollection<BaseModel> codeFixes)
         {
             codeFixes.Clear();
@@ -99,6 +99,7 @@ namespace Roslynator.VisualStudio
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.RemoveConditionThatIsAlwaysEqualToTrueOrFalse, "Remove condition that is always equal to true/false (fixes CS0472)", IsEnabled(CodeFixIdentifiers.RemoveConditionThatIsAlwaysEqualToTrueOrFalse)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.IntroduceField, "Introduce field (fixes CS0201)", IsEnabled(CodeFixIdentifiers.IntroduceField)));
             codeFixes.Add(new BaseModel(CodeFixIdentifiers.ReplaceElementAccessWithInvocation, "Replace element access with invocation (fixes CS0021)", IsEnabled(CodeFixIdentifiers.ReplaceElementAccessWithInvocation)));
+            codeFixes.Add(new BaseModel(CodeFixIdentifiers.AddVariableType, "Add variable type (fixes CS0103)", IsEnabled(CodeFixIdentifiers.AddVariableType)));
         }
     }
 }
