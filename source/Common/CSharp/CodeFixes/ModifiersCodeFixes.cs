@@ -2,14 +2,12 @@
 
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CodeActions;
 using Microsoft.CodeAnalysis.CodeFixes;
 using Microsoft.CodeAnalysis.CSharp;
-using Roslynator.CSharp.Helpers.ModifierHelpers;
 
 namespace Roslynator.CSharp.CodeFixes
 {
@@ -80,7 +78,7 @@ namespace Roslynator.CSharp.CodeFixes
                 case SyntaxKind.StaticKeyword:
                     {
                         if (node.Kind() == SyntaxKind.ConstructorDeclaration)
-                            node = ModifierHelper.RemoveAccessModifiers(node);
+                            node = Modifier.RemoveAccess(node);
 
                         node = node.RemoveModifier(SyntaxKind.SealedKeyword);
 
@@ -165,7 +163,7 @@ namespace Roslynator.CSharp.CodeFixes
             SyntaxKind kind,
             CancellationToken cancellationToken = default(CancellationToken)) where TNode : SyntaxNode
         {
-            SyntaxNode newNode = ModifierHelper.RemoveModifier(node, kind);
+            SyntaxNode newNode = Modifier.Remove(node, kind);
 
             return document.ReplaceNodeAsync(node, newNode, cancellationToken);
         }
@@ -176,7 +174,7 @@ namespace Roslynator.CSharp.CodeFixes
             SyntaxToken modifier,
             CancellationToken cancellationToken = default(CancellationToken)) where TNode : SyntaxNode
         {
-            SyntaxNode newNode = ModifierHelper.RemoveModifier(node, modifier);
+            SyntaxNode newNode = Modifier.Remove(node, modifier);
 
             return document.ReplaceNodeAsync(node, newNode, cancellationToken);
         }
@@ -202,7 +200,7 @@ namespace Roslynator.CSharp.CodeFixes
                 {
                     return context.Solution().ReplaceNodesAsync(
                         nodes,
-                        (f, g) => ModifierHelper.RemoveModifier(f, kind),
+                        (f, g) => Modifier.Remove(f, kind),
                         cancellationToken);
                 },
                 GetEquivalenceKey(diagnostic, kind, additionalKey));
@@ -251,7 +249,7 @@ namespace Roslynator.CSharp.CodeFixes
                             SyntaxNode newNode = node;
 
                             for (int i = indexes.Count - 1; i >= 0; i--)
-                                newNode = ModifierHelper.RemoveModifierAt(newNode, indexes[i]);
+                                newNode = Modifier.RemoveAt(newNode, indexes[i]);
 
                             return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
                         },
@@ -280,7 +278,7 @@ namespace Roslynator.CSharp.CodeFixes
                     "Remove modifiers",
                     cancellationToken =>
                     {
-                        SyntaxNode newNode = ModifierHelper.RemoveModifiers(node);
+                        SyntaxNode newNode = Modifier.RemoveAll(node);
 
                         return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
                     },
@@ -326,7 +324,7 @@ namespace Roslynator.CSharp.CodeFixes
                     "Remove access modifiers",
                     cancellationToken =>
                     {
-                        SyntaxNode newNode = ModifierHelper.RemoveAccessModifiers(node);
+                        SyntaxNode newNode = Modifier.RemoveAccess(node);
 
                         return context.Document.ReplaceNodeAsync(node, newNode, cancellationToken);
                     },
@@ -376,73 +374,17 @@ namespace Roslynator.CSharp.CodeFixes
 
         private static string GetAddModifierTitle(SyntaxKind kind)
         {
-            return $"Add '{GetModifierName(kind)}' modifier";
+            return $"Add '{Modifier.GetName(kind)}' modifier";
         }
 
         private static string GetRemoveModifierTitle(SyntaxKind kind)
         {
-            return $"Remove '{GetModifierName(kind)}' modifier";
+            return $"Remove '{Modifier.GetName(kind)}' modifier";
         }
 
         private static string MoveModifierTitle(SyntaxKind kind)
         {
-            return $"Move '{GetModifierName(kind)}' modifier";
-        }
-
-        private static string GetModifierName(SyntaxKind modifierKind)
-        {
-            switch (modifierKind)
-            {
-                case SyntaxKind.NewKeyword:
-                    return "new";
-                case SyntaxKind.PublicKeyword:
-                    return "public";
-                case SyntaxKind.ProtectedKeyword:
-                    return "protected";
-                case SyntaxKind.InternalKeyword:
-                    return "internal";
-                case SyntaxKind.PrivateKeyword:
-                    return "private";
-                case SyntaxKind.ConstKeyword:
-                    return "const";
-                case SyntaxKind.StaticKeyword:
-                    return "static";
-                case SyntaxKind.VirtualKeyword:
-                    return "virtual";
-                case SyntaxKind.SealedKeyword:
-                    return "sealed";
-                case SyntaxKind.OverrideKeyword:
-                    return "override";
-                case SyntaxKind.AbstractKeyword:
-                    return "abstract";
-                case SyntaxKind.ReadOnlyKeyword:
-                    return "readonly";
-                case SyntaxKind.ExternKeyword:
-                    return "extern";
-                case SyntaxKind.UnsafeKeyword:
-                    return "unsafe";
-                case SyntaxKind.VolatileKeyword:
-                    return "volatile";
-                case SyntaxKind.AsyncKeyword:
-                    return "async";
-                case SyntaxKind.PartialKeyword:
-                    return "partial";
-                case SyntaxKind.ThisKeyword:
-                    return "this";
-                case SyntaxKind.ParamsKeyword:
-                    return "params";
-                case SyntaxKind.InKeyword:
-                    return "in";
-                case SyntaxKind.OutKeyword:
-                    return "out";
-                case SyntaxKind.RefKeyword:
-                    return "ref";
-                default:
-                    {
-                        Debug.Fail(modifierKind.ToString());
-                        return null;
-                    }
-            }
+            return $"Move '{Modifier.GetName(kind)}' modifier";
         }
     }
 }
